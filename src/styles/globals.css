@@ -1,0 +1,15 @@
+.list {
+    display: flex;
+}
+
+.menu {
+    margin-right: 50px;
+}
+
+.genre {
+    margin-right: 50px;
+}
+
+.area {
+    margin-right: 50px;
+}
