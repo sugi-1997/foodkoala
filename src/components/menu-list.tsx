@@ -1,10 +1,10 @@
 // Areaコンポーネントの作成
 import Image from 'next/image';
-export default function Shop() {
+export default function MenuList() {
   return (
     <>
       <h1>ショップ名</h1>
-      <div className='list'>
+      <div className="list">
         <div className="menu">
           <Image
             src="/items/photo.jpg"
