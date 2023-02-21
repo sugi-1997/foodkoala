@@ -58,10 +58,8 @@ export default function Home() {
             />
           </div>
         </div>
-
         <div className={styles.grid}>
-          <Link href="/top"
-          >
+          <Link href="/top">
             <h2 >
               Docs
             </h2>
