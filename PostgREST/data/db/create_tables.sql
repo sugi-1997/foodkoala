@@ -47,6 +47,40 @@ GRANT SELECT ON api.items TO web_anon;
 GRANT ALL ON api.items to api_user;
 
 -- @block
+DROP TABLE IF EXISTS api.shops;
+CREATE TABLE api.shops (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    image_url TEXT ,
+    score INTEGER  NOT NULL,
+    favorite BOOLEAN  NOT NULL,
+    genre_id INTEGER  NOT NULL,
+    area_id INTEGER  NOT NULL,
+    deleted_at TIMESTAMPTZ DEFAULT NULL
+);
+GRANT SELECT ON api.shops TO web_anon;
+GRANT ALL ON api.shops to api_user;
+
+-- @block
+DROP TABLE IF EXISTS api.genre_id;
+CREATE TABLE api.genre_id (
+    id SERIAL PRIMARY KEY,
+    name text NOT NULL
+);
+GRANT SELECT ON api.genre_id TO web_anon;
+GRANT ALL ON api.genre_id to api_user;
+
+-- @block
+DROP TABLE IF EXISTS api.area_id;
+CREATE TABLE api.area_id (
+    id SERIAL PRIMARY KEY,
+    name text NOT NULL
+);
+GRANT SELECT ON api.area_id TO web_anon;
+GRANT ALL ON api.area_id to api_user;
+
+-- @block
 DROP TABLE IF EXISTS api.order_items;
 CREATE TABLE api.order_items (
     order_id UUID NOT NULL,
