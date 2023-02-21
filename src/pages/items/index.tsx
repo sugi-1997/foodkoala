@@ -9,9 +9,36 @@ export default function ItemListPage() {
       <Head>
         <title>商品一覧ページ</title>
       </Head>
-      <Genre />
-      <Area />
-      <MenuList />
+      <main>
+        <div>
+          <Genre />
+        </div>
+        <div>
+          <Area />
+        </div>
+        <h1>ショップ名</h1>
+        <div className="list">
+          <div className="menu">
+            <MenuList />
+          </div>
+          <br />
+          <div className="menu">
+            <MenuList />
+          </div>
+          <br />
+          <div className="menu">
+            <MenuList />
+          </div>
+          <br />
+          <div className="menu">
+            <MenuList />
+          </div>
+          <br />
+          <div className="menu">
+            <MenuList />
+          </div>
+        </div>
+      </main>
     </>
   );
 }
