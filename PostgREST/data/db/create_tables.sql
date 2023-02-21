@@ -122,7 +122,7 @@ DROP TABLE IF EXISTS api.items;
 CREATE TABLE api.items (
     item_id     serial PRIMARY KEY,
     name        text     NOT NULL,
-    img         bytea,
+    image_url   text,
     price       integer,
     explain     text,
     genre_id    integer,
