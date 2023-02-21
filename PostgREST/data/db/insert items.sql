@@ -1,5 +1,6 @@
 INSERT INTO api.items (
     name ,
+    image_url,
     price ,
     explain ,
     genre_id ,
@@ -7,6 +8,7 @@ INSERT INTO api.items (
     shop_id
 ) VALUES(
     'チキンカレー',
+    'images/menu/curry.food.jpg',
     650,
     'テキストテキストテキスト',
     3,
@@ -15,6 +17,7 @@ INSERT INTO api.items (
 ),
 (
     'ハンバーガー',
+    'images/menu/hamburger.food.jpg',
     500,
     'テキストテキストテキスト',
     9,
@@ -23,6 +26,7 @@ INSERT INTO api.items (
 ),
 (
     'フレンチトースト',
+    'images/menu/french-toast.food.jpg',
     700,
     'テキストテキストテキスト',
     6,
@@ -31,6 +35,7 @@ INSERT INTO api.items (
 ),
 (
     'パンケーキ',
+    'images/menu/pancake.food.png',
     800,
     'テキストテキストテキスト',
     6,
@@ -39,6 +44,7 @@ INSERT INTO api.items (
 ),
 (
     '焼きいも',
+    'images/menu/bakepotato.food.png',
     350,
     'テキストテキストテキスト',
     5,
@@ -47,6 +53,7 @@ INSERT INTO api.items (
 ),
 (
     '塩ラーメン',
+    'images/menu/shioramen.food.jpg',
     550,
     'テキストテキストテキスト',
     4,
@@ -55,20 +62,23 @@ INSERT INTO api.items (
 ),
 (
     '醤油ラーメン',
+    'images/menu/ramen.food.jpg',
     500,
     'テキストテキストテキスト',
     4,
     3,
     3
 ),
-(    'マルゲリータ',
+(   'マルゲリータ',
+    'images/menu/margarita.food.jpg',
     1200,
     'テキストテキストテキスト',
     12,
     1,
     4
 ),
-(    'トマトパスタ',
+(   'トマトパスタ',
+    'images/menu/tomatopasta.food.jpg',
     1050,
     'テキストテキストテキスト',
     10,
@@ -77,6 +87,7 @@ INSERT INTO api.items (
 ),
 (
     'そば',
+    'images/menu/soba.food.jpg',
     950,
     'テキストテキストテキスト',
     1,
@@ -84,7 +95,8 @@ INSERT INTO api.items (
     1
 ),
 (
-    'ローストビーフ',
+    'ローストビーフ丼',
+    'images/menu/loastbeef.food.jpg',
     1300,
     'テキストテキストテキスト',
     2,
@@ -93,6 +105,7 @@ INSERT INTO api.items (
 ),
 (
     'ビビンバ',
+    'images/menu/bibinpa.food.jpg',
     1100,
     'テキストテキストテキスト',
     11,
@@ -101,6 +114,7 @@ INSERT INTO api.items (
 ),
 (
     'ポッサム',
+    'images/menu/bossam.food.jpg',
     1300,
     'テキストテキストテキスト',
     11,
@@ -109,6 +123,7 @@ INSERT INTO api.items (
 ),
 (
     'サラダ',
+    'images/menu/salad.food.jpg',
     650,
     'テキストテキストテキスト',
     10,
@@ -117,6 +132,7 @@ INSERT INTO api.items (
 ),
 (
     'サンドイッチ',
+    'images/menu/sandwitch.food.jpg',
     700,
     'テキストテキストテキスト',
     9,
@@ -124,7 +140,8 @@ INSERT INTO api.items (
     2
 ),
 (
-    'ローストビーフ2',
+    '自家製ローストビーフ',
+    'images/menu/jikaseibeef.food.jpg',
     1100,
     'テキストテキストテキスト',
     2,
@@ -133,6 +150,7 @@ INSERT INTO api.items (
 ),
 (
     'カキフライ',
+    'images/menu/kaki.food.jpg',
     1400,
     'テキストテキストテキスト',
     1,
@@ -140,7 +158,8 @@ INSERT INTO api.items (
     1
 ),
 (
-    'ケーキ',
+    'ケーキセット',
+    'images/menu/cakeset.food.jpg',
     450,
     'テキストテキストテキスト',
     8,
@@ -149,6 +168,7 @@ INSERT INTO api.items (
 ),
 (
     'いなり寿司',
+    'images/menu/inarizushi.food.jpg',
     450,
     'テキストテキストテキスト',
     7,
@@ -157,6 +177,7 @@ INSERT INTO api.items (
 ),
 (
     'チキンカツレツ',
+    'images/menu/chikinkatsu.food.jpg',
     1350,
     'テキストテキストテキスト',
     13,
@@ -165,6 +186,7 @@ INSERT INTO api.items (
 ),
 (
     'キーマカレー',
+    'images/menu/kimacurry.food.jpg',
     600,
     'テキストテキストテキスト',
     3,
@@ -173,6 +195,7 @@ INSERT INTO api.items (
 ),
 (
     '納豆巻き',
+    'images/menu/nattomaki.food.jpg',
     400,
     'テキストテキストテキスト',
     7,
@@ -181,6 +204,7 @@ INSERT INTO api.items (
 ),
 (
     'おにぎり',
+    'images/menu/onigiri.food.jpg',
     250,
     'テキストテキストテキスト',
     5,
@@ -188,7 +212,8 @@ INSERT INTO api.items (
     1
 ),
 (
-    'アイスコーヒー',
+    'アイスカフェラテ',
+    'images/menu/cafelatte.food.jpg',
     200,
     'テキストテキストテキスト',
     8,
@@ -197,6 +222,7 @@ INSERT INTO api.items (
 ),
 (
     'ジェノバピザ',
+    'images/menu/pizza.food.jpg',
     1100,
     'テキストテキストテキスト',
     12,
@@ -205,6 +231,7 @@ INSERT INTO api.items (
 ),
 (
     'ロコモコ',
+    'images/menu/locomoco.food.jpg',
     1200,
     'テキストテキストテキスト',
     13,
