@@ -17,26 +17,8 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.description}>
           <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.tsx</code>
+            とりあえずindex.tsxは残していますので!
           </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
         </div>
 
         <div className={styles.center}>
@@ -58,10 +40,12 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className={styles.grid}>
+
+
+        <div>
           <Link href="/top">
             <h2 >
-              Docs
+              便宜上、トップへ遷移
             </h2>
           </Link>
         </div>

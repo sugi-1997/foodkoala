@@ -1,5 +1,5 @@
 import Head from "next/head"
-import Link from "next/link";
+import Link from "next/link"
 
 
 export default function TopPage() {
@@ -19,11 +19,11 @@ export default function TopPage() {
         <p>画像挿入</p>
       </div>
       <div style={{ textAlign: 'center', marginTop: '2em' }}>
-        <button><Link href='/userRegist'>新規会員登録</Link></button>
+        <button><Link href='/userResistPage'>新規会員登録</Link></button>
+        <span>&nbsp;</span>
+        <button><Link href='/loginPage'>ログイン画面</Link></button>
       </div>
-
       </>
     )
-
   }
   
