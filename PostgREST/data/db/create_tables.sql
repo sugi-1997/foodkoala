@@ -108,3 +108,32 @@ CREATE TABLE api.users (
 );
 GRANT SELECT ON api.users TO web_anon;
 GRANT ALL ON api.users to api_user;
+
+
+--@block
+DROP TABLE IF EXISTS api.items;
+CREATE TABLE api.items (
+    item_id     serial PRIMARY KEY,
+    name        text     NOT NULL,
+    img         bytea,
+    price       integer,
+    explain     text,
+    genre_id    integer,
+    area_id     integer,
+    shop_id     integer
+);
+GRANT SELECT ON api.items TO web_anon;
+GRANT ALL ON api.items to api_user;
+
+-- @block
+DROP TABLE IF EXISTS api.users;
+CREATE TABLE api.users (
+    user_id     serial PRIMARY KEY,
+    name        text    NOT NULL,
+    email       text    NOT NULL,
+    zipcode     text    NOT NULL,
+    address     text    NOT NULL,
+    password    text    NOT NULL
+);
+GRANT SELECT ON api.users TO web_anon;
+GRANT ALL ON api.users to api_user;
