@@ -20,9 +20,10 @@ export default function TopPage() {
       </div>
       <div style={{ textAlign: 'center', marginTop: '2em' }}>
         <button><Link href='/userResistPage'>新規会員登録</Link></button>
+        <span>&nbsp;</span>
+        <button><Link href='/loginPage'>ログイン画面</Link></button>
       </div>
       </>
     )
-
   }
   
