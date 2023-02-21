@@ -3,12 +3,14 @@ INSERT INTO api.users (
     email,
     zipcode,
     address,
+    phone_number,
     password
 ) VALUES(
     '高橋　祐香',
     'yuka.takahashi@rakus-partners.co.jp',
     '160-0022',
     '東京都新宿区新宿4-3-25',
+    '0366753638',
     'yuka'
 ),
 (
@@ -16,6 +18,7 @@ INSERT INTO api.users (
     'saki.sugiura@rakus-partners.co.jp',
     '160-0022',
     '東京都新宿区新宿4-3-25',
+    '0366753638',
     'saki'
 ),
 (
@@ -23,6 +26,7 @@ INSERT INTO api.users (
     'takao.shishido@rakus-partners.co.jp',
     '160-0022',
     '東京都新宿区新宿4-3-25',
+    '0366753638',
     'takao'
 ),
 (
@@ -30,6 +34,7 @@ INSERT INTO api.users (
     'yuki.nakajima@rakus-partners.co.jp',
     '160-0022',
     '東京都新宿区新宿4-3-25',
+    '0366753638',
     'yuki'
 ),
 (
@@ -37,6 +42,7 @@ INSERT INTO api.users (
     'manabu.toya@rakus-partners.co.jp',
     '160-0022',
     '東京都新宿区新宿4-3-25',
+    '0366753638',
     'manabu'
 ),
 (
@@ -44,6 +50,7 @@ INSERT INTO api.users (
     'tamaki.kato@rakus-partners.co.jp',
     '160-0022',
     '東京都新宿区新宿4-3-25',
+    '0366753638',
     'tamaki'
 ),
 (
@@ -51,6 +58,7 @@ INSERT INTO api.users (
     'yuta.sato@rakus-partners.co.jp',
     '160-0022',
     '東京都新宿区新宿4-3-25',
+    '0366753638',
     'yuta'
 ),
 (
@@ -58,6 +66,7 @@ INSERT INTO api.users (
     'mayu.sakamoto@rakus-partners.co.jp',
     '160-0022',
     '東京都新宿区新宿4-3-25',
+    '0366753638',
     'mayu'
 ),
 (
@@ -65,6 +74,7 @@ INSERT INTO api.users (
     'mizuki.nakagawa@rakus-partners.co.jp',
     '160-0022',
     '東京都新宿区新宿4-3-25',
+    '0366753638',
     'mizuki'
 ),
 (
@@ -72,6 +82,7 @@ INSERT INTO api.users (
     'hayato.kobayashi@rakus-partners.co.jp',
     '160-0022',
     '東京都新宿区新宿4-3-25',
+    '0366753638',
     'hayato'
 ),
 (
@@ -79,6 +90,7 @@ INSERT INTO api.users (
     'hiroki.horikawa@rakus-partners.co.jp',
     '160-0022',
     '東京都新宿区新宿4-3-25',
+    '0366753638',
     'hiroki'
 );
 SELECT * FROM api.users;

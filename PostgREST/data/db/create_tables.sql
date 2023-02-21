@@ -33,18 +33,6 @@ CREATE TABLE api.item_categories (
 GRANT SELECT ON api.item_categories TO web_anon;
 GRANT ALL ON api.item_categories to api_user;
 
--- @block
-DROP TABLE IF EXISTS api.items;
-CREATE TABLE api.items (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name TEXT NOT NULL,
-    price BIGINT NOT NULL,
-    description TEXT,
-    image_url TEXT,
-    deleted_at TIMESTAMPTZ DEFAULT NULL
-);
-GRANT SELECT ON api.items TO web_anon;
-GRANT ALL ON api.items to api_user;
 
 -- @block
 DROP TABLE IF EXISTS api.order_items;
@@ -94,21 +82,6 @@ CREATE TABLE api.carts (
 GRANT SELECT ON api.carts TO web_anon;
 GRANT ALL ON api.carts to api_user;
 
--- @block
-DROP TABLE IF EXISTS api.users;
-CREATE TABLE api.users (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name TEXT NOT NULL,
-    email TEXT NOT NULL,
-    password TEXT NOT NULL,
-    zipcode TEXT NOT NULL,
-    address TEXT NOT NULL,
-    phone_number TEXT NOT NULL,
-    deleted_at TIMESTAMPTZ DEFAULT NULL
-);
-GRANT SELECT ON api.users TO web_anon;
-GRANT ALL ON api.users to api_user;
-
 
 --@block
 DROP TABLE IF EXISTS api.items;
@@ -133,6 +106,7 @@ CREATE TABLE api.users (
     email       text    NOT NULL,
     zipcode     text    NOT NULL,
     address     text    NOT NULL,
+    phone_number text   NOT NULL,
     password    text    NOT NULL
 );
 GRANT SELECT ON api.users TO web_anon;
