@@ -2,6 +2,7 @@ DROP ROLE IF EXISTS authenticator;
 DROP ROLE IF EXISTS web_anon;
 DROP ROLE IF EXISTS api_user;
 
+--@block
 CREATE ROLE authenticator NOINHERIT LOGIN PASSWORD 'password';
 
 CREATE ROLE web_anon NOLOGIN;
