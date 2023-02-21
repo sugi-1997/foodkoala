@@ -28,5 +28,17 @@
   "editor.formatOnSave": false,
   "eslint.packageManager": "yarn",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "foodloss",
+      "database": "foodloss",
+      "username": "postgres",
+      "password": "postgres"
+    }
+  ]
 }
