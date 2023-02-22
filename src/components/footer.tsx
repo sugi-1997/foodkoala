@@ -1,8 +1,10 @@
 // footerコンポーネントの作成
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function Footer() {
-    return (
-            <Link href='/' >お問い合わせ</Link>
-    );
+  return (
+    <footer>
+      <Link href="/">お問い合わせ</Link>
+    </footer>
+  );
 }

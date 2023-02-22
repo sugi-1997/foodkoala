@@ -1,3 +1,25 @@
+header {
+    width: 100%;
+    display: flex;
+}
+
+nav {
+    margin: 0 0 0 auto;
+}
+
+header ul {
+    display: flex;
+    list-style: none;
+}
+
+header li {
+    margin-right: 30px;
+}
+
+header a {
+    text-decoration: none;
+}
+
 .list {
     display: flex;
 }
@@ -5,4 +27,9 @@
 .genre, .area, .menu {
     margin: 0px 30px;
     text-align: center;
+}
+
+footer {
+    text-align: right;
+    margin: 30px 0px;
 }
