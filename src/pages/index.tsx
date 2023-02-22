@@ -14,18 +14,10 @@ export default function ItemListPage() {
       </Head>
       <main>
         <Header />
-        <div>
-          <Genre />
-        </div>
-        <div>
-          <Area />
-        </div>
+        <Genre />
+        <Area />
         <h1>ショップ名</h1>
-        <div className="list">
-          <div className="menu">
-            <MenuList />
-          </div>
-        </div>
+        <MenuList />
         <Footer />
       </main>
     </>
