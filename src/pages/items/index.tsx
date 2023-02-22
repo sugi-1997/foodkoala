@@ -2,6 +2,8 @@ import Area from '@/components/area';
 import Genre from '@/components/genre';
 import MenuList from '@/components/menu-list';
 import Head from 'next/head';
+import Header from '@/components/header';
+import Footer from '@/components/footer';
 
 export default function ItemListPage() {
   return (
@@ -9,6 +11,7 @@ export default function ItemListPage() {
       <Head>
         <title>商品一覧ページ</title>
       </Head>
+      <Header />
       <main>
         <div>
           <Genre />
@@ -39,6 +42,7 @@ export default function ItemListPage() {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
