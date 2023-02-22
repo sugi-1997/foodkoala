@@ -1,6 +1,6 @@
 import Area from '@/components/area';
 import Genre from '@/components/genre';
-import MenuList from '@/components/menu-list';
+import ItemList from '@/components/item_list';
 import Head from 'next/head';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
@@ -22,23 +22,23 @@ export default function ItemListPage() {
         <h1>ショップ名</h1>
         <div className="list">
           <div className="menu">
-            <MenuList />
+            <ItemList />
           </div>
           <br />
           <div className="menu">
-            <MenuList />
+            <ItemList />
           </div>
           <br />
           <div className="menu">
-            <MenuList />
+            <ItemList />
           </div>
           <br />
           <div className="menu">
-            <MenuList />
+            <ItemList />
           </div>
           <br />
           <div className="menu">
-            <MenuList />
+            <ItemList />
           </div>
         </div>
       </main>
