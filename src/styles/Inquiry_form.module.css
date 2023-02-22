@@ -1,0 +1,13 @@
+.Inquiry_form {
+    text-align: center;
+    padding: 10px 20px;
+}
+
+.input_form {
+    display: inline-block;
+    text-align: left;
+}
+
+.button {
+    text-align: center;
+}

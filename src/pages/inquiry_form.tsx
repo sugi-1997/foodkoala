@@ -1,4 +1,6 @@
+import Header from '@/components/header';
 import Head from 'next/head';
+import styles from '@/styles/Inquiry_form.module.css';
 
 export function InquiryList() {
   return (
@@ -49,7 +51,7 @@ export function InquiryList() {
         <label htmlFor="inquiry_choice5">その他</label>
       </dd>
       <dt>お問い合わせ内容の詳細（300字以内）</dt>
-      <input type="textarea" />
+      <textarea name="textarea" id="" cols={50} rows={5}></textarea>
     </>
   );
 }
@@ -57,14 +59,17 @@ export function InquiryList() {
 export default function InquiryForm() {
   return (
     <>
+      <Header />
       <Head>
         <title>お問い合わせフォーム</title>
       </Head>
-      <div>
+      <div className={styles.Inquiry_form}>
         <h1>お問い合わせフォーム</h1>
-        <dl>
+        <dl className={styles.input_form}>
           <InquiryList />
         </dl>
+      </div>
+      <div className={styles.button}>
         <button type="submit">送信する</button>
       </div>
     </>
