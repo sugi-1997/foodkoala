@@ -1,0 +1,13 @@
+.loginPage{
+    display: inline-block;
+    padding: 5px;
+    background: #f2f2f2;
+    margin: 5px;
+    width: 150px;
+    height: 20px;
+}
+
+.loginPagePosition{
+    margin:  auto;
+    text-align: center;
+}

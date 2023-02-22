@@ -51,22 +51,25 @@ GRANT SELECT ON api.shops TO web_anon;
 GRANT ALL ON api.shops to api_user;
 
 -- @block
+DROP TABLE IF EXISTS api.genre;
 DROP TABLE IF EXISTS api.genre_id;
-CREATE TABLE api.genre_id (
+CREATE TABLE api.genre (
     id SERIAL PRIMARY KEY,
-    name text NOT NULL
+    name text NOT NULL,
+    image_url TEXT
 );
-GRANT SELECT ON api.genre_id TO web_anon;
-GRANT ALL ON api.genre_id to api_user;
+GRANT SELECT ON api.genre TO web_anon;
+GRANT ALL ON api.genre to api_user;
 
 -- @block
+DROP TABLE IF EXISTS api.area;
 DROP TABLE IF EXISTS api.area_id;
-CREATE TABLE api.area_id (
+CREATE TABLE api.area (
     id SERIAL PRIMARY KEY,
     name text NOT NULL
 );
-GRANT SELECT ON api.area_id TO web_anon;
-GRANT ALL ON api.area_id to api_user;
+GRANT SELECT ON api.area TO web_anon;
+GRANT ALL ON api.area to api_user;
 
 -- @block
 DROP TABLE IF EXISTS api.order_items;
@@ -120,7 +123,7 @@ GRANT ALL ON api.carts to api_user;
 --@block
 DROP TABLE IF EXISTS api.items;
 CREATE TABLE api.items (
-    item_id     serial PRIMARY KEY,
+    id     serial PRIMARY KEY,
     name        text     NOT NULL,
     image_url   text,
     price       integer,
@@ -135,7 +138,7 @@ GRANT ALL ON api.items to api_user;
 -- @block
 DROP TABLE IF EXISTS api.users;
 CREATE TABLE api.users (
-    user_id     serial PRIMARY KEY,
+    id     serial PRIMARY KEY,
     name        text    NOT NULL,
     email       text    NOT NULL,
     zipcode     text    NOT NULL,

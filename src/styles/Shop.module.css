@@ -1,0 +1,62 @@
+.shop_detail{
+    width: 100%;
+}
+
+.shop_detail_name,.shop_detail_reviewTitle{
+    margin-left: 20%;
+}
+
+.shop_detail_img img{
+    width: 30%;
+    height: auto;
+}
+
+.shop_detail_img{
+    text-align: center;
+}
+
+.shop_detail_grade,.shop_detail_favorite{
+    text-align: right;
+    margin-right: 20%;
+}
+
+.shop_detail_menuImg img{  
+    width: 100%;
+    height: auto;
+    align-items: center;
+}
+
+.shop_detail_explain {
+    margin: 0 20%;
+}
+
+.shop_menu{
+    width: 25%;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.shopDetail_menu{
+    text-align: center;
+}
+
+.shop_detail_reviewImg img{
+    width: auto;
+    height:60px;
+}
+
+.shop_detail_review,.shop_detail_reviewImg{
+    display: inline-block;
+    float: left;
+    margin-left: 20%;
+}
+
+.shop_detail_review{
+    border: solid;
+    height: 55px;
+    margin-left: 30px;
+    padding:5px;
+    width: 60%;
+    word-wrap: break-word;
+    vertical-align: middle;
+}
