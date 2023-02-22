@@ -61,6 +61,7 @@ export default function UserRegist() {
             type='text'
             // onChange = {handleChange}
             placeholder = '例:佐藤'
+            required
             />
             </label>
             <label>名:<input
@@ -68,6 +69,7 @@ export default function UserRegist() {
             type='text'
             // onChange = {handleChange}
             placeholder = '例:太郎'
+            required
             />
             </label>
             </div>
@@ -77,6 +79,7 @@ export default function UserRegist() {
             type='text'
             // onChange = {handleChange}
             placeholder = '例:サトウ'
+            required
             />
             </label>
             <label>名(カナ):<input
@@ -84,6 +87,7 @@ export default function UserRegist() {
             type='text'
             // onChange = {handleChange}
             placeholder = '例:タロウ'
+            required
             />
             </label>
             </div>
@@ -94,6 +98,7 @@ export default function UserRegist() {
             type='email'
             // onChange = {handleChange}
             placeholder="example@aaa.co.jp"
+            required
             />
             </label>
             </div>  
@@ -104,6 +109,7 @@ export default function UserRegist() {
             type='password'
             // onChange = {handleChange}
             placeholder="半角英数字で8文字以上"
+            required
             />
             </label>
             <label>:パスワード(確認用)
@@ -112,6 +118,7 @@ export default function UserRegist() {
             type='password'
             // onChange = {handleChange}
             placeholder="前述のパスワード"
+            required
             />
             </label>
             </div> 
