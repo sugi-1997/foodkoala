@@ -4,10 +4,10 @@ import ShopMenu from '../components/shop_menu';
 export default function ShopList() {
   return (
     <>
-      <div>
+      <div className="shopList_name">
         <ShopName />
       </div>
-      <div>
+      <div className="shopList_menu">
         <ShopMenu />
       </div>
     </>

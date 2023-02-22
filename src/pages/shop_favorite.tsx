@@ -1,13 +1,13 @@
 import ShopName from '../components/shop_name';
 import ShopMenu from '../components/shop_menu';
 
-export default function ShopList() {
+export default function ShopFavorite() {
   return (
     <>
-      <div>
+      <div className="shopFavorite_name">
         <ShopName />
       </div>
-      <div>
+      <div className="shopFavorite_menu">
         <ShopMenu />
       </div>
     </>
