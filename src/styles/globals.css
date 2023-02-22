@@ -2,14 +2,7 @@
     display: flex;
 }
 
-.menu {
-    margin-right: 50px;
-}
-
-.genre {
-    margin-right: 50px;
-}
-
-.area {
-    margin-right: 50px;
+.genre, .area, .menu {
+    margin: 0px 30px;
+    text-align: center;
 }
