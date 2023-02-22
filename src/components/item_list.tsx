@@ -1,6 +1,6 @@
-// Itemコンポーネントの作成
+// Areaコンポーネントの作成
 import Image from 'next/image';
-export default function itemList() {
+export default function MenuList() {
   return (
     <>
       <div>
