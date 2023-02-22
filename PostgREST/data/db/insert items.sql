@@ -35,7 +35,7 @@ INSERT INTO api.items (
 ),
 (
     'パンケーキ',
-    '/images/menu/pancake.food.png',
+    '/images/menu/pancake.food.jpg',
     800,
     'テキストテキストテキスト',
     6,
@@ -44,7 +44,7 @@ INSERT INTO api.items (
 ),
 (
     '焼きいも',
-    '/images/menu/bakepotato.food.png',
+    '/images/menu/yakiimo.food.jpg',
     350,
     'テキストテキストテキスト',
     5,

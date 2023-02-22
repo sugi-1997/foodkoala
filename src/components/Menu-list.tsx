@@ -1,10 +1,7 @@
-import Area from '@/components/area';
-import Genre from '@/components/genre';
 import Head from 'next/head';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
 import Image from 'next/image';
 import useSWR from 'swr';
+import styles from '../styles/menu_link.module.css';
 
 const fetcher = (resource: string, init: any) =>
   fetch(resource, init).then((res) => res.json());
@@ -35,21 +32,21 @@ export default function MenuList() {
         <title>商品一覧ページ</title>
       </Head>
       <main>
-        <Header />
-        {data.map((item: Item) => (
-          <div key={item.id}>
-            <Image
-              src={item.image_url}
-              alt="メニューの画像"
-              width={100}
-              height={100}
-            />
-            <p>{item.name}</p>
-            <p>{item.price}円</p>
-            <button>カートに追加</button>
-          </div>
-        ))}
-        <Footer />
+        <div className={styles.menulist}>
+          {data.map((item: Item) => (
+            <div key={item.id} className={styles.menu}>
+              <Image
+                src={item.image_url}
+                alt="メニューの画像"
+                width={200}
+                height={200}
+              />
+              <p>{item.name}</p>
+              <p>{item.price}円</p>
+              <button>カートに追加</button>
+            </div>
+          ))}
+        </div>
       </main>
     </>
   );
