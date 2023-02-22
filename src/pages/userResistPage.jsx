@@ -57,6 +57,7 @@ export default function UserRegist() {
         <title>新規会員登録</title>
       </Head>
       <Header/>
+      
       <div className={styles.userRegistPosition}>
       <h3>会員情報登録</h3>
       <form /*onSubmit={handleSend}*/>
