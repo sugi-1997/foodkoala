@@ -135,7 +135,7 @@ GRANT ALL ON api.items to api_user;
 -- @block
 DROP TABLE IF EXISTS api.users;
 CREATE TABLE api.users (
-    user_id     serial PRIMARY KEY,
+    id     serial PRIMARY KEY,
     name        text    NOT NULL,
     email       text    NOT NULL,
     zipcode     text    NOT NULL,
