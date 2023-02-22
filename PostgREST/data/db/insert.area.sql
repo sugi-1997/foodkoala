@@ -1,4 +1,4 @@
-INSERT INTO api.area_id(
+INSERT INTO api.area(
     name
   )
     VALUES(
