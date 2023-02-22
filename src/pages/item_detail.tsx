@@ -1,6 +1,8 @@
 // 商品詳細画面
 
-import MenuList from '@/components/menu-list';
+import Footer from '@/components/footer';
+import Header from '@/components/header';
+import ItemList from '@/components/item_list';
 import Head from 'next/head';
 
 export default function ItemPage() {
@@ -9,10 +11,12 @@ export default function ItemPage() {
       <Head>
         <title>商品詳細画面</title>
       </Head>
+      <Header />
       <main>
         <h1>ショップ名</h1>
-        <MenuList />
+        <ItemList />
       </main>
+      <Footer />
     </>
   );
 }

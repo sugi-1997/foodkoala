@@ -2,6 +2,9 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 import { useState } from "react";
 import Link from "next/link";
+import  Header  from "../components/header";
+import Footer from "../components/footer"
+import styles from "@/styles/userRegistItem.module.css"
 
 
 // const url ='これから確認しまっせ'
@@ -53,71 +56,85 @@ export default function UserRegist() {
       <Head>
         <title>新規会員登録</title>
       </Head>
-      <div >
+      <Header/>
+      <div>
+      <h3>会員情報登録</h3>
       <form /*onSubmit={handleSend}*/>
+           
            <div>
-           <label>姓:<input
+           <div className={styles.userRegistItem}>
+           お名前(漢字)
+           </div>
+
+           <input
             name='familyName'
             type='text'
             // onChange = {handleChange}
-            placeholder = '例:佐藤'
+            placeholder = '例:佐藤 太郎'
+            required
+            
             />
-            </label>
-            <label>名:<input
-            name='lastName'
-            type='text'
-            // onChange = {handleChange}
-            placeholder = '例:太郎'
-            />
-            </label>
-            </div>
-            <div>
-           <label>姓(カナ):<input
+          </div>
+          
+          <div>
+          <div className={styles.userRegistItem}>
+           名前（ふりがな)
+           </div>
+           <input
             name='familyNameKana'
             type='text'
             // onChange = {handleChange}
-            placeholder = '例:サトウ'
+            placeholder = '例:さとう たろう'
+            required
             />
-            </label>
-            <label>名(カナ):<input
-            name='lastNameKana'
-            type='text'
-            // onChange = {handleChange}
-            placeholder = '例:タロウ'
-            />
-            </label>
+           </div>
+
+           <div>
+           <div className={styles.userRegistItem}>
+            メールアドレス
             </div>
-            <div>
-            <label>メールアドレス:
             <input
             name='email'
             type='email'
             // onChange = {handleChange}
-            placeholder="example@aaa.co.jp"
+            placeholder="example@example.com"
+            required
             />
-            </label>
-            </div>  
+            </div>
+            
             <div>
-            <label>パスワード:
+            <div className={styles.userRegistItem}>
+            パスワード
+            </div>
             <input
             name='password1'
             type='password'
             // onChange = {handleChange}
             placeholder="半角英数字で8文字以上"
+            required
+            pattern="^[a-zA-Z0-9]+$"
             />
-            </label>
-            <label>:パスワード(確認用)
+            </div>
+      
+            <div>
+            <div className="userRegistItem">
+            パスワード(確認用)
+            </div>
             <input
             name='password2'
             type='password'
             // onChange = {handleChange}
             placeholder="前述のパスワード"
+            required
+            pattern="^[a-zA-Z0-9]+$"
             />
-            </label>
-            </div> 
+            </div>
+
+            <br/>
             <button type="submit">登録</button>
             </form>
-      </div>
+            </div>
+            <Footer/>
       </>
     )
   }
