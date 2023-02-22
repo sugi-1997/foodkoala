@@ -1,5 +1,4 @@
 // headerコンポーネントの作成
-import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Header() {
@@ -14,19 +13,19 @@ export default function Header() {
         <nav>
           <ul>
             <li>
-              <a href="#">メニュー</a>
+              <a href="./item_detail">メニュー</a>
             </li>
             <li>
-              <a href="#">ショップ</a>
+              <a href="./shop_list">ショップ</a>
             </li>
             <li>
-              <a href="#">お気に入り</a>
+              <a href="./shop_favorite">お気に入り</a>
             </li>
             <li>
-              <a href="#">お買い物かご</a>
+              <a href="./order_check">お買い物かご</a>
             </li>
             <li>
-              <a href="#">注文履歴</a>
+              <a href="./order_history">注文履歴</a>
             </li>
           </ul>
         </nav>
