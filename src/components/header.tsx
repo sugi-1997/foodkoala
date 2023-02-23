@@ -5,7 +5,13 @@ export default function Header() {
   return (
     <>
       <header>
-        <Image src="/" alt="logo" width={100} height={30} />
+        <Image
+          src="/images/provisional_logo.png"
+          alt="logo"
+          width={30}
+          height={30}
+        />
+        <span>Food Koala</span>
         <div className="search">
           <input type="serch" name="search" />
           <button>検索</button>
