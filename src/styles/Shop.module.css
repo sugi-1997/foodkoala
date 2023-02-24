@@ -1,4 +1,4 @@
-.shop_detail{
+.shop_detail,.shopList,.shopFavorite{
     width: 100%;
 }
 
@@ -59,4 +59,17 @@
     width: 60%;
     word-wrap: break-word;
     vertical-align: middle;
+}
+
+.shopList_menu,.shopFavorite_menu{
+    text-align: center;
+}
+
+.shopList_shop,.shopFavorite_shop{
+    width: 33%;
+    height:auto;
+    float: left;
+}
+.shopList_menu,.shopList_name,.shopFavorite_menu,.shopFavorite_name{
+    display: inline-block;
 }

@@ -1,28 +1,12 @@
 // Genreコンポーネントの作成
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import useSWR from 'swr';
 
 const fetcher = (resource: string, init: any) =>
   fetch(resource, init).then((res) => res.json());
 
 export default function Genre() {
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  // //ローディング
-  // useEffect(() => {
-  //   if (router.isReady) {
-  //     setLoading(true);
-  //   }
-  // }, [router.isReady, loading]);
-  // if (!loading) return <div>Loading...</div>;
-
-  const { data, error } = useSWR(
-    'http://localhost:8000/genre',
-    fetcher
-  );
+  const { data, error } = useSWR('/api/genre', fetcher);
 
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データがありませんでした</div>;

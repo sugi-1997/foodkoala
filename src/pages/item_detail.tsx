@@ -1,7 +1,7 @@
 // 商品詳細画面
 
-import Footer from '@/components/footer';
-import Header from '@/components/header';
+import Footer from 'components/footer';
+import Header from 'components/header';
 import Head from 'next/head';
 import useSWR from 'swr';
 import Image from 'next/image';
