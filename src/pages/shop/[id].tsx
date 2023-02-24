@@ -1,9 +1,9 @@
-import ShopName from '../components/shop_name';
-import ShopReview from '../components/shop_review';
-import ShopMenu from '../components/shop_menu';
+import ShopName from 'components/shop_name';
+import ShopReview from 'components/shop_review';
+import ShopMenu from 'components/shop_menu';
 import styles from '../styles/Shop.module.css';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
+import Header from 'components/header';
+import Footer from 'components/footer';
 import Head from 'next/head';
 
 type Shop = {
