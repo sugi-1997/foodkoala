@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import Area from 'components/area';
+import Genre from 'components/genre';
 import useSWR from 'swr';
 import styles from '../styles/menu_link.module.css';
 
@@ -18,6 +20,8 @@ export default function MenuList() {
         <title>商品一覧ページ</title>
       </Head>
       <main>
+        <Genre />
+        <Area />
         <Link href={'#'}>
           <h1>ショップ名</h1>
         </Link>

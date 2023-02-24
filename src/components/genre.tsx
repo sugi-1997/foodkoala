@@ -17,13 +17,15 @@ export default function Genre() {
       <div className="list">
         {data.map((genre: GenreData) => (
           <div className="genre" key={genre.id}>
-            <Image
-              src={genre.image_url}
-              alt="genre-icon"
-              width={30}
-              height={30}
-            />
-            <p>{genre.name}</p>
+            <button>
+              <Image
+                src={genre.image_url}
+                alt="genre-icon"
+                width={30}
+                height={30}
+              />
+              <p>{genre.name}</p>
+            </button>
           </div>
         ))}
       </div>
