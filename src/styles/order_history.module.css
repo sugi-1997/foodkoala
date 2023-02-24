@@ -1,0 +1,39 @@
+.h1 {
+    text-align: center;
+}
+
+.order_history {
+    text-align: center;
+    width: 30%;
+    margin: 0 auto;
+    border: 1px solid #000;
+    padding: 10px 20px;
+    
+}
+
+.order_history h2 {
+    text-align: left;
+}
+
+.order_history dt {
+    text-align: left;
+}
+
+.order_history dd {
+    text-align: right;
+}
+
+.link {
+    text-align: right;
+}
+
+/* この辺が怪しい */
+.buttons {
+    text-align: center;
+}
+
+.button {
+    display: inline-block;
+    margin: 10px 10px;
+    
+}
