@@ -1,8 +1,8 @@
-import Footer from '@/components/footer';
-import Header from '@/components/header';
+import Footer from 'components/footer';
+import Header from 'components/header';
 import Head from 'next/head';
 import Link from 'next/link';
-import styles from '@/styles/order_history.module.css';
+import styles from 'styles/order_history.module.css';
 
 export default function OrderHistory() {
   return (
@@ -31,9 +31,9 @@ export default function OrderHistory() {
         </div>
       </div>
       <div className={styles.buttons}>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
+        <input type="button" value="1" />
+        <input type="button" value="2" />
+        <input type="button" value="3" />
       </div>
       <Footer />
     </>

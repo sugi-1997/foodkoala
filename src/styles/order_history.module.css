@@ -27,13 +27,10 @@
     text-align: right;
 }
 
-/* この辺が怪しい */
-.buttons {
-    text-align: center;
+.buttons input {
+    margin: 20px 5px;
 }
 
-.button {
-    display: inline-block;
-    margin: 10px 10px;
-    
+.buttons {
+    text-align: center;
 }
