@@ -1,8 +1,8 @@
-import Footer from '@/components/footer';
-import Header from '@/components/header';
+import Footer from '../components/footer';
+import Header from '../components/header';
 import Head from 'next/head';
 import Link from 'next/link';
-import styles from '@/styles/order_history.module.css';
+import styles from '../styles/order_history.module.css';
 
 export default function OrderHistory() {
   return (

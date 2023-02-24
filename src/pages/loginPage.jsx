@@ -1,5 +1,5 @@
 import Head from "next/head"
-import styles from "@/styles/loginPage.module.css"
+import styles from "../styles/loginPage.module.css"
 
 
 
@@ -44,7 +44,7 @@ export default function LoginPage() {
             </div>
            
            <div>
-            <button type="submit">ログイン</button>
+            <input type="submit" value="ログイン" />
             </div>
           
           </form>
