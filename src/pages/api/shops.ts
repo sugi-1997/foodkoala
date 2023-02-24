@@ -1,13 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'isomorphic-unfetch';
 
+type Data = {
+  id: number;
+  name: string;
+  image_url: string;
+};
+
 export default async function GenreData(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
     const url = process.env['BACKEND_API_URL'];
-    const response = await fetch(`${url}/area`);
+    const response = await fetch(`${url}/shops`);
     const data = await response.json();
     if (!response.ok) {
       throw new Error('データの送信に失敗しました');

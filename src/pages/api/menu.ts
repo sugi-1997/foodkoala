@@ -13,7 +13,7 @@ export default async function GenreData(
 ) {
   try {
     const url = process.env['BACKEND_API_URL'];
-    const response = await fetch(`${url}/area`);
+    const response = await fetch(`${url}/items`);
     const data = await response.json();
     if (!response.ok) {
       throw new Error('データの送信に失敗しました');
