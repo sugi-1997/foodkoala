@@ -3,6 +3,7 @@ import styles from '../styles/Shop.module.css';
 import useSWR from 'swr';
 import Image from 'next/image';
 import ShopMenu from '../components/shop_menu';
+import { Shop } from 'types/shops';
 
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
@@ -15,17 +16,6 @@ export default function ShopName() {
 
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データを取得できませんでした</div>;
-
-  type Shop = {
-    id: number;
-    name: string;
-    description: string;
-    image_url: string;
-    score: number;
-    favorite: boolean;
-    genre_id: number;
-    area_id: number;
-  };
 
   return (
     <>
@@ -69,31 +59,3 @@ export default function ShopName() {
     </>
   );
 }
-
-/*
-<div className={styles.shop_detail_name}>
-          <p>{'ショップ名'}</p>
-        </div>
-        <div className={styles.shop_detail_grade}>
-          <i className="fa-solid fa-star"></i>
-          <i className="fa-solid fa-star"></i>
-          <i className="fa-solid fa-star"></i>
-          <i className="fa-solid fa-star-half-stroke"></i>
-          <i className="fa-regular fa-star"></i>
-        </div>
-        <div className={styles.shop_detail_img}>
-          <img src="/images/shop/abcpizza.shop.png" alt="ロゴ" />
-        </div>
-        <div className={styles.shop_detail_favorite}>
-          <button type="submit">
-            <i className="fa-solid fa-heart"></i>
-          </button>
-        </div>
-        <div className={styles.shop_detail_explain}>
-          <p>
-            {
-              'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
-            }
-          </p>
-        </div>
-*/
