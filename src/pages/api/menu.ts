@@ -11,8 +11,10 @@ export default async function GenreData(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const genre_id = req.body.genre_id;
   try {
     const url = process.env['BACKEND_API_URL'];
+
     const response = await fetch(`${url}/items`);
     const data = await response.json();
     if (!response.ok) {
