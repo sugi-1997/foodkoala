@@ -1,7 +1,8 @@
 import Head from 'next/head';
-import styles from '../styles/Shop.module.css';
-import useSWR from 'swr';
 import Image from 'next/image';
+import Script from 'next/script';
+import useSWR from 'swr';
+import styles from '../styles/Shop.module.css';
 import ShopMenu from '../components/shop_menu';
 
 const fetcher = (resource: string, init: object) =>
@@ -29,12 +30,10 @@ export default function ShopName() {
 
   return (
     <>
-      <Head>
-        <script
-          src="https://kit.fontawesome.com/acecca202b.js"
-          crossOrigin="anonymous"
-        ></script>
-      </Head>
+      <Script
+        src="https://kit.fontawesome.com/acecca202b.js"
+        crossOrigin="anonymous"
+      ></Script>
       <main className={styles.shop_detail}>
         {data.map((shop: Shop) => (
           <div key={shop.id}>

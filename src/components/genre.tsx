@@ -1,11 +1,12 @@
 // Genreコンポーネントの作成
 import Image from 'next/image';
 import useSWR from 'swr';
+import { useState } from 'react';
 
 const fetcher = (resource: string, init: any) =>
   fetch(resource, init).then((res) => res.json());
 
-export default function Genre() {
+export default function Genre({ onClick }) {
   const { data, error } = useSWR('/api/genre', fetcher);
 
   if (error) return <div>エラーです</div>;
@@ -17,7 +18,7 @@ export default function Genre() {
       <div className="list">
         {data.map((genre: GenreData) => (
           <div className="genre" key={genre.id}>
-            <button>
+            <button id={genre.id} onClick={onClick}>
               <Image
                 src={genre.image_url}
                 alt="genre-icon"
