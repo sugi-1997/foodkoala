@@ -10,10 +10,7 @@ const fetcher = (resource: string, init: any) =>
   fetch(resource, init).then((res) => res.json());
 
 export default function ItemPage() {
-  const { data, error } = useSWR(
-    'http://localhost:8000/items',
-    fetcher
-  );
+  const { data, error } = useSWR('/api/menu', fetcher);
 
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データを取得できませんでした</div>;
