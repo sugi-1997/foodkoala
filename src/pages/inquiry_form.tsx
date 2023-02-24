@@ -1,6 +1,6 @@
-import Header from '@/components/header';
+import Header from 'components/header';
 import Head from 'next/head';
-import styles from '@/styles/Inquiry_form.module.css';
+import styles from 'styles/Inquiry_form.module.css';
 
 export function InquiryList() {
   return (

@@ -1,5 +1,8 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
+import Area from 'components/area';
+import Genre from 'components/genre';
 import useSWR from 'swr';
 import styles from '../styles/menu_link.module.css';
 
@@ -7,10 +10,7 @@ const fetcher = (resource: string, init: any) =>
   fetch(resource, init).then((res) => res.json());
 
 export default function MenuList() {
-  const { data, error } = useSWR(
-    'http://localhost:8000/items?shop_id=eq.1',
-    fetcher
-  );
+  const { data, error } = useSWR('/api/menu', fetcher);
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データが見つかりませんでした</div>;
 
@@ -20,11 +20,15 @@ export default function MenuList() {
         <title>商品一覧ページ</title>
       </Head>
       <main>
-        <h1>ショップ名</h1>
+        <Genre />
+        <Area />
+        <Link href={'#'}>
+          <h1>ショップ名</h1>
+        </Link>
         <div className={styles.menulist}>
           {data.map((item: Item) => (
-            <>
-              <div key={item.id} className={styles.menu}>
+            <div key={item.id} className={styles.menu}>
+              <Link href={`/item/${item.id}`}>
                 <Image
                   src={item.image_url}
                   alt="メニューの画像"
@@ -32,10 +36,10 @@ export default function MenuList() {
                   height={200}
                 />
                 <p>{item.name}</p>
-                <p>{item.price}円</p>
-                <button>カートに追加</button>
-              </div>
-            </>
+              </Link>
+              <p>{item.price}円</p>
+              <button>カートに追加</button>
+            </div>
           ))}
         </div>
       </main>

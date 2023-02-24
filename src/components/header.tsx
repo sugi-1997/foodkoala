@@ -22,10 +22,10 @@ export default function Header() {
               <a href="./item_detail">メニュー</a>
             </li>
             <li>
-              <a href="./shop_list">ショップ</a>
+              <a href="./list">ショップ</a>
             </li>
             <li>
-              <a href="./shop_favorite">お気に入り</a>
+              <a href="./favorite">お気に入り</a>
             </li>
             <li>
               <a href="./order_check">お買い物かご</a>
