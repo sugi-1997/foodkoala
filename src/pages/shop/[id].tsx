@@ -8,7 +8,9 @@ import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
 import useSWR from 'swr';
 
 export async function getStaticPaths() {
+
   const res = await fetch('http://127.0.0.1:8000/shops');
+
   const shops = await res.json();
   const paths = shops.map((shop: Shop) => ({
     params: {

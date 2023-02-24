@@ -1,5 +1,3 @@
-import Area from 'components/area';
-import Genre from 'components/genre';
 import MenuList from 'components/Menu-list';
 import Head from 'next/head';
 import Header from 'components/header';
@@ -13,8 +11,6 @@ export default function ItemListPage() {
       </Head>
       <main>
         <Header />
-        <Genre />
-        <Area />
         <MenuList />
         <Footer />
       </main>
