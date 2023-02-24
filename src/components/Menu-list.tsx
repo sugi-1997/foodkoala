@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import useSWR from 'swr';
 import styles from '../styles/menu_link.module.css';
 
@@ -17,11 +18,13 @@ export default function MenuList() {
         <title>商品一覧ページ</title>
       </Head>
       <main>
-        <h1>ショップ名</h1>
+        <Link href={'#'}>
+          <h1>ショップ名</h1>
+        </Link>
         <div className={styles.menulist}>
           {data.map((item: Item) => (
-            <>
-              <div key={item.id} className={styles.menu}>
+            <div key={item.id} className={styles.menu}>
+              <Link href={`/item/${item.id}`}>
                 <Image
                   src={item.image_url}
                   alt="メニューの画像"
@@ -29,10 +32,10 @@ export default function MenuList() {
                   height={200}
                 />
                 <p>{item.name}</p>
-                <p>{item.price}円</p>
-                <button>カートに追加</button>
-              </div>
-            </>
+              </Link>
+              <p>{item.price}円</p>
+              <button>カートに追加</button>
+            </div>
           ))}
         </div>
       </main>
