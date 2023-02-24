@@ -1,7 +1,9 @@
 import ShopName from 'components/shop_name';
 import ShopReview from 'components/shop_review';
 import ShopMenu from 'components/shop_menu';
-import styles from '../../styles/Shop.module.css';
+
+import styles from 'styles/Shop.module.css';
+
 import Header from 'components/header';
 import Footer from 'components/footer';
 import Head from 'next/head';
@@ -19,7 +21,9 @@ type Shop = {
 };
 
 export async function getStaticPaths() {
+
   const res = await fetch('http://127.0.0.1:8000/shops');
+
   const shops = await res.json();
   const paths = shops.map((shop: Shop) => ({
     params: {
