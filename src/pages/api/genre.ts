@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import fetch from 'isomorphic-unfetch';
 
 type Data = {
   id: number;
@@ -11,16 +12,17 @@ export default async function GenreData(
   res: NextApiResponse
 ) {
   try {
-    const response = await fetch('http://localhost:8000/genre');
+    const url = process.env['BACKEND_API_URL'];
+    const response = await fetch(`${url}/genre`);
+    const data = await response.json();
     if (!response.ok) {
       throw new Error('データの送信に失敗しました');
     }
-    const data = await response.json();
     if (!data) {
       throw new Error('データが見つかりませんでした');
     }
     res.status(200).json(data);
   } catch (error) {
-    res.status(400).json({ message: error });
+    res.status(400).json({ error: error });
   }
 }
