@@ -1,11 +1,12 @@
 import ShopReview from 'components/shop_review';
+import ShopMenu from 'components/shop_menu';
 import styles from '../../styles/Shop.module.css';
 import Header from 'components/header';
 import Footer from 'components/footer';
 import Head from 'next/head';
 import Image from 'next/image';
-import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
-import useSWR from 'swr';
+import { Shop, GetStaticProps, ShopProps } from 'types/shops';
+import favorite from 'components/shop/favorite';
 
 export async function getStaticPaths() {
   const res = await fetch('http://127.0.0.1:8000/shops');
@@ -31,19 +32,21 @@ export async function getStaticProps({ params }: GetStaticProps) {
   };
 }
 
-const fetcher = (resource: string, init: object) =>
-  fetch(resource, init).then((res) => res.json());
-
-export default async function ShopDetail(
-  { shopData }: ShopProps,
-  { params }: GetStaticProps
-) {
+export default function ShopDetail({ shopData }: ShopProps) {
   const shop = shopData[0];
+
+  function Favorite() {
+    return favorite(shop.score);
+  }
 
   return (
     <>
       <Head>
         <title>ショップ詳細画面</title>
+        <script
+          src="https://kit.fontawesome.com/acecca202b.js"
+          crossOrigin="anonymous"
+        ></script>
       </Head>
       <main>
         <Header />
@@ -51,11 +54,7 @@ export default async function ShopDetail(
           <div key={shop.id}>
             <p className={styles.shop_detail_name}>{shop.name}</p>
             <div className={styles.shop_detail_grade}>
-              <i className="fa-solid fa-star"></i>
-              <i className="fa-solid fa-star"></i>
-              <i className="fa-solid fa-star"></i>
-              <i className="fa-solid fa-star-half-stroke"></i>
-              <i className="fa-regular fa-star"></i>
+              <Favorite />
             </div>
             <div className={styles.shop_detail_img}>
               <Image
@@ -73,7 +72,7 @@ export default async function ShopDetail(
             <p>{shop.description}</p>
           </div>
           <div className={styles.shopDetail_menu}>
-            <ShopMenu params={params} />
+            <ShopMenu />
           </div>
           <div className={styles.shopDetail_review}>
             <ShopReview />
@@ -81,43 +80,6 @@ export default async function ShopDetail(
         </div>
         <Footer />
       </main>
-    </>
-  );
-}
-
-export async function shopMenu({ shop }: any) {
-  const { data, error } = useSWR(
-    `http://localhost:8000/items?shop_id=eq.${shop.id}`,
-    fetcher
-  );
-
-  if (error) return <div>エラーです</div>;
-  if (!data) return <div>データを取得できませんでした</div>;
-
-  const menus = data.slice(0, 2);
-
-  return (
-    <>
-      <div className={styles.shop_menu}>
-        {menus.map((menu: Menu) => (
-          <div key={menu.id}>
-            <div className={styles.shop_detail_menuImg}>
-              <Image
-                src={menu.image_url}
-                alt="メニュー画像"
-                width={150}
-                height={150}
-              />
-            </div>
-            <div className={styles.shop_detail_menuName}>
-              <p>{menu.name}</p>
-            </div>
-            <div className={styles.shop_detail_menuPrice}>
-              <p>{menu.price}円</p>
-            </div>
-          </div>
-        ))}
-      </div>
     </>
   );
 }
