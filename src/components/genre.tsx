@@ -38,20 +38,3 @@ type GenreData = {
   name: string;
   image_url: string;
 };
-
-//データの取得
-// export async function getServerSideProps() {
-//   const response = await fetch('/api/genre');
-//   if (!response.ok) {
-//     console.error('送信に失敗しました');
-//   }
-//   const data = await response.json();
-//   if (!data) {
-//     console.error('データがありませんでhした');
-//   }
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// }

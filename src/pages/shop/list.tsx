@@ -1,7 +1,5 @@
-
 import ShopName from '../../components/shop_name';
 import styles from '../../styles/Shop.module.css';
-
 import Head from 'next/head';
 import Header from 'components/header';
 import Genre from 'components/genre';
