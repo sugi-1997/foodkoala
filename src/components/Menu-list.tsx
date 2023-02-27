@@ -3,33 +3,41 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Area from 'components/area';
 import Genre from 'components/genre';
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 import { useState } from 'react';
 import styles from '../styles/menu_link.module.css';
 
-const fetcher = (resource: string, init: any) =>
-  fetch(resource, init).then((res) => res.json());
+const fetcher = (resource: string) =>
+  fetch(resource).then((res) => res.json());
 
 export default function MenuList({ onClick, id }) {
-  const [genreId, setGenreId] = useState<number>(0);
-  const { data, error, mutate } = useSWR('/api/menu', fetcher);
+  const [genreId, setGenreId] = useState<string>('gt.0');
+  const [areaId, setAreaId] = useState<string>('gt.0');
+
+  const { data, error } = useSWR(
+    `/api/menu?genreId=${genreId}&areaId=${areaId}`,
+    fetcher,
+    {
+      revalidateOnMount: true,
+    }
+  );
+  const { mutate } = useSWRConfig();
 
   if (error) return <div>エラーです</div>;
-  if (!data) return <div>データが見つかりませんでした</div>;
+  if (!data) return <div>Loading...</div>;
 
-  const handleClick = (id) => {
-    setGenreId(id);
-    mutate(
-      '/api/menu',
-      {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify({
-          genre_id: id,
-        }),
-      },
-      fetcher
-    );
+  console.log(data);
+
+  const handleGenreClick = (clickedId) => {
+    setGenreId(`eq.${clickedId}`);
+    console.log(clickedId);
+    mutate(`/api/menu?genreId=${genreId}&areaId=${areaId}`);
+  };
+
+  const handleAreaClick = (clickedId) => {
+    setAreaId(`eq.${clickedId}`);
+    console.log(clickedId);
+    mutate(`/api/menu?areaId=${areaId}&genreId=${genreId}`);
   };
 
   return (
@@ -38,8 +46,8 @@ export default function MenuList({ onClick, id }) {
         <title>商品一覧ページ</title>
       </Head>
       <main>
-        <Genre id={id} onClick={(e) => handleClick(e.target.id)} />
-        <Area />
+        <Genre onClick={(e) => handleGenreClick(e.target.id)} />
+        <Area onClick={(e) => handleAreaClick(e.target.id)} />
         <Link href={'#'}>
           <h1>ショップ名</h1>
         </Link>
