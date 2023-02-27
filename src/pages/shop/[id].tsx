@@ -10,7 +10,9 @@ import score from 'components/shop/score';
 import { useState } from 'react';
 
 export async function getStaticPaths() {
+
   const res = await fetch('http://127.0.0.1:8000/shops');
+
   const shops = await res.json();
   const paths = shops.map((shop: Shop) => ({
     params: {
