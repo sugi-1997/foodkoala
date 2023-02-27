@@ -1,6 +1,14 @@
-export default async function shopMenu({ shop }: any) {
+import styles from '../../styles/Shop.module.css';
+import useSWR from 'swr';
+import Image from 'next/image';
+import { Menu } from 'types/shops';
+
+const fetcher = (resource: string, init: object) =>
+  fetch(resource, init).then((res) => res.json());
+
+export default function shopMenu({ id }: { id: number }) {
   const { data, error } = useSWR(
-    `http://localhost:8000/items?shop_id=eq.${shop.id}`,
+    `http://localhost:8000/items?shop_id=eq.${id}`,
     fetcher
   );
 

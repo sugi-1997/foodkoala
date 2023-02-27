@@ -6,7 +6,8 @@ import Footer from 'components/footer';
 import Head from 'next/head';
 import Image from 'next/image';
 import { Shop, GetStaticProps, ShopProps } from 'types/shops';
-import favorite from 'components/shop/favorite';
+import score from 'components/shop/score';
+import { useState } from 'react';
 
 export async function getStaticPaths() {
 
@@ -34,11 +35,64 @@ export async function getStaticProps({ params }: GetStaticProps) {
   };
 }
 
+/*
+const fetcher = (resource: string, init: object) =>
+fetch(resource, init).then((res) => res.json());
+
+async function ShopMenu(id: number) {
+const { data, error } = useSWR(
+  `http://localhost:8000/items?shop_id=eq.${id}`,
+  fetcher
+);
+
+if (error) return <div>エラーです</div>;
+if (!data) return <div>データを取得できませんでした</div>;
+
+const menus = data.slice(0, 2);
+
+return (
+  <>
+    <div className={styles.shop_menu}>
+      {menus.map((menu: Menu) => (
+        <div key={menu.id}>
+          <div className={styles.shop_detail_menuImg}>
+            <Image
+              src={menu.image_url}
+              alt="メニュー画像"
+              width={150}
+              height={150}
+            />
+          </div>
+          <div className={styles.shop_detail_menuName}>
+            <p>{menu.name}</p>
+          </div>
+          <div className={styles.shop_detail_menuPrice}>
+            <p>{menu.price}円</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </>
+);
+}
+*/
+
 export default function ShopDetail({ shopData }: ShopProps) {
   const shop = shopData[0];
 
-  function Favorite() {
-    return favorite(shop.score);
+  function Score() {
+    return score(shop.score);
+  }
+
+  /*
+  function ShopMenu() {
+    return shopMenu(shop)
+  }
+  */
+
+  const [active, setActive] = useState(false);
+  function classToggle() {
+    setActive(!active);
   }
 
   return (
@@ -56,7 +110,8 @@ export default function ShopDetail({ shopData }: ShopProps) {
           <div key={shop.id}>
             <p className={styles.shop_detail_name}>{shop.name}</p>
             <div className={styles.shop_detail_grade}>
-              <Favorite />
+              {shop.score}
+              <Score />
             </div>
             <div className={styles.shop_detail_img}>
               <Image
@@ -66,8 +121,14 @@ export default function ShopDetail({ shopData }: ShopProps) {
                 height={150}
               />
             </div>
-            <div className={styles.shop_detail_favorite}>
-              <button type="submit">
+            <div
+              className={
+                active
+                  ? styles.shop_favorite_true
+                  : styles.shop_favorite_false
+              }
+            >
+              <button type="submit" onClick={classToggle}>
                 <i className="fa-solid fa-heart"></i>
               </button>
             </div>

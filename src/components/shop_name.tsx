@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import styles from '../styles/Shop.module.css';
 import ShopMenu from '../components/shop_menu';
 import { Shop } from 'types/shops';
+import Link from 'next/link';
 
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
@@ -17,6 +18,8 @@ export default function ShopName() {
 
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データを取得できませんでした</div>;
+
+  console.log('data', data);
 
   return (
     <>
@@ -36,12 +39,14 @@ export default function ShopName() {
               <i className="fa-regular fa-star"></i>
             </div>
             <div className={styles.shop_detail_img}>
-              <Image
-                src={shop.image_url}
-                alt="お店の画像"
-                width={150}
-                height={150}
-              />
+              <Link href={`../shop/${shop.id}`}>
+                <Image
+                  src={shop.image_url}
+                  alt="お店の画像"
+                  width={150}
+                  height={150}
+                />
+              </Link>
             </div>
             <div className={styles.shop_detail_favorite}>
               <button type="submit">
