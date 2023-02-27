@@ -1,10 +1,12 @@
+import styles from 'styles/order_check.module.css';
+
 export default function OrderList() {
   return (
     <>
-      <div>
+      <div className={styles.h1}>
         <h1>注文リスト</h1>
       </div>
-      <div>
+      <div className={styles.order_list}>
         <div>
           <dl>
             <dt>{'メニュー1'}</dt>
@@ -43,7 +45,7 @@ export default function OrderList() {
           </dl>
           <p>小計：{'合計金額'}円</p>
         </div>
-        <div>
+        <div className={styles.order_list_details}>
           <dl>
             <dt>クーポン</dt>
             <dd>
