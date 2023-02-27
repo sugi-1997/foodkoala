@@ -41,11 +41,14 @@ CREATE TABLE api.shops (
     name TEXT NOT NULL,
     description TEXT NOT NULL,
     image_url TEXT ,
-    score INTEGER  NOT NULL,
+    score float  NOT NULL,
     favorite BOOLEAN  NOT NULL,
     genre_id INTEGER  NOT NULL,
     area_id INTEGER  NOT NULL,
-    deleted_at TIMESTAMPTZ DEFAULT NULL
+    deleted_at TIMESTAMPTZ DEFAULT NULL,
+    review_1 TEXT,
+    review_2 TEXT,
+    review_3 TEXT
 );
 GRANT SELECT ON api.shops TO web_anon;
 GRANT ALL ON api.shops to api_user;
