@@ -10,7 +10,6 @@ import score from 'components/shop/score';
 import { useState } from 'react';
 
 export async function getStaticPaths() {
-
   const res = await fetch('http://127.0.0.1:8000/shops');
 
   const shops = await res.json();
@@ -135,7 +134,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
             <p>{shop.description}</p>
           </div>
           <div className={styles.shopDetail_menu}>
-            <ShopMenu />
+            <ShopMenu id={shop.id} />
           </div>
           <div className={styles.shopDetail_review}>
             <ShopReview />

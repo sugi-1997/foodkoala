@@ -39,7 +39,7 @@ export default function ShopName() {
               <i className="fa-regular fa-star"></i>
             </div>
             <div className={styles.shop_detail_img}>
-              <Link href={`../shop/${shop.id}`}>
+              <Link href={`/shop/${shop.id}`}>
                 <Image
                   src={shop.image_url}
                   alt="お店の画像"
@@ -55,7 +55,7 @@ export default function ShopName() {
             </div>
             <p>{shop.description}</p>
             <div className={styles.shopDetail_menu}>
-              <ShopMenu />
+              <ShopMenu id={shop.id} />
             </div>
           </div>
         ))}
