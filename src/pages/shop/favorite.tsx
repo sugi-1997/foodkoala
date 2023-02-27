@@ -15,16 +15,11 @@ export default function ShopFavorite() {
       </Head>
       <main className={styles.shopFavorite}>
         <Header />
-        <Genre />
+        <Genre onClick={undefined} />
         <Area />
         <div className={styles.shopFavorite_shop}>
           <div className={styles.shopFavorite_name}>
             <ShopName />
-          </div>
-          <div className={styles.shopFavorite_menu}>
-            <ShopMenu />
-            <ShopMenu />
-            <ShopMenu />
           </div>
         </div>
         <Footer />

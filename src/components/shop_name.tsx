@@ -7,12 +7,14 @@ import ShopMenu from '../components/shop_menu';
 import { Shop } from 'types/shops';
 import Link from 'next/link';
 import score from 'components/shop/score';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
+import shopMenuList from './shop/menu.[id]';
 
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
 
 export default function ShopName() {
+  const [active, setActive] = useState(false);
   const { data, error } = useSWR(
     'http://localhost:8000/shops',
     fetcher
@@ -23,8 +25,7 @@ export default function ShopName() {
 
   console.log('data', data);
 
-  const [active, setActive] = useState(false);
-  function classToggle() {
+  async function classToggle() {
     setActive(!active);
   }
 
