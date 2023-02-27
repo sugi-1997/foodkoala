@@ -12,8 +12,10 @@ const fetcher = (resource: string) =>
 
 export default function MenuList({ onClick, id }) {
   const [genreId, setGenreId] = useState<string>('gt.0');
+  const [areaId, setAreaId] = useState<string>('gt.0');
+
   const { data, error } = useSWR(
-    `/api/menu?genreId=${genreId}`,
+    `/api/menu?genreId=${genreId}&areaId=${areaId}`,
     fetcher,
     {
       revalidateOnMount: true,
@@ -26,10 +28,16 @@ export default function MenuList({ onClick, id }) {
 
   console.log(data);
 
-  const handleClick = (clickedId) => {
+  const handleGenreClick = (clickedId) => {
     setGenreId(`eq.${clickedId}`);
     console.log(clickedId);
-    mutate(`/api/menu?genreId=${genreId}`);
+    mutate(`/api/menu?genreId=${genreId}&areaId=${areaId}`);
+  };
+
+  const handleAreaClick = (clickedId) => {
+    setAreaId(`eq.${clickedId}`);
+    console.log(clickedId);
+    mutate(`/api/menu?areaId=${areaId}&genreId=${genreId}`);
   };
 
   return (
@@ -38,8 +46,8 @@ export default function MenuList({ onClick, id }) {
         <title>商品一覧ページ</title>
       </Head>
       <main>
-        <Genre onClick={(e) => handleClick(e.target.id)} />
-        <Area />
+        <Genre onClick={(e) => handleGenreClick(e.target.id)} />
+        <Area onClick={(e) => handleAreaClick(e.target.id)} />
         <Link href={'#'}>
           <h1>ショップ名</h1>
         </Link>

@@ -17,9 +17,9 @@ export default function Area({ onClick }) {
       <h2>エリア</h2>
       <div className="list">
         {data.map((area) => (
-          <div className="area" key={area.id}>
+          <div className="area" key={area.id} id={area.id}>
             <button id={area.id} onClick={onClick}>
-              <p>{area.name}</p>
+              <p id={area.id}>{area.name}</p>
             </button>
           </div>
         ))}

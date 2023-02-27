@@ -6,18 +6,38 @@ export default async function ItemData(
   res: NextApiResponse
 ) {
   const genreId = req.query.genreId;
-  try {
-    const url = process.env['BACKEND_API_URL'];
-    const response = await fetch(`${url}/items?genre_id=${genreId}`);
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error('データの送信に失敗しました');
+  const areaId = req.query.areaId;
+  if (areaId.includes('eq')) {
+    try {
+      const url = process.env['BACKEND_API_URL'];
+      const response = await fetch(`${url}/items?area_id=${areaId}`);
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error('Fail to Load...');
+      }
+      if (!data) {
+        throw new Error('Loading...');
+      }
+      res.status(200).json(data);
+    } catch (error) {
+      res.status(400).json({ error: error });
     }
-    if (!data) {
-      throw new Error('Loading...');
+  } else {
+    try {
+      const url = process.env['BACKEND_API_URL'];
+      const response = await fetch(
+        `${url}/items?genre_id=${genreId}`
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error('Fail to Load...');
+      }
+      if (!data) {
+        throw new Error('Loading...');
+      }
+      res.status(200).json(data);
+    } catch (error) {
+      res.status(400).json({ error: error });
     }
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(400).json({ error: error });
   }
 }
