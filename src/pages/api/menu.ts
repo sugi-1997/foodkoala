@@ -1,27 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'isomorphic-unfetch';
 
-type Data = {
-  id: number;
-  name: string;
-  image_url: string;
-};
-
-export default async function GenreData(
+export default async function ItemData(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const genre_id = req.body.genre_id;
+  const genreId = req.query.genreId;
   try {
     const url = process.env['BACKEND_API_URL'];
-
-    const response = await fetch(`${url}/items`);
+    const response = await fetch(`${url}/items?genre_id=${genreId}`);
     const data = await response.json();
     if (!response.ok) {
       throw new Error('データの送信に失敗しました');
     }
     if (!data) {
-      throw new Error('データが見つかりませんでした');
+      throw new Error('Loading...');
     }
     res.status(200).json(data);
   } catch (error) {

@@ -21,11 +21,12 @@ export default function Genre({ onClick }) {
             <button id={genre.id} onClick={onClick}>
               <Image
                 src={genre.image_url}
+                id={genre.id}
                 alt="genre-icon"
                 width={30}
                 height={30}
               />
-              <p>{genre.name}</p>
+              <p id={genre.id}>{genre.name}</p>
             </button>
           </div>
         ))}
