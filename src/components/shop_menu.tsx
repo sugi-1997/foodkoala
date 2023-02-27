@@ -15,12 +15,23 @@ export default function ShopMenu({ id }) {
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データを取得できませんでした</div>;
 
-  type Menu = {
-    id: number;
-    image_url: string;
-    name: string;
-    price: number;
-  };
+  async function cartSubmit(menuId) {
+    try {
+      console.log(menuId);
+      const response = await fetch('/api/cart_items', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ itemId: menuId }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error('HTTPエラーが発生しました');
+      }
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <>
@@ -43,10 +54,24 @@ export default function ShopMenu({ id }) {
             <div className={styles.shop_detail_menuPrice}>
               <p>{menu.price}円</p>
             </div>
-            <button>注文リストに追加</button>
+            <button
+              data-menu-id={menu.id}
+              onClick={(e) =>
+                cartSubmit(e.target.getAttribute('data-menu-id'))
+              }
+            >
+              注文リストに追加
+            </button>
           </div>
         ))}
       </div>
     </>
   );
 }
+
+type Menu = {
+  id: number;
+  image_url: string;
+  name: string;
+  price: number;
+};

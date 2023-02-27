@@ -13,6 +13,7 @@ const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
 
 export default function ShopName() {
+  const [active, setActive] = useState(false);
   const { data, error } = useSWR(
     'http://localhost:8000/shops',
     fetcher
@@ -23,7 +24,6 @@ export default function ShopName() {
 
   console.log('data', data);
 
-  const [active, setActive] = useState(false);
   function classToggle() {
     setActive(!active);
   }

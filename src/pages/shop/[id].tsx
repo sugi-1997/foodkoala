@@ -169,7 +169,6 @@ export default function ShopDetail({ shopData }: ShopProps) {
           </div>
           <div className={styles.shopDetail_menu}>
             <ShopMenu shopId={shop.id} />
-
           </div>
           <div className={styles.shopDetail_review}>
             <div className={styles.shop_detail_reviewTitle}>
@@ -177,9 +176,11 @@ export default function ShopDetail({ shopData }: ShopProps) {
             </div>
             <div className={styles.shop_review}>
               <div className={styles.shop_detail_reviewImg}>
-                <img
+                <Image
                   src="/images/provisional_logo.png"
                   alt="コアラ"
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className={styles.shop_detail_review}>
@@ -188,9 +189,11 @@ export default function ShopDetail({ shopData }: ShopProps) {
             </div>
             <div className={styles.shop_review}>
               <div className={styles.shop_detail_reviewImg}>
-                <img
+                <Image
                   src="/images/provisional_logo.png"
                   alt="コアラ"
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className={styles.shop_detail_review}>
@@ -199,9 +202,11 @@ export default function ShopDetail({ shopData }: ShopProps) {
             </div>
             <div className={styles.shop_review}>
               <div className={styles.shop_detail_reviewImg}>
-                <img
+                <Image
                   src="/images/provisional_logo.png"
                   alt="コアラ"
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className={styles.shop_detail_review}>
