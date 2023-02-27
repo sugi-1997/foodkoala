@@ -121,7 +121,7 @@ VALUES (
   (
     'Cave cafe',
     'テキストテキストテキストテキスト',
-    '/images/shop/CavaCafe.shop.jpg',
+    '/images/shop/CaveCafe.shop.jpg',
     4.0,
     false,
     6,

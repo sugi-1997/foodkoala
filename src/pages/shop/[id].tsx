@@ -1,14 +1,15 @@
-import ShopReview from 'components/shop_review';
-import ShopMenu from 'components/shop_menu';
 import styles from '../../styles/Shop.module.css';
 import Header from 'components/header';
 import Footer from 'components/footer';
 import Head from 'next/head';
 import Image from 'next/image';
-import { Shop, GetStaticProps, ShopProps } from 'types/shops';
+import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
 import score from 'components/shop/score';
 import { useState } from 'react';
+import useSWR from 'swr';
+import { useRouter } from 'next/router';
 
+//お店情報の取得
 export async function getStaticPaths() {
   const res = await fetch('http://127.0.0.1:8000/shops');
 
@@ -34,25 +35,15 @@ export async function getStaticProps({ params }: GetStaticProps) {
   };
 }
 
-/*
+//fetcher
 const fetcher = (resource: string, init: object) =>
-fetch(resource, init).then((res) => res.json());
+  fetch(resource, init).then((res) => res.json());
 
-async function ShopMenu(id: number) {
-const { data, error } = useSWR(
-  `http://localhost:8000/items?shop_id=eq.${id}`,
-  fetcher
-);
-
-if (error) return <div>エラーです</div>;
-if (!data) return <div>データを取得できませんでした</div>;
-
-const menus = data.slice(0, 2);
-
-return (
-  <>
-    <div className={styles.shop_menu}>
-      {menus.map((menu: Menu) => (
+//メニュー情報の取得
+export function MenuList({ data }: { data: Menu[] }) {
+  return (
+    <>
+      {data.map((menu: Menu) => (
         <div key={menu.id}>
           <div className={styles.shop_detail_menuImg}>
             <Image
@@ -70,25 +61,68 @@ return (
           </div>
         </div>
       ))}
-    </div>
-  </>
-);
+    </>
+  );
+}
+
+export function ShopMenu({ shopId }: { shopId: number }) {
+  const { data, error } = useSWR(
+    `http://localhost:8000/items?shop_id=eq.${shopId}`,
+    fetcher
+  );
+
+  if (error) return <div>エラーです</div>;
+  if (!data) return <div>データを取得できませんでした</div>;
+
+  console.log('data', data);
+  console.log('shopId', shopId);
+  return (
+    <>
+      <div className={styles.shop_menu}>
+        <MenuList data={data} />
+      </div>
+    </>
+  );
+}
+/*
+//レビューの取得
+export function ShopReview({ shopData }: ShopProps) {
+  const router = useRouter();
+  const { id } = router.query;
+  return (
+    <>
+      <div className={styles.shop_detail_reviewTitle}>
+        <p>みんなのレビュー</p>
+      </div>
+      <div className={styles.shop_review}>
+        <div className={styles.shop_detail_reviewImg}>
+          <img src="/images/provisional_logo.png" alt="コアラ" />
+        </div>
+        <div className={styles.shop_detail_review}>
+          {shopData[Number(id)].review_1}
+        </div>
+        <div className={styles.shop_detail_reviewImg}>
+          <img src="/images/provisional_logo.png" alt="コアラ" />
+        </div>
+        <div className={styles.shop_detail_review}>
+          {shopData[Number(id)].review_2}
+        </div>
+        <div className={styles.shop_detail_reviewImg}>
+          <img src="/images/provisional_logo.png" alt="コアラ" />
+        </div>
+        <div className={styles.shop_detail_review}>
+          {shopData[Number(id)].review_3}
+        </div>
+      </div>
+    </>
+  );
 }
 */
-
+//全体
 export default function ShopDetail({ shopData }: ShopProps) {
   const shop = shopData[0];
 
-  function Score() {
-    return score(shop.score);
-  }
-
-  /*
-  function ShopMenu() {
-    return shopMenu(shop)
-  }
-  */
-
+  //クリックでお気に入りボタンを赤に
   const [active, setActive] = useState(false);
   function classToggle() {
     setActive(!active);
@@ -110,7 +144,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
             <p className={styles.shop_detail_name}>{shop.name}</p>
             <div className={styles.shop_detail_grade}>
               {shop.score}
-              <Score />
+              {score(shop.score)}
             </div>
             <div className={styles.shop_detail_img}>
               <Image
@@ -134,10 +168,46 @@ export default function ShopDetail({ shopData }: ShopProps) {
             <p>{shop.description}</p>
           </div>
           <div className={styles.shopDetail_menu}>
-            <ShopMenu id={shop.id} />
+            <ShopMenu shopId={shop.id} />
+
           </div>
           <div className={styles.shopDetail_review}>
-            <ShopReview />
+            <div className={styles.shop_detail_reviewTitle}>
+              <p>みんなのレビュー</p>
+            </div>
+            <div className={styles.shop_review}>
+              <div className={styles.shop_detail_reviewImg}>
+                <img
+                  src="/images/provisional_logo.png"
+                  alt="コアラ"
+                />
+              </div>
+              <div className={styles.shop_detail_review}>
+                {shop.review_1}
+              </div>
+            </div>
+            <div className={styles.shop_review}>
+              <div className={styles.shop_detail_reviewImg}>
+                <img
+                  src="/images/provisional_logo.png"
+                  alt="コアラ"
+                />
+              </div>
+              <div className={styles.shop_detail_review}>
+                {shop.review_2}
+              </div>
+            </div>
+            <div className={styles.shop_review}>
+              <div className={styles.shop_detail_reviewImg}>
+                <img
+                  src="/images/provisional_logo.png"
+                  alt="コアラ"
+                />
+              </div>
+              <div className={styles.shop_detail_review}>
+                {shop.review_3}
+              </div>
+            </div>
           </div>
         </div>
         <Footer />

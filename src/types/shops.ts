@@ -28,6 +28,9 @@ type ShopProps = {
     favorite: boolean;
     genre_id: number;
     area_id: number;
+    review_1: string;
+    review_2: string;
+    review_3: string;
   }[];
 };
 export type { ShopProps };

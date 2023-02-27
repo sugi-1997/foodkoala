@@ -14,7 +14,7 @@ export default function Header({ onClick }) {
         />
         <span>Food Koala</span>
         <div className="search">
-          <input type="serch" name="search" />
+          <input type="search" name="search" />
           <button>検索</button>
         </div>
         <nav>

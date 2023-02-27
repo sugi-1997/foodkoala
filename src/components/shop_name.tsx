@@ -6,6 +6,8 @@ import styles from '../styles/Shop.module.css';
 import ShopMenu from '../components/shop_menu';
 import { Shop } from 'types/shops';
 import Link from 'next/link';
+import score from 'components/shop/score';
+import { useState } from 'react';
 
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
@@ -21,6 +23,11 @@ export default function ShopName() {
 
   console.log('data', data);
 
+  const [active, setActive] = useState(false);
+  function classToggle() {
+    setActive(!active);
+  }
+
   return (
     <>
       <Script
@@ -32,11 +39,8 @@ export default function ShopName() {
           <div key={shop.id}>
             <p className={styles.shop_detail_name}>{shop.name}</p>
             <div className={styles.shop_detail_grade}>
-              <i className="fa-solid fa-star"></i>
-              <i className="fa-solid fa-star"></i>
-              <i className="fa-solid fa-star"></i>
-              <i className="fa-solid fa-star-half-stroke"></i>
-              <i className="fa-regular fa-star"></i>
+              {shop.score}
+              {score(shop.score)}
             </div>
             <div className={styles.shop_detail_img}>
               <Link href={`/shop/${shop.id}`}>
@@ -48,8 +52,14 @@ export default function ShopName() {
                 />
               </Link>
             </div>
-            <div className={styles.shop_detail_favorite}>
-              <button type="submit">
+            <div
+              className={
+                active
+                  ? styles.shop_favorite_true
+                  : styles.shop_favorite_false
+              }
+            >
+              <button type="submit" onClick={classToggle}>
                 <i className="fa-solid fa-heart"></i>
               </button>
             </div>
