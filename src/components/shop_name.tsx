@@ -1,7 +1,8 @@
 import Head from 'next/head';
-import styles from '../styles/Shop.module.css';
-import useSWR from 'swr';
 import Image from 'next/image';
+import Script from 'next/script';
+import useSWR from 'swr';
+import styles from '../styles/Shop.module.css';
 import ShopMenu from '../components/shop_menu';
 import { Shop } from 'types/shops';
 import Link from 'next/link';
@@ -29,12 +30,10 @@ export default function ShopName() {
 
   return (
     <>
-      <Head>
-        <script
-          src="https://kit.fontawesome.com/acecca202b.js"
-          crossOrigin="anonymous"
-        ></script>
-      </Head>
+      <Script
+        src="https://kit.fontawesome.com/acecca202b.js"
+        crossOrigin="anonymous"
+      ></Script>
       <main className={styles.shop_detail}>
         {data.map((shop: Shop) => (
           <div key={shop.id}>
@@ -44,7 +43,7 @@ export default function ShopName() {
               {score(shop.score)}
             </div>
             <div className={styles.shop_detail_img}>
-              <Link href={`../shop/${shop.id}`}>
+              <Link href={`/shop/${shop.id}`}>
                 <Image
                   src={shop.image_url}
                   alt="お店の画像"
@@ -66,7 +65,7 @@ export default function ShopName() {
             </div>
             <p>{shop.description}</p>
             <div className={styles.shopDetail_menu}>
-              <ShopMenu />
+              <ShopMenu id={shop.id} />
             </div>
           </div>
         ))}

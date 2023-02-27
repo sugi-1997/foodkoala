@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import  Header  from "../components/header";
 import Footer from "../components/footer"
-import styles from "@/styles/userRegistItem.module.css"
+import styles from "../styles/userRegistItem.module.css"
 
 
 // const url ='これから確認しまっせ'

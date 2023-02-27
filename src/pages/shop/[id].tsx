@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 //お店情報の取得
 export async function getStaticPaths() {
   const res = await fetch('http://127.0.0.1:8000/shops');
+
   const shops = await res.json();
   const paths = shops.map((shop: Shop) => ({
     params: {
@@ -168,6 +169,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
           </div>
           <div className={styles.shopDetail_menu}>
             <ShopMenu shopId={shop.id} />
+
           </div>
           <div className={styles.shopDetail_review}>
             <div className={styles.shop_detail_reviewTitle}>
