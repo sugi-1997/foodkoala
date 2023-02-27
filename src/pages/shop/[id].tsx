@@ -1,13 +1,14 @@
 import ShopReview from 'components/shop_review';
-import ShopMenu from 'components/shop_menu';
+//import ShopMenu from 'components/shop_menu';
 import styles from '../../styles/Shop.module.css';
 import Header from 'components/header';
 import Footer from 'components/footer';
 import Head from 'next/head';
 import Image from 'next/image';
-import { Shop, GetStaticProps, ShopProps } from 'types/shops';
+import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
 import score from 'components/shop/score';
 import { useState } from 'react';
+import useSWR from 'swr';
 
 export async function getStaticPaths() {
   const res = await fetch('http://127.0.0.1:8000/shops');
@@ -33,25 +34,13 @@ export async function getStaticProps({ params }: GetStaticProps) {
   };
 }
 
-/*
 const fetcher = (resource: string, init: object) =>
-fetch(resource, init).then((res) => res.json());
+  fetch(resource, init).then((res) => res.json());
 
-async function ShopMenu(id: number) {
-const { data, error } = useSWR(
-  `http://localhost:8000/items?shop_id=eq.${id}`,
-  fetcher
-);
-
-if (error) return <div>エラーです</div>;
-if (!data) return <div>データを取得できませんでした</div>;
-
-const menus = data.slice(0, 2);
-
-return (
-  <>
-    <div className={styles.shop_menu}>
-      {menus.map((menu: Menu) => (
+export function MenuList({ data }: { data: Menu[] }) {
+  return (
+    <>
+      {data.map((menu: Menu) => (
         <div key={menu.id}>
           <div className={styles.shop_detail_menuImg}>
             <Image
@@ -69,11 +58,28 @@ return (
           </div>
         </div>
       ))}
-    </div>
-  </>
-);
+    </>
+  );
 }
-*/
+
+export function ShopMenu({ shopId }: { shopId: number }) {
+  const { data, error } = useSWR(
+    `http://localhost:8000/items?shop_id=eq.${shopId}`,
+    fetcher
+  );
+
+  if (error) return <div>エラーです</div>;
+  if (!data) return <div>データを取得できませんでした</div>;
+
+  console.log('data', data);
+  return (
+    <>
+      <div className={styles.shop_menu}>
+        <MenuList data={data} />
+      </div>
+    </>
+  );
+}
 
 export default function ShopDetail({ shopData }: ShopProps) {
   const shop = shopData[0];
@@ -133,7 +139,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
             <p>{shop.description}</p>
           </div>
           <div className={styles.shopDetail_menu}>
-            <ShopMenu />
+            <ShopMenu shopId={shop.id} />
           </div>
           <div className={styles.shopDetail_review}>
             <ShopReview />
