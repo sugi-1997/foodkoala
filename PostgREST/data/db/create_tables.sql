@@ -46,9 +46,9 @@ CREATE TABLE api.shops (
     genre_id INTEGER  NOT NULL,
     area_id INTEGER  NOT NULL,
     deleted_at TIMESTAMPTZ DEFAULT NULL,
-    review_1 TEXT,
-    review_2 TEXT,
-    review_3 TEXT
+    review_1 TEXT NOT NULL,
+    review_2 TEXT NOT NULL,
+    review_3 TEXT NOT NULL
 );
 GRANT SELECT ON api.shops TO web_anon;
 GRANT ALL ON api.shops to api_user;

@@ -1,6 +1,1 @@
-
-const fetch = 
-
-export default function favoriteButton() {
-
-}
+export default function favoriteButton() {}

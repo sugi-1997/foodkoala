@@ -13,7 +13,7 @@ export default function Header() {
         />
         <span>Food Koala</span>
         <div className="search">
-          <input type="serch" name="search" />
+          <input type="search" name="search" />
           <button>検索</button>
         </div>
         <nav>
@@ -22,7 +22,7 @@ export default function Header() {
               <a href="./item_detail">メニュー</a>
             </li>
             <li>
-              <a href="./list">ショップ</a>
+              <a href="/shop/list">ショップ</a>
             </li>
             <li>
               <a href="./favorite">お気に入り</a>
