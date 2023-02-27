@@ -31,7 +31,7 @@ export default function Header({ onClick }) {
               <Link href="/shop/favorite">お気に入り</Link>
             </li>
             <li>
-              <Link href="/order/order_check">お買い物かご</Link>
+              <Link href="/order/order_check">注文リスト</Link>
             </li>
             <li>
               <Link href="/order/order_history">注文履歴</Link>

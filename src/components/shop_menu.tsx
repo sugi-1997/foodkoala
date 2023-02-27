@@ -43,6 +43,7 @@ export default function ShopMenu({ id }) {
             <div className={styles.shop_detail_menuPrice}>
               <p>{menu.price}円</p>
             </div>
+            <button>注文リストに追加</button>
           </div>
         ))}
       </div>
