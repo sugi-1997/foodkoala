@@ -1,7 +1,8 @@
 // headerコンポーネントの作成
 import Image from 'next/image';
+import Link from 'next/link';
 
-export default function Header() {
+export default function Header({ onClick }) {
   return (
     <>
       <header>
@@ -19,19 +20,21 @@ export default function Header() {
         <nav>
           <ul>
             <li>
-              <a href="./item_detail">メニュー</a>
+              <Link href="/" onClick={onClick}>
+                メニュー
+              </Link>
             </li>
             <li>
-              <a href="./list">ショップ</a>
+              <Link href="/shop/list">ショップ</Link>
             </li>
             <li>
-              <a href="./favorite">お気に入り</a>
+              <Link href="/shop/favorite">お気に入り</Link>
             </li>
             <li>
-              <a href="./order_check">お買い物かご</a>
+              <Link href="/order/order_check">お買い物かご</Link>
             </li>
             <li>
-              <a href="./order_history">注文履歴</a>
+              <Link href="/order/order_history">注文履歴</Link>
             </li>
           </ul>
         </nav>
