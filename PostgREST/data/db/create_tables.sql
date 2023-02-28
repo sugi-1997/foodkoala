@@ -43,11 +43,14 @@ CREATE TABLE api.shops (
     name TEXT NOT NULL,
     description TEXT NOT NULL,
     image_url TEXT ,
-    score INTEGER  NOT NULL,
+    score float  NOT NULL,
     favorite BOOLEAN  NOT NULL,
     genre_id INTEGER  NOT NULL,
     area_id INTEGER  NOT NULL,
-    deleted_at TIMESTAMPTZ DEFAULT NULL
+    deleted_at TIMESTAMPTZ DEFAULT NULL,
+    review_1 TEXT NOT NULL,
+    review_2 TEXT NOT NULL,
+    review_3 TEXT NOT NULL
 );
 GRANT SELECT ON api.shops TO web_anon;
 GRANT ALL ON api.shops to api_user;
@@ -110,9 +113,8 @@ GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
 -- @block
 DROP TABLE IF EXISTS api.cart_items;
 CREATE TABLE api.cart_items (
-    cart_id UUID NOT NULL,
-    item_id UUID NOT NULL,
-    UNIQUE(cart_id, item_id)
+    cart_id SERIAL,
+    item_id INTEGER
 );
 GRANT SELECT ON api.cart_items TO web_anon;
 GRANT ALL ON api.cart_items to api_user;

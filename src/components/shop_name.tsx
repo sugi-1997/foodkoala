@@ -1,13 +1,20 @@
 import Head from 'next/head';
-import styles from '../styles/Shop.module.css';
-import useSWR from 'swr';
 import Image from 'next/image';
+import Script from 'next/script';
+import useSWR from 'swr';
+import styles from '../styles/Shop.module.css';
 import ShopMenu from '../components/shop_menu';
+import { Shop } from 'types/shops';
+import Link from 'next/link';
+import score from 'components/shop/score';
+import { SyntheticEvent, useState } from 'react';
+import shopMenuList from './shop/menu.[id]';
 
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
 
 export default function ShopName() {
+  const [active, setActive] = useState(false);
   const { data, error } = useSWR(
     'http://localhost:8000/shops',
     fetcher
@@ -16,52 +23,50 @@ export default function ShopName() {
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データを取得できませんでした</div>;
 
-  type Shop = {
-    id: number;
-    name: string;
-    description: string;
-    image_url: string;
-    score: number;
-    favorite: boolean;
-    genre_id: number;
-    area_id: number;
-  };
+  console.log('data', data);
+  
+  async function classToggle() {
+    setActive(!active);
+  }
 
   return (
     <>
-      <Head>
-        <script
-          src="https://kit.fontawesome.com/acecca202b.js"
-          crossOrigin="anonymous"
-        ></script>
-      </Head>
+      <Script
+        src="https://kit.fontawesome.com/acecca202b.js"
+        crossOrigin="anonymous"
+      ></Script>
       <main className={styles.shop_detail}>
         {data.map((shop: Shop) => (
           <div key={shop.id}>
             <p className={styles.shop_detail_name}>{shop.name}</p>
             <div className={styles.shop_detail_grade}>
-              <i className="fa-solid fa-star"></i>
-              <i className="fa-solid fa-star"></i>
-              <i className="fa-solid fa-star"></i>
-              <i className="fa-solid fa-star-half-stroke"></i>
-              <i className="fa-regular fa-star"></i>
+              {shop.score}
+              {score(shop.score)}
             </div>
             <div className={styles.shop_detail_img}>
-              <Image
-                src={shop.image_url}
-                alt="お店の画像"
-                width={150}
-                height={150}
-              />
+              <Link href={`/shop/${shop.id}`}>
+                <Image
+                  src={shop.image_url}
+                  alt="お店の画像"
+                  width={150}
+                  height={150}
+                />
+              </Link>
             </div>
-            <div className={styles.shop_detail_favorite}>
-              <button type="submit">
+            <div
+              className={
+                active
+                  ? styles.shop_favorite_true
+                  : styles.shop_favorite_false
+              }
+            >
+              <button type="submit" onClick={classToggle}>
                 <i className="fa-solid fa-heart"></i>
               </button>
             </div>
             <p>{shop.description}</p>
             <div className={styles.shopDetail_menu}>
-              <ShopMenu />
+              <ShopMenu id={shop.id} />
             </div>
           </div>
         ))}
@@ -69,31 +74,3 @@ export default function ShopName() {
     </>
   );
 }
-
-/*
-<div className={styles.shop_detail_name}>
-          <p>{'ショップ名'}</p>
-        </div>
-        <div className={styles.shop_detail_grade}>
-          <i className="fa-solid fa-star"></i>
-          <i className="fa-solid fa-star"></i>
-          <i className="fa-solid fa-star"></i>
-          <i className="fa-solid fa-star-half-stroke"></i>
-          <i className="fa-regular fa-star"></i>
-        </div>
-        <div className={styles.shop_detail_img}>
-          <img src="/images/shop/abcpizza.shop.png" alt="ロゴ" />
-        </div>
-        <div className={styles.shop_detail_favorite}>
-          <button type="submit">
-            <i className="fa-solid fa-heart"></i>
-          </button>
-        </div>
-        <div className={styles.shop_detail_explain}>
-          <p>
-            {
-              'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
-            }
-          </p>
-        </div>
-*/
