@@ -4,29 +4,24 @@ export default async function CartItems(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const url = process.env['BACKEND_API_URL'];
-  const TOKEN = 'AsvGqKHVnuSjAsXH9jqNJrGrTIUHXAAU%';
-  const itemId = req.body.itemId;
   try {
+    const url = process.env['BACKEND_API_URL'];
     const response = await fetch(`${url}/cart_items`, {
-      method: 'POST',
+      method: req.method,
       headers: {
-        Authorization: 'Bearer' + TOKEN,
+        'Authorization': `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
         'Content-Type': 'application/json',
       },
-      body: {
-        item_id: itemId,
-      },
+      body: JSON.stringify(req.body),
     });
     if (!response.ok) {
-      throw new Error('Fail to Load...');
+      throw new Error(await response.text());
     }
-    const data = await response.json();
-    if (!data) {
-      throw new Error('Loading...');
-    }
-    res.status(200).json({ url: url, item_id: itemId });
-  } catch (error) {
-    res.status(400).json({ error: error });
+    const data = response.json();
+    res.status(200).json(data);
+  } catch {
+    (error) => {
+      res.status(400).json({ message: error.message });
+    };
   }
 }
