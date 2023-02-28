@@ -170,19 +170,19 @@ export default function ShopDetail({ shopData }: ShopProps) {
             </div>
             <div className={styles.shop_review}>
               {koalaIcon()}
-              <div className={styles.shop_detail_review}>
+            <div className={styles.shop_detail_review}>
                 {shop.review_1}
               </div>
             </div>
             <div className={styles.shop_review}>
               {koalaIcon()}
-              <div className={styles.shop_detail_review}>
+            <div className={styles.shop_detail_review}>
                 {shop.review_2}
               </div>
             </div>
             <div className={styles.shop_review}>
               {koalaIcon()}
-              <div className={styles.shop_detail_review}>
+            <div className={styles.shop_detail_review}>
                 {shop.review_3}
               </div>
             </div>

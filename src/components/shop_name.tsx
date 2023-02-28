@@ -24,7 +24,7 @@ export default function ShopName() {
   if (!data) return <div>データを取得できませんでした</div>;
 
   console.log('data', data);
-
+  
   async function classToggle() {
     setActive(!active);
   }

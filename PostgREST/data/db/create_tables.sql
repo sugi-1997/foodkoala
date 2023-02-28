@@ -106,12 +106,11 @@ GRANT ALL ON api.orders to api_user;
 -- @block
 DROP TABLE IF EXISTS api.cart_items;
 CREATE TABLE api.cart_items (
-    cart_id UUID NOT NULL,
-    item_id UUID NOT NULL,
-    UNIQUE(cart_id, item_id)
+    cart_id SERIAL,
+    item_id INTEGER,
 );
 GRANT SELECT ON api.cart_items TO web_anon;
-GRANT ALL ON api.cart_items to api_user;
+GRANT ALL ON api.cart_items TO api_user;
 
 -- @block
 DROP TABLE IF EXISTS api.carts;

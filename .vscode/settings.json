@@ -37,8 +37,8 @@
       "driver": "PostgreSQL",
       "name": "foodloss",
       "database": "foodloss",
-      "username": "postgres",
-      "password": "postgres"
+      "username": "yukatakahashi",
+      "password": ""
     }
   ]
 }
