@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
 import score from 'components/shop/score';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 
@@ -84,48 +84,52 @@ export function ShopMenu({ shopId }: { shopId: number }) {
     </>
   );
 }
-/*
-//レビューの取得
-export function ShopReview({ shopData }: ShopProps) {
-  const router = useRouter();
-  const { id } = router.query;
-  return (
-    <>
-      <div className={styles.shop_detail_reviewTitle}>
-        <p>みんなのレビュー</p>
-      </div>
-      <div className={styles.shop_review}>
-        <div className={styles.shop_detail_reviewImg}>
-          <img src="/images/provisional_logo.png" alt="コアラ" />
-        </div>
-        <div className={styles.shop_detail_review}>
-          {shopData[Number(id)].review_1}
-        </div>
-        <div className={styles.shop_detail_reviewImg}>
-          <img src="/images/provisional_logo.png" alt="コアラ" />
-        </div>
-        <div className={styles.shop_detail_review}>
-          {shopData[Number(id)].review_2}
-        </div>
-        <div className={styles.shop_detail_reviewImg}>
-          <img src="/images/provisional_logo.png" alt="コアラ" />
-        </div>
-        <div className={styles.shop_detail_review}>
-          {shopData[Number(id)].review_3}
-        </div>
-      </div>
-    </>
-  );
-}
-*/
+
 //全体
 export default function ShopDetail({ shopData }: ShopProps) {
   const shop = shopData[0];
 
-  //クリックでお気に入りボタンを赤に
-  const [active, setActive] = useState(false);
-  function classToggle() {
-    setActive(!active);
+  //お気に入りかどうかの情報を取得
+  function toggleFavorite(shopId: number) {
+    const [favorite, setFavorite] = useState(false);
+
+    useEffect(() => {
+      fetch(`http://localhost:8000/favorite?shop_id=eq.${shopId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('favorite_data', data);
+          setFavorite(data[0].favorite);
+        });
+    }, [shopId]);
+
+    return (
+      <>
+        <div>
+          {favorite ? (
+            <div className={styles.shop_favorite_true}>
+              <button type="submit">
+                <i className="fa-solid fa-heart"></i>
+              </button>
+            </div>
+          ) : (
+            <div className={styles.shop_favorite_false}>
+              <button type="submit">
+                <i className="fa-solid fa-heart"></i>
+              </button>
+            </div>
+          )}
+        </div>
+      </>
+    );
+  }
+
+  //レビューのコアラアイコン
+  function koalaIcon() {
+    return (
+      <div className={styles.shop_detail_reviewImg}>
+        <img src="/images/provisional_logo.png" alt="コアラ" />
+      </div>
+    );
   }
 
   return (
@@ -154,17 +158,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
                 height={150}
               />
             </div>
-            <div
-              className={
-                active
-                  ? styles.shop_favorite_true
-                  : styles.shop_favorite_false
-              }
-            >
-              <button type="submit" onClick={classToggle}>
-                <i className="fa-solid fa-heart"></i>
-              </button>
-            </div>
+            {toggleFavorite(shop.id)}
             <p>{shop.description}</p>
           </div>
           <div className={styles.shopDetail_menu}>
@@ -175,41 +169,20 @@ export default function ShopDetail({ shopData }: ShopProps) {
               <p>みんなのレビュー</p>
             </div>
             <div className={styles.shop_review}>
-              <div className={styles.shop_detail_reviewImg}>
-                <Image
-                  src="/images/provisional_logo.png"
-                  alt="コアラ"
-                  width={100}
-                  height={100}
-                />
-              </div>
-              <div className={styles.shop_detail_review}>
+              {koalaIcon()}
+            <div className={styles.shop_detail_review}>
                 {shop.review_1}
               </div>
             </div>
             <div className={styles.shop_review}>
-              <div className={styles.shop_detail_reviewImg}>
-                <Image
-                  src="/images/provisional_logo.png"
-                  alt="コアラ"
-                  width={100}
-                  height={100}
-                />
-              </div>
-              <div className={styles.shop_detail_review}>
+              {koalaIcon()}
+            <div className={styles.shop_detail_review}>
                 {shop.review_2}
               </div>
             </div>
             <div className={styles.shop_review}>
-              <div className={styles.shop_detail_reviewImg}>
-                <Image
-                  src="/images/provisional_logo.png"
-                  alt="コアラ"
-                  width={100}
-                  height={100}
-                />
-              </div>
-              <div className={styles.shop_detail_review}>
+              {koalaIcon()}
+            <div className={styles.shop_detail_review}>
                 {shop.review_3}
               </div>
             </div>
@@ -220,3 +193,5 @@ export default function ShopDetail({ shopData }: ShopProps) {
     </>
   );
 }
+
+//const [isFavorite, setIsFavorite] = useState(false);

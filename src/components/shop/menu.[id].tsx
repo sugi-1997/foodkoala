@@ -6,7 +6,7 @@ import { Menu } from 'types/shops';
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
 
-export default function shopMenu({ id }: { id: number }) {
+export default function shopMenuList({ id }: { id: number }) {
   const { data, error } = useSWR(
     `http://localhost:8000/items?shop_id=eq.${id}`,
     fetcher

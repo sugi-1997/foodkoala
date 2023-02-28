@@ -15,7 +15,7 @@ export default function ShopList() {
       </Head>
       <main className={styles.shopList}>
         <Header />
-        <Genre />
+        <Genre onClick={undefined} />
         <Area />
         <div className={styles.shopList_shop}>
           <div className={styles.shopList_name}>

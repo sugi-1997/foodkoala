@@ -150,3 +150,16 @@ CREATE TABLE api.users (
 );
 GRANT SELECT ON api.users TO web_anon;
 GRANT ALL ON api.users to api_user;
+
+
+-- @block
+DROP TABLE IF EXISTS api.favorite;
+CREATE TABLE api.favorite (
+    shop_id     integer ,
+    favorite BOOLEAN  NOT NULL
+);
+GRANT SELECT ON api.favorite TO web_anon;
+GRANT ALL ON api.favorite to api_user;
+
+--@block
+SELECT * FROM api.favorite;

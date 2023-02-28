@@ -5,14 +5,14 @@ import Area from 'components/area';
 import Genre from 'components/genre';
 import Header from 'components/header';
 import useSWR, { useSWRConfig } from 'swr';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import styles from '../styles/menu_link.module.css';
 import ShopName from 'components/shop_name';
 
 const fetcher = (resource: string) =>
   fetch(resource).then((res) => res.json());
 
-export default function MenuList({ onClick, id }) {
+export default function MenuList({ onClick, id }: any) {
   const [genreId, setGenreId] = useState<string>('gt.0');
   const [areaId, setAreaId] = useState<string>('gt.0');
 
@@ -36,14 +36,14 @@ export default function MenuList({ onClick, id }) {
     mutate(`/api/menu?genreId=${genreId}&areaId=${areaId}`);
   };
 
-  const handleGenreClick = (clickedId) => {
+  const handleGenreClick = (clickedId: any) => {
     setAreaId('gt.0');
     setGenreId(`eq.${clickedId}`);
     console.log(clickedId);
     mutate(`/api/menu?genreId=${genreId}&areaId=${areaId}`);
   };
 
-  const handleAreaClick = (clickedId) => {
+  const handleAreaClick = (clickedId: any) => {
     setGenreId('gt.0');
     setAreaId(`eq.${clickedId}`);
     console.log(clickedId);
@@ -57,8 +57,16 @@ export default function MenuList({ onClick, id }) {
       </Head>
       <main>
         <Header onClick={handleMenuClick} />
-        <Genre onClick={(e) => handleGenreClick(e.target.id)} />
-        <Area onClick={(e) => handleAreaClick(e.target.id)} />
+        <Genre
+          onClick={(e: SyntheticEvent) =>
+            handleGenreClick(e.target.id)
+          }
+        />
+        <Area
+          onClick={(e: SyntheticEvent) =>
+            handleAreaClick(e.target.id)
+          }
+        />
         <ShopName />
       </main>
     </>
