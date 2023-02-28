@@ -13,8 +13,8 @@ export default async function LoginData(
   res: NextApiResponse
 ) {
 
-    const email =req.body.loginForm
-    const password =req.body.loginForm
+    const email =req.body.email
+    const password =req.body.password
 
     try{
         const url = process.env['BACKEND_API_URL'];

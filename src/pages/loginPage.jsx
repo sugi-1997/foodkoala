@@ -18,14 +18,14 @@ export default function Login() {
       method:'POST',
       headers:{
         'Content-Type':'application/json',
-        'Prefer': "return=representation",
-        'Authorization': `Bearer ${process.env["POSTGREST_API_TOKEN"]}`,
+        // 'Prefer': "return=representation",
+        // 'Authorization': `Bearer ${process.env["POSTGREST_API_TOKEN"]}`,
       },
       body: JSON.stringify(loginForm),
     })
     .then((response)=> response.json())
-    .then((data) => {
-      console.log('success',data);
+    .then((loginForm) => {
+      console.log('success',loginForm);
     })
   
     .catch((error)=>{
@@ -45,10 +45,11 @@ export default function Login() {
     });
   };
 
-  const login = () => {
-     Cookies.set('signedIn','true')
-     router.replace('/')
-  } 
+  // エラー解消後展開
+  // const login = () => {
+  //    Cookies.set('signedIn','true')
+  //    router.replace('/')
+  // } 
 
     return (
         <>
@@ -89,7 +90,7 @@ export default function Login() {
             </div>
            
            <div>
-            <input type="submit" value="ログイン" onClick={login} />
+            <input type="submit" value="ログイン" /*onClick={login}*/ />
             </div>
           
           </form>
