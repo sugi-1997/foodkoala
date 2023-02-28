@@ -1,9 +1,54 @@
 import Head from "next/head"
 import styles from "../styles/loginPage.module.css"
+import { useRouter } from "next/router"
+import { useState, useEffect } from "react"
+import fetch from 'isomorphic-unfetch';
+import Cookies from 'js-cookie'
+import Logout from "../components/logout";
 
+const url = '/api/login'
 
+export default function Login() {
+  
+  const router =useRouter()
 
-export default function LoginPage() {
+  const handleSend = (e) => {
+    e.preventDefault();
+    fetch(url,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'Prefer': "return=representation",
+        'Authorization': `Bearer ${process.env["POSTGREST_API_TOKEN"]}`,
+      },
+      body: JSON.stringify(loginForm),
+    })
+    .then((response)=> response.json())
+    .then((data) => {
+      console.log('success',data);
+    })
+  
+    .catch((error)=>{
+      console.error('Error:',error);
+    })
+  };
+
+  const[loginForm, setLoginForm] =useState({email:'',password:''});
+  
+  const handleChange = (e) =>{
+    setLoginForm((prevState)=>{
+      return{
+        ...prevState,
+        [e.target.name]:e.target.value,
+
+      };
+    });
+  };
+
+  const login = () => {
+     Cookies.set('signedIn','true')
+     router.replace('/')
+  } 
 
     return (
         <>
@@ -12,7 +57,7 @@ export default function LoginPage() {
         </Head>
           
           <div className={styles.loginPagePosition}>
-          <form /*onSubmit={handleSend}*/>
+          <form onSubmit={handleSend}>
            
            <p>以下のフォームに入力してログイン</p>
            
@@ -23,8 +68,8 @@ export default function LoginPage() {
             <input
             name='email'
             type='email'
-            // onChange = {handleChange}
-            placeholder="example@example.com"
+            onChange = {handleChange}
+            placeholder="something@example.com"
             required
             />
             </div>
@@ -34,9 +79,9 @@ export default function LoginPage() {
             パスワード
             </div>
             <input
-            name='password1'
+            name='password'
             type='password'
-            // onChange = {handleChange}
+            onChange = {handleChange}
             placeholder="半角英数字で8文字以上"
             required
             pattern="^[a-zA-Z0-9]+$"
@@ -44,11 +89,12 @@ export default function LoginPage() {
             </div>
            
            <div>
-            <input type="submit" value="ログイン" />
+            <input type="submit" value="ログイン" onClick={login} />
             </div>
           
           </form>
           </div>
           </>
           )}
+          
           /*ログインボタン押した後、どこへ遷移…？*/
