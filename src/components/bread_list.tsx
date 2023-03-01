@@ -39,17 +39,17 @@ export default function BreadList({
     list: { title: string; path: string | null }[];
   }) {
     return (
-      <ul className="breadList">
+      <ul className="breadList" key={router.asPath}>
         {props.list.map((state) => {
           if (state.path === router.asPath || state.path === null) {
-            return <li>{state.title}</li>;
+            return <li key={state.title}>{state.title}</li>;
           } else {
             return (
               <>
-                <li>
+                <li key={state.path}>
                   <Link href={state.path}>{state.title}</Link>
                 </li>
-                <li>&gt;</li>
+                <li key=">">&gt;</li>
               </>
             );
           }

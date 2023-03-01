@@ -5,15 +5,14 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
 import score from 'components/shop/score';
-import { SyntheticEvent, useEffect, useState } from 'react';
-import useSWR, { mutate } from 'swr';
-import { Router, useRouter } from 'next/router';
+import { useState } from 'react';
+import useSWR from 'swr';
 import BreadList, {
-  top,
   shop_page,
   shop_list,
+  menu_list,
 } from 'components/bread_list';
-import { title } from 'process';
+import favoriteButton from 'components/shop/favorite_button';
 
 //お店情報の取得
 export async function getStaticPaths() {
@@ -94,62 +93,13 @@ export function ShopMenu({ shopId }: { shopId: number }) {
 //全体
 export default function ShopDetail({ shopData }: ShopProps) {
   const shop = shopData[0];
+  const { data, error } = useSWR(
+    'http://localhost:8000/shops',
+    fetcher
+  );
 
-  //お気に入りかどうかの情報を取得
-  function toggleFavorite(shopId: number) {
-    const [favorite, setFavorite] = useState();
-    // const [favoriteState, setFavoriteState] = useState(favorite);
-    //onClick={(e) => setFavoriteState(favorite)}
-
-    useEffect(() => {
-      fetch(`http://localhost:8000/favorite?shop_id=eq.${shopId}`)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log('favorite_data', data);
-          setFavorite(data[0].favorite);
-        });
-    }, [shopId]);
-
-    async function handleSubmit(e: SyntheticEvent) {
-      e.preventDefault();
-      await fetch(
-        `http://localhost:8000/favorite?shop_id=eq.${shopId}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            //↓全部のデータをPOSTしたい時?
-            Prefer: 'return=representation',
-            //↓TOKEN設定
-            Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
-          },
-          body: JSON.stringify({ favorite: !favorite }),
-        }
-      )
-        .then((res) => res.json())
-        .then((data) => console.log(data));
-    }
-
-    return (
-      <>
-        <form onSubmit={handleSubmit}>
-          {favorite ? (
-            <div className={styles.shop_favorite_true}>
-              <button type="submit">
-                <i className="fa-solid fa-heart"></i>
-              </button>
-            </div>
-          ) : (
-            <div className={styles.shop_favorite_false}>
-              <button type="submit">
-                <i className="fa-solid fa-heart"></i>
-              </button>
-            </div>
-          )}
-        </form>
-      </>
-    );
-  }
+  if (error) return <div>エラーです</div>;
+  if (!data) return <div>データを取得できませんでした</div>;
 
   //レビューのコアラアイコン
   function koalaIcon() {
@@ -172,7 +122,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
       <main>
         <Header />
         <div>
-          <BreadList list={[top, shop_list, shop_page]} />
+          <BreadList list={[menu_list, shop_list, shop_page]} />
           <div key={shop.id}>
             <p className={styles.shop_detail_name}>{shop.name}</p>
             <div className={styles.shop_detail_grade}>
@@ -187,8 +137,10 @@ export default function ShopDetail({ shopData }: ShopProps) {
                 height={150}
               />
             </div>
-            {toggleFavorite(shop.id)}
-            <p>{shop.description}</p>
+            {favoriteButton(shop)}
+            <p className={styles.shop_detail_description}>
+              {shop.description}
+            </p>
           </div>
           <div className={styles.shopDetail_menu}>
             <ShopMenu shopId={shop.id} />
@@ -222,5 +174,3 @@ export default function ShopDetail({ shopData }: ShopProps) {
     </>
   );
 }
-
-//const [isFavorite, setIsFavorite] = useState(false);
