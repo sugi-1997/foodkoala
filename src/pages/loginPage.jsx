@@ -1,10 +1,11 @@
 import Head from "next/head"
 import styles from "../styles/loginPage.module.css"
 import { useRouter } from "next/router"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import fetch from 'isomorphic-unfetch';
 import Cookies from 'js-cookie'
-import Logout from "../components/logout";
+
+
 
 const url = '/api/login'
 
@@ -18,18 +19,22 @@ export default function Login() {
       method:'POST',
       headers:{
         'Content-Type':'application/json',
-        // 'Prefer': "return=representation",
-        // 'Authorization': `Bearer ${process.env["POSTGREST_API_TOKEN"]}`,
       },
       body: JSON.stringify(loginForm),
     })
     .then((response)=> response.json())
-    .then((loginForm) => {
-      console.log('success',loginForm);
-    })
+    .then((data) => {if(data.length !== 0){
+      console.log('success',data);
+      Cookies.set('signedIn','true')
+      router.push('/')
+  } else{
+    alert('入力内容を確認してください')
+  }
+}) 
   
     .catch((error)=>{
       console.error('Error:',error);
+      alert('エラー')
     })
   };
 
@@ -45,15 +50,15 @@ export default function Login() {
     });
   };
 
-  // エラー解消後展開
+  
   // const login = () => {
   //    Cookies.set('signedIn','true')
   //    router.replace('/')
-  // } 
+  //   } 
 
     return (
         <>
-        <Head>
+        <Head>  
           <title>ログイン</title>
         </Head>
           

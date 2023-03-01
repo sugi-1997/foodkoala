@@ -5,12 +5,12 @@ import Cookies from "js-cookie";
 
 const Auth = ({ children }) => {
 
-    // const router = useRouter();
+    const router = useRouter();
 
     const signedIn = Cookies.get("signedIn");
 
-    //ログインページのエラーが解消し次第コメント解除します 
-    // if (signedIn !== "true") router.replace("/index");
+    ログインページのエラーが解消し次第コメント解除します 
+    if (signedIn !== "true") router.replace("/index");
 
     return children;
 }
