@@ -5,9 +5,15 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
 import score from 'components/shop/score';
-import { useEffect, useState } from 'react';
-import useSWR from 'swr';
-import { useRouter } from 'next/router';
+import { SyntheticEvent, useEffect, useState } from 'react';
+import useSWR, { mutate } from 'swr';
+import { Router, useRouter } from 'next/router';
+import BreadList, {
+  top,
+  shop_page,
+  shop_list,
+} from 'components/bread_list';
+import { title } from 'process';
 
 //お店情報の取得
 export async function getStaticPaths() {
@@ -91,7 +97,9 @@ export default function ShopDetail({ shopData }: ShopProps) {
 
   //お気に入りかどうかの情報を取得
   function toggleFavorite(shopId: number) {
-    const [favorite, setFavorite] = useState(false);
+    const [favorite, setFavorite] = useState();
+    // const [favoriteState, setFavoriteState] = useState(favorite);
+    //onClick={(e) => setFavoriteState(favorite)}
 
     useEffect(() => {
       fetch(`http://localhost:8000/favorite?shop_id=eq.${shopId}`)
@@ -102,9 +110,29 @@ export default function ShopDetail({ shopData }: ShopProps) {
         });
     }, [shopId]);
 
+    async function handleSubmit(e: SyntheticEvent) {
+      e.preventDefault();
+      await fetch(
+        `http://localhost:8000/favorite?shop_id=eq.${shopId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            //↓全部のデータをPOSTしたい時?
+            Prefer: 'return=representation',
+            //↓TOKEN設定
+            Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
+          },
+          body: JSON.stringify({ favorite: !favorite }),
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+    }
+
     return (
       <>
-        <div>
+        <form onSubmit={handleSubmit}>
           {favorite ? (
             <div className={styles.shop_favorite_true}>
               <button type="submit">
@@ -118,7 +146,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
               </button>
             </div>
           )}
-        </div>
+        </form>
       </>
     );
   }
@@ -135,7 +163,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
   return (
     <>
       <Head>
-        <title>ショップ詳細画面</title>
+        <title id="title">ショップ詳細画面</title>
         <script
           src="https://kit.fontawesome.com/acecca202b.js"
           crossOrigin="anonymous"
@@ -144,6 +172,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
       <main>
         <Header />
         <div>
+          <BreadList list={[top, shop_list, shop_page]} />
           <div key={shop.id}>
             <p className={styles.shop_detail_name}>{shop.name}</p>
             <div className={styles.shop_detail_grade}>
@@ -170,19 +199,19 @@ export default function ShopDetail({ shopData }: ShopProps) {
             </div>
             <div className={styles.shop_review}>
               {koalaIcon()}
-            <div className={styles.shop_detail_review}>
+              <div className={styles.shop_detail_review}>
                 {shop.review_1}
               </div>
             </div>
             <div className={styles.shop_review}>
               {koalaIcon()}
-            <div className={styles.shop_detail_review}>
+              <div className={styles.shop_detail_review}>
                 {shop.review_2}
               </div>
             </div>
             <div className={styles.shop_review}>
               {koalaIcon()}
-            <div className={styles.shop_detail_review}>
+              <div className={styles.shop_detail_review}>
                 {shop.review_3}
               </div>
             </div>

@@ -9,12 +9,12 @@ import Link from 'next/link';
 import score from 'components/shop/score';
 import { SyntheticEvent, useState } from 'react';
 import shopMenuList from './shop/menu.[id]';
+import { useEffect } from 'react';
 
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
 
 export default function ShopName() {
-  const [active, setActive] = useState(false);
   const { data, error } = useSWR(
     'http://localhost:8000/shops',
     fetcher
@@ -24,9 +24,38 @@ export default function ShopName() {
   if (!data) return <div>データを取得できませんでした</div>;
 
   console.log('data', data);
-  
-  async function classToggle() {
-    setActive(!active);
+
+  function ToggleFavorite(props: { shop: Shop }) {
+    const [favorite, setFavorite] = useState(false);
+    useEffect(() => {
+      fetch(
+        `http://localhost:8000/favorite?shop_id=eq.${props.shop.id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setFavorite(data[0].favorite);
+        });
+    }, [data.id]);
+
+    return (
+      <>
+        <form>
+          {favorite ? (
+            <div className={styles.shop_favorite_true}>
+              <button type="submit">
+                <i className="fa-solid fa-heart"></i>
+              </button>
+            </div>
+          ) : (
+            <div className={styles.shop_favorite_false}>
+              <button type="submit">
+                <i className="fa-solid fa-heart"></i>
+              </button>
+            </div>
+          )}
+        </form>
+      </>
+    );
   }
 
   return (
@@ -53,18 +82,10 @@ export default function ShopName() {
                 />
               </Link>
             </div>
-            <div
-              className={
-                active
-                  ? styles.shop_favorite_true
-                  : styles.shop_favorite_false
-              }
-            >
-              <button type="submit" onClick={classToggle}>
-                <i className="fa-solid fa-heart"></i>
-              </button>
-            </div>
-            <p>{shop.description}</p>
+            <ToggleFavorite shop={shop} />
+            <p className={styles.shop_detail_description}>
+              {shop.description}
+            </p>
             <div className={styles.shopDetail_menu}>
               <ShopMenu id={shop.id} />
             </div>
