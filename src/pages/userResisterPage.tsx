@@ -5,7 +5,7 @@ import Footer from '../components/footer';
 import styles from '../styles/userRegistItem.module.css';
 import { useRouter } from 'next/router';
 
-const resource = 'http://localhost:3000/api/users';
+const resource = 'http://localhost:3000/api/post_users';
 
 export default function UserRegisterPage() {
   const [name, setName] = useState('');
@@ -14,9 +14,26 @@ export default function UserRegisterPage() {
   const [address, setAddress] = useState('');
   const [phone_number, setPhone_number] = useState('');
   const [password, setPassword] = useState('');
-  const [err, setErr] = useState(false);
+  const [password2, setPassword2] = useState('');
+  const [errorAlert, setErrorAlert] = useState('ok');
 
   const router = useRouter();
+
+  function getZipcode() {
+    fetch(
+      `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipcode}`
+    )
+      .then((res) => res.json())
+      .then((data) =>
+        setAddress(
+          `${
+            data.results[0].address1 +
+            data.results[0].address2 +
+            data.results[0].address3
+          }`
+        )
+      );
+  }
 
   return (
     <>
@@ -32,6 +49,30 @@ export default function UserRegisterPage() {
           method="POST"
           onSubmit={(e) => {
             e.preventDefault();
+            fetch('/api/get_users', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email: email,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.length > 0) {
+                  console.log(
+                    '※このメールアドレスは、既に使われています。'
+                  );
+                  return;
+                }
+              });
+            if (password !== password2) {
+              console.log('※パスワードが一致していません。');
+              setErrorAlert('alert');
+              return;
+            }
+
             fetch(resource, {
               method: 'POST',
               headers: {
@@ -46,17 +87,11 @@ export default function UserRegisterPage() {
                 password: password,
               }),
             })
-              // 一旦トップページに遷移させておく（後ほど変更必要）
+              // 登録完了画面へ遷移
               .then((response) => {
                 if (response.ok) {
-                  alert('登録が完了しました！');
-                  return;
+                  router.push('/userResister_completed');
                 }
-              })
-
-              .catch((err) => {
-                console.error(err);
-                setErr(true);
               });
           }}
         >
@@ -74,18 +109,7 @@ export default function UserRegisterPage() {
             />
           </div>
 
-          {/* <div>
-            <div className={styles.userRegistItem}>
-              名前（ふりがな）
-            </div>
-            <input
-              name="familyNameKana"
-              type="text"
-              onChange={handleChange}
-              placeholder="例:さとう たろう"
-              required
-            />
-          </div> */}
+          <p>{/* 幅を合わせるために<p>を入れています。 */}</p>
 
           <div>
             <div className={styles.userRegistItem}>
@@ -99,6 +123,7 @@ export default function UserRegisterPage() {
               placeholder="example@example.com"
               required
             />
+            <p>※このメールアドレスは、既に使われています。</p>
           </div>
 
           <div>
@@ -111,6 +136,8 @@ export default function UserRegisterPage() {
               placeholder="xxx-xxxx"
               required
             />
+            <button onClick={getZipcode}>検索</button>
+            <p>※郵便番号はxxx-xxxxの形で入力してください。</p>
           </div>
 
           <div>
@@ -123,18 +150,20 @@ export default function UserRegisterPage() {
               placeholder="東京都新宿区新宿4-3-25"
               required
             />
+            <p>{/* 幅を合わせるために<p>を入れています。 */}</p>
           </div>
 
           <div>
             <div className={styles.userRegistItem}>電話番号</div>
             <input
               name="phone_number"
-              type="text"
+              type="tel"
               value={phone_number}
               onChange={(e) => setPhone_number(e.target.value)}
               placeholder="0366753638"
               required
             />
+            <p>※電話番号はxxxx-xxxx-xxxxの形で入力してください。</p>
           </div>
 
           <div>
@@ -148,6 +177,9 @@ export default function UserRegisterPage() {
               required
               pattern="^[a-zA-Z0-9]+$"
             />
+            <p>
+              ※パスワードは８文字以上１６文字以内で設定してください。
+            </p>
           </div>
 
           <div>
@@ -155,12 +187,16 @@ export default function UserRegisterPage() {
               パスワード（確認用）
             </div>
             <input
-              name="password2"
               type="password"
+              value={password2}
+              onChange={(e) => setPassword2(e.target.value)}
               placeholder="前述のパスワード"
               required
               pattern="^[a-zA-Z0-9]+$"
             />
+            <p className={styles[errorAlert]}>
+              ※パスワードが一致していません。
+            </p>
           </div>
 
           <br />
