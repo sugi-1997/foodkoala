@@ -16,20 +16,26 @@ export default function ShopMenu({ id }) {
   if (!data) return <div>データを取得できませんでした</div>;
 
   async function cartSubmit(menuId) {
-    console.log(menuId);
-    await fetch('/api/cart_items', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        cart_id: 1,
-        item_id: Number(menuId),
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((e) => {
-        console.error(e);
+    try {
+      console.log(menuId);
+      const response = await fetch('/api/post_cart_items', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cart_id: 1,
+          item_id: Number(menuId),
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (

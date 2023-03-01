@@ -9,19 +9,18 @@ export default async function CartItems(
     const response = await fetch(`${url}/cart_items`, {
       method: req.method,
       headers: {
-        'Authorization': `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
+        Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
+        Prefer: 'return=representation',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(req.body),
     });
     if (!response.ok) {
-      throw new Error(await response.text());
+      throw new Error('送信に失敗しました');
     }
-    const data = response.json();
+    const data = await response.json();
     res.status(200).json(data);
-  } catch {
-    (error) => {
-      res.status(400).json({ message: error.message });
-    };
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 }
