@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import fetch from 'isomorphic-unfetch';
+// import fetch from 'isomorphic-unfetch';
 
 type Data = {
   id: number;

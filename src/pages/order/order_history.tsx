@@ -1,3 +1,7 @@
+import BreadList, {
+  menu_list,
+  order_history,
+} from 'components/bread_list';
 import Footer from 'components/footer';
 import Header from 'components/header';
 import Head from 'next/head';
@@ -11,6 +15,7 @@ export default function OrderHistory() {
         <title>注文履歴</title>
       </Head>
       <Header />
+      <BreadList list={[menu_list, order_history]} />
       <div className={styles.h1}>
         <h1>注文履歴一覧</h1>
       </div>
