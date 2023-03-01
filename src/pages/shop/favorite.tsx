@@ -6,6 +6,10 @@ import Header from 'components/header';
 import Genre from 'components/genre';
 import Area from 'components/area';
 import Footer from 'components/footer';
+import BreadList, {
+  menu_list,
+  favorite_list,
+} from 'components/bread_list';
 
 export default function ShopFavorite() {
   return (
@@ -15,16 +19,12 @@ export default function ShopFavorite() {
       </Head>
       <main className={styles.shopFavorite}>
         <Header />
-        <Genre />
+        <BreadList list={[menu_list, favorite_list]} />
+        <Genre onClick={undefined} />
         <Area />
         <div className={styles.shopFavorite_shop}>
           <div className={styles.shopFavorite_name}>
             <ShopName />
-          </div>
-          <div className={styles.shopFavorite_menu}>
-            <ShopMenu />
-            <ShopMenu />
-            <ShopMenu />
           </div>
         </div>
         <Footer />

@@ -3,63 +3,80 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Area from 'components/area';
 import Genre from 'components/genre';
-import useSWR from 'swr';
-import { useState } from 'react';
+import Header from 'components/header';
+import useSWR, { useSWRConfig } from 'swr';
+import { SyntheticEvent, useState } from 'react';
 import styles from '../styles/menu_link.module.css';
+import ShopName from 'components/shop_name';
+import BreadList, { menu_list } from './bread_list';
 
-const fetcher = (resource: string, init: any) =>
-  fetch(resource, init).then((res) => res.json());
+const fetcher = (resource: string) =>
+  fetch(resource).then((res) => res.json());
 
-export default function MenuList({ onClick, id }) {
-  const [genreId, setGenreId] = useState<number>(0);
-  const { data, error, mutate } = useSWR('/api/menu', fetcher);
+export default function MenuList({ onClick, id }: any) {
+  const [genreId, setGenreId] = useState<string>('gt.0');
+  const [areaId, setAreaId] = useState<string>('gt.0');
+  const [itemId, setItemId] = useState<string>('gt.0');
+
+  const { data, error } = useSWR(
+    `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`,
+    fetcher,
+    {
+      revalidateOnMount: true,
+    }
+  );
+  const { mutate } = useSWRConfig();
 
   if (error) return <div>エラーです</div>;
-  if (!data) return <div>データが見つかりませんでした</div>;
+  if (!data) return <div>Loading...</div>;
 
-  const handleClick = (id) => {
-    setGenreId(id);
+  console.log(data);
+
+  const handleMenuClick = () => {
+    setAreaId('gt.0');
+    setGenreId('gt.0');
     mutate(
-      '/api/menu',
-      {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify({
-          genre_id: id,
-        }),
-      },
-      fetcher
+      `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`
+    );
+  };
+
+  const handleGenreClick = (clickedId: any) => {
+    setAreaId('gt.0');
+    setGenreId(`eq.${clickedId}`);
+    console.log(clickedId);
+    mutate(
+      `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`
+    );
+  };
+
+  const handleAreaClick = (clickedId: any) => {
+    setGenreId('gt.0');
+    setAreaId(`eq.${clickedId}`);
+    console.log(clickedId);
+    mutate(
+      `/api/menu?areaId=${areaId}&genreId=${genreId}&id=${itemId}`
     );
   };
 
   return (
     <>
       <Head>
-        <title>商品一覧ページ</title>
+        <title>FoodKoala トップ</title>
       </Head>
       <main>
-        <Genre id={id} onClick={(e) => handleClick(e.target.id)} />
-        <Area />
-        <Link href={'#'}>
-          <h1>ショップ名</h1>
-        </Link>
-        <div className={styles.menulist}>
-          {data.map((item: Item) => (
-            <div key={item.id} className={styles.menu}>
-              <Link href={`/item/${item.id}`}>
-                <Image
-                  src={item.image_url}
-                  alt="メニューの画像"
-                  width={200}
-                  height={200}
-                />
-                <p>{item.name}</p>
-              </Link>
-              <p>{item.price}円</p>
-              <button>カートに追加</button>
-            </div>
-          ))}
-        </div>
+        <Header onClick={handleMenuClick} />
+        <BreadList list={[menu_list]} />
+        <Genre
+          onClick={(e: SyntheticEvent) =>
+            handleGenreClick(e.target.id)
+          }
+        />
+        <Area
+          onClick={(e: SyntheticEvent) =>
+            handleAreaClick(e.target.id)
+          }
+        />
+        <ShopName />
       </main>
     </>
   );

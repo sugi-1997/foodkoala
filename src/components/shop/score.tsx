@@ -1,6 +1,4 @@
-import shopMenu from './shop.[id]';
-
-export default function favorite(score: number) {
+export default function score(score: number) {
   if (score < 0.5) {
     return (
       <>

@@ -3,10 +3,14 @@
 erDiagram
 
 shops ||--o{ items: ""
-genre_id ||--o{ items: ""
-genre_id ||--o{ shops: ""
-area_id ||--o{ items: ""
-area_id ||--o{ shops: ""
+genre ||--o{ items: ""
+genre ||--o{ shops: ""
+area ||--o{ items: ""
+area ||--o{ shops: ""
+cart_items ||--o{ items: ""
+cart_items ||--o{ carts: ""
+carts ||--o{ users: ""
+
 
 
 users {
@@ -42,29 +46,31 @@ shops {
   deleted_at TIMESTAMPTZ
 }
 
-area_id {
+area {
   id SERIAL
   name text
 }
 
-genre_id {
+genre {
   id SERIAL
   name text
 }
 
-```
+cart_items {
+  cart_id SERIAL
+  item_id INTEGER
+}
 
-<!-- carts {
+carts {
   id integer
   user_id integer
 }
 
-cart_items {
-  cart_id UUID
-  item_id UUID
-}
+```
 
-orders {
+
+
+<!-- orders {
   id UUID
   user_id UUID
   status INTEGER
@@ -82,4 +88,4 @@ order_items {
   description TEXT
   image_url TEXT
   quantity INTEGER
-} -->
+}  -->

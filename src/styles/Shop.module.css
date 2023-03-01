@@ -15,7 +15,7 @@
     text-align: center;
 }
 
-.shop_detail_grade,.shop_detail_favorite{
+.shop_detail_grade,.shop_favorite_true,.shop_favorite_false{
     text-align: right;
     margin-right: 20%;
 }
@@ -26,8 +26,8 @@
     align-items: center;
 }
 
-.shop_detail_explain {
-    margin: 0 20%;
+.shop_detail_description {
+   text-align: center;
 }
 
 .shop_menu{
@@ -72,4 +72,22 @@
 }
 .shopList_menu,.shopList_name,.shopFavorite_menu,.shopFavorite_name{
     display: inline-block;
+}
+
+.shop_favorite_true button{
+    border: none;
+    background-color: rgb(235, 70, 73);
+    color:white;
+    border-radius: 5px;
+    width:40px;
+    height:30px;
+}
+
+.shop_favorite_false button{
+    border: none;
+    background-color: white ;
+    color:gray;
+    border-radius: 5px;
+    width:40px;
+    height:30px;
 }
