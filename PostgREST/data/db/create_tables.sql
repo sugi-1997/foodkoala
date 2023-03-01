@@ -76,7 +76,8 @@ DROP TABLE IF EXISTS api.cart_items;
 CREATE TABLE api.cart_items (
     id serial PRIMARY KEY,
     cart_id INTEGER NOT NULL,
-    item_id INTEGER NOT NULL
+    item_id INTEGER NOT NULL,
+    count INTEGER NOT NULL DEFAULT 0
 );
 GRANT SELECT ON api.cart_items TO web_anon;
 GRANT ALL ON api.cart_items TO api_user;
@@ -123,11 +124,15 @@ GRANT SELECT ON api.users TO web_anon;
 GRANT ALL ON api.users to api_user;
 GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
 
+
 -- @block
 DROP TABLE IF EXISTS api.favorite;
 CREATE TABLE api.favorite (
-    shop_id     integer PRIMARY KEY,
-    favorite    BOOLEAN
+    shop_id     integer ,
+    favorite BOOLEAN  NOT NULL
 );
 GRANT SELECT ON api.favorite TO web_anon;
 GRANT ALL ON api.favorite to api_user;
+
+--@block
+SELECT * FROM api.favorite;
