@@ -16,8 +16,7 @@ CREATE TABLE api.shops (
 );
 GRANT SELECT ON api.shops TO web_anon;
 GRANT ALL ON api.shops to api_user;
-GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
-GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
+GRANT USAGE ON SEQUENCE api.shops_id_seq TO api_user;
 
 -- @block
 DROP TABLE IF EXISTS api.genre;
@@ -29,8 +28,7 @@ CREATE TABLE api.genre (
 );
 GRANT SELECT ON api.genre TO web_anon;
 GRANT ALL ON api.genre to api_user;
-GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
-GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
+GRANT USAGE ON SEQUENCE api.genre_id_seq TO api_user;
 
 -- @block
 DROP TABLE IF EXISTS api.area;
@@ -41,8 +39,7 @@ CREATE TABLE api.area (
 );
 GRANT SELECT ON api.area TO web_anon;
 GRANT ALL ON api.area to api_user;
-GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
-GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
+GRANT USAGE ON SEQUENCE api.area_id_seq TO api_user;
 
 -- @block
 DROP TABLE IF EXISTS api.order_items;
@@ -58,8 +55,7 @@ CREATE TABLE api.order_items (
 );
 GRANT SELECT ON api.order_items TO web_anon;
 GRANT ALL ON api.order_items to api_user;
-GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
-GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
+GRANT USAGE ON SEQUENCE api.order_items_id_seq TO api_user;
 
 -- @block
 DROP TABLE IF EXISTS api.orders;
@@ -74,8 +70,6 @@ CREATE TABLE api.orders (
 );
 GRANT SELECT ON api.orders TO web_anon;
 GRANT ALL ON api.orders to api_user;
-GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
-GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
 
 -- @block
 DROP TABLE IF EXISTS api.cart_items;
@@ -89,7 +83,6 @@ GRANT SELECT ON api.cart_items TO web_anon;
 GRANT ALL ON api.cart_items TO api_user;
 GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
 
-
 -- @block
 DROP TABLE IF EXISTS api.carts;
 CREATE TABLE api.carts (
@@ -98,8 +91,6 @@ CREATE TABLE api.carts (
 );
 GRANT SELECT ON api.carts TO web_anon;
 GRANT ALL ON api.carts to api_user;
-GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
-GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
 
 
 --@block
@@ -116,8 +107,7 @@ CREATE TABLE api.items (
 );
 GRANT SELECT ON api.items TO web_anon;
 GRANT ALL ON api.items to api_user;
-GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
-GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
+GRANT USAGE ON SEQUENCE api.items_id_seq TO api_user;
 
 -- @block
 DROP TABLE IF EXISTS api.users;

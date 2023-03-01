@@ -7,9 +7,7 @@ import ShopMenu from '../components/shop_menu';
 import { Shop } from 'types/shops';
 import Link from 'next/link';
 import score from 'components/shop/score';
-import { SyntheticEvent, useState } from 'react';
-import shopMenuList from './shop/menu.[id]';
-import { useEffect } from 'react';
+import favoriteButton from './shop/favorite_button';
 
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
@@ -22,41 +20,6 @@ export default function ShopName() {
 
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データを取得できませんでした</div>;
-
-  console.log('data', data);
-
-  function ToggleFavorite(props: { shop: Shop }) {
-    const [favorite, setFavorite] = useState(false);
-    useEffect(() => {
-      fetch(
-        `http://localhost:8000/favorite?shop_id=eq.${props.shop.id}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          setFavorite(data[0].favorite);
-        });
-    }, [data.id]);
-
-    return (
-      <>
-        <form>
-          {favorite ? (
-            <div className={styles.shop_favorite_true}>
-              <button type="submit">
-                <i className="fa-solid fa-heart"></i>
-              </button>
-            </div>
-          ) : (
-            <div className={styles.shop_favorite_false}>
-              <button type="submit">
-                <i className="fa-solid fa-heart"></i>
-              </button>
-            </div>
-          )}
-        </form>
-      </>
-    );
-  }
 
   return (
     <>
@@ -82,7 +45,7 @@ export default function ShopName() {
                 />
               </Link>
             </div>
-            <ToggleFavorite shop={shop} />
+            {favoriteButton(shop)}
             <p className={styles.shop_detail_description}>
               {shop.description}
             </p>
