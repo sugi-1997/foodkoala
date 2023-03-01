@@ -12,7 +12,7 @@ import BreadList, {
   shop_list,
   menu_list,
 } from 'components/bread_list';
-import favoriteButton from 'components/shop/favorite_button';
+import FavoriteButton from 'components/shop/favorite_button';
 
 //お店情報の取得
 export async function getStaticPaths() {
@@ -137,7 +137,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
                 height={150}
               />
             </div>
-            {favoriteButton(shop)}
+            <FavoriteButton shop={shop} />
             <p className={styles.shop_detail_description}>
               {shop.description}
             </p>
