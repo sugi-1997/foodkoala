@@ -2,7 +2,7 @@ import styles from '../../styles/Shop.module.css';
 import { Shop } from 'types/shops';
 import { useState } from 'react';
 
-export default function favoriteButton(shop: Shop) {
+export default function FavoriteButton({ shop }: { shop: Shop }) {
   const [favorite, setFavorite] = useState(shop.favorite);
 
   function handleClick() {

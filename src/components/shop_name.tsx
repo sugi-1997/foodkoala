@@ -7,7 +7,7 @@ import ShopMenu from '../components/shop_menu';
 import { Shop } from 'types/shops';
 import Link from 'next/link';
 import score from 'components/shop/score';
-import favoriteButton from './shop/favorite_button';
+import FavoriteButton from './shop/favorite_button';
 
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
@@ -45,7 +45,7 @@ export default function ShopName() {
                 />
               </Link>
             </div>
-            {favoriteButton(shop)}
+            <FavoriteButton shop={shop} />
             <p className={styles.shop_detail_description}>
               {shop.description}
             </p>
