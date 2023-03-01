@@ -186,4 +186,3 @@ GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
 
 --@block
 SELECT * FROM api.favorite;
-GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
