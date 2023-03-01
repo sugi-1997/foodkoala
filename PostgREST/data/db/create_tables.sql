@@ -1,46 +1,4 @@
 -- @block
-DROP TABLE IF EXISTS api.categories;
-CREATE TABLE api.categories (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    parent_id INTEGER DEFAULT NULL
-);
-GRANT SELECT ON api.categories TO web_anon;
-GRANT ALL ON api.categories to api_user;
-GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
-GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
-
--- @block
-DROP TABLE IF EXISTS api.destinations;
-CREATE TABLE api.destinations (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name TEXT NOT NULL,
-    email TEXT NOT NULL,
-    zipcode TEXT NOT NULL,
-    address TEXT NOT NULL,
-    phone_number TEXT NOT NULL,
-    registered_by UUID NOT NULL
-);
-COMMENT ON COLUMN api.destinations.registered_by IS 'user_id';
-GRANT SELECT ON api.destinations TO web_anon;
-GRANT ALL ON api.destinations to api_user;
-GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
-GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
-
--- @block
-DROP TABLE IF EXISTS api.item_categories;
-CREATE TABLE api.item_categories (
-    item_id UUID NOT NULL,
-    category_id INTEGER NOT NULL,
-    UNIQUE(item_id, category_id)
-);
-GRANT SELECT ON api.item_categories TO web_anon;
-GRANT ALL ON api.item_categories to api_user;
-GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
-GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
-
-
--- @block
 DROP TABLE IF EXISTS api.shops;
 CREATE TABLE api.shops (
     id SERIAL PRIMARY KEY,
@@ -124,10 +82,13 @@ DROP TABLE IF EXISTS api.cart_items;
 CREATE TABLE api.cart_items (
     id serial PRIMARY KEY,
     cart_id INTEGER NOT NULL,
-    item_id INTEGER NOT NULL
+    item_id INTEGER NOT NULL,
+    count INTEGER NOT NULL DEFAULT 0
 );
 GRANT SELECT ON api.cart_items TO web_anon;
 GRANT ALL ON api.cart_items TO api_user;
+GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
+
 
 -- @block
 DROP TABLE IF EXISTS api.carts;
@@ -182,7 +143,6 @@ CREATE TABLE api.favorite (
 );
 GRANT SELECT ON api.favorite TO web_anon;
 GRANT ALL ON api.favorite to api_user;
-GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
 
 --@block
 SELECT * FROM api.favorite;
