@@ -7,14 +7,12 @@ import ShopMenu from '../components/shop_menu';
 import { Shop } from 'types/shops';
 import Link from 'next/link';
 import score from 'components/shop/score';
-import { SyntheticEvent, useState } from 'react';
-import shopMenuList from './shop/menu.[id]';
+import favoriteButton from './shop/favorite_button';
 
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
 
 export default function ShopName() {
-  const [active, setActive] = useState(false);
   const { data, error } = useSWR(
     'http://localhost:8000/shops',
     fetcher
@@ -22,12 +20,6 @@ export default function ShopName() {
 
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データを取得できませんでした</div>;
-
-  console.log('data', data);
-  
-  async function classToggle() {
-    setActive(!active);
-  }
 
   return (
     <>
@@ -53,18 +45,10 @@ export default function ShopName() {
                 />
               </Link>
             </div>
-            <div
-              className={
-                active
-                  ? styles.shop_favorite_true
-                  : styles.shop_favorite_false
-              }
-            >
-              <button type="submit" onClick={classToggle}>
-                <i className="fa-solid fa-heart"></i>
-              </button>
-            </div>
-            <p>{shop.description}</p>
+            {favoriteButton(shop)}
+            <p className={styles.shop_detail_description}>
+              {shop.description}
+            </p>
             <div className={styles.shopDetail_menu}>
               <ShopMenu id={shop.id} />
             </div>

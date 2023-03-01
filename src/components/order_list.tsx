@@ -1,15 +1,21 @@
 import styles from 'styles/order_check.module.css';
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 import { useState, useEffect } from 'react';
 
-const fetcher = (resource: string, init: object) => {
-  fetch(resource, init).then((res) => res.json());
-};
-
 export default function OrderList() {
+  const fetcher = (resource: string, init: object) => {
+    fetch(resource, init)
+      .then((res) => res.json())
+      .then((data) => setItemId(data));
+  };
   const [itemId, setItemId] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [subTotal, setSubTotal] = useState(0);
 
+  const { mutate } = useSWRConfig();
+  const { data, error } = useSWR('/api/get_cart_items', fetcher);
+
+  //cart_itemsテーブルからデータを取得
   useEffect(() => {
     async function getItemId() {
       await fetch('/api/get_cart_items')
@@ -18,6 +24,11 @@ export default function OrderList() {
           setItemId(data);
         });
     }
+    getItemId();
+  }, []);
+
+  //item_idが一致する商品のデータを取得
+  useEffect(() => {
     async function itemData() {
       const newCartItems = [];
       for (let i = 0; i <= itemId.length - 1; i++) {
@@ -26,14 +37,37 @@ export default function OrderList() {
         )
           .then((res) => res.json())
           .then((data) => {
-            newCartItems.push(data[0]);
+            newCartItems.push({ ...data[0], count: 1 });
           });
       }
       setCartItems(newCartItems);
     }
-    getItemId();
     itemData();
   }, [itemId]);
+
+  //商品の小計を計算
+  useEffect(() => {
+    const add = cartItems.reduce(
+      (sum, i) => sum + i.price * i.count,
+      0
+    );
+    setSubTotal(add);
+  }, [cartItems, subTotal]);
+
+  //商品の削除
+  const handleDelete = async (clickedId) => {
+    await fetch(`/api/delete_cart_items?item_id=eq.${clickedId}`, {
+      method: 'DELETE',
+      body: JSON.stringify({
+        item_id: Number(clickedId),
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+    mutate('/api/get_cart_items');
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -52,10 +86,6 @@ export default function OrderList() {
     );
   }
 
-  const count = 1;
-
-  function subTotal() {}
-
   return (
     <>
       <div className={styles.h1}>
@@ -63,23 +93,40 @@ export default function OrderList() {
       </div>
       <div className={styles.order_list}>
         <div>
-          {cartItems.map((item) => (
+          {cartItems.map((item, index) => (
             <dl key={item.id}>
               <dt>{item.name}</dt>
-              <dd>{count}個</dd>
-              <dd>{item.price}円</dd>
+              <dd>
+                <select
+                  name="itemCount"
+                  id={`itemCount-${index}`}
+                  onChange={(e) => {
+                    const selectedCount = e.target.value;
+                    const newCartItems = [...cartItems];
+                    newCartItems[index].count =
+                      parseInt(selectedCount);
+                    setCartItems(newCartItems);
+                  }}
+                  value={item.count}
+                >
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                </select>
+                個
+              </dd>
+              <dd>{item.price * item.count}円</dd>
               <dd>
                 <button
-                  onClick={(e) => {
-                    '削除';
-                  }}
+                  id={item.id}
+                  onClick={(e) => handleDelete(e.target.id)}
                 >
                   削除
                 </button>
               </dd>
             </dl>
           ))}
-          <p>小計：{'合計金額'}円</p>
+          <p>小計：{subTotal}円</p>
         </div>
         <div className={styles.order_list_details}>
           <dl>
@@ -108,7 +155,7 @@ export default function OrderList() {
           <p>値引き合計：{'クーポン金額'}円</p>
         </div>
         <div>
-          <p>合計：{'合計金額-クーポン金額'}円</p>
+          <p>合計：{subTotal}円</p>
         </div>
       </div>
     </>

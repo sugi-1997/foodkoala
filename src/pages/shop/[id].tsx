@@ -5,9 +5,14 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
 import score from 'components/shop/score';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useSWR from 'swr';
-import { useRouter } from 'next/router';
+import BreadList, {
+  shop_page,
+  shop_list,
+  menu_list,
+} from 'components/bread_list';
+import favoriteButton from 'components/shop/favorite_button';
 
 //お店情報の取得
 export async function getStaticPaths() {
@@ -88,40 +93,13 @@ export function ShopMenu({ shopId }: { shopId: number }) {
 //全体
 export default function ShopDetail({ shopData }: ShopProps) {
   const shop = shopData[0];
+  const { data, error } = useSWR(
+    'http://localhost:8000/shops',
+    fetcher
+  );
 
-  //お気に入りかどうかの情報を取得
-  function toggleFavorite(shopId: number) {
-    const [favorite, setFavorite] = useState(false);
-
-    useEffect(() => {
-      fetch(`http://localhost:8000/favorite?shop_id=eq.${shopId}`)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log('favorite_data', data);
-          setFavorite(data[0].favorite);
-        });
-    }, [shopId]);
-
-    return (
-      <>
-        <div>
-          {favorite ? (
-            <div className={styles.shop_favorite_true}>
-              <button type="submit">
-                <i className="fa-solid fa-heart"></i>
-              </button>
-            </div>
-          ) : (
-            <div className={styles.shop_favorite_false}>
-              <button type="submit">
-                <i className="fa-solid fa-heart"></i>
-              </button>
-            </div>
-          )}
-        </div>
-      </>
-    );
-  }
+  if (error) return <div>エラーです</div>;
+  if (!data) return <div>データを取得できませんでした</div>;
 
   //レビューのコアラアイコン
   function koalaIcon() {
@@ -135,7 +113,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
   return (
     <>
       <Head>
-        <title>ショップ詳細画面</title>
+        <title id="title">ショップ詳細画面</title>
         <script
           src="https://kit.fontawesome.com/acecca202b.js"
           crossOrigin="anonymous"
@@ -144,6 +122,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
       <main>
         <Header />
         <div>
+          <BreadList list={[menu_list, shop_list, shop_page]} />
           <div key={shop.id}>
             <p className={styles.shop_detail_name}>{shop.name}</p>
             <div className={styles.shop_detail_grade}>
@@ -158,8 +137,10 @@ export default function ShopDetail({ shopData }: ShopProps) {
                 height={150}
               />
             </div>
-            {toggleFavorite(shop.id)}
-            <p>{shop.description}</p>
+            {favoriteButton(shop)}
+            <p className={styles.shop_detail_description}>
+              {shop.description}
+            </p>
           </div>
           <div className={styles.shopDetail_menu}>
             <ShopMenu shopId={shop.id} />
@@ -170,19 +151,19 @@ export default function ShopDetail({ shopData }: ShopProps) {
             </div>
             <div className={styles.shop_review}>
               {koalaIcon()}
-            <div className={styles.shop_detail_review}>
+              <div className={styles.shop_detail_review}>
                 {shop.review_1}
               </div>
             </div>
             <div className={styles.shop_review}>
               {koalaIcon()}
-            <div className={styles.shop_detail_review}>
+              <div className={styles.shop_detail_review}>
                 {shop.review_2}
               </div>
             </div>
             <div className={styles.shop_review}>
               {koalaIcon()}
-            <div className={styles.shop_detail_review}>
+              <div className={styles.shop_detail_review}>
                 {shop.review_3}
               </div>
             </div>
@@ -193,5 +174,3 @@ export default function ShopDetail({ shopData }: ShopProps) {
     </>
   );
 }
-
-//const [isFavorite, setIsFavorite] = useState(false);

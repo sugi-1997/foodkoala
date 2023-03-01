@@ -4,6 +4,10 @@ import Footer from 'components/footer';
 import Header from 'components/header';
 import Head from 'next/head';
 import Image from 'next/image';
+import BreadList, {
+  menu_list,
+  menu_page,
+} from 'components/bread_list';
 
 export default function ItemPage({ data }) {
   type Item = {
@@ -26,6 +30,7 @@ export default function ItemPage({ data }) {
         <title>商品詳細画面</title>
       </Head>
       <Header />
+      <BreadList list={[menu_list, menu_page]} />
       <main>
         <div key={item.id}>
           <h1>{item.name}</h1>

@@ -6,6 +6,10 @@ import Genre from 'components/genre';
 import Area from 'components/area';
 import Footer from 'components/footer';
 import Link from 'next/link';
+import BreadList, {
+  menu_list,
+  shop_list,
+} from 'components/bread_list';
 
 export default function ShopList() {
   return (
@@ -15,6 +19,7 @@ export default function ShopList() {
       </Head>
       <main className={styles.shopList}>
         <Header />
+        <BreadList list={[menu_list, shop_list]} />
         <Genre onClick={undefined} />
         <Area />
         <div className={styles.shopList_shop}>

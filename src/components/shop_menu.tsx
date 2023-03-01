@@ -2,11 +2,13 @@ import styles from '../styles/Shop.module.css';
 import useSWR from 'swr';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
 
 export default function ShopMenu({ id }) {
+  const [count, setCount] = useState(0);
   const { data, error } = useSWR(
     `http://localhost:8000/items?shop_id=eq.${id}`,
     fetcher
@@ -24,13 +26,12 @@ export default function ShopMenu({ id }) {
         body: JSON.stringify({
           cart_id: 1,
           item_id: Number(menuId),
+          count: count + 1,
         }),
       });
-
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       const data = await response.json();
       console.log(data);
     } catch (error) {

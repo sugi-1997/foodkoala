@@ -5,6 +5,10 @@ import SelectPay from '../../components/select_pay';
 import Header from 'components/header';
 import Footer from 'components/footer';
 import styles from 'styles/order_check.module.css';
+import BreadList, {
+  menu_list,
+  order_check,
+} from 'components/bread_list';
 
 export default function OrderCheck() {
   return (
@@ -13,6 +17,7 @@ export default function OrderCheck() {
         <title>注文確認</title>
       </Head>
       <Header />
+      <BreadList list={[menu_list, order_check]} />
       <div className={styles.order_check}>
         <div>
           <OrderList />
