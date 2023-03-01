@@ -14,3 +14,6 @@ CREATE ROLE api_user NOLOGIN;
 COMMENT ON ROLE api_user IS 'Operator role for api schema';
 GRANT USAGE ON SCHEMA api TO api_user;
 GRANT api_user TO authenticator;
+
+--@block
+GRANT SELECT, USAGE ON ALL SEQUENCES IN SCHEMA api TO api_user;
