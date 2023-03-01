@@ -1,11 +1,12 @@
 // headerコンポーネントの作成
 import Image from 'next/image';
 import Link from 'next/link';
+import styles from 'styles/Header.module.css';
 
 export default function Header({ onClick }: any) {
   return (
     <>
-      <header>
+      <header className={styles.header}>
         <Image
           src="/images/provisional_logo.png"
           alt="logo"
