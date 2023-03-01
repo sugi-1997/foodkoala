@@ -18,15 +18,20 @@ export default function ShopMenu({ id }) {
   async function cartSubmit(menuId) {
     try {
       console.log(menuId);
-      const response = await fetch('/api/cart_items', {
+      const response = await fetch('/api/post_cart_items', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ itemId: menuId }),
+        body: JSON.stringify({
+          cart_id: 1,
+          item_id: Number(menuId),
+        }),
       });
-      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error('HTTPエラーが発生しました');
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+
+      const data = await response.json();
       console.log(data);
     } catch (error) {
       console.error(error);

@@ -15,9 +15,10 @@ const fetcher = (resource: string) =>
 export default function MenuList({ onClick, id }: any) {
   const [genreId, setGenreId] = useState<string>('gt.0');
   const [areaId, setAreaId] = useState<string>('gt.0');
+  const [itemId, setItemId] = useState<string>('gt.0');
 
   const { data, error } = useSWR(
-    `/api/menu?genreId=${genreId}&areaId=${areaId}`,
+    `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`,
     fetcher,
     {
       revalidateOnMount: true,
@@ -33,21 +34,27 @@ export default function MenuList({ onClick, id }: any) {
   const handleMenuClick = () => {
     setAreaId('gt.0');
     setGenreId('gt.0');
-    mutate(`/api/menu?genreId=${genreId}&areaId=${areaId}`);
+    mutate(
+      `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`
+    );
   };
 
   const handleGenreClick = (clickedId: any) => {
     setAreaId('gt.0');
     setGenreId(`eq.${clickedId}`);
     console.log(clickedId);
-    mutate(`/api/menu?genreId=${genreId}&areaId=${areaId}`);
+    mutate(
+      `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`
+    );
   };
 
   const handleAreaClick = (clickedId: any) => {
     setGenreId('gt.0');
     setAreaId(`eq.${clickedId}`);
     console.log(clickedId);
-    mutate(`/api/menu?areaId=${areaId}&genreId=${genreId}`);
+    mutate(
+      `/api/menu?areaId=${areaId}&genreId=${genreId}&id=${itemId}`
+    );
   };
 
   return (
