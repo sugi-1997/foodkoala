@@ -12,13 +12,14 @@ export default function Header({ onClick }: any) {
           alt="logo"
           width={30}
           height={30}
+          className={styles.logo}
         />
         <span>Food Koala</span>
-        <div className="search">
+        <div className={styles.search}>
           <input type="search" name="search" />
           <button>検索</button>
         </div>
-        <nav>
+        <nav className={styles.nav}>
           <ul>
             <li>
               <Link href="/" onClick={onClick}>

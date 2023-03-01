@@ -1,24 +1,10 @@
-header {
-    width: 100%;
-    display: flex;
-}
-
-nav {
-    margin: 0 0 0 auto;
-}
-
-header ul {
-    display: flex;
-    list-style: none;
-}
-
-header li {
-    margin-right: 30px;
+body{
     color: #4f4842;
 }
 
-header a {
-    text-decoration: none;
+header {
+    width: 100vw;
+    display: flex;
 }
 
 .list {
@@ -33,6 +19,7 @@ header a {
 footer {
     text-align: right;
     margin: 30px 0px;
+
 }
 
 
