@@ -7,7 +7,8 @@ import ShopMenu from '../components/shop_menu';
 import { Shop } from 'types/shops';
 import Link from 'next/link';
 import score from 'components/shop/score';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
+import shopMenuList from './shop/menu.[id]';
 
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
@@ -23,8 +24,8 @@ export default function ShopName() {
   if (!data) return <div>データを取得できませんでした</div>;
 
   console.log('data', data);
-
-  function classToggle() {
+  
+  async function classToggle() {
     setActive(!active);
   }
 
