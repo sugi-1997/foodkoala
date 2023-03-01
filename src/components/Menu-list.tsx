@@ -8,6 +8,7 @@ import useSWR, { useSWRConfig } from 'swr';
 import { SyntheticEvent, useState } from 'react';
 import styles from '../styles/menu_link.module.css';
 import ShopName from 'components/shop_name';
+import BreadList, { menu_list } from './bread_list';
 
 const fetcher = (resource: string) =>
   fetch(resource).then((res) => res.json());
@@ -53,10 +54,11 @@ export default function MenuList({ onClick, id }: any) {
   return (
     <>
       <Head>
-        <title>商品一覧ページ</title>
+        <title>FoodKoala トップ</title>
       </Head>
       <main>
         <Header onClick={handleMenuClick} />
+        <BreadList list={[menu_list]} />
         <Genre
           onClick={(e: SyntheticEvent) =>
             handleGenreClick(e.target.id)
