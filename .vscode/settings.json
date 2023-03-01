@@ -30,6 +30,7 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "sqltools.connections": [
+  
     {
       "previewLimit": 50,
       "server": "localhost",

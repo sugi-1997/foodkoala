@@ -1,4 +1,5 @@
 {
   "singleQuote": true,
-  "printWidth": 70
+  "printWidth": 70,
+  "quoteProps": "preserve"
 }
