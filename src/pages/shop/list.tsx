@@ -24,7 +24,7 @@ export default function ShopList() {
         <Area />
         <div className={styles.shopList_shop}>
           <div className={styles.shopList_name}>
-            <ShopName />
+            <ShopName url="http://localhost:8000/shops" />
           </div>
         </div>
         <Footer />

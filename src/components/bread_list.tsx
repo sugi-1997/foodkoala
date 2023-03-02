@@ -32,8 +32,6 @@ export default function BreadList({
   list: { title: string; path: string | null }[];
 }) {
   const router = useRouter();
-  console.log('router', router);
-  console.log('router', router.asPath);
 
   function BreadState(props: {
     list: { title: string; path: string | null }[];
