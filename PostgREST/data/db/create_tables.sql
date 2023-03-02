@@ -6,7 +6,6 @@ CREATE TABLE api.shops (
     description TEXT NOT NULL,
     image_url TEXT ,
     score float  NOT NULL,
-    favorite BOOLEAN  NOT NULL,
     genre_id INTEGER  NOT NULL,
     area_id INTEGER  NOT NULL,
     deleted_at TIMESTAMPTZ DEFAULT NULL,
@@ -134,5 +133,12 @@ CREATE TABLE api.favorite (
 GRANT SELECT ON api.favorite TO web_anon;
 GRANT ALL ON api.favorite to api_user;
 
---@block
-SELECT * FROM api.favorite;
+-- @block
+DROP TABLE IF EXISTS api.coupon;
+CREATE TABLE api.coupon (
+    user_id     INTEGER,
+    couponcode TEXT,
+    discount INTEGER
+);
+GRANT SELECT ON api.coupon TO web_anon;
+GRANT ALL ON api.coupon to api_user;

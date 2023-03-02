@@ -10,3 +10,17 @@
 .concept{
  display: flex;
 }
+
+.concept_food {
+    width:80%;
+    height:auto;
+    padding-left: 0;
+    float:left;
+}
+
+.concept_koala {
+    width:35%;
+    height:auto;
+    float: right;
+    margin-right: 30px;
+}

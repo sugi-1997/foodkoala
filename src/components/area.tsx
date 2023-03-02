@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import useSWR from 'swr';
 import Link from 'next/link';
+import styles from 'styles/Area.module.css';
 
 const fetcher = (resource: string, init: any) =>
   fetch(resource, init).then((res) => res.json());
@@ -14,10 +15,10 @@ export default function Area({ onClick }: any) {
 
   return (
     <>
-      <h2>エリア</h2>
-      <div className="list">
+      <div className={styles.arealist}>
+        <h2>エリア</h2>
         {data.map((area: any) => (
-          <div className="area" key={area.id} id={area.id}>
+          <div className={styles.area} key={area.id} id={area.id}>
             <button id={area.id} onClick={onClick}>
               <p id={area.id}>{area.name}</p>
             </button>

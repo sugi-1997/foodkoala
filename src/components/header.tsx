@@ -1,24 +1,28 @@
 // headerコンポーネントの作成
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import styles from 'styles/Header.module.css';
 
 export default function Header({ onClick }: any) {
   return (
     <>
-      <header>
-        <Image
-          src="/images/provisional_logo.png"
-          alt="logo"
-          width={30}
-          height={30}
-        />
-        <span>Food Koala</span>
-        <div className="search">
+      <header className={styles.header}>
+        <div className={styles.logo}>
+          <Link href="/">
+            <Image
+              src="/images/provisional_logo.png"
+              alt="logo"
+              width={35}
+              height={35}
+            />
+            <span>Food Koala</span>
+          </Link>
+        </div>
+        <div className={styles.search}>
           <input type="search" name="search" />
           <button>検索</button>
         </div>
-        <nav>
+        <nav className={styles.nav}>
           <ul>
             <li>
               <Link href="/" onClick={onClick}>
