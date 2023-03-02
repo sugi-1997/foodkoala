@@ -1,0 +1,29 @@
+.arealist {
+  display: flex;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.arealist h2{
+  font-size: 20px;
+  margin: 0;
+}
+
+.area {
+  margin: 0px 30px;
+  text-align: center;
+}
+
+.area button {
+  border: none;
+  background-color:  #00D698;
+  color: #4f4842;
+  border-radius: 20px;
+  border: 1px solid  #4f4842;
+  height: 40px;
+  width: 80px;
+}
+
+.area p {
+  margin: 0 auto;
+}
