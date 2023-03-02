@@ -1,6 +1,3 @@
-// ログインのエラーが解除でき次第、実装
-
-
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 
@@ -13,7 +10,7 @@ const Logout = () => {
 
     
     const logout = () => {
-        Cookies.remove("signedIn");
+        Cookies.remove("user_id");
         router.replace("/");
     }
 
