@@ -7,7 +7,7 @@ import styles from 'styles/Genre.module.css';
 const fetcher = (resource: string, init: any) =>
   fetch(resource, init).then((res) => res.json());
 
-export default function Genre({ onClick }) {
+export default function Genre({ onClick }: any) {
   const { data, error } = useSWR('/api/genre', fetcher);
 
   if (error) return <div>エラーです</div>;
@@ -19,15 +19,15 @@ export default function Genre({ onClick }) {
         <h2 className={styles.h2}>ジャンル</h2>
         {data.map((genre: GenreData) => (
           <div className={styles.genre} key={genre.id}>
-            <button id={genre.id} onClick={onClick}>
+            <button id={`${genre.id}`} onClick={onClick}>
               <Image
                 src={genre.image_url}
-                id={genre.id}
+                id={`${genre.id}`}
                 alt="genre-icon"
                 width={30}
                 height={30}
               />
-              <p id={genre.id}>{genre.name}</p>
+              <p id={`${genre.id}`}>{genre.name}</p>
             </button>
           </div>
         ))}

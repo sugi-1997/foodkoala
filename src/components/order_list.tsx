@@ -2,6 +2,7 @@ import styles from 'styles/order_check.module.css';
 import useSWR, { useSWRConfig } from 'swr';
 import { useState, useEffect } from 'react';
 import Coupon from 'components/Coupon';
+import CartItems from 'pages/api/delete_cart_items';
 
 export default function OrderList() {
   const fetcher = (resource: string, init: object) => {
@@ -9,8 +10,8 @@ export default function OrderList() {
       .then((res) => res.json())
       .then((data) => setItemId(data));
   };
-  const [itemId, setItemId] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
+  const [itemId, setItemId] = useState<ItemId[]>([]);
+  const [cartItems, setCartItems] = useState<CartItems[]>([]);
   const [subTotal, setSubTotal] = useState(0);
 
   const { mutate } = useSWRConfig();
@@ -31,7 +32,7 @@ export default function OrderList() {
   //item_idが一致する商品のデータを取得
   useEffect(() => {
     async function itemData() {
-      const newCartItems = [];
+      const newCartItems: CartItems[] = [];
       for (let i = 0; i <= itemId.length - 1; i++) {
         await fetch(
           `/api/menu?genre_id=gt.0&area_id=gt.0&id=eq.${itemId[i].item_id}`
@@ -56,7 +57,7 @@ export default function OrderList() {
   }, [cartItems, subTotal]);
 
   //商品の削除
-  const handleDelete = async (clickedId) => {
+  const handleDelete = async (clickedId: string) => {
     await fetch(`/api/delete_cart_items?item_id=eq.${clickedId}`, {
       method: 'DELETE',
       body: JSON.stringify({
@@ -119,7 +120,7 @@ export default function OrderList() {
               <dd>{item.price * item.count}円</dd>
               <dd>
                 <button
-                  id={item.id}
+                  id={`${item.id}`}
                   onClick={(e) => handleDelete(e.target.id)}
                 >
                   削除
@@ -129,11 +130,26 @@ export default function OrderList() {
           ))}
           <p>小計：{subTotal}円</p>
         </div>
-        <Coupon />
-        <div>
-          <p>合計：{subTotal}円</p>
-        </div>
+        <Coupon subTotal={subTotal} />
       </div>
     </>
   );
 }
+
+type ItemId = {
+  id: number;
+  item_id: number;
+  cart_id: number;
+};
+
+type CartItems = {
+  id: number;
+  name: string;
+  price: number;
+  image_url: string;
+  genre_id: number;
+  shop_id: number;
+  area_id: number;
+  explain: string;
+  count: number;
+};
