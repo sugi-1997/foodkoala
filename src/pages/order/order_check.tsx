@@ -4,13 +4,93 @@ import Option from '../../components/option';
 import SelectPay from '../../components/select_pay';
 import Header from 'components/header';
 import Footer from 'components/footer';
+import Router, { useRouter } from 'next/router';
 import styles from 'styles/order_check.module.css';
 import BreadList, {
   menu_list,
   order_check,
 } from 'components/bread_list';
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 export default function OrderCheck() {
+  const router = useRouter();
+  const [code, setCode] = useState('');
+  const [itemId, setItemId] = useState<ItemId[]>([]);
+  const [orderedAt, setorderedAt] = useState<Date>();
+  const userId = Cookies.get('user_id');
+
+  //cart_itemsテーブルからデータを取得
+  useEffect(() => {
+    async function getItemId() {
+      await fetch('/api/get_cart_items')
+        .then((res) => res.json())
+        .then((data) => {
+          setItemId(data);
+        });
+    }
+    getItemId();
+  }, []);
+
+  //注文した日付を取得
+  const orderDate = () => {
+    const date = new Date();
+    setorderedAt(date);
+  };
+
+  //ランダムな10文字を生成（注文コード）
+  const orderCode = () => {
+    const chars =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let str = '';
+    for (let i = 1; i <= 10; i++) {
+      str += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    setCode(str);
+  };
+
+  //cart_itemsテーブルのデータを、order_itemsテーブルにPOSTする
+  const postOrderItems = () => {
+    itemId.map((cartItem) => {
+      fetch('/api/order_items', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          order_id: cartItem.cart_id,
+          item_id: cartItem.item_id,
+          quantity: cartItem.count,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+    });
+  };
+
+  //注文データをordersテーブルにPOST
+  const postOrders = () => {
+    fetch('/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        cart_id: userId,
+        user_id: userId,
+        order_code: code,
+        ordered_at: orderedAt,
+        total: '',
+        payment_method: '',
+      }),
+    });
+  };
+
+  //注文ボタンを押した時の遷移
+  const handleClick = async () => {
+    orderCode();
+    orderDate();
+    postOrderItems();
+    postOrders();
+    router.push('/order/order_completed');
+  };
+
   return (
     <>
       <Head>
@@ -29,7 +109,7 @@ export default function OrderCheck() {
           <div>
             <SelectPay />
             <div className={styles.order_check_button}>
-              <button type="submit">注文を確定する</button>
+              <button onClick={handleClick}>注文を確定する</button>
             </div>
           </div>
         </div>
@@ -38,3 +118,10 @@ export default function OrderCheck() {
     </>
   );
 }
+
+type ItemId = {
+  id: number;
+  item_id: number;
+  cart_id: number;
+  count: number;
+};
