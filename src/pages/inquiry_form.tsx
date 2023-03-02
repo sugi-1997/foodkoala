@@ -1,5 +1,6 @@
 import BreadList, { top, inquiry_form } from 'components/bread_list';
 import Header from 'components/header';
+import Footer from 'components/footer';
 import Head from 'next/head';
 import styles from 'styles/Inquiry_form.module.css';
 
@@ -74,6 +75,7 @@ export default function InquiryForm() {
       <div className={styles.button}>
         <button type="submit">送信する</button>
       </div>
+      <Footer />
     </>
   );
 }

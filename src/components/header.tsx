@@ -7,14 +7,17 @@ export default function Header({ onClick }: any) {
   return (
     <>
       <header className={styles.header}>
-        <Image
-          src="/images/provisional_logo.png"
-          alt="logo"
-          width={30}
-          height={30}
-          className={styles.logo}
-        />
-        <span>Food Koala</span>
+        <div className={styles.logo}>
+          <Link href="/">
+            <Image
+              src="/images/provisional_logo.png"
+              alt="logo"
+              width={35}
+              height={35}
+            />
+            <span>Food Koala</span>
+          </Link>
+        </div>
         <div className={styles.search}>
           <input type="search" name="search" />
           <button>検索</button>

@@ -15,7 +15,10 @@
 }
 
 .logo {
-  margin-left: 2%;
+  margin-left: 1%;
+}
+
+.logo span{
 }
 
 .search {
@@ -54,8 +57,8 @@
 
 .header button {
  margin-right: 3%;
- background-color:  #4f4842;
-  color: beige;
+ background-color:  #00D698;
+  color: #4f4842;
   border-radius: 3px;
   border: 1px solid  #4f4842;
 }

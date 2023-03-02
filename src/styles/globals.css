@@ -9,9 +9,9 @@ header {
 
 .list {
     display: flex;
-}
+  }
 
-.genre, .area, .menu {
+ .area, .menu {
     margin: 0px 30px;
     text-align: center;
 }
@@ -37,11 +37,12 @@ footer {
 }
 
 .breadList {
-    float: right;
+  float: right;
+  margin: 3px auto;
 }
 
 .breadList li{
-    list-style: none;
-    float: left;
-    padding: 0 10px;
+  list-style: none;
+  padding: 0 10px;
+ 
 }

@@ -1,0 +1,22 @@
+.h2 {
+  font-size: 20px;
+}
+
+.genrelist {
+  display: flex;
+  margin-top: 2%;
+}
+
+.genre {
+  margin: 0px 30px;
+  text-align: center;
+}
+
+.genre button {
+  border: none;
+  background-color: rgba(0, 0, 0 , 0);
+}
+
+.genre p {
+  margin: 0 auto;
+}
