@@ -5,8 +5,7 @@ import { useState } from "react"
 import fetch from 'isomorphic-unfetch';
 import Cookies from 'js-cookie'
 
-
-
+// login.tsの住所
 const url = '/api/login'
 
 export default function Login() {
@@ -15,6 +14,9 @@ export default function Login() {
 
   const handleSend = (e) => {
     e.preventDefault();
+    
+  // login.tsにポスト
+    
     fetch(url,{
       method:'POST',
       headers:{
@@ -23,9 +25,15 @@ export default function Login() {
       body: JSON.stringify(loginForm),
     })
     .then((response)=> response.json())
+
+    // login.tsからGETしたdata.lengthが0じゃない(emailとPWが合致したuserが帰ってきてる)
     .then((data) => {if(data.length !== 0){
       console.log('success',data);
-      Cookies.set('signedIn','true')
+    
+    //data配列の0番目のオブジェクトからidを抽出してcookieのvalueに付与
+      Cookies.set('user_id',data[0].id) 
+    
+    // メインページに遷移(遷移先はあとで変更してもよし)
       router.push('/')
   } else{
     alert('入力内容を確認してください')
@@ -34,10 +42,11 @@ export default function Login() {
   
     .catch((error)=>{
       console.error('Error:',error);
-      alert('エラー')
+      alert('エラー(.catch)')
     })
   };
 
+// フォームの内容をlogin.tsにPOST
   const[loginForm, setLoginForm] =useState({email:'',password:''});
   
   const handleChange = (e) =>{
@@ -50,11 +59,7 @@ export default function Login() {
     });
   };
 
-  
-  // const login = () => {
-  //    Cookies.set('signedIn','true')
-  //    router.replace('/')
-  //   } 
+  //画面 
 
     return (
         <>
@@ -95,12 +100,10 @@ export default function Login() {
             </div>
            
            <div>
-            <input type="submit" value="ログイン" /*onClick={login}*/ />
+            <input type="submit" value="ログイン"/>
             </div>
           
           </form>
           </div>
           </>
           )}
-          
-          /*ログインボタン押した後、どこへ遷移…？*/
