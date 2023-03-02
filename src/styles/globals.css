@@ -22,20 +22,6 @@ footer {
 
 }
 
-
-.conceptPageMessage{
-       display: inline-block;
-       padding: 5px;
-       background: #f2f2f2;
-       margin: 5px;
-       width: 700px;
-       height: 300px;
-}
-
-.concept{
-    display: flex;
-}
-
 .breadList {
   float: right;
   margin: 3px auto;

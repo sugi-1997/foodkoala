@@ -6,7 +6,6 @@ CREATE TABLE api.shops (
     description TEXT NOT NULL,
     image_url TEXT ,
     score float  NOT NULL,
-    favorite BOOLEAN  NOT NULL,
     genre_id INTEGER  NOT NULL,
     area_id INTEGER  NOT NULL,
     deleted_at TIMESTAMPTZ DEFAULT NULL,

@@ -12,11 +12,8 @@ import FavoriteButton from './shop/favorite_button';
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
 
-export default function ShopName() {
-  const { data, error } = useSWR(
-    'http://localhost:8000/shops',
-    fetcher
-  );
+export default function ShopName(url: { url: string }) {
+  const { data, error } = useSWR(url.url, fetcher);
 
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データを取得できませんでした</div>;
