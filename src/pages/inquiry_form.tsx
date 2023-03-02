@@ -1,4 +1,7 @@
-import BreadList, { top, inquiry_form } from 'components/bread_list';
+import BreadList, {
+  menu_list,
+  inquiry_form,
+} from 'components/bread_list';
 import Header from 'components/header';
 import Footer from 'components/footer';
 import Head from 'next/head';
@@ -65,7 +68,7 @@ export default function InquiryForm() {
         <title>お問い合わせフォーム</title>
       </Head>
       <Header />
-      <BreadList list={[top, inquiry_form]} />
+      <BreadList list={[menu_list, inquiry_form]} />
       <div className={styles.Inquiry_form}>
         <h1>お問い合わせフォーム</h1>
         <dl className={styles.input_form}>

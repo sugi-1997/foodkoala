@@ -1,6 +1,7 @@
 import styles from 'styles/order_check.module.css';
 import useSWR, { useSWRConfig } from 'swr';
 import { useState, useEffect } from 'react';
+import Coupon from 'components/Coupon';
 
 export default function OrderList() {
   const fetcher = (resource: string, init: object) => {
@@ -128,32 +129,7 @@ export default function OrderList() {
           ))}
           <p>小計：{subTotal}円</p>
         </div>
-        <div className={styles.order_list_details}>
-          <dl>
-            <dt>クーポン</dt>
-            <dd>
-              <input type="text" />
-            </dd>
-            <dt>容器返却</dt>
-            <dd>
-              <input
-                type="radio"
-                id="container_true"
-                name="container"
-              />
-              する
-            </dd>
-            <dd>
-              <input
-                type="radio"
-                id="container_false"
-                name="container"
-              />
-              しない
-            </dd>
-          </dl>
-          <p>値引き合計：{'クーポン金額'}円</p>
-        </div>
+        <Coupon />
         <div>
           <p>合計：{subTotal}円</p>
         </div>

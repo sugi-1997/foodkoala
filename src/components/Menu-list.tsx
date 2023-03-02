@@ -15,6 +15,7 @@ export default function MenuList({ onClick, id }: any) {
   const [genreId, setGenreId] = useState<string>('gt.0');
   const [areaId, setAreaId] = useState<string>('gt.0');
   const [itemId, setItemId] = useState<string>('gt.0');
+  const [count, setCount] = useState(0);
 
   const { data, error } = useSWR(
     `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`,
@@ -47,6 +48,28 @@ export default function MenuList({ onClick, id }: any) {
       `/api/menu?areaId=${areaId}&genreId=${genreId}&id=${itemId}`
     );
   };
+
+  async function cartSubmit(menuId) {
+    try {
+      console.log(menuId);
+      const response = await fetch('/api/post_cart_items', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cart_id: 1,
+          item_id: Number(menuId),
+          count: count + 1,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <>
