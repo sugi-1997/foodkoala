@@ -72,7 +72,7 @@ export default function Login() {
         <body className={styles.background}>
         <div className={styles.logo}>
         <Image
-           src="/images/provisional_logo.png"
+           src="/images/foodkoala_logo.png"
            alt='logo'
            width={100}
            height={100}
