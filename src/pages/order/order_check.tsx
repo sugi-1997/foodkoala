@@ -18,6 +18,8 @@ export default function OrderCheck() {
   const [code, setCode] = useState('');
   const [itemId, setItemId] = useState<ItemId[]>([]);
   const [orderedAt, setorderedAt] = useState<Date>();
+  const [cartItems, setCartItems] = useState<CartItems[]>([]);
+  const [orderItems, setorderItems] = useState<CartItems[]>([]);
   const userId = Cookies.get('user_id');
 
   //cart_itemsテーブルからデータを取得
@@ -31,6 +33,38 @@ export default function OrderCheck() {
     }
     getItemId();
   }, []);
+
+  //item_idが一致する商品のデータを取得
+  useEffect(() => {
+    async function itemData() {
+      const newCartItems: CartItems[] = [];
+      for (let i = 0; i <= itemId.length - 1; i++) {
+        await fetch(
+          `/api/menu?genre_id=gt.0&area_id=gt.0&id=eq.${itemId[i].item_id}`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            newCartItems.push({ ...data[0], count: 1 });
+          });
+      }
+      setCartItems(newCartItems);
+    }
+    itemData();
+  }, [itemId]);
+
+  //itemId配列とcartItems配列を結合
+  const orderItemsArray = () => {
+    //itemId配列からcart_idとcountのみを取得した新しい配列を作成
+    const newItemId = itemId.map(({ cart_id, count }) => ({
+      cart_id,
+      count,
+    }));
+    //cartItems配列とnewItemId配列を結合する
+    const newOrderItems = cartItems.map((item, index) => {
+      return Object.assign({}, item, newItemId[index]);
+    });
+    setorderItems(newOrderItems);
+  };
 
   //注文した日付を取得
   const orderDate = () => {
@@ -49,16 +83,17 @@ export default function OrderCheck() {
     setCode(str);
   };
 
-  //cart_itemsテーブルのデータを、order_itemsテーブルにPOSTする
+  //注文したアイテムのデータを、order_itemsテーブルにPOSTする
   const postOrderItems = () => {
-    itemId.map((cartItem) => {
+    orderItems.map((orderItem) => {
       fetch('/api/order_items', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          order_id: cartItem.cart_id,
-          item_id: cartItem.item_id,
-          quantity: cartItem.count,
+          order_id: orderItem.cart_id,
+          item_name: orderItem.name,
+          item_price: orderItem.price,
+          quantity: orderItem.count,
         }),
       })
         .then((res) => res.json())
@@ -84,6 +119,7 @@ export default function OrderCheck() {
 
   //注文ボタンを押した時の遷移
   const handleClick = async () => {
+    orderItemsArray();
     orderCode();
     orderDate();
     postOrderItems();
@@ -124,4 +160,17 @@ type ItemId = {
   item_id: number;
   cart_id: number;
   count: number;
+};
+
+type CartItems = {
+  id: number;
+  name: string;
+  price: number;
+  image_url: string;
+  genre_id: number;
+  shop_id: number;
+  area_id: number;
+  explain: string;
+  count: number;
+  cart_id: number;
 };
