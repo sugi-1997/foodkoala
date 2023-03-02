@@ -49,7 +49,7 @@ export default function MenuList({ onClick, id }: any) {
     );
   };
 
-  async function cartSubmit(menuId) {
+  async function cartSubmit(menuId: any) {
     try {
       console.log(menuId);
       const response = await fetch('/api/post_cart_items', {
@@ -88,7 +88,7 @@ export default function MenuList({ onClick, id }: any) {
           }
         />
         <div className={styles.body}>
-          {data.map((menu: Menu) => (
+          {data.map((menu: Item) => (
             <div key={menu.id} className={styles.menu}>
               <Link href={`/item/${menu.id}`}>
                 <div className={styles.menu_img}>
