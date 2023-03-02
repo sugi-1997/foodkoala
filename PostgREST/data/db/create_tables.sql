@@ -133,5 +133,12 @@ CREATE TABLE api.favorite (
 GRANT SELECT ON api.favorite TO web_anon;
 GRANT ALL ON api.favorite to api_user;
 
---@block
-SELECT * FROM api.favorite;
+-- @block
+DROP TABLE IF EXISTS api.coupon;
+CREATE TABLE api.coupon (
+    user_id     INTEGER,
+    couponcode TEXT,
+    discount INTEGER
+);
+GRANT SELECT ON api.coupon TO web_anon;
+GRANT ALL ON api.coupon to api_user;
