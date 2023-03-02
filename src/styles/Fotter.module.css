@@ -1,0 +1,15 @@
+.footer {
+  background-color: #f8b856;
+  height: 60px;
+  width: 100vw;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.link {
+  text-decoration: none;
+  color: #4f4842;
+  margin-right: 5%;
+}
