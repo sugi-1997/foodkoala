@@ -65,7 +65,6 @@ export default function MenuList({ onClick, id }: any) {
       </Head>
       <main>
         <Header onClick={handleMenuClick} />
-        <BreadList list={[menu_list]} />
         <Genre
           onClick={(e: SyntheticEvent) =>
             handleGenreClick(e.target.id)
@@ -76,7 +75,7 @@ export default function MenuList({ onClick, id }: any) {
             handleAreaClick(e.target.id)
           }
         />
-        <ShopName />
+        <ShopName url="http://localhost:8000/shops" />
       </main>
     </>
   );

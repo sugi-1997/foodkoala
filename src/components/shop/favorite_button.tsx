@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 export default function FavoriteButton({ shop }: { shop: Shop }) {
   const [favorite, setFavorite] = useState(shop.favorite);
+  console.log('shop.favorite', shop.favorite);
 
   function handleClick() {
     fetch(`/api/favorite?shop_id=eq.${shop.id}`, {

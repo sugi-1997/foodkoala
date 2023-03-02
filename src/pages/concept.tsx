@@ -15,9 +15,29 @@ export default function TopPage() {
       <Header />
       <BreadList list={[menu_list, concept]} />
       <div style={{ textAlign: 'center', marginTop: '2em' }}>
-        <h1>
-          美味しい料理をお得に食べられて、フードロスも減らせる!!
-        </h1>
+        <h1>food Koala</h1>
+        <h2>いつまでも「おいしい」に包まれた世界へ</h2>
+        <h3>
+          foodKoalaは廃棄寸前の食品専門のテイクアウト予約サービス。
+          <br />
+          捨てられるはずの「おいしい」を食卓に届け、
+          <br />
+          「おいしい」に包まれた未来を守ります。
+        </h3>
+        <Image
+          src="/images/menu/hamburger.food.jpg"
+          alt="concept"
+          width={500}
+          height={350}
+          className={styles.concept_food}
+        />
+        <Image
+          src="/images/foodkoala_img2.PNG"
+          alt="concept"
+          width={300}
+          height={300}
+          className={styles.concept_koala}
+        />
       </div>
       <br />
 
