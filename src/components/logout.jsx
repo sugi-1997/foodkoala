@@ -11,7 +11,7 @@ const Logout = () => {
     
     const logout = () => {
         Cookies.remove("user_id");
-        router.replace("/");
+        router.replace("/loginPage  ");
     }
 
     return (
