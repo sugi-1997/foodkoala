@@ -4,6 +4,7 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import styles from '../styles/userRegistItem.module.css';
 import { useRouter } from 'next/router';
+import React from 'react';
 
 const resource = 'http://localhost:3000/api/post_users';
 
