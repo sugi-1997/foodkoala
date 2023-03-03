@@ -23,8 +23,6 @@ export default function ShopFavorite() {
   if (error) return <div>エラーです</div>;
   if (!data) return <div>Loading...</div>;
 
-  console.log('truefalse', data);
-
   return (
     <>
       <Head>
