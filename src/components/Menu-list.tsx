@@ -16,6 +16,7 @@ export default function MenuList({ onClick, id }: any) {
   const [genreId, setGenreId] = useState<string>('gt.0');
   const [areaId, setAreaId] = useState<string>('gt.0');
   const [itemId, setItemId] = useState<string>('gt.0');
+  const [count, setCount] = useState(0);
 
   const { data, error } = useSWR(
     `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`,
@@ -49,6 +50,28 @@ export default function MenuList({ onClick, id }: any) {
     );
   };
 
+  async function cartSubmit(menuId: any) {
+    try {
+      console.log(menuId);
+      const response = await fetch('/api/post_cart_items', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cart_id: 1,
+          item_id: Number(menuId),
+          count: count + 1,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <>
       <Head>
@@ -66,7 +89,7 @@ export default function MenuList({ onClick, id }: any) {
           }
         />
         <div className={styles.body}>
-          {data.map((menu: Menu) => (
+          {data.map((menu: Item) => (
             <div key={menu.id} className={styles.menu}>
               <Link href={`/item/${menu.id}`}>
                 <div className={styles.menu_img}>

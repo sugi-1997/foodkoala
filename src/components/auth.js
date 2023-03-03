@@ -7,10 +7,9 @@ const Auth = ({ children }) => {
 
     const router = useRouter();
 
-    const signedIn = Cookies.get("signedIn");
+    const user_id = Cookies.get("user_id");
 
-    ログインページのエラーが解消し次第コメント解除します 
-    if (signedIn !== "true") router.replace("/index");
+    if (user_id === null || user_id === undefined) router.replace("/loginPage");
 
     return children;
 }

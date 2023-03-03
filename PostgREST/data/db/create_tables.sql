@@ -1,4 +1,11 @@
 -- @block
+DROP TABLE IF EXISTS api.destinations;
+DROP TABLE IF EXISTS api.categories;
+DROP TABLE IF EXISTS api.item_categories;
+
+
+
+-- @block
 DROP TABLE IF EXISTS api.shops;
 CREATE TABLE api.shops (
     id SERIAL PRIMARY KEY,
@@ -43,32 +50,27 @@ GRANT USAGE ON SEQUENCE api.area_id_seq TO api_user;
 -- @block
 DROP TABLE IF EXISTS api.order_items;
 CREATE TABLE api.order_items (
-    order_id UUID NOT NULL,
-    item_id UUID NOT NULL,
-    name TEXT NOT NULL,
-    price BIGINT NOT NULL,
-    description TEXT,
-    image_url TEXT,
-    quantity INTEGER NOT NULL,
-    UNIQUE(order_id, item_id)
+    order_id INTEGER NOT NULL,
+    item_name TEXT NOT NULL,
+    price INTEGER NOT NULL,
+    quantitiy INTEGER NOT NULL
 );
 GRANT SELECT ON api.order_items TO web_anon;
 GRANT ALL ON api.order_items to api_user;
-GRANT USAGE ON SEQUENCE api.order_items_id_seq TO api_user;
 
 -- @block
 DROP TABLE IF EXISTS api.orders;
 CREATE TABLE api.orders (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID NOT NULL,
-    status INTEGER NOT NULL,
-    payment_method INTEGER NOT NULL,
-    amount BIGINT NOT NULL,
+    cart_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    payment_method TEXT NOT NULL,
+    total BIGINT NOT NULL,
     ordered_at TIMESTAMPTZ NOT NULL,
-    delivered_at TIMESTAMPTZ
+    order_code text
 );
 GRANT SELECT ON api.orders TO web_anon;
 GRANT ALL ON api.orders to api_user;
+
 
 -- @block
 DROP TABLE IF EXISTS api.cart_items;
@@ -85,12 +87,12 @@ GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
 -- @block
 DROP TABLE IF EXISTS api.carts;
 CREATE TABLE api.carts (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID NOT NULL
+    user_id INTEGER NOT NULL,
+    coupon INTEGER 
 );
 GRANT SELECT ON api.carts TO web_anon;
 GRANT ALL ON api.carts to api_user;
-
+GRANT ALL PRIVILEGES ON api.carts To api_user;
 
 --@block
 DROP TABLE IF EXISTS api.items;
@@ -145,3 +147,16 @@ CREATE TABLE api.favorite (
 );
 GRANT SELECT ON api.favorite TO web_anon;
 GRANT ALL ON api.favorite to api_user;
+<<<<<<< HEAD
+=======
+
+-- @block
+DROP TABLE IF EXISTS api.coupon;
+CREATE TABLE api.coupon (
+    user_id     INTEGER,
+    couponcode TEXT,
+    discount INTEGER
+);
+GRANT SELECT ON api.coupon TO web_anon;
+GRANT ALL ON api.coupon to api_user;
+>>>>>>> main

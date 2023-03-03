@@ -2,8 +2,31 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from 'styles/Header.module.css';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+import Logout from 'components/logout';
+import { useEffect, useState } from 'react';
 
 export default function Header({ onClick }: any) {
+  const router = useRouter();
+  const user_id = Cookies.get('user_id');
+  const [loginStatus, setLoginStatus] = useState('true');
+  const [logoutStatus, setLogoutStatus] = useState('false');
+
+  useEffect(() => {
+    if (user_id) {
+      setLoginStatus('false');
+      setLogoutStatus('true');
+    }
+  }, [user_id]);
+
+  const logout = () => {
+    Cookies.remove('user_id');
+    router.replace('/loginPage  ');
+    setLoginStatus('true');
+    setLogoutStatus('false');
+  };
+
   return (
     <>
       <header className={styles.header}>
@@ -41,9 +64,14 @@ export default function Header({ onClick }: any) {
             <li>
               <Link href="/order/order_history">注文履歴</Link>
             </li>
+            <li className={styles[loginStatus]}>
+              <Link href="/loginPage">ログイン</Link>
+            </li>
+            <li className={styles[logoutStatus]} onClick={logout}>
+              ログアウト
+            </li>
           </ul>
         </nav>
-        <button>ログアウト</button>
       </header>
     </>
   );
