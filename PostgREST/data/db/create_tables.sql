@@ -51,8 +51,9 @@ GRANT USAGE ON SEQUENCE api.area_id_seq TO api_user;
 DROP TABLE IF EXISTS api.order_items;
 CREATE TABLE api.order_items (
     order_id INTEGER NOT NULL,
-    item_id INTEGER NOT NULL,
-    quantity INTEGER NOT NULL
+    item_name TEXT NOT NULL,
+    price INTEGER NOT NULL,
+    quantitiy INTEGER NOT NULL
 );
 GRANT SELECT ON api.order_items TO web_anon;
 GRANT ALL ON api.order_items to api_user;
@@ -86,12 +87,12 @@ GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
 -- @block
 DROP TABLE IF EXISTS api.carts;
 CREATE TABLE api.carts (
-    id INTEGER,
-    user_id INTEGER NOT NULL
+    user_id INTEGER NOT NULL,
+    coupon INTEGER 
 );
 GRANT SELECT ON api.carts TO web_anon;
 GRANT ALL ON api.carts to api_user;
-
+GRANT ALL PRIVILEGES ON api.carts To api_user;
 
 --@block
 DROP TABLE IF EXISTS api.items;
