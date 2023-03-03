@@ -88,6 +88,20 @@
     font-size: 12px;
 }
 
+/* .zipcode button {
+    width: 50px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    background-color: #71fb94;
+    color: #fff;
+} */
+
+/* .zipcode button:hover {
+    opacity: 0.8;
+    transition: 0.5s;
+    box-shadow: 1px 2px #949290;
+} */
+
 .password2 {
     border-bottom: 1px solid #b8a99a;
 }

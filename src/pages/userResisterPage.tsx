@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
-import styles from '../styles/userRegisterItem.module.css';
+import styles from '../styles/userRegisterPage.module.css';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
@@ -28,6 +28,7 @@ export default function UserRegisterPage() {
       .then((res) => res.json())
       .then((data) => {
         if (data.length > 0) {
+          console.log('郵便番号が取得できました');
           setAddress(
             `${
               data.results[0].address1 +
@@ -35,8 +36,8 @@ export default function UserRegisterPage() {
               data.results[0].address3
             }`
           );
+          return;
         }
-        return;
       });
   }
 
@@ -69,10 +70,10 @@ export default function UserRegisterPage() {
         <title>新規会員登録</title>
       </Head>
       <Header />
-      <body className={styles.body}>
+      <div className={styles.body}>
         <div className={styles.logo}>
           <Image
-            src="/images/provisional_logo.png"
+            src="/images/foodkoala_logo.png"
             width={100}
             height={100}
             alt="logo"
@@ -233,7 +234,7 @@ export default function UserRegisterPage() {
             </button>
           </form>
         </div>
-      </body>
+      </div>
       <Footer />
     </>
   );
