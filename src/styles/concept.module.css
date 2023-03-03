@@ -1,26 +1,76 @@
-.conceptPageMessage{
-    display: inline-block;
-    padding: 5px;
-    background: #f2f2f2;
-    margin: 5px;
-    width: 700px;
-    height: 300px;
-}
-
 .concept{
- display: flex;
-}
+    background-color: #f6f6f6;
 
+}
 .concept_food {
-    width:80%;
     height:auto;
-    padding-left: 0;
-    float:left;
+    width: 84%;
+    padding-left: 10%;
+    padding-right: 10%;
+    position: relative;
+}
+.concept_koala {
+    position: relative;     
+    width: 10%;
+    height: auto;
 }
 
-.concept_koala {
-    width:35%;
-    height:auto;
-    float: right;
-    margin-right: 30px;
+.concept_text{
+width: 60%;
+height: 40%;
+margin: 10%;
+padding-left: 10%;
+position: relative;
+bottom: 250px;
+right: 180px;
+color: rgb(160, 178, 195);
+font-size: 1.5vw;
 }
+
+.concept_goToUserResister{
+    text-align: center;
+}
+
+.concept_goToUserResister input{
+    border: none;
+    background-color: rgba(176, 242, 153, 0.34);
+    color: black;
+    text-decoration: none;  
+    cursor: pointer;
+}
+
+
+
+/* フレックスボックスたち */
+
+
+
+.flex_box{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.box{
+  display:flex;
+  flex-direction: column;
+  width: 40%;
+  padding: 10px;
+  margin: 10px;
+}
+
+.img{
+    max-width: 300px;
+    height: auto;
+
+}
+
+.text h{
+font-size: 1vw;
+text-align: center;
+}
+
+.text p{
+    font-size: 1vw;
+    text-align: left;
+    }
