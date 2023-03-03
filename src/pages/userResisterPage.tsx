@@ -27,7 +27,10 @@ export default function UserRegisterPage() {
     )
       .then((res) => res.json())
       .then((data) => {
-        if (data.length > 0) {
+        if (data.length === 0) {
+          console.log('郵便番号を取得できませんでした');
+          return;
+        } else {
           setAddress(
             `${
               data.results[0].address1 +
@@ -36,7 +39,6 @@ export default function UserRegisterPage() {
             }`
           );
         }
-        return;
       });
   }
 
@@ -69,7 +71,7 @@ export default function UserRegisterPage() {
         <title>新規会員登録</title>
       </Head>
       <Header />
-      <body className={styles.body}>
+      <div className={styles.body}>
         <div className={styles.logo}>
           <Image
             src="/images/provisional_logo.png"
@@ -175,7 +177,6 @@ export default function UserRegisterPage() {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="東京都新宿区新宿4-3-25"
-                required
               />
               <p>※文字が入ります。</p>
             </div>
@@ -233,7 +234,7 @@ export default function UserRegisterPage() {
             </button>
           </form>
         </div>
-      </body>
+      </div>
       <Footer />
     </>
   );
