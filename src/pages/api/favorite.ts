@@ -6,6 +6,7 @@ export default async function FavoritePost(
 ) {
   const url = process.env['BACKEND_API_URL'];
   const { shop_id, user_id } = req.body;
+  console.log('shop_id', shop_id);
   const response = await fetch(
     `${url}/favorite?shop_id=${shop_id}&user_id=${user_id}`,
     {
