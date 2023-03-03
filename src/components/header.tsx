@@ -4,7 +4,6 @@ import Link from 'next/link';
 import styles from 'styles/Header.module.css';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import Logout from 'components/logout';
 import { useEffect, useState } from 'react';
 
 export default function Header({ onClick }: any) {

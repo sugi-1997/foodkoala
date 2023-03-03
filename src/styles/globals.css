@@ -3,7 +3,7 @@ body{
 }
 
 header {
-    width: 100vw;
+    /* width: 100vw; */
     display: flex;
 }
 
@@ -18,17 +18,7 @@ header {
 
 footer {
     text-align: right;
-    margin: 30px 0px;
+    /* margin: 30px 0px; */
 
 }
 
-.breadList {
-  float: right;
-  margin: 3px auto;
-}
-
-.breadList li{
-  list-style: none;
-  padding: 0 10px;
- 
-}

@@ -1,3 +1,5 @@
+--使わない予定です！！（一旦残します）
+
 INSERT INTO api.favorite(
     shop_id ,
     favorite
@@ -18,3 +20,7 @@ VALUES (
 (11,FALSE),
 (12,TRUE),
 (13,FALSE);
+
+
+--@block
+SELECT * FROM api.favorite;
