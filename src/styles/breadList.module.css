@@ -1,0 +1,12 @@
+.breadList {
+    float: right;
+    margin: 3px auto; 
+  }
+  
+  .breadList li{
+    display: inline;
+    list-style: none;
+    padding: 0 10px;
+    text-decoration: none;
+    color: black;
+  }

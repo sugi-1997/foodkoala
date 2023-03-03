@@ -22,13 +22,3 @@ footer {
 
 }
 
-.breadList {
-  float: right;
-  margin: 3px auto;
-}
-
-.breadList li{
-  list-style: none;
-  padding: 0 10px;
- 
-}

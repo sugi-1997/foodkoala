@@ -10,12 +10,30 @@ export default function TopPage() {
   return (
     <>
       <Head>
-        <title>コンセプト</title>
+        <title>Food Koala について</title>
       </Head>
+      
       <Header />
+      
+      <div className={styles.concept}>
+      
+      {/* パンくずリスト */}
       <BreadList list={[menu_list, concept]} />
-      <div style={{ textAlign: 'center', marginTop: '2em' }}>
-        <h1>food Koala</h1>
+      
+
+      {/*画像・理念・コアラの島*/}
+
+      <div className='firstBlock'>
+      <div className={styles.concept_food}>
+      <Image
+          src="/images/menu/hamburger.food.jpg"
+          alt="concept"
+          width={400}
+          height={250}
+          className={styles.concept_food}
+        />
+        </div>
+        {/*<div className={styles.concept_text}>
         <h2>いつまでも「おいしい」に包まれた世界へ</h2>
         <h3>
           foodKoalaは廃棄寸前の食品専門のテイクアウト予約サービス。
@@ -24,61 +42,145 @@ export default function TopPage() {
           <br />
           「おいしい」に包まれた未来を守ります。
         </h3>
-        <Image
-          src="/images/menu/hamburger.food.jpg"
+  </div> */}
+        
+        <div>
+        {/* <Image
+          src="/images/foodkoala_img2.PNG"
           alt="concept"
-          width={500}
-          height={350}
-          className={styles.concept_food}
-        />
+          width={100}
+          height={100}
+          className={styles.concept_koala}
+        /> */}
+        </div>
+        </div>
+        
+
+        {/* 中段 */}
+        
+        <div className={styles.flex_box}>
+       
+        <div className={styles.box}>
+        <div className={styles.Img}>
         <Image
           src="/images/foodkoala_img2.PNG"
           alt="concept"
-          width={300}
-          height={300}
-          className={styles.concept_koala}
+          width={100}
+          height={100}
         />
-      </div>
-      <br />
-
-      <div className={styles.concept}>
-        <div className={styles.conceptPageMessage}>
+        </div>
+        <div className={styles.text}>
+          <h3>ごみ</h3>
           <p>
-            複素数体であれば、任意のCM-タイプの A
-            は、実際、数体である定義体（英語版）(field of
-            definition)を持っている。自己準同型環の可能なタイプは、対合（ロサチの対合（英語版）(Rosati
-            involution）をもつ環として既に分類されていて、CM-タイプのアーベル多様体の分類を導き出す。楕円曲線と同じような方法でCM-タイプの多様体を構成するには、Cd
-            の中の格子 Λ
-            から始め、アーベル多様体のリーマンの関係式（英語版）(Riemann
-            relations)を考えに入れる必要がある。
-            CM-タイプ(CM-type)は、単位元での A の正則接空間上にある
-            EndQ(A) の（最大）可換部分環 L
-            の作用を記述したものである。単純な種類のスペクトル理論が適応され、L
-            が固有ベクトルの基底を通して作用することを示すことができる。言い換えると、L
-            は A
-            の正則ベクトル場の上の対角行列を通した作用を持っている。L
-            自体がある複数の体の積というよりも数体であるという単純な場合には、CM-タイプは
-            L の複素埋め込み（英語版）(complex
-            embedding)のリストである。複素共役をなすペアとして、2d
-            個の複素埋め込みがあり、CM-タイプは各々のペアのから一つを選択する。そのようなCM-タイプの全てが実現されることが知られている。
+            日本国内における食品ロスは年間600万トンにのぼります。
+            平成30年度中でも、外食産業による食品ロスは全体の16%を占め、
+            約81万トンもの食品廃棄物を排出しています。
+            FoodKoalaの利用で、食品廃棄物削減の社会貢献をすることができます。
           </p>
         </div>
-        <div>
-          <Image
-            /*className*/
-            src="/これから"
-            alt="コンセプトロゴ"
-            width={500}
-            height={500}
-            priority
-          />
         </div>
-      </div>
-      <div style={{ textAlign: 'center', marginTop: '2em' }}>
-        <button>
-          <Link href="/userResistPage">新規会員登録</Link>
-        </button>
-      </div>
+
+        <div className={styles.box}>
+        <div className={styles.Img}>
+        <Image
+          src="/images/foodkoala_img2.PNG"
+          alt="concept"
+          width={100}
+          height={100}
+        />
+        </div>
+        <div className={styles.text}>
+          <h3>おいしいお店</h3>
+          <p>Food Koalaの登録店舗のジャンルは様々。
+             気になっていたお店のお試しにもご利用いただけます。
+             あなたのお気に入りなお店も見つかるかも！
+             おいしく楽しい食事の時間を提供します。
+          </p>
+        </div>
+        </div>
+
+        <div className={styles.box}>
+        <div className={styles.Img}>
+        <Image
+          src="/images/foodkoala_img2.PNG"
+          alt="concept"
+          width={100}
+          height={100}
+        />
+        </div>
+        <div className={styles.text}>
+          <h3>お得</h3>
+          <p>廃棄予定の食品を販売しているため、すべてのメニューが通常よりお得な金額となっております。
+             さらに、容器の持参で地球にやさしくお得な割引も行っています。
+          </p>
+        </div>
+        </div>
+        </div>
+
+          {/* 下段 */}
+        
+      <div className={styles.flex_box}>
+       
+       <div className={styles.box}>
+       <div className={styles.Img}>
+       <Image
+         src="/images/foodkoala_img2.PNG"
+         alt="concept"
+         width={100}
+         height={100}
+       />
+       </div>
+       <div className={styles.text}>
+         <h3>商品を探す</h3>
+       </div>
+       </div>
+
+       <div className={styles.box}>
+       <div className={styles.Img}>
+       <Image
+         src="/images/foodkoala_img2.PNG"
+         alt="concept"
+         width={100}
+         height={100}
+       />
+       </div>
+       <div className={styles.text}>
+         <h3>商品を予約する</h3>
+       </div>
+       </div>
+
+       <div className={styles.box}>
+       <div className={styles.Img}>
+       <Image
+         src="/images/foodkoala_img2.PNG"
+         alt="concept"
+         width={100}
+         height={100}
+       />
+       </div>
+       <div className={styles.text}>
+         <h3>お店で行って商品を受け取る</h3>
+       </div>
+       </div>
+       </div>
+
+
+
+
+
+
+
+
+          
+        
+        {/* 新規会員登録へ */}
+        <div className={styles.concept_goToUserResister}>
+          <Link href="/userResisterPage">
+            <input type="button" value='新規会員登録'/>
+            </Link>
+        </div>
+        
+        </div>
       <Footer />
     </>
   );
