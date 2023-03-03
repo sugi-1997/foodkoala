@@ -8,13 +8,15 @@ import useSWR from 'swr';
 
 const fetcher = async (resource: string) => {
   const res = await fetch(resource);
-  const data = await res.json();
+  const data: OrderData[] = await res.json();
   return data;
 };
 
 export default function OrderCompleted() {
   const userId = Cookies.get('user_id');
+  const [orderItems, setOrderItems] = useState<OrderItems[]>([]);
 
+  //ordersテーブルから注文内容を取得
   const { data, error } = useSWR(
     `/api/orders?user_id=eq.${userId}`,
     fetcher,
@@ -23,84 +25,107 @@ export default function OrderCompleted() {
     }
   );
 
+  //ordersテーブルのcart_idを使用して、order_itemsテーブルからitemのデータを取得
+  useEffect(() => {
+    async function getOrderItems() {
+      if (data === undefined || data === null) {
+        return;
+      }
+      await fetch(`/api/order_items?order_id=eq.${data[0].cart_id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setOrderItems(data);
+        })
+        .catch((error) => console.error(error));
+    }
+    getOrderItems();
+  }, [data]);
+
   if (error) return <div>エラーです</div>;
   if (!data) return <div>Loading...</div>;
 
-  //合計金額を計算
-  const calcCoupon = (data.subtotal * data.coupon) / 100;
-  const Total = data.subtotal - calcCoupon;
+  if (orderItems.length === 0) {
+    return <div>Loading...</div>;
+  } else if (orderItems.length > 0) {
+    return (
+      <>
+        <Head>
+          <title>注文完了画面</title>
+        </Head>
+        <div className={styles.position}>
+          <h1>ご注文ありがとうございました！</h1>
+          <h2>
+            ご注文コード: <span>{data[0].order_code}</span>
+          </h2>
+          <div className={styles.order_complete_border}>
+            <div>
+              <dl>
+                <dt className={styles.order_complete_group}>
+                  ご注文内容
+                </dt>
+                <div className={styles.order_complete_item}>
+                  {orderItems.map((item, index) => (
+                    <dd key={index}>{item.item_name}</dd>
+                  ))}
+                </div>
+              </dl>
+            </div>
 
-  return (
-    <>
-      <Head>
-        <title>注文完了画面</title>
-      </Head>
-      <div className={styles.position}>
-        <h1>ご注文ありがとうございました！</h1>
-        <h2>
-          ご注文コード: <span>{data[0].order_code}</span>
-        </h2>
-        <div className={styles.order_complete_border}>
-          <div>
-            <p className={styles.order_complete_group}>ご注文内容</p>
-            <p className={styles.order_complete_item}>
-              メニュー1(手打ち)
-            </p>
+            <div>
+              <p className={styles.order_complete_group}>
+                小計（税込）
+              </p>
+              <p className={styles.order_complete_item}>
+                {data[0].subtotal}円
+              </p>
+            </div>
+
+            <div>
+              <p className={styles.order_complete_group}>クーポン</p>
+              <p className={styles.order_complete_item}>
+                -{data[0].coupon}%
+              </p>
+            </div>
+
+            <div>
+              <p className={styles.order_complete_group}>
+                合計（税込）
+              </p>
+              <p className={styles.order_complete_item}>
+                {data[0].total}円
+              </p>
+            </div>
+
+            <div>
+              <p className={styles.order_complete_group}>
+                お支払い方法
+              </p>
+              <p className={styles.order_complete_item}>
+                {data[0].payment_method}
+              </p>
+            </div>
           </div>
 
           <div>
-            <p className={styles.order_complete_group}>
-              小計（税込）
-            </p>
-            <p className={styles.order_complete_item}>
-              {data[0].subtotal}円
-            </p>
-          </div>
-
-          <div>
-            <p className={styles.order_complete_group}>クーポン</p>
-            <p className={styles.order_complete_item}>
-              -{data[0].coupon}%
-            </p>
-          </div>
-
-          <div>
-            <p className={styles.order_complete_group}>
-              合計（税込）
-            </p>
-            <p className={styles.order_complete_item}>
-              {data[0].total}円
-            </p>
-          </div>
-
-          <div>
-            <p className={styles.order_complete_group}>
-              お支払い方法
-            </p>
-            <p className={styles.order_complete_item}>
-              {data[0].payment_method}
-            </p>
+            <Link href={'#'}>詳細を見る</Link>
+            <p>お受け取り可能時間まで {'time'}</p>
+            <div>
+              <Image
+                /*className*/
+                src="/images/map.png"
+                alt="GoogleMap"
+                width={500}
+                height={500}
+                priority
+              />
+            </div>
+            <Link href={'/'}>別のメニューを注文する</Link>
           </div>
         </div>
-
-        <div>
-          <Link href={'#'}>詳細を見る</Link>
-          <p>お受け取り可能時間まで {'time'}</p>
-          <div>
-            <Image
-              /*className*/
-              src="/images/map.png"
-              alt="GoogleMap"
-              width={500}
-              height={500}
-              priority
-            />
-          </div>
-          <Link href={'/'}>別のメニューを注文する</Link>
-        </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }
 
 type OrderData = {
@@ -116,4 +141,12 @@ type OrderData = {
   folk: number;
   spoon: number;
   oshibori: number;
+};
+
+type OrderItems = {
+  order_id: number;
+  item_name: string;
+  price: number;
+  shop_id: number;
+  quantitiy: number;
 };

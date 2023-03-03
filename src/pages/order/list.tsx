@@ -54,7 +54,7 @@ export default function Orderlist() {
     } else {
       {
         cartItems.map((item) => {
-          fetch('/api/order_items', {
+          fetch('/api/post_order_items', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

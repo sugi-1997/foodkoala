@@ -30,7 +30,7 @@ export default function SelectPay() {
             id="select_card"
             name="select_pay"
             onChange={() => {
-              const selectedPayment = 'card';
+              const selectedPayment = 'クレジットカード';
               setPayment(selectedPayment);
               patchPayment(selectedPayment);
             }}
@@ -44,7 +44,7 @@ export default function SelectPay() {
             id="select_money"
             name="select_pay"
             onChange={() => {
-              const selectedPayment = 'cash';
+              const selectedPayment = '現金';
               setPayment(selectedPayment);
               patchPayment(selectedPayment);
             }}
