@@ -18,3 +18,7 @@ VALUES (
 (11,FALSE),
 (12,TRUE),
 (13,FALSE);
+
+
+--@block
+SELECT * FROM api.favorite;

@@ -119,7 +119,20 @@ CREATE TABLE api.users (
     zipcode     text    NOT NULL,
     address     text    NOT NULL,
     phone_number text   NOT NULL,
-    password    text    NOT NULL
+    password    text    NOT NULL,
+    shop_id_1       BOOLEAN DEFAULT FALSE,
+    shop_id_2       BOOLEAN DEFAULT FALSE,
+    shop_id_3       BOOLEAN DEFAULT FALSE,
+    shop_id_4       BOOLEAN DEFAULT FALSE,
+    shop_id_5       BOOLEAN DEFAULT FALSE,
+    shop_id_6       BOOLEAN DEFAULT FALSE,
+    shop_id_7       BOOLEAN DEFAULT FALSE,
+    shop_id_8       BOOLEAN DEFAULT FALSE,
+    shop_id_9       BOOLEAN DEFAULT FALSE,
+    shop_id_10      BOOLEAN DEFAULT FALSE,
+    shop_id_11      BOOLEAN DEFAULT FALSE,
+    shop_id_12      BOOLEAN DEFAULT FALSE,
+    shop_id_13      BOOLEAN DEFAULT FALSE
 );
 GRANT SELECT ON api.users TO web_anon;
 GRANT ALL ON api.users to api_user;
@@ -134,6 +147,8 @@ CREATE TABLE api.favorite (
 );
 GRANT SELECT ON api.favorite TO web_anon;
 GRANT ALL ON api.favorite to api_user;
+<<<<<<< HEAD
+=======
 
 -- @block
 DROP TABLE IF EXISTS api.coupon;
@@ -144,3 +159,4 @@ CREATE TABLE api.coupon (
 );
 GRANT SELECT ON api.coupon TO web_anon;
 GRANT ALL ON api.coupon to api_user;
+>>>>>>> main
