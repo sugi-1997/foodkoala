@@ -8,3 +8,10 @@ VALUES (
   'welcome coupon',
   10
 )
+
+-- @block
+INSERT INTO api.carts (
+  user_id
+) VALUES (
+  1
+)
