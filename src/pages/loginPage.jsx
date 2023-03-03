@@ -69,7 +69,7 @@ export default function Login() {
         <Head>  
           <title>ログイン</title>
         </Head>
-        <body className={styles.background}>
+        <div className={styles.background}>
         <div className={styles.logo}>
         <Image
            src="/images/foodkoala_logo.png"
@@ -126,6 +126,6 @@ export default function Login() {
             <p>アカウントをお持ちではありませんか？</p>
             <p><Link href='/userResisterPage'>アカウントを作成</Link></p>
           </div> 
-          </body> 
+          </div> 
           </>
           )}  
