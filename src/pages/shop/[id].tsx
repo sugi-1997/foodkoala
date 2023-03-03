@@ -5,7 +5,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
 import score from 'components/shop/score';
-import { useState } from 'react';
 import useSWR from 'swr';
 import BreadList, {
   shop_page,
@@ -49,7 +48,7 @@ export function MenuList({ data }: { data: Menu[] }) {
   return (
     <>
       {data.map((menu: Menu) => (
-        <div key={menu.id}>
+        <div key={menu.id} className={styles.shop_detail_menu}>
           <div className={styles.shop_detail_menuImg}>
             <Image
               src={menu.image_url}
@@ -58,12 +57,8 @@ export function MenuList({ data }: { data: Menu[] }) {
               height={150}
             />
           </div>
-          <div className={styles.shop_detail_menuName}>
-            <p>{menu.name}</p>
-          </div>
-          <div className={styles.shop_detail_menuPrice}>
-            <p>{menu.price}円</p>
-          </div>
+          <p>{menu.name}</p>
+          <p>{menu.price}円</p>
         </div>
       ))}
     </>
@@ -79,8 +74,6 @@ export function ShopMenu({ shopId }: { shopId: number }) {
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データを取得できませんでした</div>;
 
-  console.log('data', data);
-  console.log('shopId', shopId);
   return (
     <>
       <div className={styles.shop_menu}>
@@ -105,7 +98,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
   function koalaIcon() {
     return (
       <div className={styles.shop_detail_reviewImg}>
-        <img src="/images/provisional_logo.png" alt="コアラ" />
+        <img src="/images/foodkoala_logo.png" alt="コアラ" />
       </div>
     );
   }
@@ -119,12 +112,12 @@ export default function ShopDetail({ shopData }: ShopProps) {
           crossOrigin="anonymous"
         ></script>
       </Head>
-      <main>
+      <body>
         <Header />
-        <div>
-          <BreadList list={[menu_list, shop_list, shop_page]} />
-          <div key={shop.id}>
-            <p className={styles.shop_detail_name}>{shop.name}</p>
+        <BreadList list={[menu_list, shop_list, shop_page]} />
+        <main>
+          <div key={shop.id} className={styles.shop}>
+            <h1 className={styles.shop_detail_name}>{shop.name}</h1>
             <div className={styles.shop_detail_grade}>
               {shop.score}
               {score(shop.score)}
@@ -133,34 +126,38 @@ export default function ShopDetail({ shopData }: ShopProps) {
               <Image
                 src={shop.image_url}
                 alt="お店の画像"
-                width={150}
-                height={150}
+                width={300}
+                height={300}
               />
             </div>
-            <FavoriteButton shop={shop} />
+            <div>
+              <FavoriteButton shop={shop} />
+            </div>
             <p className={styles.shop_detail_description}>
               {shop.description}
             </p>
           </div>
-          <div className={styles.shopDetail_menu}>
+          <div className={styles.shop_detail_menu}>
             <ShopMenu shopId={shop.id} />
           </div>
           <div className={styles.shopDetail_review}>
-            <div className={styles.shop_detail_reviewTitle}>
-              <p>みんなのレビュー</p>
-            </div>
+            <p className={styles.shop_detail_reviewTitle}>
+              みんなのレビュー
+            </p>
             <div className={styles.shop_review}>
               {koalaIcon()}
               <div className={styles.shop_detail_review}>
                 {shop.review_1}
               </div>
             </div>
+            <br />
             <div className={styles.shop_review}>
               {koalaIcon()}
               <div className={styles.shop_detail_review}>
                 {shop.review_2}
               </div>
             </div>
+            <br />
             <div className={styles.shop_review}>
               {koalaIcon()}
               <div className={styles.shop_detail_review}>
@@ -168,9 +165,9 @@ export default function ShopDetail({ shopData }: ShopProps) {
               </div>
             </div>
           </div>
-        </div>
+        </main>
         <Footer />
-      </main>
+      </body>
     </>
   );
 }

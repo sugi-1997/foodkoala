@@ -1,43 +1,43 @@
-.shop_detail,.shopList,.shopFavorite{
-    width: 100%;
+/* [id]のCSS */
+.shop_detail_img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
 }
 
-.shop_detail_name,.shop_detail_reviewTitle{
+.shop_detail_name {
     margin-left: 20%;
 }
 
-.shop_detail_img img{
-    width: 30%;
-    height: auto;
-}
-
-.shop_detail_img{
-    text-align: center;
-}
-
-.shop_detail_grade,.shop_favorite_true,.shop_favorite_false{
+.shop_detail_grade{
     text-align: right;
     margin-right: 20%;
 }
 
-.shop_detail_menuImg img{  
-    width: 100%;
-    height: auto;
-    align-items: center;
+
+.shop_detail_description{
+    text-align: center;
 }
 
 .shop_detail_description {
-   text-align: center;
+    white-space:pre;
 }
 
-.shop_menu{
-    width: 25%;
-    display: inline-block;
-    padding: 0 20px;
-}
-
-.shopDetail_menu{
+.shop_detail_menu{
     text-align: center;
+}
+
+.shopDetail_review {
+    padding-bottom: 70px;
+}
+
+.shop_detail_reviewTitle{
+    margin-left: 20%;
+}
+
+.shop_review {
+    padding: 30px 0;
 }
 
 .shop_detail_reviewImg img{
@@ -61,9 +61,37 @@
     vertical-align: middle;
 }
 
+.shop_menu{
+    width: 25%;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.shop_detail_menuImg img{  
+    width: 100%;
+    height: auto;
+    align-items: center;
+}
+
+
+
+
+
+/* その他 */
+.shop_detail,.shopList,.shopFavorite{
+    width: 100%;
+}
+
+
 .shopList_menu,.shopFavorite_menu{
     text-align: center;
 }
+
+.shop_favorite_true,.shop_favorite_false{
+    text-align: right;
+    margin-right: 20%;
+}
+
 
 .shopList_shop,.shopFavorite_shop{
     width: 33%;
