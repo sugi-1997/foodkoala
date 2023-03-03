@@ -1,3 +1,5 @@
+--使わない予定です！！（一旦残します）
+
 INSERT INTO api.favorite(
     shop_id ,
     favorite
