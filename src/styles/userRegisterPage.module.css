@@ -1,7 +1,8 @@
-.body {
-    margin: 0;
+.background {
+    min-width: 100vw;
+    width: 100%;
+    height: 800px;
     background-color: #f6f1ed;
-    height: 1000px;
 }
 
 .logo {
@@ -9,7 +10,7 @@
 }
 
 .logo h1 {
-    margin: 0;
+    margin-top: 0;
     color: #fff;
     font-family: 'Cherry Swash', cursive;
     -webkit-text-stroke: 1px #f7ad4d;
@@ -19,7 +20,7 @@
 .form_position{
     background-color: #fff;
     width: 400px;
-    margin: 50px auto;
+    margin: 0px auto;
     padding: 0 30px;
     border: 1px solid #fff;
     box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.3);
@@ -27,7 +28,7 @@
 
 .form_position h2 {
     text-align: center;
-    border-bottom: 1px solid #b8a99a;
+    border-bottom: 1px solid #01a174;
     margin-bottom: 0;
     font-family: "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体";
     color: #2a1c0e;
@@ -47,7 +48,7 @@
 }
 
 .form_position input:focus {
-    outline: 2px solid #b8a99a ;
+    outline: 1px solid #b8a99a ;
 }
 
 .name input,
@@ -72,13 +73,14 @@
 .address p,
 .phone_number p,
 .password p {
-    color: #fff;
+    display: none;
+    /* color: #fff; */
     margin-top: 0;
     font-size: 12px;
 }
 
 .ok {
-    color: #fff;
+    display: none;
     margin-top: 0;
     font-size: 12px;
 }
@@ -88,8 +90,15 @@
     font-size: 12px;
 }
 
+.search_button {
+
+}
+
+.password2 input {
+    margin-bottom: 10px;
+}
 .password2 {
-    border-bottom: 1px solid #b8a99a;
+    border-bottom: 1px solid #01a174;
 }
 
 .submit_button {

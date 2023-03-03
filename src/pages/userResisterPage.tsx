@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
-import styles from '../styles/userRegisterItem.module.css';
+import styles from '../styles/userRegisterPage.module.css';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
@@ -16,18 +16,31 @@ export default function UserRegisterPage() {
   const [phone_number, setPhone_number] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  const [errorZipcode, setErrorZipcode] = useState('ok');
+  const [errorAddress, setErrorAddress] = useState('ok');
   const [errorMail, setErrorMail] = useState('ok');
   const [errorPassword, setErrorPassword] = useState('ok');
 
   const router = useRouter();
 
   function getZipcode() {
+    if (zipcode === '') {
+      console.log('※郵便番号を入力してください。');
+      setErrorZipcode('alert');
+      return;
+    }
+    setErrorZipcode('ok');
     fetch(
       `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipcode}`
     )
       .then((res) => res.json())
       .then((data) => {
-        if (data.length > 0) {
+        if (data.length === 0) {
+          console.log('郵便番号が取得できませんでした');
+          setErrorAddress('alert');
+          return;
+        } else {
+          console.log('郵便番号が取得できました');
           setAddress(
             `${
               data.results[0].address1 +
@@ -36,10 +49,8 @@ export default function UserRegisterPage() {
             }`
           );
         }
-        return;
       });
   }
-
   function userPost() {
     fetch(resource, {
       method: 'POST',
@@ -69,10 +80,10 @@ export default function UserRegisterPage() {
         <title>新規会員登録</title>
       </Head>
       <Header />
-      <body className={styles.body}>
+      <div className={styles.background}>
         <div className={styles.logo}>
           <Image
-            src="/images/provisional_logo.png"
+            src="/images/foodkoala_logo.png"
             width={100}
             height={100}
             alt="logo"
@@ -89,6 +100,7 @@ export default function UserRegisterPage() {
             method="POST"
             onSubmit={(e) => {
               e.preventDefault();
+
               if (password !== password2) {
                 console.log('※パスワードが一致していません。');
                 setErrorPassword('alert');
@@ -162,8 +174,15 @@ export default function UserRegisterPage() {
                 required
               />
               &nbsp;
-              <button onClick={getZipcode}>検索</button>
-              <p>※郵便番号はxxx-xxxxの形で入力してください。</p>
+              <button
+                className={styles.search_button}
+                onClick={getZipcode}
+              >
+                検索
+              </button>
+              <p className={styles[errorZipcode]}>
+                ※郵便番号を入力してください。
+              </p>
             </div>
 
             <div className={styles.address}>
@@ -175,9 +194,10 @@ export default function UserRegisterPage() {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="東京都新宿区新宿4-3-25"
-                required
               />
-              <p>※文字が入ります。</p>
+              <p className={styles[errorAddress]}>
+                ※郵便番号を取得できませんでした。住所を入力してください。
+              </p>
             </div>
 
             <div className={styles.phone_number}>
@@ -233,7 +253,7 @@ export default function UserRegisterPage() {
             </button>
           </form>
         </div>
-      </body>
+      </div>
       <Footer />
     </>
   );

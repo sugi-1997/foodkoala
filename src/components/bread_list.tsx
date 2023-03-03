@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import styles from '../styles/breadList.module.css';
 
 //各ページのtitleとpathを定義。ページごとに現在のページまでの階層のページを指定。
 export const concept = { title: 'コンセプト', path: `/concept` };
@@ -39,7 +40,7 @@ export default function BreadList({
     list: { title: string; path: string | null }[];
   }) {
     return (
-      <ul className="breadList" key={router.asPath}>
+      <ul className={styles.breadList} key={router.asPath}>
         {props.list.map((state, index) => {
           if (state.path === router.asPath || state.path === null) {
             return <li key={state.title}>{state.title}</li>;
