@@ -26,6 +26,7 @@ export default function Option() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        user_id: Number(userId),
         chopstick: optionCount,
       }),
     })
@@ -42,6 +43,7 @@ export default function Option() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        user_id: Number(userId),
         folk: optionCount,
       }),
     })
@@ -58,6 +60,7 @@ export default function Option() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        user_id: Number(userId),
         spoon: optionCount,
       }),
     })
@@ -74,6 +77,7 @@ export default function Option() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        user_id: Number(userId),
         oshibori: optionCount,
       }),
     })

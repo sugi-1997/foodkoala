@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import useSWR from 'swr';
+import Timer from 'components/Timer';
 
 const fetcher = async (resource: string) => {
   const res = await fetch(resource);
@@ -71,7 +72,6 @@ export default function OrderCompleted() {
                 </div>
               </dl>
             </div>
-
             <div>
               <p className={styles.order_complete_group}>
                 小計（税込）
@@ -80,14 +80,12 @@ export default function OrderCompleted() {
                 {data[0].subtotal}円
               </p>
             </div>
-
             <div>
               <p className={styles.order_complete_group}>クーポン</p>
               <p className={styles.order_complete_item}>
                 -{data[0].coupon}%
               </p>
             </div>
-
             <div>
               <p className={styles.order_complete_group}>
                 合計（税込）
@@ -96,7 +94,6 @@ export default function OrderCompleted() {
                 {data[0].total}円
               </p>
             </div>
-
             <div>
               <p className={styles.order_complete_group}>
                 お支払い方法
@@ -106,10 +103,9 @@ export default function OrderCompleted() {
               </p>
             </div>
           </div>
-
           <div>
             <Link href={'#'}>詳細を見る</Link>
-            <p>お受け取り可能時間まで {'time'}</p>
+            <Timer date={data[0].ordered_at} />
             <div>
               <Image
                 /*className*/

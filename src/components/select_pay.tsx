@@ -3,7 +3,6 @@ import { useState } from 'react';
 import styles from 'styles/order_check.module.css';
 
 export default function SelectPay() {
-  const [payment, setPayment] = useState('');
   const userId = Cookies.get('user_id');
 
   const patchPayment = async (selectedpayment: string) => {
@@ -13,6 +12,7 @@ export default function SelectPay() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        user_id: Number(userId),
         payment_method: selectedpayment,
       }),
     })
@@ -31,7 +31,6 @@ export default function SelectPay() {
             name="select_pay"
             onChange={() => {
               const selectedPayment = 'クレジットカード';
-              setPayment(selectedPayment);
               patchPayment(selectedPayment);
             }}
             value={'card'}
@@ -45,7 +44,6 @@ export default function SelectPay() {
             name="select_pay"
             onChange={() => {
               const selectedPayment = '現金';
-              setPayment(selectedPayment);
               patchPayment(selectedPayment);
             }}
             value={'cash'}
