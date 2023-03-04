@@ -6,13 +6,11 @@ import Genre from 'components/genre';
 import useSWR, { useSWRConfig } from 'swr';
 import { SyntheticEvent, useState } from 'react';
 import styles from 'styles/Menu_list.module.css';
-import ShopName from 'components/shop_name';
-import { Menu } from 'types/shops';
 
 const fetcher = (resource: string) =>
   fetch(resource).then((res) => res.json());
 
-export default function MenuList({ onClick, id }: any) {
+export default function MenuList() {
   const [genreId, setGenreId] = useState<string>('gt.0');
   const [areaId, setAreaId] = useState<string>('gt.0');
   const [itemId, setItemId] = useState<string>('gt.0');
