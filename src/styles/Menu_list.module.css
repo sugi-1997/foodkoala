@@ -3,9 +3,14 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  min-width: 100vw;
+  height: 100%;
+  /* border: 1px solid #000; */
 }
 
 .menu {
-  margin: 1%;
+  text-align: center;
   width: 20%;
+  margin: 1%;
+  /* border: 1px solid #000; */
 }
