@@ -1,7 +1,6 @@
 import styles from 'styles/order_check.module.css';
 import useSWR, { useSWRConfig } from 'swr';
 import { useState, useEffect } from 'react';
-import Coupon from 'components/Coupon';
 import CartItems from 'pages/api/delete_cart_items';
 
 export default function OrderList() {
@@ -130,7 +129,6 @@ export default function OrderList() {
           ))}
           <p>小計：{subTotal}円</p>
         </div>
-        <Coupon subTotal={subTotal} />
       </div>
     </>
   );

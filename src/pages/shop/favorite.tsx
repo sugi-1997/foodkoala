@@ -10,21 +10,20 @@ import BreadList, {
   favorite_list,
 } from 'components/bread_list';
 import useSWR from 'swr';
-
-const fetcher = (resource: string, init: object) =>
-  fetch(resource, init).then((res) => res.json());
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 
 export default function ShopFavorite() {
-  const { data, error } = useSWR(
-    `http://localhost:8000/favorite?favorite=eq.${true}`,
-    fetcher
-  );
-
-  if (error) return <div>エラーです</div>;
-  if (!data) return <div>Loading...</div>;
-
-  console.log('truefalse', data);
-
+  const [favoriteData, setFavoriteData] = useState([]);
+  useEffect(() => {
+    fetch(
+      `http://localhost:8000/favorite?user_id=eq.${Cookies.get(
+        'user_id'
+      )}`
+    )
+      .then((res) => res.json())
+      .then((data) => setFavoriteData(data));
+  }, [favoriteData]);
   return (
     <>
       <Head>
@@ -37,7 +36,7 @@ export default function ShopFavorite() {
         <Area />
         <div className={styles.shopFavorite_shop}>
           <div className={styles.shopFavorite_name}>
-            {data.map((fav: any) => (
+            {favoriteData.map((fav: any) => (
               <ShopName
                 url={`http://localhost:8000/shops?id=eq.${fav.shop_id}`}
               />

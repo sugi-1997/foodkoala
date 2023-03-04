@@ -4,7 +4,6 @@ import Link from 'next/link';
 import styles from 'styles/Header.module.css';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import Logout from 'components/logout';
 import { useEffect, useState } from 'react';
 
 export default function Header({ onClick }: any) {
@@ -59,7 +58,7 @@ export default function Header({ onClick }: any) {
               <Link href="/shop/favorite">お気に入り</Link>
             </li>
             <li>
-              <Link href="/order/order_check">注文リスト</Link>
+              <Link href="/order/list">注文リスト</Link>
             </li>
             <li>
               <Link href="/order/order_history">注文履歴</Link>
