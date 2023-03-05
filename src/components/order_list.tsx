@@ -79,7 +79,7 @@ export default function OrderList() {
         </div>
         <div className={styles.order_list}>
           <br />
-          <div>カートに商品はありません</div>
+          <div className={styles.order_list_sub}>カートに商品はありません</div>
           <br />
           <p>小計: 0円</p>
           <p>合計: 0円</p>
