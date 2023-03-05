@@ -12,6 +12,7 @@ import BreadList, {
   menu_list,
 } from 'components/bread_list';
 import FavoriteButton from 'components/shop/favorite_button';
+import Link from 'next/link';
 
 //お店情報の取得
 export async function getStaticPaths() {
@@ -47,20 +48,24 @@ const fetcher = (resource: string, init: object) =>
 export function MenuList({ data }: { data: Menu[] }) {
   return (
     <>
-      {data.map((menu: Menu) => (
-        <div key={menu.id} className={styles.shop_detail_menu}>
-          <div className={styles.shop_detail_menuImg}>
-            <Image
-              src={menu.image_url}
-              alt="メニュー画像"
-              width={150}
-              height={150}
-            />
+      <div className={styles.shop_id_menu_list}>
+        {data.map((menu: Menu) => (
+          <div key={menu.id} className={styles.shop_id_menu}>
+            <Link href={`/item/${menu.id}`}>
+              <div>
+                <Image
+                  src={menu.image_url}
+                  alt="メニュー画像"
+                  width={300}
+                  height={300}
+                />
+              </div>
+              <p>{menu.name}</p>
+              <p>{menu.price}円</p>
+            </Link>
           </div>
-          <p>{menu.name}</p>
-          <p>{menu.price}円</p>
-        </div>
-      ))}
+        ))}
+      </div>
     </>
   );
 }
@@ -76,7 +81,7 @@ export function ShopMenu({ shopId }: { shopId: number }) {
 
   return (
     <>
-      <div className={styles.shop_menu}>
+      <div>
         <MenuList data={data} />
       </div>
     </>
@@ -97,7 +102,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
   //レビューのコアラアイコン
   function koalaIcon() {
     return (
-      <div className={styles.shop_detail_reviewImg}>
+      <div className={styles.shop_id_review_img}>
         <img src="/images/foodkoala_logo.png" alt="コアラ" />
       </div>
     );
@@ -116,13 +121,16 @@ export default function ShopDetail({ shopData }: ShopProps) {
         <Header />
         <BreadList list={[menu_list, shop_list, shop_page]} />
         <main>
-          <div key={shop.id} className={styles.shop}>
-            <h1 className={styles.shop_detail_name}>{shop.name}</h1>
-            <div className={styles.shop_detail_grade}>
+          <div key={shop.id} className={styles.main}>
+            <h1 className={styles.shop_id_name}>
+              <i className="fa-solid fa-utensils"></i>
+              &nbsp;&nbsp;{shop.name}
+            </h1>
+            <div className={styles.shop_id_score}>
               {shop.score}
               {score(shop.score)}
             </div>
-            <div className={styles.shop_detail_img}>
+            <div className={styles.shop_id_image}>
               <Image
                 src={shop.image_url}
                 alt="お店の画像"
@@ -133,35 +141,36 @@ export default function ShopDetail({ shopData }: ShopProps) {
             <div>
               <FavoriteButton shop={shop} />
             </div>
-            <p className={styles.shop_detail_description}>
+            <p className={styles.shop_id_description}>
               {shop.description}
             </p>
-          </div>
-          <div className={styles.shop_detail_menu}>
             <ShopMenu shopId={shop.id} />
-          </div>
-          <div className={styles.shopDetail_review}>
-            <p className={styles.shop_detail_reviewTitle}>
-              みんなのレビュー
-            </p>
-            <div className={styles.shop_review}>
-              {koalaIcon()}
-              <div className={styles.shop_detail_review}>
-                {shop.review_1}
+            <div className={styles.shopDetail_review}>
+              <p className={styles.shop_id_review_title}>
+                <span>
+                  <i className="fa-solid fa-face-laugh"></i>
+                  &nbsp;みんなのレビュー
+                </span>
+              </p>
+              <div className={styles.shop_review}>
+                {koalaIcon()}
+                <div className={styles.shop_id_review}>
+                  {shop.review_1}
+                </div>
               </div>
-            </div>
-            <br />
-            <div className={styles.shop_review}>
-              {koalaIcon()}
-              <div className={styles.shop_detail_review}>
-                {shop.review_2}
+              <br />
+              <div className={styles.shop_review}>
+                {koalaIcon()}
+                <div className={styles.shop_id_review}>
+                  {shop.review_2}
+                </div>
               </div>
-            </div>
-            <br />
-            <div className={styles.shop_review}>
-              {koalaIcon()}
-              <div className={styles.shop_detail_review}>
-                {shop.review_3}
+              <br />
+              <div className={styles.shop_review}>
+                {koalaIcon()}
+                <div className={styles.shop_id_review}>
+                  {shop.review_3}
+                </div>
               </div>
             </div>
           </div>
