@@ -53,6 +53,7 @@ CREATE TABLE api.order_items (
     order_id INTEGER NOT NULL,
     item_name TEXT NOT NULL,
     price INTEGER NOT NULL,
+    shop_id INTEGER NOT NULL,
     quantitiy INTEGER NOT NULL
 );
 GRANT SELECT ON api.order_items TO web_anon;
@@ -63,10 +64,16 @@ DROP TABLE IF EXISTS api.orders;
 CREATE TABLE api.orders (
     cart_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
-    payment_method TEXT NOT NULL,
-    total BIGINT NOT NULL,
-    ordered_at TIMESTAMPTZ NOT NULL,
-    order_code text
+    payment_method TEXT ,
+    coupon INTEGER,
+    subtotal INTEGER,
+    total INTEGER ,
+    ordered_at TIMESTAMPTZ,
+    order_code text,
+    chopstick INTEGER,
+    folk INTEGER,
+    spoon INTEGER,
+    oshibori INTEGER
 );
 GRANT SELECT ON api.orders TO web_anon;
 GRANT ALL ON api.orders to api_user;
@@ -88,7 +95,12 @@ GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
 DROP TABLE IF EXISTS api.carts;
 CREATE TABLE api.carts (
     user_id INTEGER NOT NULL,
-    coupon INTEGER 
+    coupon INTEGER,
+    chopstick INTEGER NOT NULL DEFAULT 0,
+    folk INTEGER NOT NULL DEFAULT 0,
+    spoon INTEGER NOT NULL DEFAULT 0,
+    oshibori INTEGER NOT NULL DEFAULT 0,
+    payment_method text 
 );
 GRANT SELECT ON api.carts TO web_anon;
 GRANT ALL ON api.carts to api_user;

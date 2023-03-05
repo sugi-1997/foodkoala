@@ -6,9 +6,8 @@ export default async function patchCarts(
 ) {
   try {
     const url = process.env['BACKEND_API_URL'];
-    const userId = req.body.user_id;
-    const couponValue = req.body.coupon;
-    const response = await fetch(`${url}/carts?user_id=eq.${userId}`);
+    const userId = req.query.user_id;
+    const response = await fetch(`${url}/carts?user_id=${userId}`);
     const data = await response.json();
     if (!response.ok) {
       throw new Error(`${response.statusText}`);
@@ -21,10 +20,7 @@ export default async function patchCarts(
           Prefer: 'return=representation',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          user_id: Number(userId),
-          coupon: Number(couponValue),
-        }),
+        body: JSON.stringify(req.body),
       });
       if (!response.ok) {
         throw new Error(`${response.statusText}`);
@@ -41,10 +37,7 @@ export default async function patchCarts(
           Prefer: 'return=representation',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          user_id: Number(userId),
-          coupon: Number(couponValue),
-        }),
+        body: JSON.stringify(req.body),
       });
       if (!response.ok) {
         throw new Error(`${response.statusText}`);
