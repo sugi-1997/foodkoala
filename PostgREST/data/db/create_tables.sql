@@ -25,29 +25,6 @@ GRANT ALL ON api.shops to api_user;
 GRANT USAGE ON SEQUENCE api.shops_id_seq TO api_user;
 
 -- @block
-DROP TABLE IF EXISTS api.genre;
-DROP TABLE IF EXISTS api.genre_id;
-CREATE TABLE api.genre (
-    id SERIAL PRIMARY KEY,
-    name text NOT NULL,
-    image_url TEXT
-);
-GRANT SELECT ON api.genre TO web_anon;
-GRANT ALL ON api.genre to api_user;
-GRANT USAGE ON SEQUENCE api.genre_id_seq TO api_user;
-
--- @block
-DROP TABLE IF EXISTS api.area;
-DROP TABLE IF EXISTS api.area_id;
-CREATE TABLE api.area (
-    id SERIAL PRIMARY KEY,
-    name text NOT NULL
-);
-GRANT SELECT ON api.area TO web_anon;
-GRANT ALL ON api.area to api_user;
-GRANT USAGE ON SEQUENCE api.area_id_seq TO api_user;
-
--- @block
 DROP TABLE IF EXISTS api.order_items;
 CREATE TABLE api.order_items (
     order_id INTEGER NOT NULL,
@@ -77,6 +54,26 @@ CREATE TABLE api.orders (
 );
 GRANT SELECT ON api.orders TO web_anon;
 GRANT ALL ON api.orders to api_user;
+
+-- @block
+DROP TABLE IF EXISTS api.order_history;
+CREATE TABLE api.order_history (
+    cart_id SERIAL NOT NULL,
+    user_id INTEGER NOT NULL,
+    payment_method TEXT ,
+    coupon INTEGER,
+    subtotal INTEGER,
+    total INTEGER ,
+    ordered_at TIMESTAMPTZ,
+    order_code text,
+    chopstick INTEGER,
+    folk INTEGER,
+    spoon INTEGER,
+    oshibori INTEGER
+);
+GRANT SELECT ON api.order_history TO web_anon;
+GRANT ALL ON api.order_history to api_user;
+GRANT USAGE ON SEQUENCE api.order_history_cart_id_seq TO api_user;
 
 
 -- @block
@@ -140,12 +137,13 @@ GRANT USAGE ON SEQUENCE api.users_id_seq TO api_user;
 -- @block
 DROP TABLE IF EXISTS api.coupon;
 CREATE TABLE api.coupon (
-    user_id     INTEGER,
+    user_id     SERIAL,
     couponcode TEXT,
     discount INTEGER
 );
 GRANT SELECT ON api.coupon TO web_anon;
 GRANT ALL ON api.coupon to api_user;
+GRANT USAGE ON SEQUENCE api.coupon_user_id_seq TO api_user;
 
 -- @block
 DROP TABLE IF EXISTS api.favorite;
