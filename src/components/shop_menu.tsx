@@ -54,7 +54,7 @@ export default function ShopMenu({ id }: { id: number }) {
                 />
               </div>
               <div className={styles.shop_detail_menuName}>
-                <p>{menu.name}</p>
+                <p>{menu.name}...</p>
               </div>
             </Link>
             <div className={styles.shop_detail_menuPrice}>
