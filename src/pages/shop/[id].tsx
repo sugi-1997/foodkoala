@@ -117,66 +117,64 @@ export default function ShopDetail({ shopData }: ShopProps) {
           crossOrigin="anonymous"
         ></script>
       </Head>
-      <body>
-        <Header />
-        <BreadList list={[menu_list, shop_list, shop_page]} />
-        <main>
-          <div key={shop.id} className={styles.main}>
-            <h1 className={styles.shop_id_name}>
-              <i className="fa-solid fa-utensils"></i>
-              &nbsp;&nbsp;{shop.name}
-            </h1>
-            <div className={styles.shop_id_score}>
-              {shop.score}
-              {score(shop.score)}
-            </div>
-            <div className={styles.shop_id_image}>
-              <Image
-                src={shop.image_url}
-                alt="お店の画像"
-                width={300}
-                height={300}
-              />
-            </div>
-            <div>
-              <FavoriteButton shop={shop} />
-            </div>
-            <p className={styles.shop_id_description}>
-              {shop.description}
+      <Header />
+      <BreadList list={[menu_list, shop_list, shop_page]} />
+      <main>
+        <div key={shop.id} className={styles.main}>
+          <h1 className={styles.shop_id_name}>
+            <i className="fa-solid fa-utensils"></i>
+            &nbsp;&nbsp;{shop.name}
+          </h1>
+          <div className={styles.shop_id_score}>
+            {shop.score}
+            {score(shop.score)}
+          </div>
+          <div className={styles.shop_id_image}>
+            <Image
+              src={shop.image_url}
+              alt="お店の画像"
+              width={300}
+              height={300}
+            />
+          </div>
+          <div>
+            <FavoriteButton shop={shop} />
+          </div>
+          <p className={styles.shop_id_description}>
+            {shop.description}
+          </p>
+          <ShopMenu shopId={shop.id} />
+          <div className={styles.shopDetail_review}>
+            <p className={styles.shop_id_review_title}>
+              <span>
+                <i className="fa-solid fa-face-laugh"></i>
+                &nbsp;みんなのレビュー
+              </span>
             </p>
-            <ShopMenu shopId={shop.id} />
-            <div className={styles.shopDetail_review}>
-              <p className={styles.shop_id_review_title}>
-                <span>
-                  <i className="fa-solid fa-face-laugh"></i>
-                  &nbsp;みんなのレビュー
-                </span>
-              </p>
-              <div className={styles.shop_review}>
-                {koalaIcon()}
-                <div className={styles.shop_id_review}>
-                  {shop.review_1}
-                </div>
+            <div className={styles.shop_review}>
+              {koalaIcon()}
+              <div className={styles.shop_id_review}>
+                {shop.review_1}
               </div>
-              <br />
-              <div className={styles.shop_review}>
-                {koalaIcon()}
-                <div className={styles.shop_id_review}>
-                  {shop.review_2}
-                </div>
+            </div>
+            <br />
+            <div className={styles.shop_review}>
+              {koalaIcon()}
+              <div className={styles.shop_id_review}>
+                {shop.review_2}
               </div>
-              <br />
-              <div className={styles.shop_review}>
-                {koalaIcon()}
-                <div className={styles.shop_id_review}>
-                  {shop.review_3}
-                </div>
+            </div>
+            <br />
+            <div className={styles.shop_review}>
+              {koalaIcon()}
+              <div className={styles.shop_id_review}>
+                {shop.review_3}
               </div>
             </div>
           </div>
-        </main>
-        <Footer />
-      </body>
+        </div>
+      </main>
+      <Footer />
     </>
   );
 }

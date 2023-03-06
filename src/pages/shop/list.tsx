@@ -1,5 +1,4 @@
 import ShopName from '../../components/shop_name';
-import styles from '../../styles/Shop.module.css';
 import Head from 'next/head';
 import Header from 'components/header';
 import Genre from 'components/genre';
@@ -14,18 +13,14 @@ export default function ShopList() {
   return (
     <>
       <Head>
-        <title>お店一覧</title>
+        <title>ショップ一覧</title>
       </Head>
-      <main className={styles.shopList}>
+      <main>
         <Header />
         <BreadList list={[menu_list, shop_list]} />
         <Genre onClick={undefined} />
         <Area />
-        <div className={styles.shopList_shop}>
-          <div className={styles.shopList_name}>
-            <ShopName url="http://localhost:8000/shops" />
-          </div>
-        </div>
+        <ShopName url="http://localhost:8000/shops" />
         <Footer />
       </main>
     </>
