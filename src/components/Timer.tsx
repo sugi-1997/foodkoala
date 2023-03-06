@@ -30,12 +30,20 @@ export default function Timer({ date }: { date: Date }) {
     }
   }, [date, intervalId]);
 
-  return (
-    <div>
-      <p>お受け取り可能時間まで</p>
-      <h2>
-        {minute}分{second}秒
-      </h2>
-    </div>
-  );
+  if (minute > 0 || second > 0) {
+    return (
+      <div>
+        <p>お受け取り可能時間まで</p>
+        <h2>
+          {minute}分{second}秒
+        </h2>
+      </div>
+    );
+  } else if (minute === 0 && second === 0) {
+    return (
+      <div>
+        <h2>注文した商品が出来上がりました！</h2>
+      </div>
+    );
+  }
 }

@@ -17,7 +17,6 @@ export default function Login() {
     e.preventDefault();
 
     // login.tsにポスト
-
     fetch(url, {
       method: 'POST',
       headers: {
@@ -41,7 +40,6 @@ export default function Login() {
           alert('入力内容を確認してください');
         }
       })
-
       .catch((error) => {
         console.error('Error:', error);
         alert('エラー(.catch)');
@@ -64,7 +62,6 @@ export default function Login() {
   };
 
   //画面
-
   return (
     <>
       <Head>

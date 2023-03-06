@@ -5,7 +5,8 @@ import SelectPay from '../../components/select_pay';
 import Header from 'components/header';
 import Footer from 'components/footer';
 import { useRouter } from 'next/router';
-import Coupon from 'components/coupon';
+import Coupon from 'components/Coupon';
+import Auth from 'components/auth';
 import styles from 'styles/order_check.module.css';
 import BreadList, {
   menu_list,
