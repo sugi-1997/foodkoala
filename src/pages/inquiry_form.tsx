@@ -7,6 +7,7 @@ import Footer from 'components/footer';
 import Head from 'next/head';
 import styles from 'styles/Inquiry_form.module.css'; 
 import InquiryList from 'components/inquiryList';
+import Link from 'next/link';
 
 export default function InquiryForm() {
   return (
@@ -24,7 +25,7 @@ export default function InquiryForm() {
       </div>
       <div className={styles.button}>
         <button type="submit"
-        className={styles.button_inside}>送信する</button>
+        className={styles.button_inside}><Link href='/'>送信する</Link></button>
       </div>
       <Footer />
     </>
