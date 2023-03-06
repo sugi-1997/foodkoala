@@ -51,7 +51,7 @@ export function MenuList({ data }: { data: Menu[] }) {
       <div className={styles.shop_id_menu_list}>
         {data.map((menu: Menu) => (
           <div key={menu.id} className={styles.shop_id_menu}>
-            <Link href={`/item/${menu.id}`}>
+            <a href={`/item/${menu.id}`}>
               <div>
                 <Image
                   src={menu.image_url}
@@ -62,7 +62,7 @@ export function MenuList({ data }: { data: Menu[] }) {
               </div>
               <p>{menu.name}</p>
               <p>{menu.price}円</p>
-            </Link>
+            </a>
           </div>
         ))}
       </div>

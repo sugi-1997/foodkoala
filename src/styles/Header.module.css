@@ -21,24 +21,6 @@
 .logo span{
 }
 
-.search {
-  margin-left: 2%;
-  width: 30%;
-}
-
-.search input {
-  border: 1px solid  #4f4842;
-  border-radius: 3px;
-}
-
-.search button {
-  margin-left: 1%;
-  background-color:  #4f4842;
-  color: beige;
-  border-radius: 3px;
-  border: 1px solid  #4f4842;
-}
-
 .header ul {
   display: flex;
   list-style: none;

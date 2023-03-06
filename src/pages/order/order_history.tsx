@@ -88,16 +88,24 @@ export default function OrderHistory() {
             </h2>
             <div>
               <dl>
-                <dt>ご注文内容</dt>
+                <dt>
+                  <span>ご注文内容</span>
+                </dt>
                 {orderItems.map((item, index) => (
-                  <div key={item.item_name}>
-                    <dd>{item.item_name}</dd>
+                  <div>
+                    <dd key={item.item_name}>{item.item_name}</dd>
                   </div>
                 ))}
-                <dt>お支払い金額</dt>
-                <dd>{order.total}円</dd>
-                <dt>お支払い方法</dt>
-                <dd>{order.payment_method}</dd>
+                <dt>
+                  <span>お支払い金額</span>
+                </dt>
+                <dd key={order.total}>{order.total}円</dd>
+                <dt>
+                  <span>お支払い方法</span>
+                </dt>
+                <dd key={order.payment_method}>
+                  {order.payment_method}
+                </dd>
               </dl>
               <div className={styles.link}>
                 <Link href={'注文詳細'}>詳細を見る</Link>

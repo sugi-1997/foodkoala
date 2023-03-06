@@ -34,6 +34,11 @@
     text-align: center;
 }
 
+.shop_id_menu a {
+    text-decoration: none;
+    color:black;
+}
+
 .shop_id_menu_list img {
     object-fit:cover;
 }
