@@ -5,7 +5,6 @@ import Header from 'components/header';
 import Genre from 'components/genre';
 import Area from 'components/area';
 import Footer from 'components/footer';
-import Link from 'next/link';
 import BreadList, {
   menu_list,
   shop_list,

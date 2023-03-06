@@ -1,3 +1,5 @@
+import styles from '../../styles/Shop.module.css';
+
 export default function score(score: number) {
   if (score < 0.5) {
     return (
