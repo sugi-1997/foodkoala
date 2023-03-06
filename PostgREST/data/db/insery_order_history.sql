@@ -14,4 +14,4 @@ INSERT INTO api.order_history (
 )
 VALUES (
   
-)
+);

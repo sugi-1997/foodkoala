@@ -1,0 +1,31 @@
+.order_list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100vw;
+    margin: 0px auto;
+    min-height: 100vh;
+}
+
+.order_list h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.transition_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+    width: 200px;
+    height: 30px;
+    border: 1px solid orange;
+    border-radius: 15px;
+    background-color: orange;
+    color: #fff;
+    font-size: 15px;
+}
+
+.transition_button:hover {
+    opacity: 0.6;
+}
