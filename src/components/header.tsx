@@ -40,10 +40,6 @@ export default function Header({ onClick }: any) {
             <span>Food Koala</span>
           </Link>
         </div>
-        <div className={styles.search}>
-          <input type="search" name="search" />
-          <button>検索</button>
-        </div>
         <nav className={styles.nav}>
           <ul>
             <li>
