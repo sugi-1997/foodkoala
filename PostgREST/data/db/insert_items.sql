@@ -347,7 +347,7 @@ INSERT INTO api.items (
 ),
 (
     '焼きリゾット',
-    '/images/menu/risotto.food.jpeg',
+    '/images/menu/risotto.food.jpg',
     750,
     'さわやかなトマトとパルミジャーノレジャーノの香る定番メニュー。食欲をそそります',
     1,
@@ -356,7 +356,7 @@ INSERT INTO api.items (
 ),
 (
     '牛肉のイタリアンステーキ',
-    '/images/menu/redBeaf.food.jpeg',
+    '/images/menu/redBeaf.food.jpg',
     1800,
     '牛の赤身肉をレアで仕上げました。特性ソースで召し上がりください。',
     1,
@@ -365,7 +365,7 @@ INSERT INTO api.items (
 ),
 (
     '豚肉の香草ロール',
-    '/images/menu/glassPork.food.jpeg',
+    '/images/menu/glassPork.food.jpg',
     1200,
     'ジューシーな豚肉で香草をロールしました。見た目にも楽しい逸品。',
     3,
@@ -374,7 +374,7 @@ INSERT INTO api.items (
 ),
 (
     'ホタテのカルパッチョ コスタリカ風',
-    '/images/menu/niceSalad.food.jpeg',
+    '/images/menu/niceSalad.food.jpg',
     700,
     '肉厚のホタテをコスタリカに伝わる伝統的なドレッシングで仕上げました',
     3,
