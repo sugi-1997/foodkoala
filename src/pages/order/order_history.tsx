@@ -22,7 +22,7 @@ export default function OrderHistory() {
   const userId = Cookies.get('user_id');
   const [orderDate, setOrderDate] = useState<Date[]>([]);
   const [orderItems, setOrderItems] = useState<OrderItems[]>([]);
-  const [pageId, setPageId] = useState(0);
+  const [pageId, setPageId] = useState(1);
 
   //order_historyテーブルから注文内容を取得
   const { data, error } = useSWR(
@@ -33,11 +33,17 @@ export default function OrderHistory() {
   //ordersテーブルのcart_idを使用して、order_itemsテーブルからitemのデータを取得
   useEffect(() => {
     async function getOrderItems() {
-      if (data === undefined || data === null) {
+      if (
+        data === undefined ||
+        data === null ||
+        pageId === undefined
+      ) {
         return;
       }
       await fetch(
-        `/api/order_items?user_id=eq.${userId}&order_id=eq.${data[pageId].cart_id}`
+        `/api/order_items?user_id=eq.${userId}&order_id=eq.${
+          data[data.length - pageId].cart_id
+        }`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -65,29 +71,67 @@ export default function OrderHistory() {
   }, [data]);
 
   if (error) return <div>Error...</div>;
-  if (!data || orderDate.length === 0 || orderItems.length === 0)
-    return <div>Loading...</div>;
-
-  return (
-    <Auth>
-      <Head>
-        <title>注文履歴</title>
-      </Head>
-      <Header />
-      <BreadList list={[menu_list, order_history]} />
-      <div className={styles.h1}>
-        <h1>注文履歴一覧</h1>
-      </div>
-      {data.map((order, index) => (
+  if (!data || orderDate.length === 0 || pageId === undefined) {
+    return (
+      <>
+        <Head>
+          <title>注文履歴</title>
+        </Head>
+        <Header />
+        <BreadList list={[menu_list, order_history]} />
+        <div className={styles.h1}>
+          <h1>注文履歴一覧</h1>
+        </div>
+        <div>
+          <h2>Loading...</h2>
+        </div>
+        <Footer />
+      </>
+    );
+  } else if (orderItems.length === 0) {
+    return (
+      <Auth>
+        <Head>
+          <title>注文履歴</title>
+        </Head>
+        <Header />
+        <BreadList list={[menu_list, order_history]} />
+        <div className={styles.h1}>
+          <h1>注文履歴一覧</h1>
+        </div>
+        <div>
+          <h2>注文履歴はありません</h2>
+        </div>
+        <Footer />
+      </Auth>
+    );
+  } else {
+    console.log('orderDate', orderDate);
+    console.log('pageId', pageId);
+    console.log('data - pageId', data.length - pageId);
+    return (
+      <Auth>
+        <Head>
+          <title>注文履歴</title>
+        </Head>
+        <Header />
+        <BreadList list={[menu_list, order_history]} />
+        <div className={styles.h1}>
+          <h1>注文履歴一覧</h1>
+        </div>
         <>
-          <div className={styles.order_history} key={order.cart_id}>
+          <div className={styles.order_history}>
             <h2>
-              {orderDate[index].getFullYear()}年
-              {orderDate[index].getMonth() + 1}月
-              {orderDate[index].getDate()}日
+              {orderDate[data.length - pageId].getFullYear()}年
+              {orderDate[data.length - pageId].getMonth() + 1}月
+              {orderDate[data.length - pageId].getDate()}日
+              {orderDate[data.length - pageId].getHours()}時
+              {orderDate[data.length - pageId].getMinutes()}分
             </h2>
             <div>
               <dl>
+                <dt>注文コード</dt>
+                <dd>{data[data.length - pageId].order_code}</dd>
                 <dt>ご注文内容</dt>
                 {orderItems.map((item, index) => (
                   <div key={item.item_name}>
@@ -95,27 +139,32 @@ export default function OrderHistory() {
                   </div>
                 ))}
                 <dt>お支払い金額</dt>
-                <dd>{order.total}円</dd>
+                <dd>{data[data.length - pageId].total}円</dd>
                 <dt>お支払い方法</dt>
-                <dd>{order.payment_method}</dd>
+                <dd>{data[data.length - pageId].payment_method}</dd>
               </dl>
               <div className={styles.link}>
                 <Link href={'注文詳細'}>詳細を見る</Link>
               </div>
             </div>
           </div>
-          <div className={styles.buttons}>
+        </>
+        <div className={styles.buttons}>
+          {data.map((item, index) => (
             <input
               type="button"
               value={index + 1}
-              onClick={(e) => setPageId(index)}
+              onClick={(e) => {
+                setPageId(index + 1);
+              }}
+              key={index}
             />
-          </div>
-        </>
-      ))}
-      <Footer />
-    </Auth>
-  );
+          ))}
+        </div>
+        <Footer />
+      </Auth>
+    );
+  }
 }
 
 type OrderData = {
