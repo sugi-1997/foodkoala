@@ -240,32 +240,37 @@ export default function OrderCheck() {
       <Head>
         <title>注文確認ページ</title>
       </Head>
-      <Header />
-      <BreadList list={[menu_list, order_check]} />
-      <div className={styles.order_check}>
-        <div>
-          <OrderList />
-          <Coupon
-            subTotal={subTotal}
-            onClick={(e) => {
-              console.log(e.target.id);
-              thanks = e.target.id;
-            }}
-          />
-        </div>
-        <div>
-          <div>
-            <Option />
-          </div>
-          <div>
+      <div className={styles.order_check_background}>
+        <Header />
+        <BreadList list={[menu_list, order_check]} />
+        <div className={styles.order_check}>
+          <div className={styles.order_check_float1}>
+            <OrderList />
             <SelectPay />
-            <div className={styles.order_check_button}>
-              <button onClick={handleOrder}>注文を確定する</button>
+          </div>
+
+          <div className={styles.order_check_float2}>
+            <Option />
+            <Coupon
+              subTotal={subTotal}
+              onClick={(e) => {
+                console.log(e.target.id);
+                thanks = e.target.id;
+              }}
+            />
+            <div>
+              <button
+                onClick={handleOrder}
+                className={styles.order_check_button}
+              >
+                注文を確定する
+              </button>
             </div>
           </div>
         </div>
+
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }

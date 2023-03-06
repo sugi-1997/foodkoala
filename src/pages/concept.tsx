@@ -33,7 +33,7 @@ export default function TopPage() {
           className={styles.concept_food}
         />
         </div>
-        {/*<div className={styles.concept_text}>
+        <div className={styles.concept_text}>
         <h2>いつまでも「おいしい」に包まれた世界へ</h2>
         <h3>
           foodKoalaは廃棄寸前の食品専門のテイクアウト予約サービス。
@@ -42,17 +42,14 @@ export default function TopPage() {
           <br />
           「おいしい」に包まれた未来を守ります。
         </h3>
-  </div> */}
-        
-        <div>
-        {/* <Image
+        </div>
+        <Image
           src="/images/foodkoala_img2.PNG"
           alt="concept"
           width={100}
           height={100}
           className={styles.concept_koala}
-        /> */}
-        </div>
+        />
         </div>
         
 

@@ -159,16 +159,26 @@ export default function OrderHistory() {
               <dl>
                 <dt>注文コード</dt>
                 <dd>{data[data.length - pageId].order_code}</dd>
-                <dt>ご注文内容</dt>
+                <dt>
+                  <span>ご注文内容</span>
+                </dt>
                 {orderItems.map((item, index) => (
-                  <div key={item.item_name}>
-                    <dd>{item.item_name}</dd>
+                  <div>
+                    <dd key={item.item_name}>{item.item_name}</dd>
                   </div>
                 ))}
-                <dt>お支払い金額</dt>
-                <dd>{data[data.length - pageId].total}円</dd>
-                <dt>お支払い方法</dt>
-                <dd>{data[data.length - pageId].payment_method}</dd>
+                <dt>
+                  <span>お支払い金額</span>
+                </dt>
+                <dd key={order.total}>
+                  {data[data.length - pageId].total}円
+                </dd>
+                <dt>
+                  <span>お支払い方法</span>
+                </dt>
+                <dd key={order.payment_method}>
+                  {data[data.length - pageId].payment_method}
+                </dd>
               </dl>
               <div className={styles.link}>
                 <Link href={'注文詳細'}>詳細を見る</Link>

@@ -1,12 +1,14 @@
 .h1 {
     text-align: center;
+    color:#E75304;
 }
 
 .order_history {
     text-align: center;
     width: 30%;
     margin: 0 auto;
-    border: 1px solid #000;
+    border: solid 5px #f8b856;
+    border-radius: 30px;
     padding: 10px 20px;
     
 }
@@ -17,6 +19,13 @@
 
 .order_history dt {
     text-align: left;
+}
+
+.order_history dt span{
+    background-color: #F78404;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .order_history dd {

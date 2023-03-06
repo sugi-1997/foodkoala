@@ -1,5 +1,4 @@
 import ShopName from 'components/shop_name';
-// import styles from 'styles/Shop_list.module.css';
 import styles from 'styles/Shop_list.module.css';
 import Head from 'next/head';
 import Header from 'components/header';
