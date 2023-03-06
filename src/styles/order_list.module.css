@@ -3,15 +3,17 @@
     justify-content: center;
     align-items: center;
     min-width: 100vw;
-    margin: 0px auto;
     min-height: 100vh;
+    margin: 0 auto;
 }
 
 .order_list h1 {
     display: flex;
     justify-content: center;
+    color: #E75304;
 }
 
+/* 購入画面へ */
 .transition_button {
     display: flex;
     justify-content: center;

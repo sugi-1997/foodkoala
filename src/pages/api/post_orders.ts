@@ -6,7 +6,7 @@ export default async function Orders(
 ) {
   const url = process.env['BACKEND_API_URL'];
   try {
-    const response = await fetch(`${url}/orders`, {
+    const response = await fetch(`${url}/order_history`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
@@ -17,19 +17,6 @@ export default async function Orders(
     });
     const data = response.json();
     console.log('ordersにデータを追加しました', data);
-    if (response.ok) {
-      const response = await fetch(`${url}/order_history`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
-          Prefer: 'return=representation',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(req.body),
-      });
-      const data = await response.json();
-      console.log('order_historyにデータを追加しました', data);
-    }
     res.status(200).json(data);
   } catch (error) {
     res.status(400).json({ error: error });
