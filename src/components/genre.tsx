@@ -15,9 +15,9 @@ export default function Genre({ onClick }: any) {
 
   return (
     <>
+      <h2 className={styles.h2}>ジャンル</h2>
       <div className={styles.genrelist}>
-        <h2 className={styles.h2}>ジャンル</h2>
-        <div className={styles.genre}>
+        <div className={styles.all_genre}>
           {data.map((genre: GenreData) => (
             <div className={styles.genre} key={genre.id}>
               <button id={`${genre.id}`} onClick={onClick}>
