@@ -5,12 +5,12 @@ import BreadList, {
   order_check,
   order_list,
 } from 'components/bread_list';
-import styles from 'styles/order_check.module.css';
 import OrderList from 'components/order_list';
 import Footer from 'components/footer';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import styles from 'styles/order_list.module.css';
 
 export default function Orderlist() {
   const userId = Cookies.get('user_id');
@@ -48,7 +48,7 @@ export default function Orderlist() {
     itemData();
   }, [itemId]);
 
-  //cookieの有無を確認し、ログインしていれば注文確認画面へリダイレクト
+  //cookieの有無を確認し、ログインしていればcartItemsのデータをorder_itemsにPOST
   const handleClick = async () => {
     if (userId === undefined || userId === null) {
       router.push('/loginPage');
@@ -81,10 +81,15 @@ export default function Orderlist() {
       </Head>
       <Header />
       <BreadList list={[menu_list, order_list]} />
-      <div className={styles.order_check}>
+      <div className={styles.order_list}>
         <div>
           <OrderList />
-          <button onClick={handleClick}>購入画面へ</button>
+          <button
+            className={styles.transition_button}
+            onClick={handleClick}
+          >
+            購入画面へ
+          </button>
         </div>
       </div>
       <Footer />

@@ -119,6 +119,7 @@ export default function OrderList() {
               <dd>{item.price * item.count}円</dd>
               <dd>
                 <button
+                  className={styles.delete_button}
                   id={`${item.id}`}
                   onClick={(e) => handleDelete(e.target.id)}
                 >
