@@ -7,9 +7,9 @@ header {
     display: flex;
 }
 
-.list {
+/* .list {
     display: flex;
-  }
+  } */
 
  .area, .menu {
     margin: 0px 30px;

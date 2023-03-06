@@ -88,7 +88,7 @@ export default function Option() {
 
   return (
     <>
-      <h1>オプション</h1>
+      <h1 className={styles.option_h1}>オプション</h1>
       <div className={styles.option}>
         <ul>
           <li>
