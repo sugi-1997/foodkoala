@@ -103,6 +103,7 @@ export default function OrderCheck() {
         spoon: optionData.spoon,
         oshibori: optionData.oshibori,
       }),
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
