@@ -10,4 +10,14 @@
 
 .button {
     text-align: center;
+    padding: 0 0 30px 0 ;
+}
+
+.button_inside {
+    background-color: aquamarine;
+    border: none;
+    border-radius: 3em;
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
 }

@@ -25,14 +25,22 @@ export default function InquiryList() {
         <tr>
         <th>メールアドレス<span>*</span></th>
         <td>
-          <input type="mail" className={styles.input_width}/>
+          <input 
+          type="mail" 
+          className={styles.input_width}
+          required
+          />
         </td>
         </tr>
 
         <tr>
         <th>電話番号<span>*</span></th>
         <td>
-          <input type="text" className={styles.input_width}/>
+          <input 
+          type="text" 
+          className={styles.input_width}
+          required
+          />
         </td>
         </tr>
 
@@ -77,7 +85,15 @@ export default function InquiryList() {
 
         <tr>
         <th>お問い合わせ内容の詳細（300字以内）<span>*</span></th>
-        <td><textarea name="textarea" id="" cols={50} rows={5}></textarea>
+        <td>
+        <textarea 
+        name="textarea" 
+        id="" 
+        cols={50} 
+        rows={5}
+        required
+        >
+        </textarea>
         </td>
         </tr>
 

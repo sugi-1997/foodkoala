@@ -115,11 +115,22 @@
     height: 10em;
   }
 
+  .inquiryList_box form table tr textarea:focus {
+    outline:orange 2px solid;
+    border: none;
+  }
+
   .input_width {
     width: 50em;
     height: 2em;
   }
 
+  .inquiryList_box form table tr input:focus {
+    outline:orange 2px solid;
+    border: none;
+  }
+
+ 
   .inquiryList_box   form table tr th span {
     padding: 0 .3em;
     color: #e81818;
