@@ -52,23 +52,6 @@ export default function Orderlist() {
     if (userId === undefined || userId === null) {
       router.push('/loginPage');
     } else {
-      {
-        cartItems.map((item) => {
-          fetch('/api/post_order_items', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              order_id: userId,
-              item_name: item.name,
-              price: item.price,
-              shop_id: item.shop_id,
-              quantitiy: item.count,
-            }),
-          });
-        });
-      }
       router.push('/order/order_check');
     }
   };
