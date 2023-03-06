@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import styles from '../styles/breadList.module.css'
+import styles from '../styles/breadList.module.css';
 
+//各ページのtitleとpathを定義。ページごとに現在のページまでの階層のページを指定。
 export const concept = { title: 'コンセプト', path: `/concept` };
 export const menu_page = { title: '商品詳細', path: null };
 export const menu_list = { title: 'Food Koala トップ', path: `/` };
@@ -33,7 +34,8 @@ export default function BreadList({
   list: { title: string; path: string | null }[];
 }) {
   const router = useRouter();
-  
+
+  //現在のpathはtitleのみ返す。上の階層は、リンクを指定。（[id]ページはpathがページごとに異なるので、nullとして指定しています。）
   function BreadState(props: {
     list: { title: string; path: string | null }[];
   }) {

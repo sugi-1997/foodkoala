@@ -1,69 +1,111 @@
-.shop_detail,.shopList,.shopFavorite{
-    width: 100%;
-}
-
-.shop_detail_name,.shop_detail_reviewTitle{
-    margin-left: 20%;
-}
-
-.shop_detail_img img{
-    width: 30%;
-    height: auto;
-}
-
-.shop_detail_img{
-    text-align: center;
-}
-
-.shop_detail_grade,.shop_favorite_true,.shop_favorite_false{
-    text-align: right;
-    margin-right: 20%;
-}
-
-.shop_detail_menuImg img{  
-    width: 100%;
-    height: auto;
+/* [id]のCSS */
+.shop_id_image, .shop_id_description {
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
-.shop_detail_description {
-   text-align: center;
+.shop_id_name {
+    margin-left: 20%;
+    color: #E75304;
 }
 
-.shop_menu{
-    width: 25%;
-    display: inline-block;
-    padding: 0 20px;
+.shop_id_score {
+    margin-right: 20%;
+    color: #F78404;
+    text-align: end;
+    font-size: 20px;
+    padding-bottom: 15px;
 }
 
-.shopDetail_menu{
+.shop_id_description {
+    text-align: center;
+    white-space:pre;
+}
+
+.shop_id_menu_list {
+    display: flex;
+    flex: 3;
+}
+
+.shop_id_menu {
+    flex: 1;
     text-align: center;
 }
 
-.shop_detail_reviewImg img{
+.shop_id_menu_list img {
+    object-fit:cover;
+}
+
+.shopDetail_review {
+    padding-bottom: 70px;
+}
+
+.shop_id_review_title{
+    margin: 30px 20% 10px 20%;
+}
+
+.shop_id_review_title span {
+    background-color: #E75304;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    font-size: 18px;
+}
+
+.shop_review {
+    padding: 30px 0;
+}
+
+.shop_id_review_img img{
     width: auto;
     height:60px;
 }
 
-.shop_detail_review,.shop_detail_reviewImg{
+.shop_id_review,.shop_id_review_img{
     display: inline-block;
     float: left;
     margin-left: 20%;
 }
 
-.shop_detail_review{
-    border: solid;
+.shop_id_review{
+    border: solid 3px #f8b856;
+    border-radius: 5px;
     height: 55px;
     margin-left: 30px;
     padding:5px;
     width: 60%;
     word-wrap: break-word;
-    vertical-align: middle;
+    display: grid;
+    place-items: center;
+    white-space:pre;
 }
+
+.main {
+    margin: 5%;
+    border:solid 5px #F78404;
+    border-radius: 30px;
+}
+
+
+
+
+
+/* その他 */
+/* .shop_detail,.shopList,.shopFavorite{
+    width: 100%;
+} */
+
 
 .shopList_menu,.shopFavorite_menu{
     text-align: center;
 }
+
+.shop_favorite_true,.shop_favorite_false{
+    text-align: right;
+    margin-right: 20%;
+}
+
 
 .shopList_shop,.shopFavorite_shop{
     width: 33%;
