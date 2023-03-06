@@ -18,16 +18,16 @@ export default function OrderCompleted() {
   const userId = Cookies.get('user_id');
   const [orderItems, setOrderItems] = useState<OrderItems[]>([]);
 
-  //ordersテーブルから注文内容を取得
+  //order_historyテーブルから注文内容を取得
   const { data, error } = useSWR(
-    `/api/orders?user_id=eq.${userId}`,
+    `/api/order_history?user_id=eq.${userId}`,
     fetcher,
     {
       revalidateOnMount: true,
     }
   );
 
-  //ordersテーブルのcart_idを使用して、order_itemsテーブルからitemのデータを取得
+  //order_historyテーブルのcart_idを使用して、order_itemsテーブルからitemのデータを取得
   useEffect(() => {
     async function getOrderItems() {
       if (data === undefined || data === null) {
@@ -58,7 +58,8 @@ export default function OrderCompleted() {
         <div className={styles.position}>
           <h1>ご注文ありがとうございました！</h1>
           <h2>
-            ご注文コード: <span>{data[0].order_code}</span>
+            ご注文コード:{' '}
+            <span>{data[data.length - 1].order_code}</span>
           </h2>
           <div className={styles.order_complete_border}>
             <div>
@@ -78,13 +79,13 @@ export default function OrderCompleted() {
                 小計（税込）
               </p>
               <p className={styles.order_complete_item}>
-                {data[0].subtotal}円
+                {data[data.length - 1].subtotal}円
               </p>
             </div>
             <div>
               <p className={styles.order_complete_group}>クーポン</p>
               <p className={styles.order_complete_item}>
-                -{data[0].coupon}%
+                -{data[data.length - 1].coupon}%
               </p>
             </div>
             <div>
@@ -92,7 +93,7 @@ export default function OrderCompleted() {
                 合計（税込）
               </p>
               <p className={styles.order_complete_item}>
-                {data[0].total}円
+                {data[data.length - 1].total}円
               </p>
             </div>
             <div>
@@ -100,13 +101,13 @@ export default function OrderCompleted() {
                 お支払い方法
               </p>
               <p className={styles.order_complete_item}>
-                {data[0].payment_method}
+                {data[data.length - 1].payment_method}
               </p>
             </div>
           </div>
           <div>
             <Link href={'#'}>詳細を見る</Link>
-            <Timer date={data[0].ordered_at} />
+            <Timer date={data[data.length - 1].ordered_at} />
             <div>
               <Image
                 /*className*/

@@ -3,6 +3,7 @@ import Header from 'components/header';
 import BreadList, {
   menu_list,
   order_check,
+  order_list,
 } from 'components/bread_list';
 import styles from 'styles/order_check.module.css';
 import OrderList from 'components/order_list';
@@ -47,7 +48,7 @@ export default function Orderlist() {
     itemData();
   }, [itemId]);
 
-  //cookieの有無を確認し、ログインしていればcartItemsのデータをorder_itemsにPOST
+  //cookieの有無を確認し、ログインしていれば注文確認画面へリダイレクト
   const handleClick = async () => {
     if (userId === undefined || userId === null) {
       router.push('/loginPage');
@@ -79,7 +80,7 @@ export default function Orderlist() {
         <title>注文リスト</title>
       </Head>
       <Header />
-      <BreadList list={[menu_list, order_check]} />
+      <BreadList list={[menu_list, order_list]} />
       <div className={styles.order_check}>
         <div>
           <OrderList />

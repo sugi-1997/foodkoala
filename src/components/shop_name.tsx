@@ -1,9 +1,8 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import Script from 'next/script';
 import useSWR from 'swr';
-import styles from '../styles/Shop.module.css';
-import ShopMenu from '../components/shop_menu';
+import styles from '../styles/Shop_list.module.css';
+import ShopMenu from '../components/shop_menu_top2';
 import { Shop } from 'types/shops';
 import Link from 'next/link';
 import score from 'components/shop/score';
@@ -24,29 +23,29 @@ export default function ShopName(url: { url: string }) {
         src="https://kit.fontawesome.com/acecca202b.js"
         crossOrigin="anonymous"
       ></Script>
-      <main className={styles.shop_detail}>
+      <main className={styles.shop_list_main}>
         {data.map((shop: Shop) => (
-          <div key={shop.id}>
-            <p className={styles.shop_detail_name}>{shop.name}</p>
-            <div className={styles.shop_detail_grade}>
+          <div key={shop.id} className={styles.shop_list}>
+            <h2 className={styles.shop_list_name}>
+              <i className="fa-solid fa-utensils"></i>
+              &nbsp;&nbsp;{shop.name}
+            </h2>
+            <div className={styles.shop_list_score}>
               {shop.score}
               {score(shop.score)}
             </div>
-            <div className={styles.shop_detail_img}>
+            <div className={styles.shop_list_image}>
               <Link href={`/shop/${shop.id}`}>
                 <Image
                   src={shop.image_url}
                   alt="お店の画像"
-                  width={150}
-                  height={150}
+                  width={200}
+                  height={200}
                 />
               </Link>
             </div>
             <FavoriteButton shop={shop} />
-            <p className={styles.shop_detail_description}>
-              {shop.description}
-            </p>
-            <div className={styles.shopDetail_menu}>
+            <div className={styles.shop_list_menu}>
               <ShopMenu id={shop.id} />
             </div>
           </div>

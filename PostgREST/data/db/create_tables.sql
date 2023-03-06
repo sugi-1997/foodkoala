@@ -3,7 +3,24 @@ DROP TABLE IF EXISTS api.destinations;
 DROP TABLE IF EXISTS api.categories;
 DROP TABLE IF EXISTS api.item_categories;
 
+-- @block
+DROP TABLE IF EXISTS api.area;
+CREATE TABLE api.area (
+    id SERIAL PRIMARY KEY,
+    name TEXT
+);
+GRANT SELECT ON api.area TO web_anon;
+GRANT ALL ON api.area to api_user;
 
+-- @block
+DROP TABLE IF EXISTS api.genre;
+CREATE TABLE api.genre (
+    id SERIAL PRIMARY KEY,
+    image_url TEXT,
+    name TEXT
+);
+GRANT SELECT ON api.genre TO web_anon;
+GRANT ALL ON api.genre to api_user;
 
 -- @block
 DROP TABLE IF EXISTS api.shops;
@@ -37,26 +54,9 @@ GRANT SELECT ON api.order_items TO web_anon;
 GRANT ALL ON api.order_items to api_user;
 
 -- @block
-DROP TABLE IF EXISTS api.orders;
-CREATE TABLE api.orders (
-    cart_id INTEGER NOT NULL,
-    user_id INTEGER NOT NULL,
-    payment_method TEXT ,
-    coupon INTEGER,
-    subtotal INTEGER,
-    total INTEGER ,
-    ordered_at TIMESTAMPTZ,
-    order_code text,
-    chopstick INTEGER,
-    folk INTEGER,
-    spoon INTEGER,
-    oshibori INTEGER
-);
-GRANT SELECT ON api.orders TO web_anon;
-GRANT ALL ON api.orders to api_user;
-
--- @block
 DROP TABLE IF EXISTS api.order_history;
+DROP TABLE IF EXISTS api.orders;
+
 CREATE TABLE api.order_history (
     cart_id SERIAL NOT NULL,
     user_id INTEGER NOT NULL,

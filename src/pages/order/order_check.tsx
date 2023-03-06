@@ -65,14 +65,14 @@ export default function OrderCheck() {
     setSubTotal(add);
   }, [cartItems, subTotal]);
 
-  //注文した日付を取得
+  // 1.注文した日付を取得
   const orderDate = async () => {
     const date = new Date();
     orderedAt = date;
     orderCode();
   };
 
-  //ランダムな10文字を生成（注文コード）
+  // 2.ランダムな10文字を生成（注文コード）
   const orderCode = async () => {
     const chars =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -84,13 +84,12 @@ export default function OrderCheck() {
     postOrders();
   };
 
-  //注文データ(オプション系)をordersテーブルにPOST
+  // 3.注文データ(オプション系)をorder-hisotoryテーブルにPOST
   const postOrders = async () => {
     fetch('/api/post_orders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        cart_id: Number(userId),
         user_id: Number(userId),
         order_code: code,
         ordered_at: orderedAt,
@@ -107,11 +106,29 @@ export default function OrderCheck() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        router.push('/order/order_completed');
+        deleteCarts();
       })
       .catch((error) => console.error(error));
   };
 
+  // 4.cartsテーブルからuser_idが一致するデータを削除
+  const deleteCarts = async () => {
+    await fetch(`/api/delete_carts?user_id=${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('cartsテーブルのデータを削除しました');
+        router.push('/order/order_completed');
+      })
+      .catch((error) => console.log(error));
+  };
+
+  // 5.order_historyテーブルから最新のcart_idを取得
+
+  // 6.order_itemsテーブルにcartItemsをPOST(cart_idはorder_historyから取得したもの)
+
+  // 7.cart_itemsからuser_idが一致するデータを削除
+
+  // クリックすると、1~7の処理を開始
   const handleOrder = async () => {
     try {
       const res = await fetch(`/api/carts?user_id=eq.${userId}`, {
