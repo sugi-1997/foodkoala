@@ -61,7 +61,8 @@ CREATE TABLE api.order_history (
     cart_id SERIAL NOT NULL,
     user_id INTEGER NOT NULL,
     payment_method TEXT ,
-    coupon INTEGER,
+    discount INTEGER,
+    couponcode TEXT,
     subtotal INTEGER,
     total INTEGER ,
     ordered_at TIMESTAMPTZ,
@@ -92,7 +93,8 @@ GRANT USAGE ON SEQUENCE api.cart_items_id_seq TO api_user;
 DROP TABLE IF EXISTS api.carts;
 CREATE TABLE api.carts (
     user_id INTEGER NOT NULL,
-    coupon INTEGER,
+    discount INTEGER,
+    couponcode TEXT,
     chopstick INTEGER NOT NULL DEFAULT 0,
     folk INTEGER NOT NULL DEFAULT 0,
     spoon INTEGER NOT NULL DEFAULT 0,

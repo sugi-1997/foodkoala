@@ -34,3 +34,22 @@
 .buttons {
     text-align: center;
 }
+
+/* ログイン前のお気に入りページ */
+.favorite_login {
+    margin: 70px 0;
+    text-align: center;
+}
+
+.favorite_login_link a{
+    color: white;
+    border-bottom: none;
+    background-color: #E75304;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.favorite_login_link img {
+    width: 300px;
+}

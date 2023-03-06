@@ -36,20 +36,24 @@ export default function OrderHistory() {
       if (
         data === undefined ||
         data === null ||
-        pageId === undefined
+        data.length === 0 ||
+        pageId === undefined ||
+        userId === undefined ||
+        userId === null
       ) {
         return;
+      } else {
+        await fetch(
+          `/api/order_items?user_id=eq.${userId}&order_id=eq.${
+            data[data.length - pageId].cart_id
+          }`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            setOrderItems(data);
+          })
+          .catch((error) => console.error(error));
       }
-      await fetch(
-        `/api/order_items?user_id=eq.${userId}&order_id=eq.${
-          data[data.length - pageId].cart_id
-        }`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          setOrderItems(data);
-        })
-        .catch((error) => console.error(error));
     }
     getOrderItems();
   }, [data, userId, pageId]);
@@ -69,6 +73,29 @@ export default function OrderHistory() {
     };
     newDateArray();
   }, [data]);
+
+  //ログイン前（cookieなし）はログインを促す
+  if (userId === null || userId === undefined) {
+    return (
+      <>
+        <Header />
+        <BreadList list={[menu_list, order_history]} />
+        <main>
+          <div className={styles.favorite_login}>
+            <div className={styles.favorite_login_link}>
+              <img src="/images/foodkoala_img2.png" alt="コアラ" />
+              <br />
+              <br />
+              <a href="/login">ログイン</a>
+            </div>
+            <br />
+            <p>注文履歴を表示したい場合はログインをしてください</p>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   if (error) return <div>Error...</div>;
   if (!data || orderDate.length === 0 || pageId === undefined) {
@@ -172,7 +199,8 @@ type OrderData = {
   user_id: number;
   order_code: string;
   ordered_at: Date;
-  coupon: number;
+  couponcode: string;
+  discount: number;
   subtotal: number;
   total: number;
   payment_method: string;

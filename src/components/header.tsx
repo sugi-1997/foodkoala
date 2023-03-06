@@ -64,7 +64,7 @@ export default function Header({ onClick }: any) {
               <Link href="/order/order_history">注文履歴</Link>
             </li>
             <li className={styles[loginStatus]}>
-              <Link href="/loginPage">ログイン</Link>
+              <Link href="/login">ログイン</Link>
             </li>
             <li className={styles[logoutStatus]} onClick={logout}>
               ログアウト
