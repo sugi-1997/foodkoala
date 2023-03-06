@@ -153,7 +153,7 @@ INSERT INTO api.items (
     '/images/menu/kaki.food.jpg',
     1400,
     'カリッと揚がった牡蠣に、レモンやタルタルソースを添えて食べると、海の旨味が口いっぱいに広がります。',
-    1,
+    2,
     2,
     1
 ),
@@ -306,7 +306,7 @@ INSERT INTO api.items (
     '/images/menu/edamame.food.jpg',
     300 ,
     '自家製の塩味が人気で、お酒のお供やおやつにぴったりです。',
-    5,
+    2,
     5,
     5
 ),
@@ -315,7 +315,7 @@ INSERT INTO api.items (
     '/images/menu/kaisendon.food.jpg',
     1000,
     '当店では、季節や仕入れによって、鮮度抜群の旬の魚介類を使用しているため、毎回異なる味わいをお楽しみいただけます。',
-    5,
+    2,
     5,
     1
 ),(
