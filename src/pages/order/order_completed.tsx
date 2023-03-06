@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import useSWR from 'swr';
 import Timer from 'components/Timer';
+import Auth from 'components/auth';
 
 const fetcher = async (resource: string) => {
   const res = await fetch(resource);
