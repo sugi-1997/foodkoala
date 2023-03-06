@@ -162,25 +162,23 @@ export default function OrderCheck() {
       <div className={styles.order_check_background}>
       <Header />
       <BreadList list={[menu_list, order_check]} />
-      <div className={styles.order_check}>
-       
-        <div>
+      <div className={styles.order_check}>     
+          
+          <div className={styles.order_check_float1}>
           <OrderList />
+          <SelectPay />
+          </div>
+          
+          <div className={styles.order_check_float2}>
+          <Option />
           <Coupon subTotal={subTotal} />
-        </div>
-       
-          
-          <div>
-            <Option />
-          </div>
-          
-          <div>
-            <SelectPay />
-            <div className={styles.order_check_button}>
-              <button onClick={handleOrder}>注文を確定する</button>
+            <div> 
+              <button onClick={handleOrder}
+              className={styles.order_check_button}
+              >注文を確定する</button>
             </div>
-          </div>
           
+          </div>
           </div>
 
       <Footer />

@@ -73,8 +73,8 @@ export default function OrderList() {
   if (cartItems.length === 0) {
     return (
       <>
-        <div className={styles.h1}>
-          <h1>注文リスト</h1>
+        <div>
+          <h1 className={styles.order_list_h1}>注文リスト</h1>
         </div>
         <div className={styles.order_list}>
           <br />
@@ -90,7 +90,7 @@ export default function OrderList() {
   return (
     <>
       <div className={styles.h1}>
-        <h1>注文リスト</h1>
+        <h1 className={styles.order_list_h1}>注文リスト</h1>
       </div>
       <div className={styles.order_list}>
         <div>
