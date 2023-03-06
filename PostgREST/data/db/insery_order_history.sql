@@ -13,5 +13,16 @@ INSERT INTO api.order_history (
   oshibori
 )
 VALUES (
-  
+  2,
+  1,
+  '現金',
+  0,
+  2000,
+  2000,
+  2023-03-06 09:49:14+GMT,
+  'ABD42ghel',
+  1,
+  0,
+  1,
+  0
 )
