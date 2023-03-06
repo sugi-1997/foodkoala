@@ -1,4 +1,4 @@
- .order_check {
+.order_check {
     display: flex;
     justify-content: center;
 }
@@ -8,11 +8,32 @@
 }
 
 .order_list {
-    border: 1px solid #000;
+    border: 5px solid #f8b856;
+    border-radius: 10px;
     margin: 0 50px;
     padding: 0 20px;
     width: 300px;
 }
+.delete_button {
+    border: 1px solid #000;
+    border-radius: 10px;
+    background-color: #00D698;
+    color: #fff;
+}
+
+.delete_button:hover {
+    opacity: 0.6;
+}
+
+.delete_button:active {
+    box-shadow: 1px 2px #9bb0a5;
+    transform: translateY(1px);
+}
+
+.order_list p {
+    font-size: 18px;
+}
+
 
 .order_list_details {
     border: 1px solid #000;
