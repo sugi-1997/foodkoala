@@ -19,6 +19,10 @@ export const inquiry_form = {
   title: 'お問い合わせフォーム',
   path: `/inquiry_form`,
 };
+export const order_list = {
+  title: '注文リスト',
+  path: `/order/list`,
+};
 export const order_check = {
   title: '注文確認',
   path: `/order/order_check`,
@@ -50,7 +54,9 @@ export default function BreadList({
                 <li key={state.title}>
                   <Link href={state.path}>{state.title}</Link>
                 </li>
-                <li key={index}>&gt;</li>
+                <li key={index}>
+                  <i className="fa-solid fa-square-caret-right"></i>
+                </li>
               </>
             );
           }

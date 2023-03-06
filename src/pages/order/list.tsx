@@ -3,6 +3,7 @@ import Header from 'components/header';
 import BreadList, {
   menu_list,
   order_check,
+  order_list,
 } from 'components/bread_list';
 import styles from 'styles/order_check.module.css';
 import OrderList from 'components/order_list';
@@ -79,7 +80,7 @@ export default function Orderlist() {
         <title>注文リスト</title>
       </Head>
       <Header />
-      <BreadList list={[menu_list, order_check]} />
+      <BreadList list={[menu_list, order_list]} />
       <div className={styles.order_check}>
         <div>
           <OrderList />

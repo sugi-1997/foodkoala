@@ -1,4 +1,4 @@
-import styles from '../styles/Shop.module.css';
+import styles from '../styles/Shop_list.module.css';
 import useSWR from 'swr';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,7 +17,9 @@ export default function ShopMenu({ id }: { id: number }) {
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データを取得できませんでした</div>;
 
-  async function cartSubmit(menuId) {
+  const menus = data.slice(0, 2);
+
+  async function cartSubmit(menuId: any) {
     try {
       console.log(menuId);
       const response = await fetch('/api/post_cart_items', {
@@ -41,9 +43,9 @@ export default function ShopMenu({ id }: { id: number }) {
 
   return (
     <>
-      <div className={styles.shop_menu}>
-        {data.map((menu: Menu) => (
-          <div key={menu.id}>
+      <div className={styles.shop_menu_list}>
+        {menus.map((menu: Menu) => (
+          <div key={menu.id} className={styles.shop_menu}>
             <Link href={`/item/${menu.id}`}>
               <div className={styles.shop_detail_menuImg}>
                 <Image

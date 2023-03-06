@@ -1,5 +1,6 @@
 import ShopName from 'components/shop_name';
-import styles from 'styles/Shop.module.css';
+// import styles from 'styles/Shop_list.module.css';
+import styles from 'styles/Shop_list_fav.module.css';
 import Head from 'next/head';
 import Header from 'components/header';
 import Genre from 'components/genre';
@@ -21,19 +22,25 @@ export default function ShopFavorite() {
   if (userId === null || userId === undefined) {
     return (
       <>
-        <main className={styles.shopList}>
-          <Header />
-          <BreadList list={[menu_list, favorite_list]} />
+        <Header />
+        <BreadList list={[menu_list, favorite_list]} />
+        <main>
           <Genre onClick={undefined} />
           <Area />
-          <div className={styles.shopList_shop}>
+          <div className={styles.favorite_login}>
+            <div className={styles.favorite_login_link}>
+              <img src="/images/foodkoala_img2.png" alt="コアラ" />
+              <br />
+              <br />
+              <a href="/loginPage">ログイン</a>
+            </div>
+            <br />
             <p>
               お気に入り店舗一覧を表示したい場合はログインをしてください
             </p>
-            <Link href="/loginPage">ログイン</Link>
           </div>
-          <Footer />
         </main>
+        <Footer />
       </>
     );
   }
@@ -51,20 +58,16 @@ export default function ShopFavorite() {
       <Head>
         <title>お気に入り店舗一覧</title>
       </Head>
-      <main className={styles.shopFavorite}>
+      <main>
         <Header />
         <BreadList list={[menu_list, favorite_list]} />
         <Genre onClick={undefined} />
         <Area />
-        <div className={styles.shopFavorite_shop}>
-          <div className={styles.shopFavorite_name}>
-            {favoriteData.map((fav: any) => (
-              <ShopName
-                url={`http://localhost:8000/shops?id=eq.${fav.shop_id}`}
-              />
-            ))}
-          </div>
-        </div>
+        {favoriteData.map((fav: any) => (
+          <ShopName
+            url={`http://localhost:8000/shops?id=eq.${fav.shop_id}`}
+          />
+        ))}
         <Footer />
       </main>
     </>
