@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 export default function FavoriteButton({ shop }: { shop: Shop }) {
   const [heart, setHeart] = useState('shop_favorite_false');
   const userId = Cookies.get('user_id');
+  //ページ遷移時にログイン前の場合はお気に入りボタンをグレーに。ログイン後の場合はshop_idとuser_idが一致するデータがfavoriteテーブルに存在するか確認してCSSを切り替え。
   useEffect((): any => {
     if (userId === undefined || userId === null) {
       setHeart('shop_favorite_false');
@@ -30,6 +31,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
     }
   }, []);
 
+  //ログイン前はonClickでボタンのCSSを切り替え。ログイン後はcheckFavoriteを呼び出し
   function handleClick() {
     if (userId === undefined || userId === null) {
       if (heart === 'shop_favorite_true') {
@@ -43,6 +45,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
     }
   }
 
+  //shop_idとuser_idが一致するデータがfavoriteテーブルに存在するか確認。→POSTかDELETE
   function checkFavorite() {
     fetch(
       `http://localhost:8000/favorite?shop_id=eq.${shop.id}&user_id=eq.${userId}`,
@@ -63,6 +66,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
       });
   }
 
+  //favoriteテーブルに登録（shop_id&user_id)してボタンのCSSをsetHeart
   function postFavorite() {
     fetch(`/api/favorite_post?shop_id=eq.${shop.id}`, {
       method: 'POST',
@@ -76,7 +80,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
     })
       .then((response) => {
         if (response.ok) {
-          setHeart(styles.shop_favorite_true);
+          setHeart('shop_favorite_true');
         }
       })
       .catch((err) => {
@@ -84,6 +88,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
       });
   }
 
+  //favoriteテーブルから削除（shop_id&user_id)してボタンのCSSをsetHeart
   function deleteFavorite() {
     fetch(`/api/favorite_delete?shop_id=eq.${shop.id}`, {
       method: 'DELETE',
@@ -96,7 +101,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
     })
       .then((response) => {
         if (response.ok) {
-          setHeart(styles.shop_favorite_false);
+          setHeart('shop_favorite_false');
         }
       })
       .catch((err) => {
@@ -104,6 +109,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
       });
   }
 
+  //ハートボタンの表示
   return (
     <>
       <div className={styles[heart]}>

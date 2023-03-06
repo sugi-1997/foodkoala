@@ -96,4 +96,6 @@ INSERT INTO api.users (
 SELECT * FROM api.users;
 
 --@block
+delete FROM api.users where id = 12;
+
 SELECT * FROM api.users;
