@@ -5,6 +5,7 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import styles from '../styles/concept.module.css';
 import BreadList, { menu_list, concept } from 'components/bread_list';
+import { text } from 'stream/consumers';
 
 export default function TopPage() {
   return (
@@ -36,7 +37,7 @@ export default function TopPage() {
         <div className={styles.concept_text}>
         <h2>いつまでも「おいしい」に包まれた世界へ</h2>
         <h3>
-          foodKoalaは廃棄寸前の食品専門のテイクアウト予約サービス。
+          FoodKoalaは廃棄寸前の食品専門のテイクアウト予約サービス。
           <br />
           捨てられるはずの「おいしい」を食卓に届け、
           <br />
@@ -44,7 +45,7 @@ export default function TopPage() {
         </h3>
         </div>
         <Image
-          src="/images/foodkoala_img2.PNG"
+          src="/images/foodkoala_img2.png"
           alt="concept"
           width={100}
           height={100}
@@ -60,10 +61,10 @@ export default function TopPage() {
         <div className={styles.box}>
         <div className={styles.Img}>
         <Image
-          src="/images/foodkoala_img2.PNG"
+          src="/images/trush.png"
           alt="concept"
-          width={100}
-          height={100}
+          width={350}
+          height={250}
         />
         </div>
         <div className={styles.text}>
@@ -80,10 +81,10 @@ export default function TopPage() {
         <div className={styles.box}>
         <div className={styles.Img}>
         <Image
-          src="/images/foodkoala_img2.PNG"
+          src="/images/goodmeal.jpg"
           alt="concept"
-          width={100}
-          height={100}
+          width={350}
+          height={250}
         />
         </div>
         <div className={styles.text}>
@@ -99,10 +100,10 @@ export default function TopPage() {
         <div className={styles.box}>
         <div className={styles.Img}>
         <Image
-          src="/images/foodkoala_img2.PNG"
+          src="/images/reasonable.jpg"
           alt="concept"
-          width={100}
-          height={100}
+          width={350}
+          height={250}
         />
         </div>
         <div className={styles.text}>
@@ -116,15 +117,16 @@ export default function TopPage() {
 
           {/* 下段 */}
         
+      <h1 className={styles.howToUse}>FoodKoalaの使い方</h1>
+
       <div className={styles.flex_box}>
-       
        <div className={styles.box}>
        <div className={styles.Img}>
        <Image
-         src="/images/foodkoala_img2.PNG"
+         src="/images/search.jpg"
          alt="concept"
-         width={100}
-         height={100}
+         width={350}
+         height={250}
        />
        </div>
        <div className={styles.text}>
@@ -135,10 +137,10 @@ export default function TopPage() {
        <div className={styles.box}>
        <div className={styles.Img}>
        <Image
-         src="/images/foodkoala_img2.PNG"
+         src="/images/reserve.jpg"
          alt="concept"
-         width={100}
-         height={100}
+         width={350}
+         height={250}
        />
        </div>
        <div className={styles.text}>
@@ -149,10 +151,10 @@ export default function TopPage() {
        <div className={styles.box}>
        <div className={styles.Img}>
        <Image
-         src="/images/foodkoala_img2.PNG"
+         src="/images/takeout.jpg"
          alt="concept"
-         width={100}
-         height={100}
+         width={350}
+         height={250}
        />
        </div>
        <div className={styles.text}>
