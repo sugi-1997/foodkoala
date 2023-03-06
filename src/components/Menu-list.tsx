@@ -6,13 +6,11 @@ import Genre from 'components/genre';
 import useSWR, { useSWRConfig } from 'swr';
 import { SyntheticEvent, useState } from 'react';
 import styles from 'styles/Menu_list.module.css';
-import ShopName from 'components/shop_name';
-import { Menu } from 'types/shops';
 
 const fetcher = (resource: string) =>
   fetch(resource).then((res) => res.json());
 
-export default function MenuList({ onClick, id }: any) {
+export default function MenuList() {
   const [genreId, setGenreId] = useState<string>('gt.0');
   const [areaId, setAreaId] = useState<string>('gt.0');
   const [itemId, setItemId] = useState<string>('gt.0');
@@ -77,27 +75,33 @@ export default function MenuList({ onClick, id }: any) {
       <Head>
         <title>FoodKoala トップ</title>
       </Head>
-      <main>
-        <Genre
-          onClick={(e: SyntheticEvent) =>
-            handleGenreClick(e.target.id)
-          }
-        />
-        <Area
-          onClick={(e: SyntheticEvent) =>
-            handleAreaClick(e.target.id)
-          }
-        />
-        <div className={styles.body}>
+      <main className={styles.topPage}>
+        <div className={styles.genre_area}>
+          <Genre
+            onClick={(e: SyntheticEvent) =>
+              handleGenreClick(e.target.id)
+            }
+          />
+          <Area
+            onClick={(e: SyntheticEvent) =>
+              handleAreaClick(e.target.id)
+            }
+          />
+        </div>
+        <h2 className={styles.h2}>メニュー</h2>
+        <div className={styles.all_menu}>
           {data.map((menu: Item) => (
             <div key={menu.id} className={styles.menu}>
-              <Link href={`/item/${menu.id}`}>
+              <Link
+                href={`/item/${menu.id}`}
+                className={styles.menu_link}
+              >
                 <div className={styles.menu_img}>
                   <Image
                     src={menu.image_url}
                     alt="メニュー画像"
-                    width={150}
-                    height={150}
+                    width={250}
+                    height={250}
                   />
                 </div>
                 <div className={styles.shop_detail_menuName}>

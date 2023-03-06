@@ -9,21 +9,43 @@ import BreadList, {
   menu_list,
   favorite_list,
 } from 'components/bread_list';
-import useSWR from 'swr';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function ShopFavorite() {
   const [favoriteData, setFavoriteData] = useState([]);
+  const userId = Cookies.get('user_id');
+
+  //ログイン前（cookieなし）はログインを促す
+  if (userId === null || userId === undefined) {
+    return (
+      <>
+        <main className={styles.shopList}>
+          <Header />
+          <BreadList list={[menu_list, favorite_list]} />
+          <Genre onClick={undefined} />
+          <Area />
+          <div className={styles.shopList_shop}>
+            <p>
+              お気に入り店舗一覧を表示したい場合はログインをしてください
+            </p>
+            <Link href="/loginPage">ログイン</Link>
+          </div>
+          <Footer />
+        </main>
+      </>
+    );
+  }
+
+  //userが登録したお気に入りのshop_idをfavoriteテーブルから取得
   useEffect(() => {
-    fetch(
-      `http://localhost:8000/favorite?user_id=eq.${Cookies.get(
-        'user_id'
-      )}`
-    )
+    fetch(`http://localhost:8000/favorite?user_id=eq.${userId}`)
       .then((res) => res.json())
       .then((data) => setFavoriteData(data));
   }, [favoriteData]);
+
+  //お気に入りのshop_idのみのshop情報を取得して表示
   return (
     <>
       <Head>

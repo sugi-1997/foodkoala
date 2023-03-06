@@ -1,10 +1,12 @@
 import Head from 'next/head';
-import OrderList from '../../components/order_list';
-import Option from '../../components/option';
+import OrderList from 'components/order_list';
+import Option from 'components/option';
 import SelectPay from '../../components/select_pay';
 import Header from 'components/header';
 import Footer from 'components/footer';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
+import Coupon from 'components/Coupon';
+import Auth from 'components/auth';
 import styles from 'styles/order_check.module.css';
 import BreadList, {
   menu_list,
@@ -15,11 +17,13 @@ import Cookies from 'js-cookie';
 
 export default function OrderCheck() {
   const router = useRouter();
-  const [code, setCode] = useState('');
   const [itemId, setItemId] = useState<ItemId[]>([]);
-  const [orderedAt, setorderedAt] = useState<Date>();
   const [cartItems, setCartItems] = useState<CartItems[]>([]);
-  const [orderItems, setorderItems] = useState<CartItems[]>([]);
+  const [subTotal, setSubTotal] = useState(0);
+  let code: string;
+  let orderedAt: Date;
+  let optionData: Options;
+
   const userId = Cookies.get('user_id');
 
   //cart_itemsテーブルからデータを取得
@@ -52,85 +56,90 @@ export default function OrderCheck() {
     itemData();
   }, [itemId]);
 
-  //itemId配列とcartItems配列を結合
-  const orderItemsArray = () => {
-    //itemId配列からcart_idとcountのみを取得した新しい配列を作成
-    const newItemId = itemId.map(({ cart_id, count }) => ({
-      cart_id,
-      count,
-    }));
-    //cartItems配列とnewItemId配列を結合する
-    const newOrderItems = cartItems.map((item, index) => {
-      return Object.assign({}, item, newItemId[index]);
-    });
-    setorderItems(newOrderItems);
-  };
+  //商品の小計を計算
+  useEffect(() => {
+    const add = cartItems.reduce(
+      (sum, i) => sum + i.price * i.count,
+      0
+    );
+    setSubTotal(add);
+  }, [cartItems, subTotal]);
 
   //注文した日付を取得
-  const orderDate = () => {
+  const orderDate = async () => {
     const date = new Date();
-    setorderedAt(date);
+    orderedAt = date;
+    orderCode();
   };
 
   //ランダムな10文字を生成（注文コード）
-  const orderCode = () => {
+  const orderCode = async () => {
     const chars =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let str = '';
     for (let i = 1; i <= 10; i++) {
       str += chars.charAt(Math.floor(Math.random() * chars.length));
     }
-    setCode(str);
+    code = str;
+    postOrders();
   };
 
-  //注文したアイテムのデータを、order_itemsテーブルにPOSTする
-  const postOrderItems = () => {
-    orderItems.map((orderItem) => {
-      fetch('/api/order_items', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          order_id: orderItem.cart_id,
-          item_name: orderItem.name,
-          item_price: orderItem.price,
-          quantity: orderItem.count,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
-    });
-  };
-
-  //注文データをordersテーブルにPOST
-  const postOrders = () => {
-    fetch('/api/orders', {
+  //注文データ(オプション系)をordersテーブルにPOST
+  const postOrders = async () => {
+    fetch('/api/post_orders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        cart_id: userId,
-        user_id: userId,
+        cart_id: Number(userId),
+        user_id: Number(userId),
         order_code: code,
         ordered_at: orderedAt,
-        total: '',
-        payment_method: '',
+        coupon: optionData.coupon,
+        subtotal: subTotal,
+        total: subTotal - (subTotal * optionData.coupon) / 100,
+        payment_method: optionData.payment_method,
+        chopstick: optionData.chopstick,
+        folk: optionData.folk,
+        spoon: optionData.spoon,
+        oshibori: optionData.oshibori,
       }),
-    });
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        router.push('/order/order_completed');
+      })
+      .catch((error) => console.error(error));
   };
 
-  //注文ボタンを押した時の遷移
-  const handleClick = async () => {
-    orderItemsArray();
-    orderCode();
-    orderDate();
-    postOrderItems();
-    postOrders();
-    router.push('/order/order_completed');
+  const handleOrder = async () => {
+    try {
+      const res = await fetch(`/api/carts?user_id=eq.${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: Number(userId),
+        }),
+      });
+      const data = await res.json();
+      console.log('cartsテーブルから取得したデータ', data[0]);
+      optionData = data[0];
+      if (data[0].payment_method === null) {
+        console.log('payment_methodがnullです');
+        return;
+      } else {
+        orderDate();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <>
       <Head>
-        <title>注文確認</title>
+        <title>注文確認ページ</title>
       </Head>
       <div className={styles.order_check_background}>
       <Header />
@@ -139,6 +148,7 @@ export default function OrderCheck() {
        
         <div>
           <OrderList />
+          <Coupon subTotal={subTotal} />
         </div>
        
           
@@ -148,15 +158,9 @@ export default function OrderCheck() {
           
           <div>
             <SelectPay />
-          </div>
-
-            
-          <div>
-          <button 
-          onClick={handleClick}
-          className={styles.order_check_button}
-          >注文を確定する
-          </button>
+            <div className={styles.order_check_button}>
+              <button onClick={handleOrder}>注文を確定する</button>
+            </div>
           </div>
           
           </div>
@@ -185,4 +189,14 @@ type CartItems = {
   explain: string;
   count: number;
   cart_id: number;
+};
+
+type Options = {
+  user_id: number;
+  coupon: number;
+  chopstick: number;
+  folk: number;
+  spoon: number;
+  oshibori: number;
+  payment_method: string | null;
 };

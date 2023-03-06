@@ -25,6 +25,7 @@ export default function ItemListPage() {
           </div>
           <div className={styles.message}>
             <h2>アカウント登録完了</h2>
+            <h2>ようこそ、○○さん</h2>
             <p>
               お客様のアカウント登録が完了しました！ <br />
               ログインする場合は、以下の「ログイン画面へ」ボタンをクリックしてください。

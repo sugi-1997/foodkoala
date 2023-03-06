@@ -15,15 +15,17 @@ export default function Area({ onClick }: any) {
 
   return (
     <>
+      <h2 className={styles.h2}>エリア</h2>
       <div className={styles.arealist}>
-        <h2>エリア</h2>
-        {data.map((area: any) => (
-          <div className={styles.area} key={area.id} id={area.id}>
-            <button id={area.id} onClick={onClick}>
-              <p id={area.id}>{area.name}</p>
-            </button>
-          </div>
-        ))}
+        <div className={styles.all_area}>
+          {data.map((area: any) => (
+            <div className={styles.area} key={area.id} id={area.id}>
+              <button id={area.id} onClick={onClick}>
+                <p id={area.id}>{area.name}</p>
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
