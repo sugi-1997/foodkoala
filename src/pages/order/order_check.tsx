@@ -117,16 +117,63 @@ export default function OrderCheck() {
       .then((res) => res.json())
       .then((data) => {
         console.log('cartsテーブルのデータを削除しました');
-        router.push('/order/order_completed');
+        getCartId();
       })
       .catch((error) => console.log(error));
   };
 
   // 5.order_historyテーブルから最新のcart_idを取得
+  let latestCartId: number;
+  const getCartId = async () => {
+    await fetch(`/api/order_history?user_id=eq.${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('order_history', data);
+        latestCartId = data[data.length - 1].cart_id;
+        console.log('latestCartId', latestCartId);
+        postOrderItems();
+      });
+  };
 
   // 6.order_itemsテーブルにcartItemsをPOST(cart_idはorder_historyから取得したもの)
+  const postOrderItems = () => {
+    cartItems.map((item) => {
+      fetch('/api/post_order_items', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          order_id: latestCartId,
+          item_name: item.name,
+          price: item.price,
+          shop_id: item.shop_id,
+          quantitiy: item.count,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('order-itemsテーブルにデータをPOSTしました');
+        });
+    });
+    deleteCartItems();
+  };
 
   // 7.cart_itemsからuser_idが一致するデータを削除
+  const deleteCartItems = async () => {
+    await fetch(`/api/delete_all_cart_items?user_id=eq.${userId}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        user_id: Number(userId),
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        router.push('/order/order_completed');
+      })
+      .catch((error) => console.error(error));
+  };
 
   // クリックすると、1~7の処理を開始
   const handleOrder = async () => {

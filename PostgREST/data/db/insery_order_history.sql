@@ -13,6 +13,10 @@ INSERT INTO api.order_history (
   oshibori
 )
 VALUES (
+<<<<<<< HEAD
+  
+);
+=======
   2,
   1,
   '現金',
@@ -26,3 +30,4 @@ VALUES (
   1,
   0
 )
+>>>>>>> origin/main
