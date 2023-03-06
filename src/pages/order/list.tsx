@@ -47,7 +47,7 @@ export default function Orderlist() {
     itemData();
   }, [itemId]);
 
-  //cookieの有無を確認し、ログインしていればcartItemsのデータをorder_itemsにPOST
+  //cookieの有無を確認し、ログインしていれば注文確認画面へリダイレクト
   const handleClick = async () => {
     if (userId === undefined || userId === null) {
       router.push('/loginPage');

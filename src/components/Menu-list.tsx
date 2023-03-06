@@ -14,7 +14,7 @@ export default function MenuList() {
   const [genreId, setGenreId] = useState<string>('gt.0');
   const [areaId, setAreaId] = useState<string>('gt.0');
   const [itemId, setItemId] = useState<string>('gt.0');
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
 
   const { data, error } = useSWR(
     `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`,
@@ -57,7 +57,7 @@ export default function MenuList() {
         body: JSON.stringify({
           cart_id: 1,
           item_id: Number(menuId),
-          count: count + 1,
+          count: count,
         }),
       });
       if (!response.ok) {
