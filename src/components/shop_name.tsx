@@ -1,22 +1,18 @@
 import Image from 'next/image';
 import Script from 'next/script';
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 import styles from '../styles/Shop_list.module.css';
 import ShopMenu from '../components/shop_menu_top2';
 import { Shop } from 'types/shops';
 import Link from 'next/link';
 import score from 'components/shop/score';
 import FavoriteButton from './shop/favorite_button';
+import { useState } from 'react';
 
 const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
 
-export default function ShopName(url: { url: string }) {
-  const { data, error } = useSWR(url.url, fetcher);
-
-  if (error) return <div>エラーです</div>;
-  if (!data) return <div>データを取得できませんでした</div>;
-
+export default function ShopName({ data }: any) {
   return (
     <>
       <Script
@@ -54,3 +50,20 @@ export default function ShopName(url: { url: string }) {
     </>
   );
 }
+
+type Shops = {
+  data: {
+    id: number;
+    name: string;
+    description: string;
+    image_url: string;
+    score: number;
+    favorite: boolean;
+    genre_id: number;
+    area_id: number;
+    deleted_at: Date;
+    review_1: string;
+    review_2: string;
+    review_3: string;
+  };
+};

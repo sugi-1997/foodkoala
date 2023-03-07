@@ -39,7 +39,7 @@ export default function Timer({ date }: { date: Date }) {
         </h2>
       </div>
     );
-  } else if (minute === 0 && second === 0) {
+  } else {
     return (
       <div>
         <h2>注文した商品が出来上がりました！</h2>

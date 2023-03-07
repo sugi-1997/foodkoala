@@ -69,7 +69,8 @@ export default function UserRegisterPage() {
       // 登録完了画面へ遷移
       .then((response) => {
         if (response.ok) {
-          router.push('/userResister_completed');
+          localStorage.setItem('name', name);
+          router.push('/user_resister_completed');
         }
       });
   }
