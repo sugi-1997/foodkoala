@@ -365,7 +365,7 @@ INSERT INTO api.items (
 ),
 (
     '豚肉の香草ロール',
-    '/images/menu/glassPork.food.jpg',
+    '/images/menu/glasspork.food.jpg',
     1200,
     'ジューシーな豚肉で香草をロールしました。見た目にも楽しい逸品。',
     3,
@@ -374,7 +374,7 @@ INSERT INTO api.items (
 ),
 (
     'ホタテのカルパッチョ コスタリカ風',
-    '/images/menu/niceSalad.food.jpg',
+    '/images/menu/nicesalad.food.jpg',
     700,
     '肉厚のホタテをコスタリカに伝わる伝統的なドレッシングで仕上げました',
     3,
