@@ -41,6 +41,13 @@ export default function Header({ onClick }: any) {
           </Link>
         </div>
         <nav className={styles.nav}>
+          {/* ここからハンバーガーメニュー */}
+          <div className={styles.toggle}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          {/* ここまでハンバーガーメニュー */}
           <ul>
             <li>
               <Link href="/" onClick={onClick}>
