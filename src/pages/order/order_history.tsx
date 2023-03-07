@@ -155,25 +155,33 @@ export default function OrderHistory() {
             {orderDate[data.length - pageId].getMinutes()}分
           </h2>
           <div>
-            <dl>
-              <dt>注文コード</dt>
-              <dd>{data[data.length - pageId].order_code}</dd>
-              <dt>
-                <span>ご注文内容</span>
-              </dt>
-              {orderItems.map((item, index) => (
-                <div key={index}>
-                  <dd>{item.item_name}</dd>
-                </div>
-              ))}
-              <dt>
-                <span>お支払い金額</span>
-              </dt>
-              <dd>{data[data.length - pageId].total}円</dd>
-              <dt>
-                <span>お支払い方法</span>
-              </dt>
-              <dd>{data[data.length - pageId].payment_method}</dd>
+            <dl className={styles.dl}>
+              <div className={styles.background_orange}>
+                <dt>
+                  <span>注文コード</span>
+                </dt>
+                <dd>{data[data.length - pageId].order_code}</dd>
+              </div>
+              <div>
+                <dt>
+                  <span>ご注文内容</span>
+                </dt>
+                {orderItems.map((item, index) => (
+                  <dd key={index}>{item.item_name}</dd>
+                ))}
+              </div>
+              <div className={styles.background_orange}>
+                <dt>
+                  <span>お支払い金額</span>
+                </dt>
+                <dd>{data[data.length - pageId].total}円</dd>
+              </div>
+              <div>
+                <dt>
+                  <span>お支払い方法</span>
+                </dt>
+                <dd>{data[data.length - pageId].payment_method}</dd>
+              </div>
             </dl>
             <div className={styles.link}>
               <Link href={'注文詳細'}>詳細を見る</Link>

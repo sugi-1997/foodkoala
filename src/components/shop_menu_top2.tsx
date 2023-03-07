@@ -7,7 +7,7 @@ const fetcher = (resource: string, init: object) =>
   fetch(resource, init).then((res) => res.json());
 
 export default function ShopMenu({ id }: { id: number }) {
-  const [count, setCount] = useState(0);
+  let count = 1;
   const { data, error } = useSWR(
     `http://localhost:8000/items?shop_id=eq.${id}`,
     fetcher
@@ -27,7 +27,7 @@ export default function ShopMenu({ id }: { id: number }) {
         body: JSON.stringify({
           cart_id: 1,
           item_id: Number(menuId),
-          count: count + 1,
+          count: count,
         }),
       });
       if (!response.ok) {
@@ -72,10 +72,10 @@ export default function ShopMenu({ id }: { id: number }) {
               <p>{menu.price}円</p>
             </div>
             <button
-              data-menu-id={menu.id}
-              onClick={(e) =>
-                cartSubmit(e.target.getAttribute('data-menu-id'))
-              }
+              onClick={(e) => {
+                console.log(menu.id);
+                cartSubmit(menu.id);
+              }}
             >
               <span>注文リストに追加</span>
             </button>
