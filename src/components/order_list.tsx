@@ -98,6 +98,14 @@ export default function OrderList() {
             <dl key={item.id}>
               <dt>{item.name}</dt>
               <dd>
+                <img
+                  src={item.image_url}
+                  alt="商品画像"
+                  width={100}
+                  height={100}
+                />
+              </dd>
+              <dd>
                 <select
                   name="itemCount"
                   id={`itemCount-${index}`}

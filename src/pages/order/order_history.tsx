@@ -4,7 +4,6 @@ import BreadList, {
 } from 'components/bread_list';
 import Footer from 'components/footer';
 import Header from 'components/header';
-import Auth from 'components/auth';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from 'styles/order_history.module.css';

@@ -255,11 +255,21 @@ export default function OrderCheck() {
               <div className={styles.order_list}>
                 <div>
                   {cartItems.map((item, index) => (
-                    <dl key={index}>
-                      <dt>{item.name}</dt>
-                      <dd>{item.count}個</dd>
-                      <dd>{item.price * item.count}円</dd>
-                    </dl>
+                    <div key={index}>
+                      <dl>
+                        <dt>{item.name}</dt>
+                        <dd>
+                          <img
+                            src={item.image_url}
+                            alt="商品画像"
+                            width={100}
+                            height={100}
+                          />
+                        </dd>
+                        <dd>{item.count}個</dd>
+                        <dd>{item.price * item.count}円</dd>
+                      </dl>
+                    </div>
                   ))}
                   <p>小計：{subTotal}円</p>
                 </div>
