@@ -22,7 +22,7 @@ export default function SelectPay() {
   };
   return (
     <>
-      <h1>お支払い方法</h1>
+      <h1 className={styles.select_pay_h1}>お支払い方法</h1>
       <div className={styles.select_pay}>
         <div className={styles.select_card}>
           <input

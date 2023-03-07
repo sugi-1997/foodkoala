@@ -102,7 +102,7 @@ export default function Login() {
                 name="password"
                 type="password"
                 onChange={handleChange}
-                placeholder="半角英数字でn文字以上"
+                placeholder="半角英数字で8文字以上"
                 required
                 pattern="^[a-zA-Z0-9]+$"
                 className={styles.input_text_design}
