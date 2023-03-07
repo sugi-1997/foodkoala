@@ -40,14 +40,15 @@ export default function Header({ onClick }: any) {
             <span>Food Koala</span>
           </Link>
         </div>
+        {/* ここからハンバーガーメニュー */}
+        <div className={styles.hamburger}>
+          <input type="checkbox" id="menu_btn_check" />
+          <label htmlFor="menu_btn_check" className={styles.menu_btn}>
+            <span></span>
+          </label>
+        </div>
+        {/* ここまでハンバーガーメニュー */}
         <nav className={styles.nav}>
-          {/* ここからハンバーガーメニュー */}
-          <div className={styles.toggle}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          {/* ここまでハンバーガーメニュー */}
           <ul>
             <li>
               <Link href="/" onClick={onClick}>
