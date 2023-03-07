@@ -6,7 +6,6 @@ import Header from 'components/header';
 import Footer from 'components/footer';
 import { useRouter } from 'next/router';
 import Coupon from 'components/Coupon';
-import Auth from 'components/auth';
 import styles from 'styles/order_check.module.css';
 import BreadList, {
   menu_list,
@@ -20,6 +19,8 @@ export default function OrderCheck() {
   const [itemId, setItemId] = useState<ItemId[]>([]);
   const [cartItems, setCartItems] = useState<CartItems[]>([]);
   const [subTotal, setSubTotal] = useState(0);
+  const [errorAlert, setErrorAlert] = useState('ok');
+  let count = 1;
   let code: string;
   let orderedAt: Date;
   let optionData: Options;
@@ -52,13 +53,13 @@ export default function OrderCheck() {
         )
           .then((res) => res.json())
           .then((data) => {
-            newCartItems.push({ ...data[0], count: 1 });
+            newCartItems.push({ ...data[0], count: count });
           });
       }
       setCartItems(newCartItems);
     }
     itemData();
-  }, [itemId]);
+  }, [count, itemId]);
 
   //商品の小計を計算
   useEffect(() => {
@@ -150,7 +151,7 @@ export default function OrderCheck() {
           deleteCarts();
         });
     } else {
-      return;
+      deleteCarts();
     }
   };
 
@@ -222,8 +223,10 @@ export default function OrderCheck() {
       optionData = data[0];
       if (data[0].payment_method === null) {
         console.log('payment_methodがnullです');
+        setErrorAlert('alert');
         return;
       } else {
+        setErrorAlert('ok');
         orderDate();
       }
     } catch (error) {
@@ -247,8 +250,10 @@ export default function OrderCheck() {
           <div className={styles.order_check_float1}>
             <OrderList />
             <SelectPay />
+            <p className={styles[errorAlert]}>
+              ※お支払い方法を選択してください
+            </p>
           </div>
-
           <div className={styles.order_check_float2}>
             <Option />
             <Coupon

@@ -2,8 +2,6 @@ import ShopName from 'components/shop_name';
 import styles from '../styles/Shop_list.module.css';
 import Head from 'next/head';
 import Header from 'components/header';
-import Genre from 'components/genre';
-import Area from 'components/area';
 import Footer from 'components/footer';
 import BreadList, {
   menu_list,
@@ -14,16 +12,51 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 export default function ShopFavorite() {
-  const [favoriteData, setFavoriteData] = useState([]);
   const userId = Cookies.get('user_id');
+  const [favoriteData, setFavoriteData] = useState<FavoriteData[]>(
+    []
+  );
+  const [favoriteShops, setFavoriteShops] = useState<Shops[]>([]);
 
-  //ログイン前（cookieなし）はログインを促す
-  if (userId === null || userId === undefined) {
+  //userが登録したお気に入りのshop_idをfavoriteテーブルから取得
+  useEffect(() => {
+    fetch(`http://localhost:8000/favorite?user_id=eq.${userId}`)
+      .then((res) => res.json())
+      .then((data) => setFavoriteData(data));
+  }, [userId]);
+
+  //favorirteのshop_idからお気に入りのショップ一覧を取得
+  useEffect(() => {
+    if (favoriteData.length === 0) {
+      return;
+    } else {
+      console.log('favoriteData', favoriteData);
+      const getFavoriteShops = async () => {
+        const promises = favoriteData.map((data) => {
+          return fetch(
+            `/api/favorite_shops?id=eq.${data.shop_id}`
+          ).then((res) => res.json());
+        });
+        const shopsData = await Promise.all(promises);
+        const newFavoriteShops = shopsData.map((data) => data[0]);
+        console.log(
+          'newfavoriteShopsにデータを追加しました',
+          newFavoriteShops
+        );
+        setFavoriteShops(newFavoriteShops);
+      };
+      getFavoriteShops();
+    }
+  }, [favoriteData]);
+
+  if (favoriteShops.length === 0) {
+    return <div>Loading...</div>;
+  } else if (userId === null || userId === undefined) {
     return (
       <>
         <Header />
         <BreadList list={[menu_list, favorite_list]} />
-        <main>
+        <div>
           <div className={styles.favorite_login}>
             <div className={styles.favorite_login_link}>
               <img src="/images/foodkoala_img2.png" alt="コアラ" />
@@ -36,37 +69,41 @@ export default function ShopFavorite() {
               お気に入り店舗一覧を表示したい場合はログインをしてください
             </p>
           </div>
-        </main>
+        </div>
+        <Footer />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Head>
+          <title>お気に入り店舗一覧</title>
+        </Head>
+        <Header />
+        <BreadList list={[menu_list, favorite_list]} />
+        <ShopName data={favoriteShops} />
         <Footer />
       </>
     );
   }
-
-  //userが登録したお気に入りのshop_idをfavoriteテーブルから取得
-  useEffect(() => {
-    fetch(`http://localhost:8000/favorite?user_id=eq.${userId}`)
-      .then((res) => res.json())
-      .then((data) => setFavoriteData(data));
-  }, [favoriteData]);
-
-  //お気に入りのshop_idのみのshop情報を取得して表示
-  return (
-    <>
-      <Head>
-        <title>お気に入り店舗一覧</title>
-      </Head>
-      <main>
-        <Header />
-        <BreadList list={[menu_list, favorite_list]} />
-        <Genre onClick={undefined} />
-        <Area />
-        {favoriteData.map((fav: any) => (
-          <ShopName
-            url={`http://localhost:8000/shops?id=eq.${fav.shop_id}`}
-          />
-        ))}
-        <Footer />
-      </main>
-    </>
-  );
 }
+
+type FavoriteData = {
+  shop_id: number;
+  user_id: number;
+};
+
+type Shops = {
+  id: number;
+  name: string;
+  description: string;
+  image_url: string;
+  score: number;
+  favorite: boolean;
+  genre_id: number;
+  area_id: number;
+  deleted_at: Date;
+  review_1: string;
+  review_2: string;
+  review_3: string;
+};

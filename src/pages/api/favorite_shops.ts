@@ -12,8 +12,8 @@ export default async function ShopData(
   res: NextApiResponse
 ) {
   const id = req.query.id;
+  const url = process.env['BACKEND_API_URL'];
   try {
-    const url = process.env['BACKEND_API_URL'];
     const response = await fetch(`${url}/shops?id=${id}`);
     const data = await response.json();
     if (!response.ok) {
