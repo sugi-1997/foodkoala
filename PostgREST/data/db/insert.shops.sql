@@ -246,7 +246,7 @@ VALUES (
   (
     'TRATTORIA IGARASHI',
     'イタリアで修行したシェフによる本場の味をリーズナブルにお届けします。季節の食材をふんだんに用いたパスタはきっと貴方の胃袋を掴んで離さないはず。',
-    '/images/shop/igaerashi.shop.jpg',
+    '/images/shop/igarashi.shop.jpg',
     3.9,
     1,
     5,
