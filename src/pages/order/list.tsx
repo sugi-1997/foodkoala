@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Header from 'components/header';
 import BreadList, {
   menu_list,
-  order_check,
   order_list,
 } from 'components/bread_list';
 import OrderList from 'components/order_list';
@@ -16,7 +15,6 @@ export default function Orderlist() {
   const userId = Cookies.get('user_id');
   const router = useRouter();
   const [itemId, setItemId] = useState<ItemId[]>([]);
-  const [cartItems, setCartItems] = useState<CartItems[]>([]);
 
   //cart_itemsテーブルからデータを取得
   useEffect(() => {
@@ -30,25 +28,7 @@ export default function Orderlist() {
     getItemId();
   }, []);
 
-  //item_idが一致する商品のデータを取得
-  useEffect(() => {
-    async function itemData() {
-      const newCartItems: CartItems[] = [];
-      for (let i = 0; i <= itemId.length - 1; i++) {
-        await fetch(
-          `/api/menu?genre_id=gt.0&area_id=gt.0&id=eq.${itemId[i].item_id}`
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            newCartItems.push({ ...data[0], count: 1 });
-          });
-      }
-      setCartItems(newCartItems);
-    }
-    itemData();
-  }, [itemId]);
-
-  //cookieの有無を確認し、ログインしていればcartItemsのデータをorder_itemsにPOST
+  //cookieの有無を確認し、ログインしていれば注文確認ページへ
   const handleClick = async () => {
     if (userId === undefined || userId === null) {
       router.push('/login');

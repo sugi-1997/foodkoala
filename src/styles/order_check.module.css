@@ -70,12 +70,20 @@
     background-color: #00D698;
 }
 
+.delete_button {
+  background-color:  #00D698;
+  color: #4f4842;
+  border-radius: 10px;
+  border: 2px solid  #fff;
+  box-shadow: 1px 2px #9bb0a5;
+}
+
 .delete_button:hover {
     opacity: 0.6;
 }
 
 .delete_button:active {
-    box-shadow: 1px 2px #9bb0a5;
+    box-shadow: none;
     transform: translateY(1px);
 }
 
