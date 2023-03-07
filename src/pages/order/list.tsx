@@ -51,7 +51,7 @@ export default function Orderlist() {
   //cookieの有無を確認し、ログインしていればcartItemsのデータをorder_itemsにPOST
   const handleClick = async () => {
     if (userId === undefined || userId === null) {
-      router.push('/loginPage');
+      router.push('/login');
     } else {
       router.push('/order/order_check');
     }
