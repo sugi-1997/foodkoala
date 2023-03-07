@@ -82,8 +82,6 @@ export default function OrderList() {
             カートに商品はありません
           </div>
           <br />
-          <p>小計: 0円</p>
-          <p>合計: 0円</p>
         </div>
       </>
     );
