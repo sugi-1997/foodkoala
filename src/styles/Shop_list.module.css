@@ -6,7 +6,6 @@
 }
 
 .shop_list {
-    /* flex: 1 0 calc(30%); */
     width:30%;
     border: solid 3px #F78404;
     border-radius: 5px;

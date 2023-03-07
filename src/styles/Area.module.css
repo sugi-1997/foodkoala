@@ -56,14 +56,17 @@
   .h2 {
     font-size: 25px;
   }
-  .area {
-  } 
-
   .area button {
     width: 75%;
     height: 100%;
   }
   .area p {
     font-size: 100%;
+  }
+}
+
+@media screen and (max-width:700px) {
+  .h2 {
+    font-size: 18px;
   }
 }

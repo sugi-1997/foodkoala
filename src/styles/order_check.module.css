@@ -125,6 +125,19 @@
     font-size: 18px;
 }
 
+/* エラーメッセージ */
+.ok {
+    display: none;
+    margin-left: 13%;
+}
+
+.alert {
+    margin-left: 13%;
+    color: red;
+    font-weight: bold;
+}
+
+
 /*クーポン  */
 .order_list_details {
     border: 5px solid #f8b856;
