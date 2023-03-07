@@ -14,9 +14,10 @@
     position: relative;     
     width: 20%;
     height: auto;
-    left: 950px;
+    left: 1200px;
     bottom: 250px;
     margin-bottom: -250px;
+    
 }
 
 .concept_text{
@@ -26,7 +27,7 @@ margin: 10%;
 padding-left: 10%;
 position: relative;
 bottom: 270px;  
-margin-bottom: -27  0px;
+margin-bottom: -270px;
 right: 180px;
 margin-right: -180px;
 color: rgb(255, 255, 255);
@@ -49,10 +50,7 @@ font-size: 1.5vw;
 }
 
 
-
 /* フレックスボックスたち */
-
-
 
 .flex_box{
     display: flex;

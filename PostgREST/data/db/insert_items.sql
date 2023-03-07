@@ -153,7 +153,7 @@ INSERT INTO api.items (
     '/images/menu/kaki.food.jpg',
     1400,
     'カリッと揚がった牡蠣に、レモンやタルタルソースを添えて食べると、海の旨味が口いっぱいに広がります。',
-    1,
+    2,
     2,
     1
 ),
@@ -306,7 +306,7 @@ INSERT INTO api.items (
     '/images/menu/edamame.food.jpg',
     300 ,
     '自家製の塩味が人気で、お酒のお供やおやつにぴったりです。',
-    5,
+    2,
     5,
     5
 ),
@@ -315,7 +315,7 @@ INSERT INTO api.items (
     '/images/menu/kaisendon.food.jpg',
     1000,
     '当店では、季節や仕入れによって、鮮度抜群の旬の魚介類を使用しているため、毎回異なる味わいをお楽しみいただけます。',
-    5,
+    2,
     5,
     1
 ),(
@@ -365,7 +365,7 @@ INSERT INTO api.items (
 ),
 (
     '豚肉の香草ロール',
-    '/images/menu/glassPork.food.jpg',
+    '/images/menu/glasspork.food.jpg',
     1200,
     'ジューシーな豚肉で香草をロールしました。見た目にも楽しい逸品。',
     3,
@@ -374,7 +374,7 @@ INSERT INTO api.items (
 ),
 (
     'ホタテのカルパッチョ コスタリカ風',
-    '/images/menu/niceSalad.food.jpg',
+    '/images/menu/nicesalad.food.jpg',
     700,
     '肉厚のホタテをコスタリカに伝わる伝統的なドレッシングで仕上げました',
     3,
