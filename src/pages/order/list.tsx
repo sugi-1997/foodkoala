@@ -57,6 +57,28 @@ export default function Orderlist() {
     }
   };
 
+  if (itemId.length === 0) {
+    return (
+      <>
+        <Head>
+          <title>注文リスト</title>
+        </Head>
+        <Header />
+        <BreadList list={[menu_list, order_list]} />
+        <div className={styles.order_list}>
+          <OrderList />
+          <div className={styles.alert}>
+            <p>※カートに商品がないため、購入できません</p>
+            <button>
+              <a href="/">メニュー一覧へ</a>
+            </button>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
   return (
     <>
       <Head>
@@ -65,15 +87,13 @@ export default function Orderlist() {
       <Header />
       <BreadList list={[menu_list, order_list]} />
       <div className={styles.order_list}>
-        <div>
-          <OrderList />
-          <button
-            className={styles.transition_button}
-            onClick={handleClick}
-          >
-            購入画面へ
-          </button>
-        </div>
+        <OrderList />
+        <button
+          className={styles.transition_button}
+          onClick={handleClick}
+        >
+          購入画面へ
+        </button>
       </div>
       <Footer />
     </>
