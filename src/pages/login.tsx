@@ -117,6 +117,11 @@ export default function Login() {
                 value="ログイン"
                 className={styles.login_button_design}
               />
+               <Link href='/'><input
+                type="button"
+                value="ログインせずに商品を探す"
+                className={styles.login_button_design}
+              /></Link>
             </div>
           </form>
         </div>
