@@ -74,6 +74,27 @@ export default function OrderHistory() {
     newDateArray();
   }, [data]);
 
+  if (error) return <div>Error...</div>;
+
+  if (!data) {
+    return (
+      <>
+        <Head>
+          <title>注文履歴</title>
+        </Head>
+        <Header />
+        <BreadList list={[menu_list, order_history]} />
+        <div className={styles.h1}>
+          <h1>注文履歴一覧</h1>
+        </div>
+        <div>
+          <h2>Loading...</h2>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
   //ログイン前（cookieなし）はログインを促す
   if (userId === null || userId === undefined) {
     return (
@@ -97,40 +118,25 @@ export default function OrderHistory() {
     );
   }
 
-  if (error) return <div>Error...</div>;
-  if (!data || orderDate.length === 0 || pageId === undefined) {
+  if (orderItems.length === 0) {
     return (
       <>
-        <Head>
-          <title>注文履歴</title>
-        </Head>
         <Header />
         <BreadList list={[menu_list, order_history]} />
-        <div className={styles.h1}>
-          <h1>注文履歴一覧</h1>
-        </div>
-        <div>
-          <h2>Loading...</h2>
-        </div>
+        <main>
+          <div className={styles.favorite_login}>
+            <div className={styles.favorite_login_link}>
+              <img src="/images/foodkoala_img2.png" alt="コアラ" />
+              <br />
+              <br />
+              <a href="/">メニュー一覧へ</a>
+            </div>
+            <br />
+            <p>注文履歴がありません</p>
+          </div>
+        </main>
         <Footer />
       </>
-    );
-  } else if (orderItems.length === 0) {
-    return (
-      <Auth>
-        <Head>
-          <title>注文履歴</title>
-        </Head>
-        <Header />
-        <BreadList list={[menu_list, order_history]} />
-        <div className={styles.h1}>
-          <h1>注文履歴一覧</h1>
-        </div>
-        <div>
-          <h2>注文履歴はありません</h2>
-        </div>
-        <Footer />
-      </Auth>
     );
   } else {
     console.log('orderDate', orderDate);
