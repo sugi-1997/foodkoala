@@ -21,7 +21,7 @@ export default function Header({ onClick }: any) {
 
   const logout = () => {
     Cookies.remove('user_id');
-    router.replace('/loginPage  ');
+    router.replace('/login  ');
     setLoginStatus('true');
     setLogoutStatus('false');
   };

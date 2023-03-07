@@ -12,7 +12,7 @@ export default function OrderList() {
   const [itemId, setItemId] = useState<ItemId[]>([]);
   const [cartItems, setCartItems] = useState<CartItems[]>([]);
   const [subTotal, setSubTotal] = useState(0);
-
+  let count = 1;
   const { mutate } = useSWRConfig();
   const { data, error } = useSWR('/api/get_cart_items', fetcher);
 
@@ -38,13 +38,13 @@ export default function OrderList() {
         )
           .then((res) => res.json())
           .then((data) => {
-            newCartItems.push({ ...data[0], count: 1 });
+            newCartItems.push({ ...data[0], count: count });
           });
       }
       setCartItems(newCartItems);
     }
     itemData();
-  }, [itemId]);
+  }, [count, itemId]);
 
   //商品の小計を計算
   useEffect(() => {
@@ -78,7 +78,9 @@ export default function OrderList() {
         </div>
         <div className={styles.order_list}>
           <br />
-          <div className={styles.order_list_sub}>カートに商品はありません</div>
+          <div className={styles.order_list_sub}>
+            カートに商品はありません
+          </div>
           <br />
           <p>小計: 0円</p>
           <p>合計: 0円</p>
