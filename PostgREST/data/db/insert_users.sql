@@ -11,7 +11,7 @@ INSERT INTO api.users (
     '160-0022',
     '東京都新宿区新宿4-3-25',
     '0366753638',
-    'yuka'
+    'yuka2023'
 ),
 (
     '杉浦　早紀',
@@ -19,7 +19,7 @@ INSERT INTO api.users (
     '160-0022',
     '東京都新宿区新宿4-3-25',
     '0366753638',
-    'saki'
+    'saki2023'
 ),
 (
     '獅子堂　孝雄',
@@ -27,7 +27,7 @@ INSERT INTO api.users (
     '160-0022',
     '東京都新宿区新宿4-3-25',
     '0366753638',
-    'takao'
+    'takao2023'
 ),
 (
     '中嶋　勇樹',
@@ -35,7 +35,7 @@ INSERT INTO api.users (
     '160-0022',
     '東京都新宿区新宿4-3-25',
     '0366753638',
-    'yuki'
+    'yuki2023'
 ),
 (
     '遠矢　学',
@@ -43,7 +43,7 @@ INSERT INTO api.users (
     '160-0022',
     '東京都新宿区新宿4-3-25',
     '0366753638',
-    'manabu'
+    'manabu2023'
 ),
 (
     '加藤　珠生',
@@ -51,7 +51,7 @@ INSERT INTO api.users (
     '160-0022',
     '東京都新宿区新宿4-3-25',
     '0366753638',
-    'tamaki'
+    'tamaki2023'
 ),
 (
     '佐藤　勇太',
@@ -59,7 +59,7 @@ INSERT INTO api.users (
     '160-0022',
     '東京都新宿区新宿4-3-25',
     '0366753638',
-    'yuta'
+    'yuta2023'
 ),
 (
     '坂本　真由',
@@ -67,7 +67,7 @@ INSERT INTO api.users (
     '160-0022',
     '東京都新宿区新宿4-3-25',
     '0366753638',
-    'mayu'
+    'mayu2023'
 ),
 (
     '中川　瑞貴',
@@ -75,7 +75,7 @@ INSERT INTO api.users (
     '160-0022',
     '東京都新宿区新宿4-3-25',
     '0366753638',
-    'mizuki'
+    'mizuki2023'
 ),
 (
     '小林　颯人',
@@ -83,7 +83,7 @@ INSERT INTO api.users (
     '160-0022',
     '東京都新宿区新宿4-3-25',
     '0366753638',
-    'hayato'
+    'hayato2023'
 ),
 (
     '堀川　裕基',
@@ -91,11 +91,12 @@ INSERT INTO api.users (
     '160-0022',
     '東京都新宿区新宿4-3-25',
     '0366753638',
-    'hiroki'
+    'hiroki2023'
 );
 SELECT * FROM api.users;
 
 --@block
 delete FROM api.users where id = 12;
 
+--@block
 SELECT * FROM api.users;

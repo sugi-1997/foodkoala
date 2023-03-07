@@ -7,10 +7,11 @@
     margin: 0 auto;
 }
 
-.order_list h1 {
+.order_list_h1 {
     display: flex;
     justify-content: center;
     color: #E75304;
+    white-space: nowrap;
 }
 
 /* 購入画面へ */
@@ -21,9 +22,9 @@
     margin: 30px auto;
     width: 200px;
     height: 30px;
-    border: 1px solid orange;
+    border: 1px solid #f8b856;
     border-radius: 15px;
-    background-color: orange;
+    background-color: #f8b856;
     color: #fff;
     font-size: 15px;
 }

@@ -1,12 +1,8 @@
-
-
 .logo{
     text-align: center;
 }
 
 
-
-/* これ */
 .title_font{
     font-weight: bold;
     -webkit-text-stroke-width: 0.5px;
@@ -31,10 +27,6 @@
     }
 } 
 
-
-
-
-/* これ */
 .loginPageAll{
     margin:  auto;
     text-align: center;
@@ -74,7 +66,6 @@
     }
 } 
 
-/* これ */
 .loginPage_item{
     display: inline-block;
     padding: 5px;
@@ -97,7 +88,6 @@
     }
 } 
 
-/* これ */
 .input_text_design{
     width: 220px;
     height: 27px;
@@ -114,19 +104,16 @@
     }
 } 
  
-
 .input_text_design:focus{
     background-color: rgba(247, 249, 226, 0.899);
     outline:solid 2px #f7ad4d;
 }
-
 
 .hr{
     border-color: #00d698;
     width: 90%;
 }
 
-/* これ */
 .login_button_design{
     background-color: #f7ad4d;
     border: none;
@@ -134,7 +121,6 @@
     width: 200px;
     height: 30px;
     cursor: pointer;
-    
 }
 
 .login_button_design:hover{
@@ -144,8 +130,6 @@
     transform: rotateY(-2px);
 }
 
-
-/* これ */
 .go_to_resister{
     text-align: center;
     background-color: #f4f4f4;

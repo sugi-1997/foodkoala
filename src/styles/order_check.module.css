@@ -1,33 +1,6 @@
-.order_check_background{
-    background-color: rgb(242, 242, 242);
-}
-
-/* order_check */
-
-.order_check {
-    /* display: flex;
-    justify-content: center;
-    flex-direction: column; */
-}
-
-.order_check div{
-    /* justify-content: center; */
-}
-
-.order_check h1 {
-    /* margin:20px 0 10px 50px; */
-
-}
-
-.order_check h2 {
-    margin:20px 0 10px 320px;
-
-}
-
 /* ボタン */
 
 .order_check_button {
-    /* text-align: center; */
     margin: 0px 10px 10px -50px;
     padding: 0;
     width: 150px;
@@ -35,10 +8,57 @@
     border: 0;
     border-radius: 8px;
     cursor: pointer;
-    background-color: orange   ;
+    background-color: #f8b856   ;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
     color: #ffffff;
 }
+
+@media screen and (max-width:670px) {
+    .order_check_button {
+        margin: 0 0 5% 0;
+        padding: 0;
+        width: 30%;
+        height: 30%;
+        border: 0;
+        border-radius: 8px;
+        cursor: pointer;
+        background-color: #f8b856;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
+        color: #ffffff;
+    }
+}
+
+@media screen and (max-width:1000px) and (min-width:671px) {
+    .order_check_button {
+        margin: ;
+        padding: 0;
+        width: 30%;
+        height: 0;
+        border: 0;
+        border-radius: 8px;
+        cursor: pointer;
+        background-color: #f8b856;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
+        color: #ffffff;
+    }
+}
+
+
+@media screen and (max-width:1000px) and (min-width:671px) {
+    .order_check_button {
+        margin: 0 50% 5% 50%;
+        padding: 0;
+        width: 30%;
+        height: 30%;
+        border: 0;
+        border-radius: 8px;
+        cursor: pointer;
+        background-color: #f8b856;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
+        color: #ffffff;
+    }
+} 
+
 
 .order_check_button:hover{
     opacity: 0.6;
@@ -60,15 +80,37 @@
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
 }
 
+.order_list_h1{
+    margin: 5px 0 10px 70px;
+    padding: 10px;
 
-
-/*クーポン  */
-.order_list_details {
-    border: 5px solid #f8b856;
-    border-radius: 10px;
-    border-radius: 10px;
-    background-color: #00D698;
 }
+
+
+
+@media screen and (max-width:670px) {
+    .order_list {
+        border: 5px solid #f8b856;
+        border-radius: 10px;
+        margin: 0 5%;
+        padding: 0 5%;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
+    }
+} 
+
+@media screen and (max-width:1000px) and (min-width:671px) {
+    .order_list {
+        border: 5px solid #f8b856;
+        border-radius: 10px;
+        margin: 0 5%;
+        padding: 0 5%;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
+    }
+} 
 
 .delete_button:hover {
     opacity: 0.6;
@@ -83,9 +125,6 @@
     font-size: 18px;
 }
 
-
-
-
 /*クーポン  */
 .order_list_details {
     border: 5px solid #f8b856;
@@ -95,14 +134,65 @@
     width: 400px;
     background-color: rgb(255, 255, 255) ;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
-    
 }
+
+.order_list_details_h1{
+    margin: 5px 0 10px 70px;
+    padding: 10px;
+
+}
+
+
+@media screen and (max-width:670px) {
+    .order_list_details {
+        border: 5px solid #f8b856;
+        border-radius: 10px;
+        margin: 0 5%;
+        padding: 0 5%;
+        width: 50%;
+        background-color: rgb(255, 255, 255) ;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
+    }
+}
+
+@media screen and (max-width:1000px) and (min-width:671px) {
+    .order_list_details {
+        border: 5px solid #f8b856;
+        border-radius: 10px;
+        margin: 0 5% 0 15%;
+        padding: 0 5%;
+        width: 100%;
+        background-color: rgb(255, 255, 255) ;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
+    }
+}
+
+
 
 .order_list_details p {
     color: red;
     white-space: nowrap ;
     font-size: 14px;
 }
+
+
+@media screen and (max-width:670px) {
+    .order_list_details p {
+        color: red;
+        font-size: 14px;
+        white-space: normal;
+        word-wrap: normal;
+    }
+} 
+
+@media screen and (max-width:1000px) and (min-width:671px) {
+    .order_list_details p {
+        color: red;
+        font-size: 14px;
+        white-space: normal;
+        word-wrap: normal;
+    }
+} 
 
 .order_list dt {
     text-align: left;
@@ -131,10 +221,45 @@
 }
 
 .option_h1{
-    /* padding: 60px 0 0 0; */
+    margin: 5px 0 10px 70px;
+    padding: 10px;
+
 }
 
-.option ul {
+@media screen and (max-width:1000px) and (min-width:671px) {
+    .option {
+        border: 5px solid #f8b856;
+        border-radius: 10px;
+        margin: 0 5% 0 15%;
+        padding: 0 5%;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
+        
+    }
+} 
+
+@media screen and (max-width:670px) {
+    .option {
+        border: 5px solid #f8b856;
+        border-radius: 10px;
+        margin: 0 5%;
+        padding: 0 5%;
+        width: 50%;
+        background-color: white;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
+        
+    }
+} 
+
+
+
+@media screen and (max-width:1000px) and (min-width:671px) {
+    .option li {
+        display: flex;
+        /* align-items: center; */
+        position: relative;
+    }
 }
 
 .option li {
@@ -150,6 +275,16 @@
     left: 0;
 }
 
+@media screen and (max-width:1000px) and (min-width:671px) {
+    .option li::before {
+        content: "・";
+        position: absolute;
+        left: 5%;
+    }
+}
+
+
+
 .option label {
     flex-basis: 100px;
 }
@@ -159,19 +294,48 @@
     margin-left: 8px;
 }
 
+
+
 /* お支払い方法 */
 
 .select_pay {
     border: 5px solid #f8b856;
     border-radius: 10px;
     height: 80px;
-    width: 420px;
-    margin: 0 0 10px 55px;
-    padding: 5px;
+    margin: 0 50px;
+    padding: 0 20px;;
     background-color: white;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
+}
 
+.select_pay_h1{
+    margin: 5px 0 10px 70px;
+    padding: 10px;
+}
 
+@media screen and (max-width:1000px) and (min-width:671px) {
+    .select_pay {
+        border: 5px solid #f8b856;
+        border-radius: 10px;
+        height: 80px;
+        margin: 0 30%%;
+        padding: 0 %;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
+    }
+}
+
+@media screen and (max-width:671px)  {
+    .select_pay {
+        border: 5px solid #f8b856;
+        border-radius: 10px;
+        margin: 0 5%;
+        padding: 0 5%;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.522);
+    }
 }
 
 .select_card {
@@ -183,24 +347,15 @@
     margin-left: 10px;
 }
 
-
-
-
 /* 画面にて規定 */
 
 .order_check_float1{
     float: left;
     vertical-align: top;
-
 }
+
 
 .order_check_float2{
     display: inline-block;
-    vertical-align: top;
-    
-}
-
-.order_check_float3{
-    display: inline-block;
-   vertical-align: top;
+    vertical-align: top;   
 }
