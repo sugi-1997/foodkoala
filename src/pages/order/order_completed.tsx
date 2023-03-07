@@ -7,6 +7,9 @@ import Cookies from 'js-cookie';
 import useSWR from 'swr';
 import Timer from 'components/Timer';
 import Auth from 'components/auth';
+import Header from 'components/header';
+import Footer from 'components/footer';
+import { useRouter } from 'next/router';
 
 const fetcher = async (resource: string) => {
   const res = await fetch(resource);
@@ -17,6 +20,7 @@ const fetcher = async (resource: string) => {
 export default function OrderCompleted() {
   const userId = Cookies.get('user_id');
   const [orderItems, setOrderItems] = useState<OrderItems[]>([]);
+  const router = useRouter();
 
   //order_historyテーブルから注文内容を取得
   const { data, error } = useSWR(
@@ -32,17 +36,24 @@ export default function OrderCompleted() {
     async function getOrderItems() {
       if (data === undefined || data === null) {
         return;
+      } else if (userId === null || userId === undefined) {
+        router.push('/login');
+      } else {
+        await fetch(
+          `/api/order_items?order_id=eq.${
+            data[data.length - 1].cart_id
+          }`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            setOrderItems(data);
+          })
+          .catch((error) => console.error(error));
       }
-      await fetch(`/api/order_items?order_id=eq.${data[0].cart_id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setOrderItems(data);
-        })
-        .catch((error) => console.error(error));
     }
     getOrderItems();
-  }, [data]);
+  }, [data, router, userId]);
 
   if (error) return <div>エラーです</div>;
   if (!data) return <div>Loading...</div>;
@@ -55,6 +66,7 @@ export default function OrderCompleted() {
         <Head>
           <title>注文完了画面</title>
         </Head>
+        <Header />
         <div className={styles.position}>
           <h1>ご注文ありがとうございました！</h1>
           <h2>
@@ -85,7 +97,7 @@ export default function OrderCompleted() {
             <div>
               <p className={styles.order_complete_group}>クーポン</p>
               <p className={styles.order_complete_item}>
-                -{data[data.length - 1].coupon}%
+                -{data[data.length - 1].discount}%
               </p>
             </div>
             <div>
@@ -121,6 +133,7 @@ export default function OrderCompleted() {
             <Link href={'/'}>別のメニューを注文する</Link>
           </div>
         </div>
+        <Footer />
       </>
     );
   }
@@ -131,7 +144,8 @@ type OrderData = {
   user_id: number;
   order_code: string;
   ordered_at: Date;
-  coupon: number;
+  discount: number;
+  couponcode: string;
   subtotal: number;
   total: number;
   payment_method: string;

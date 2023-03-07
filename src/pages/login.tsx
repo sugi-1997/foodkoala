@@ -124,7 +124,7 @@ export default function Login() {
         <div className={styles.go_to_resister}>
           <p>アカウントをお持ちではありませんか？</p>
           <p>
-            <Link href="/userResisterPage">アカウントを作成</Link>
+            <Link href="/user_resister">アカウントを作成</Link>
           </p>
         </div>
       </div>

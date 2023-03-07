@@ -5,9 +5,9 @@ export default async function Carts(
   res: NextApiResponse
 ) {
   const url = process.env['BACKEND_API_URL'];
-  const userId = req.body.user_id;
+  const userId = req.query.user_id;
   try {
-    const response = await fetch(`${url}/carts?user_id=eq.${userId}`);
+    const response = await fetch(`${url}/carts?user_id=${userId}`);
     const data = await response.json();
     res.status(200).json(data);
   } catch (error) {

@@ -8,8 +8,42 @@ import BreadList, {
   menu_list,
   shop_list,
 } from 'components/bread_list';
+import { useState } from 'react';
+import useSWR, { useSWRConfig } from 'swr';
+
+const fetcher = (resource: string) =>
+  fetch(resource).then((res) => res.json());
 
 export default function ShopList() {
+  const [genreId, setGenreId] = useState<string>('gt.0');
+  const [areaId, setAreaId] = useState<string>('gt.0');
+
+  const { data, error } = useSWR(
+    `/api/shop?genreId=${genreId}&areaId=${areaId}`,
+    fetcher,
+    {
+      revalidateOnMount: true,
+    }
+  );
+  const { mutate } = useSWRConfig();
+
+  const handleGenreClick = (clickedId: any) => {
+    setAreaId('gt.0');
+    setGenreId(`eq.${clickedId}`);
+    console.log(clickedId);
+    mutate(`/api/shop?genreId=${genreId}&areaId=${areaId}`);
+  };
+
+  const handleAreaClick = (clickedId: any) => {
+    setGenreId('gt.0');
+    setAreaId(`eq.${clickedId}`);
+    console.log(clickedId);
+    mutate(`/api/shop?areaId=${areaId}&genreId=${genreId}`);
+  };
+
+  if (error) return <div>エラーです</div>;
+  if (!data) return <div>Loading...</div>;
+
   return (
     <>
       <Head>
@@ -18,11 +52,28 @@ export default function ShopList() {
       <main>
         <Header />
         <BreadList list={[menu_list, shop_list]} />
-        <Genre onClick={undefined} />
-        <Area />
-        <ShopName url="http://localhost:8000/shops" />
+        <Genre onClick={(e: any) => handleGenreClick(e.target.id)} />
+        <Area onClick={(e: any) => handleAreaClick(e.target.id)} />
+        <ShopName data={data} />
         <Footer />
       </main>
     </>
   );
 }
+
+type Shops = {
+  data: {
+    id: number;
+    name: string;
+    description: string;
+    image_url: string;
+    score: number;
+    favorite: boolean;
+    genre_id: number;
+    area_id: number;
+    deleted_at: Date;
+    review_1: string;
+    review_2: string;
+    review_3: string;
+  };
+};

@@ -24,14 +24,12 @@ export default function ShopFavorite() {
         <Header />
         <BreadList list={[menu_list, favorite_list]} />
         <main>
-          <Genre onClick={undefined} />
-          <Area />
           <div className={styles.favorite_login}>
             <div className={styles.favorite_login_link}>
               <img src="/images/foodkoala_img2.png" alt="コアラ" />
               <br />
               <br />
-              <a href="/loginPage">ログイン</a>
+              <a href="/login">ログイン</a>
             </div>
             <br />
             <p>
