@@ -29,14 +29,18 @@ export default function OrderCheck() {
   //cart_itemsテーブルからデータを取得
   useEffect(() => {
     async function getItemId() {
-      await fetch('/api/get_cart_items')
-        .then((res) => res.json())
-        .then((data) => {
-          setItemId(data);
-        });
+      if (userId === null || userId === undefined) {
+        router.push('/login');
+      } else {
+        await fetch('/api/get_cart_items')
+          .then((res) => res.json())
+          .then((data) => {
+            setItemId(data);
+          });
+      }
     }
     getItemId();
-  }, []);
+  }, [router, userId]);
 
   //item_idが一致する商品のデータを取得
   useEffect(() => {
@@ -93,9 +97,10 @@ export default function OrderCheck() {
         user_id: Number(userId),
         order_code: code,
         ordered_at: orderedAt,
-        coupon: optionData.coupon,
+        discount: optionData.discount,
+        couponcode: optionData.couponcode,
         subtotal: subTotal,
-        total: subTotal - (subTotal * optionData.coupon) / 100,
+        total: subTotal - (subTotal * optionData.discount) / 100,
         payment_method: optionData.payment_method,
         chopstick: optionData.chopstick,
         folk: optionData.folk,
@@ -106,9 +111,47 @@ export default function OrderCheck() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        deleteCarts();
+        deleteCoupon();
       })
       .catch((error) => console.error(error));
+  };
+
+  //使用したクーポンの削除
+  const deleteCoupon = async () => {
+    await fetch(
+      `/api/delete_coupon?user_id=eq.${userId}&couponcode=eq.${optionData.couponcode}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('使用したクーポンを削除しました');
+        addThanksCoupon();
+      })
+      .catch((error) => console.error(error));
+  };
+
+  //容器返却を選択した場合、thanks couponを取得
+  let thanks: string;
+  const addThanksCoupon = async () => {
+    if (thanks === 'true') {
+      await fetch(`/api/post_coupon`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: Number(userId),
+          discount: 10,
+          couponcode: 'thanks coupon',
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('thanksクーポンをPOSTしました');
+          deleteCarts();
+        });
+    } else {
+      return;
+    }
   };
 
   // 4.cartsテーブルからuser_idが一致するデータを削除
@@ -161,15 +204,10 @@ export default function OrderCheck() {
 
   // 7.cart_itemsからuser_idが一致するデータを削除
   const deleteCartItems = async () => {
-    await fetch(`/api/delete_all_cart_items?user_id=eq.${userId}`, {
-      method: 'POST',
-      body: JSON.stringify({
-        user_id: Number(userId),
-      }),
-    })
+    await fetch(`/api/delete_all_cart_items`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log('cart_itemsからデータを削除しました');
         router.push('/order/order_completed');
       })
       .catch((error) => console.error(error));
@@ -178,15 +216,7 @@ export default function OrderCheck() {
   // クリックすると、1~7の処理を開始
   const handleOrder = async () => {
     try {
-      const res = await fetch(`/api/carts?user_id=eq.${userId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user_id: Number(userId),
-        }),
-      });
+      const res = await fetch(`/api/carts?user_id=eq.${userId}`);
       const data = await res.json();
       console.log('cartsテーブルから取得したデータ', data[0]);
       optionData = data[0];
@@ -201,31 +231,46 @@ export default function OrderCheck() {
     }
   };
 
+  if (itemId.length === 0 || cartItems.length === 0) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Head>
         <title>注文確認ページ</title>
       </Head>
-      <Header />
-      <BreadList list={[menu_list, order_check]} />
-      <div className={styles.order_check}>
-        <div>
-          <OrderList />
-          <Coupon subTotal={subTotal} />
-        </div>
-        <div>
-          <div>
-            <Option />
-          </div>
-          <div>
+      <div className={styles.order_check_background}>
+        <Header />
+        <BreadList list={[menu_list, order_check]} />
+        <div className={styles.order_check}>
+          <div className={styles.order_check_float1}>
+            <OrderList />
             <SelectPay />
-            <div className={styles.order_check_button}>
-              <button onClick={handleOrder}>注文を確定する</button>
+          </div>
+
+          <div className={styles.order_check_float2}>
+            <Option />
+            <Coupon
+              subTotal={subTotal}
+              onClick={(e) => {
+                console.log(e.target.id);
+                thanks = e.target.id;
+              }}
+            />
+            <div>
+              <button
+                onClick={handleOrder}
+                className={styles.order_check_button}
+              >
+                注文を確定する
+              </button>
             </div>
           </div>
         </div>
+
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }
@@ -252,7 +297,8 @@ type CartItems = {
 
 type Options = {
   user_id: number;
-  coupon: number;
+  couponcode: string;
+  discount: number;
   chopstick: number;
   folk: number;
   spoon: number;

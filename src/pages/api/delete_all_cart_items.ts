@@ -6,17 +6,12 @@ export default async function CartItems(
 ) {
   try {
     const url = process.env['BACKEND_API_URL'];
-    const userId = req.query.user_id;
-    const response = await fetch(
-      `${url}/cart_items?cart_id=${userId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const response = await fetch(`${url}/cart_items?cart_id=eq.1`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
+      },
+    });
     if (response.ok) {
       const data = await response.text();
       res.status(200).json(data);

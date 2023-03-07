@@ -29,7 +29,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
           }
         });
     }
-  }, []);
+  }, [shop.id, userId]);
 
   //ログイン前はonClickでボタンのCSSを切り替え。ログイン後はcheckFavoriteを呼び出し
   function handleClick() {

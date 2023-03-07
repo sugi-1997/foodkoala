@@ -5,6 +5,7 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import styles from '../styles/concept.module.css';
 import BreadList, { menu_list, concept } from 'components/bread_list';
+import { text } from 'stream/consumers';
 
 export default function TopPage() {
   return (
@@ -27,7 +28,7 @@ export default function TopPage() {
 
         <div className="firstBlock">
           <div className={styles.concept_food}>
-            <img
+            <Image
               src="/images/menu/hamburger.food.jpg"
               alt="concept"
               width={400}
@@ -35,29 +36,27 @@ export default function TopPage() {
               className={styles.concept_food}
             />
           </div>
-          {/*<div className={styles.concept_text}>
-        <h2>いつまでも「おいしい」に包まれた世界へ</h2>
-        <h3>
-          foodKoalaは廃棄寸前の食品専門のテイクアウト予約サービス。
-          <br />
-          捨てられるはずの「おいしい」を食卓に届け、
-          <br />
-          「おいしい」に包まれた未来を守ります。
-        </h3>
-  </div> */}
-
-          <div>
-            {/* <Image
-          src="/images/foodkoala_img2.PNG"
-          alt="concept"
-          width={100}
-          height={100}
-          className={styles.concept_koala}
-        /> */}
+          <div className={styles.concept_text}>
+            <h2>いつまでも「おいしい」に包まれた世界へ</h2>
+            <h3>
+              FoodKoalaは廃棄寸前の食品専門のテイクアウト予約サービス。
+              <br />
+              捨てられるはずの「おいしい」を食卓に届け、
+              <br />
+              「おいしい」に包まれた未来を守ります。
+            </h3>
           </div>
+          <Image
+            src="/images/foodkoala_img2.png"
+            alt="concept"
+            width={100}
+            height={100}
+            className={styles.concept_koala}
+          />
         </div>
 
         {/* 中段 */}
+
         <div className={styles.about}>
           <h2>Food Koalaについて</h2>
           <div className={styles.flex_box}>
@@ -125,6 +124,7 @@ export default function TopPage() {
         </div>
 
         {/* 下段 */}
+
         <div className={styles.howTo}>
           <h2>ご利用方法</h2>
           <div className={styles.flex_box}>

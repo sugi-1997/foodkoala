@@ -3,9 +3,12 @@ import Footer from 'components/header';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styles from '../styles/userResister_completed.module.css';
 
 export default function ItemListPage() {
+  const userName = localStorage.getItem('name');
+
   return (
     <>
       <Head>
@@ -25,12 +28,16 @@ export default function ItemListPage() {
           </div>
           <div className={styles.message}>
             <h2>アカウント登録完了</h2>
-            <h2>ようこそ、○○さん</h2>
+            <h2>ようこそ、{userName}さん</h2>
             <p>
               お客様のアカウント登録が完了しました！ <br />
               ログインする場合は、以下の「ログイン画面へ」ボタンをクリックしてください。
             </p>
-            <Link href="/loginPage" className={styles.link}>
+            <Link
+              href="/login"
+              className={styles.link}
+              onClick={() => localStorage.removeItem('name')}
+            >
               ログイン画面へ
             </Link>
           </div>

@@ -1,5 +1,6 @@
 .concept{
-    background-color: #f6f6f6;
+    background-color: #fedfaa;
+    width: 100%;
 
 }
 .concept_food {
@@ -11,8 +12,12 @@
 }
 .concept_koala {
     position: relative;     
-    width: 10%;
+    width: 20%;
     height: auto;
+    left: 1200px;
+    bottom: 250px;
+    margin-bottom: -250px;
+    
 }
 
 .concept_text{
@@ -21,15 +26,18 @@ height: 40%;
 margin: 10%;
 padding-left: 10%;
 position: relative;
-bottom: 250px;
+bottom: 270px;  
+margin-bottom: -270px;
 right: 180px;
-color: rgb(160, 178, 195);
+margin-right: -180px;
+color: rgb(255, 255, 255);
 font-size: 1.5vw;
+-webkit-text-stroke-color: rgb(0, 0, 0);
+-webkit-text-stroke-width: 0.2px;
+
 }
 
 /* フレックスボックスたち */
-
-
 
 .flex_box{
     display: flex;

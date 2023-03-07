@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import styles from 'styles/order_check.module.css';
 import useSWR from 'swr';
 
@@ -9,7 +9,13 @@ const fetcher = async (resource: string) => {
   return data;
 };
 
-export default function Coupon(props: { subTotal: number }) {
+export default function Coupon({
+  subTotal,
+  onClick,
+}: {
+  subTotal: number;
+  onClick: MouseEventHandler<HTMLInputElement>;
+}) {
   const [coupon, setCoupon] = useState('');
   const userId = Cookies.get('user_id');
   const { data, error } = useSWR(
@@ -20,11 +26,14 @@ export default function Coupon(props: { subTotal: number }) {
   if (error) return <div>Error...</div>;
   if (!data) return <div>Loading...</div>;
 
-  const calcDiscount = (props.subTotal * Number(coupon)) / 100;
-  const calcTotal = props.subTotal - calcDiscount;
+  const calcDiscount = (subTotal * Number(coupon)) / 100;
+  const calcTotal = subTotal - calcDiscount;
 
   //クーポンのdiscountをcartsデータにPATCHする
-  const patchCoupon = async (selectedDiscount: number) => {
+  const patchCoupon = async (
+    selectedCoupon: string,
+    selectedDiscount: number
+  ) => {
     await fetch(`/api/patch_carts?user_id=eq.${userId}`, {
       method: 'POST',
       headers: {
@@ -32,7 +41,8 @@ export default function Coupon(props: { subTotal: number }) {
       },
       body: JSON.stringify({
         user_id: Number(userId),
-        coupon: selectedDiscount,
+        discount: selectedDiscount,
+        couponcode: selectedCoupon,
       }),
     })
       .then((res) => res.json())
@@ -42,26 +52,27 @@ export default function Coupon(props: { subTotal: number }) {
 
   return (
     <>
-      <h2>クーポン</h2>
+      <h1 className={styles.order_list_details_h1}>クーポン</h1>
       <div className={styles.order_list_details}>
         <dl>
           <dt>クーポン</dt>
           <dd>
             <select
               name="coupon-list"
-              id="coupon-list"
               onChange={(e) => {
-                const selectedCoupon = e.target.value;
-                setCoupon(selectedCoupon);
-                patchCoupon(Number(selectedCoupon));
+                const selectedDiscount = e.target.value;
+                console.log(e.target);
+                const selectedCoupon =
+                  e.target.selectedOptions[0].text;
+                setCoupon(selectedDiscount);
+                patchCoupon(selectedCoupon, Number(selectedDiscount));
               }}
             >
-              <option value={0}>--</option>
-              {data.map((coupon: Coupon) => (
-                <option
-                  key={coupon.couponcode}
-                  value={coupon.discount}
-                >
+              <option value={0} id={''}>
+                --
+              </option>
+              {data.map((coupon: Coupon, index: number) => (
+                <option key={index} value={coupon.discount}>
                   {coupon.couponcode}
                 </option>
               ))}
@@ -74,16 +85,18 @@ export default function Coupon(props: { subTotal: number }) {
           <dd>
             <input
               type="radio"
-              id="container_true"
+              id="true"
               name="container"
+              onClick={onClick}
             />
             する
           </dd>
           <dd>
             <input
               type="radio"
-              id="container_false"
+              id="false"
               name="container"
+              onClick={onClick}
             />
             しない
           </dd>
@@ -91,7 +104,7 @@ export default function Coupon(props: { subTotal: number }) {
         <p>値引き合計：{calcDiscount}円</p>
       </div>
       <div>
-        <h2>合計：{calcTotal}円</h2>
+        <h2 className={styles.order_list_details_h2}>合計：{calcTotal}円</h2>
       </div>
     </>
   );

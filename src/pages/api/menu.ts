@@ -8,7 +8,7 @@ export default async function ItemData(
   const genreId = req.query.genreId;
   const areaId = req.query.areaId;
   const id = req.query.id;
-  if (id.includes('eq')) {
+  if (id!.includes('eq')) {
     try {
       const url = process.env['BACKEND_API_URL'];
       const response = await fetch(`${url}/items?id=${id}`);
@@ -23,7 +23,7 @@ export default async function ItemData(
     } catch (error) {
       res.status(400).json({ error: error });
     }
-  } else if (areaId.includes('eq')) {
+  } else if (areaId!.includes('eq')) {
     try {
       const url = process.env['BACKEND_API_URL'];
       const response = await fetch(`${url}/items?area_id=${areaId}`);
