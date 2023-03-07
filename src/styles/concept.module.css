@@ -37,33 +37,21 @@ font-size: 1.5vw;
 
 }
 
-.concept_goToUserResister{
-    text-align: center;
-}
-
-.concept_goToUserResister input{
-    border: none;
-    background-color: rgba(176, 242, 153, 0.34);
-    color: black;
-    text-decoration: none;  
-    cursor: pointer;
-}
-
-
 /* フレックスボックスたち */
 
 .flex_box{
     display: flex;
     justify-content: space-between;
     text-align: center;
+    margin: 0 10px;
+    flex-wrap: wrap;
 }
 
 .box{
-  display:flex;
   flex-direction: column;
-  width: 40%;
+  width: 30%;
   padding: 10px;
-  margin: 10px;
+  margin: 10px 5px;
 }
 
 .img{
@@ -72,12 +60,84 @@ font-size: 1.5vw;
 
 }
 
-.text h{
-font-size: 1vw;
+.about h2{
+font-size: 2.5vw;
 text-align: center;
+color: #E75304;
+}
+.howTo h2{
+font-size: 2.5vw;
+text-align: center;
+color: #E75304;
+}
+
+.about,.howTo {
+    border: solid 3px #f8b856;
+    border-radius: 5px;
+    margin: 30px;
 }
 
 .text p{
     font-size: 1vw;
-    text-align: left;
+    text-align: center;
     }
+
+
+@media screen and (max-width:1001px) {
+    .box{
+        flex-direction: column;
+        width: 100%;
+        padding: 10px;
+        margin: 10px 5px;
+      }
+  }
+
+
+/* 今すぐはじめる */
+  .start_flex_box {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding-bottom: 100px;
+}
+
+.start_box{
+    flex-direction: center;
+    width: 100%;
+    padding: 10px 0;
+    margin: 10px 0;
+  }
+
+.start h2 {
+    padding-top: 30px;
+    color: #E75304;
+    font-size: 2.5vw;
+    text-align: center;
+}
+
+.start_box a{
+    background-color: #F78404;
+    padding: 20px;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 1.5vw;
+}
+
+@media screen and (max-width:1001px) {
+.start_flex_box {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding-bottom: 100px;
+    flex-wrap: wrap;
+}
+.start_box a{
+    background-color: #F78404;
+    padding: 20px;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 2vw;
+}
+}

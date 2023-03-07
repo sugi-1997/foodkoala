@@ -55,7 +55,7 @@ export default function BreadList({
                   <Link href={state.path}>{state.title}</Link>
                 </li>
                 <li key={index}>
-                  <i className="fa-solid fa-square-caret-right"></i>
+                  <i className="fa-solid fa-forward"></i>
                 </li>
               </>
             );
