@@ -4,7 +4,6 @@ import BreadList, {
 } from 'components/bread_list';
 import Footer from 'components/footer';
 import Header from 'components/header';
-import Auth from 'components/auth';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from 'styles/order_history.module.css';
@@ -74,6 +73,27 @@ export default function OrderHistory() {
     newDateArray();
   }, [data]);
 
+  if (error) return <div>Error...</div>;
+
+  if (!data) {
+    return (
+      <>
+        <Head>
+          <title>注文履歴</title>
+        </Head>
+        <Header />
+        <BreadList list={[menu_list, order_history]} />
+        <div className={styles.h1}>
+          <h1>注文履歴一覧</h1>
+        </div>
+        <div>
+          <h2>Loading...</h2>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
   //ログイン前（cookieなし）はログインを促す
   if (userId === null || userId === undefined) {
     return (
@@ -97,40 +117,25 @@ export default function OrderHistory() {
     );
   }
 
-  if (error) return <div>Error...</div>;
-  if (!data || orderDate.length === 0 || pageId === undefined) {
+  if (orderItems.length === 0) {
     return (
       <>
-        <Head>
-          <title>注文履歴</title>
-        </Head>
         <Header />
         <BreadList list={[menu_list, order_history]} />
-        <div className={styles.h1}>
-          <h1>注文履歴一覧</h1>
-        </div>
-        <div>
-          <h2>Loading...</h2>
-        </div>
+        <main>
+          <div className={styles.favorite_login}>
+            <div className={styles.favorite_login_link}>
+              <img src="/images/foodkoala_img2.png" alt="コアラ" />
+              <br />
+              <br />
+              <a href="/">メニュー一覧へ</a>
+            </div>
+            <br />
+            <p>注文履歴がありません</p>
+          </div>
+        </main>
         <Footer />
       </>
-    );
-  } else if (orderItems.length === 0) {
-    return (
-      <Auth>
-        <Head>
-          <title>注文履歴</title>
-        </Head>
-        <Header />
-        <BreadList list={[menu_list, order_history]} />
-        <div className={styles.h1}>
-          <h1>注文履歴一覧</h1>
-        </div>
-        <div>
-          <h2>注文履歴はありません</h2>
-        </div>
-        <Footer />
-      </Auth>
     );
   } else {
     console.log('orderDate', orderDate);
@@ -155,25 +160,33 @@ export default function OrderHistory() {
             {orderDate[data.length - pageId].getMinutes()}分
           </h2>
           <div>
-            <dl>
-              <dt>注文コード</dt>
-              <dd>{data[data.length - pageId].order_code}</dd>
-              <dt>
-                <span>ご注文内容</span>
-              </dt>
-              {orderItems.map((item, index) => (
-                <div key={index}>
-                  <dd>{item.item_name}</dd>
-                </div>
-              ))}
-              <dt>
-                <span>お支払い金額</span>
-              </dt>
-              <dd>{data[data.length - pageId].total}円</dd>
-              <dt>
-                <span>お支払い方法</span>
-              </dt>
-              <dd>{data[data.length - pageId].payment_method}</dd>
+            <dl className={styles.dl}>
+              <div className={styles.background_orange}>
+                <dt>
+                  <span>注文コード</span>
+                </dt>
+                <dd>{data[data.length - pageId].order_code}</dd>
+              </div>
+              <div>
+                <dt>
+                  <span>ご注文内容</span>
+                </dt>
+                {orderItems.map((item, index) => (
+                  <dd key={index}>{item.item_name}</dd>
+                ))}
+              </div>
+              <div className={styles.background_orange}>
+                <dt>
+                  <span>お支払い金額</span>
+                </dt>
+                <dd>{data[data.length - pageId].total}円</dd>
+              </div>
+              <div>
+                <dt>
+                  <span>お支払い方法</span>
+                </dt>
+                <dd>{data[data.length - pageId].payment_method}</dd>
+              </div>
             </dl>
             <div className={styles.link}>
               <Link href={'注文詳細'}>詳細を見る</Link>

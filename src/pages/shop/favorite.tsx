@@ -10,48 +10,71 @@ import BreadList, {
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import useSWR, { useSWRConfig } from 'swr';
+
+const fetcher = (resource: string) =>
+  fetch(resource).then((res) =>
+    res.json().then((data) => {
+      return data;
+    })
+  );
 
 export default function ShopFavorite() {
   const userId = Cookies.get('user_id');
-  const [favoriteData, setFavoriteData] = useState<FavoriteData[]>(
-    []
-  );
   const [favoriteShops, setFavoriteShops] = useState<Shops[]>([]);
 
   //userが登録したお気に入りのshop_idをfavoriteテーブルから取得
-  useEffect(() => {
-    fetch(`http://localhost:8000/favorite?user_id=eq.${userId}`)
-      .then((res) => res.json())
-      .then((data) => setFavoriteData(data));
-  }, [userId]);
+  const { data, error } = useSWR(
+    `/api/favorite?user_id=eq.${userId}`,
+    fetcher,
+    {
+      revalidateOnMount: true,
+    }
+  );
+  const { mutate } = useSWRConfig();
 
   //favorirteのshop_idからお気に入りのショップ一覧を取得
   useEffect(() => {
-    if (favoriteData.length === 0) {
+    if (userId === null || userId === undefined || !data) {
       return;
     } else {
-      console.log('favoriteData', favoriteData);
       const getFavoriteShops = async () => {
-        const promises = favoriteData.map((data) => {
-          return fetch(
-            `/api/favorite_shops?id=eq.${data.shop_id}`
-          ).then((res) => res.json());
-        });
-        const shopsData = await Promise.all(promises);
-        const newFavoriteShops = shopsData.map((data) => data[0]);
-        console.log(
-          'newfavoriteShopsにデータを追加しました',
-          newFavoriteShops
-        );
+        const newFavoriteShops: Shops[] = [];
+        console.log(data);
+        for (const fav of data) {
+          try {
+            const res = await fetch(
+              `/api/favorite_shops?id=eq.${fav.shop_id}`
+            );
+            const data = await res.json();
+            newFavoriteShops.push(data[0]);
+            console.log(
+              'newfavoriteShopsにデータを追加しました',
+              newFavoriteShops
+            );
+          } catch (error) {
+            console.error(error);
+          }
+        }
         setFavoriteShops(newFavoriteShops);
       };
       getFavoriteShops();
     }
-  }, [favoriteData]);
+  }, [data, userId]);
 
-  if (favoriteShops.length === 0) {
-    return <div>Loading...</div>;
-  } else if (userId === null || userId === undefined) {
+  if (error) return <div>Error...</div>;
+  if (!data) {
+    return (
+      <>
+        <Header />
+        <BreadList list={[menu_list, favorite_list]} />
+        <div>Loading...</div>
+        <Footer />
+      </>
+    );
+  }
+
+  if (userId === null || userId === undefined) {
     return (
       <>
         <Header />
@@ -73,22 +96,44 @@ export default function ShopFavorite() {
         <Footer />
       </>
     );
-  } else {
+  }
+
+  if (favoriteShops.length === 0) {
     return (
       <>
-        <Head>
-          <title>お気に入り店舗一覧</title>
-        </Head>
         <Header />
         <BreadList list={[menu_list, favorite_list]} />
-        <ShopName data={favoriteShops} />
+        <div>
+          <div className={styles.favorite_login}>
+            <div className={styles.favorite_login_link}>
+              <img src="/images/foodkoala_img2.png" alt="コアラ" />
+              <br />
+              <br />
+              <a href="/shop/list">ショップ一覧へ</a>
+            </div>
+            <br />
+            <p>お気に入り店舗がありません</p>
+          </div>
+        </div>
         <Footer />
       </>
     );
   }
+
+  return (
+    <>
+      <Head>
+        <title>お気に入り店舗一覧</title>
+      </Head>
+      <Header />
+      <BreadList list={[menu_list, favorite_list]} />
+      <ShopName data={favoriteShops} />
+      <Footer />
+    </>
+  );
 }
 
-type FavoriteData = {
+type Data = {
   shop_id: number;
   user_id: number;
 };

@@ -82,8 +82,6 @@ export default function OrderList() {
             カートに商品はありません
           </div>
           <br />
-          <p>小計: 0円</p>
-          <p>合計: 0円</p>
         </div>
       </>
     );
@@ -99,6 +97,14 @@ export default function OrderList() {
           {cartItems.map((item, index) => (
             <dl key={item.id}>
               <dt>{item.name}</dt>
+              <dd>
+                <img
+                  src={item.image_url}
+                  alt="商品画像"
+                  width={100}
+                  height={100}
+                />
+              </dd>
               <dd>
                 <select
                   name="itemCount"

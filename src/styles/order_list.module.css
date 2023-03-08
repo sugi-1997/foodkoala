@@ -1,5 +1,6 @@
 .order_list {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-width: 100vw;
@@ -7,18 +8,13 @@
     margin: 0 auto;
 }
 
-.order_list h1 {
-    display: flex;
-    justify-content: center;
+.order_list_h1 {
     color: #E75304;
     white-space: nowrap;
 }
 
 /* 購入画面へ */
 .transition_button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin: 30px auto;
     width: 200px;
     height: 30px;
@@ -27,8 +23,46 @@
     background-color: #f8b856;
     color: #fff;
     font-size: 15px;
+    box-shadow: 1px 2px #9bb0a5;
+
 }
 
 .transition_button:hover {
     opacity: 0.6;
+}
+
+.transition_button:active {
+    box-shadow: none;
+    transform: translateY(1px);
+
+}
+
+.ok {
+    display: none;
+}
+
+.alert {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    font-weight: bold;
+}
+
+.alert a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.alert button {
+    margin: 30px auto;
+    width: 200px;
+    height: 30px;
+    border: 1px solid #f8b856;
+    border-radius: 15px;
+    background-color: #f8b856;
+    color: #fff;
+    font-size: 15px;
+    box-shadow: 1px 2px #9bb0a5;
 }
