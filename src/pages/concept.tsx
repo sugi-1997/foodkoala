@@ -178,7 +178,7 @@ export default function TopPage() {
 
         {/* 新規会員登録へ */}
         <div className={styles.start}>
-          <h2>\&nbsp;&nbsp;いますぐ始める&nbsp;&nbsp;/</h2>
+          <h2>&nbsp;&nbsp;いますぐ始める&nbsp;&nbsp;</h2>
           <div className={styles.start_flex_box}>
             <div className={styles.start_box}>
               <a href="/userResisterPage">
