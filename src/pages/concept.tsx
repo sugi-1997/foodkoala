@@ -27,7 +27,7 @@ export default function TopPage() {
       <div className={styles.concept}>
         <div className={styles.concept_title}>
           <Image
-            src="/images/concept/名称未設定のデザイン.png"
+            src="/images/concept/background.concept.png"
             alt="concept"
             width={1050}
             height={100}
