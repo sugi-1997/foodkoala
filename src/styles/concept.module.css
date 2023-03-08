@@ -1,40 +1,45 @@
 .concept{
-    background-color: #fedfaa;
+    background-color: hsl(38, 98%, 83%);
     width: 100%;
-
 }
-.concept_food {
-    height:auto;
-    width: 84%;
-    padding-left: 10%;
-    padding-right: 10%;
+
+.concept_title {
     position: relative;
 }
-.concept_koala {
-    position: relative;     
-    width: 20%;
-    height: auto;
-    left: 1200px;
-    bottom: 250px;
-    margin-bottom: -250px;
-    
+
+.concept_title img{
+    height:auto;
+    width: 100%;
+}
+/* .concept_koala{
+    position: absolute;     
+    right: 50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+ } */
+
+.concept_koala h2{
+text-align: center;
+color: #E75304;
+font-size: 2.5vw;
+}
+.concept_koala h3{
+text-align: center;
+color: rgb(144, 112, 38);
+font-size: 1.5vw;
+}
+.concept_koala img {
+    width: 30%;
 }
 
-.concept_text{
-width: 60%;
-height: 40%;
-margin: 10%;
-padding-left: 10%;
-position: relative;
-bottom: 270px;  
-margin-bottom: -270px;
-right: 180px;
-margin-right: -180px;
-color: rgb(255, 255, 255);
-font-size: 1.5vw;
--webkit-text-stroke-color: rgb(0, 0, 0);
--webkit-text-stroke-width: 0.2px;
-
+.concept_flex {
+    position: absolute;
+    height: auto;
+    left: 50%;
+    top:53%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
 }
 
 /* フレックスボックスたち */
