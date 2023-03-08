@@ -70,6 +70,16 @@ export default function MenuList() {
     }
   }
 
+  // メニュー名が長い時は短く表示
+  function menuName(menu: { name: string }) {
+    const menuName = menu.name.slice(0, 12);
+    if (menu.name.length > 12) {
+      return <p>{menuName}...</p>;
+    } else {
+      return <p>{menu.name}</p>;
+    }
+  }
+
   return (
     <>
       <Head>
@@ -105,7 +115,7 @@ export default function MenuList() {
                   />
                 </div>
                 <div className={styles.shop_detail_menuName}>
-                  <p>{menu.name}</p>
+                  {menuName(menu)}
                 </div>
               </Link>
               <div className={styles.shop_detail_menuPrice}>

@@ -20,39 +20,38 @@ export default function TopPage() {
 
       <Header />
 
+      {/* パンくずリスト */}
+      <BreadList list={[menu_list, concept]} />
+
+      {/*画像・理念・コアラの島*/}
       <div className={styles.concept}>
-        {/* パンくずリスト */}
-        <BreadList list={[menu_list, concept]} />
-
-        {/*画像・理念・コアラの島*/}
-
-        <div className="firstBlock">
-          <div className={styles.concept_food}>
-            <Image
-              src="/images/menu/hamburger.food.jpg"
-              alt="concept"
-              width={400}
-              height={250}
-              className={styles.concept_food}
-            />
-          </div>
-          <div className={styles.concept_text}>
-            <h2>いつまでも「おいしい」に包まれた世界へ</h2>
-            <h3>
-              FoodKoalaは廃棄寸前の食品専門のテイクアウト予約サービス。
-              <br />
-              捨てられるはずの「おいしい」を食卓に届け、
-              <br />
-              「おいしい」に包まれた未来を守ります。
-            </h3>
-          </div>
+        <div className={styles.concept_title}>
           <Image
-            src="/images/foodkoala_img2.png"
+            src="/images/concept/background.concept.png"
             alt="concept"
-            width={100}
+            width={1050}
             height={100}
-            className={styles.concept_koala}
           />
+          <div className={styles.concept_flex}>
+            <div className={styles.concept_koala}>
+              <Image
+                src="/images/concept/foodkoala_img2.png"
+                alt="concept"
+                width={500}
+                height={500}
+              />
+            </div>
+            <div className={styles.concept_koala}>
+              <h2>いつまでも「おいしい」に包まれた世界へ</h2>
+              <h3>
+                FoodKoalaは廃棄寸前の食品専門のテイクアウト予約サービス。
+                <br />
+                捨てられるはずの「おいしい」を食卓に届け、
+                <br />
+                「おいしい」に包まれた未来を守ります。
+              </h3>
+            </div>
+          </div>
         </div>
 
         {/* 中段 */}
@@ -71,9 +70,9 @@ export default function TopPage() {
               </div>
               <div className={styles.text}>
                 <h3>食品ロス削減に貢献！</h3>
-                <p>日本国内における食品ロスは年間600万トン。</p>
+                <p>日本国内における食品ロスは年間520万トン。</p>
                 <p>
-                  うち、外食産業による食品ロスは全体の16%。※H30年度
+                  うち、事業系による食品ロスは275万トン。※2020年度
                 </p>
                 <p>FoodKoalaの利用で、</p>
                 <p>食品廃棄物削減の社会貢献をすることができます。</p>
@@ -88,7 +87,6 @@ export default function TopPage() {
                   width={100}
                   height={100}
                 />
-                <img src="" alt="" />
               </div>
               <div className={styles.text}>
                 <h3>おいしい店舗たくさん！</h3>
@@ -180,7 +178,7 @@ export default function TopPage() {
 
         {/* 新規会員登録へ */}
         <div className={styles.start}>
-          <h2>\&nbsp;&nbsp;いますぐ始める&nbsp;&nbsp;/</h2>
+          <h2>&nbsp;&nbsp;いますぐ始める&nbsp;&nbsp;</h2>
           <div className={styles.start_flex_box}>
             <div className={styles.start_box}>
               <a href="/user_resister">

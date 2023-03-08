@@ -1,16 +1,11 @@
 import Image from 'next/image';
 import Script from 'next/script';
-import useSWR, { useSWRConfig } from 'swr';
 import styles from '../styles/Shop_list.module.css';
 import ShopMenu from '../components/shop_menu_top2';
 import { Shop } from 'types/shops';
 import Link from 'next/link';
 import score from 'components/shop/score';
 import FavoriteButton from './shop/favorite_button';
-import { useState } from 'react';
-
-const fetcher = (resource: string, init: object) =>
-  fetch(resource, init).then((res) => res.json());
 
 export default function ShopName({ data }: any) {
   return (
