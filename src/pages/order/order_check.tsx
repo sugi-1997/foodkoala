@@ -245,7 +245,7 @@ export default function OrderCheck() {
         <title>注文確認ページ</title>
       </Head>
       <Header />
-      <BreadList list={[menu_list, order_list, order_check]} />
+      <BreadList list={[menu_list, order_check]} />
       <div className={styles.order_check}>
         <div className={styles.order_check_float1}>
           <>
@@ -294,7 +294,7 @@ export default function OrderCheck() {
               onClick={handleOrder}
               className={styles.order_check_button}
             >
-              注文を確定する
+              注文確定
             </button>
           </div>
         </div>
