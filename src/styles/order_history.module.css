@@ -82,7 +82,7 @@
     text-align: center;
 }
 
-/* ログイン前のお気に入りページ */
+/* ログイン前 */
 .favorite_login {
     margin: 70px 0;
     text-align: center;
@@ -101,6 +101,7 @@
     width: 300px;
 }
 
+/* オレンジと白のボーダー */
 .background_orange {
     background-color: #fddaa5;
 }
