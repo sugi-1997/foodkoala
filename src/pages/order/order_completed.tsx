@@ -34,7 +34,7 @@ export default function OrderCompleted() {
   //order_historyテーブルのcart_idを使用して、order_itemsテーブルからitemのデータを取得
   useEffect(() => {
     async function getOrderItems() {
-      if (data === undefined || data === null) {
+      if (data === undefined || data === null || data.length === 0) {
         return;
       } else if (userId === null || userId === undefined) {
         router.push('/login');

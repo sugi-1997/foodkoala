@@ -2,7 +2,6 @@ import Head from 'next/head';
 import styles from '../styles/loginPage.module.css';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import fetch from 'isomorphic-unfetch';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -117,11 +116,13 @@ export default function Login() {
                 value="ログイン"
                 className={styles.login_button_design}
               />
-               <Link href='/'><input
-                type="button"
-                value="ログインせずに商品を探す"
-                className={styles.login_button_design}
-              /></Link>
+              <Link href="/">
+                <input
+                  type="button"
+                  value="ログインせずに商品を探す"
+                  className={styles.login_button_design}
+                />
+              </Link>
             </div>
           </form>
         </div>
