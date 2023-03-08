@@ -188,6 +188,17 @@ export default function OrderHistory() {
                 <dd>{data[data.length - pageId].payment_method}</dd>
               </div>
             </dl>
+            <div>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1620.2499744702093!2d139.70209411744383!3d35.689312900000026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d9c8bc1bfbb%3A0xcb44f68a614c714a!2z5qCq5byP5Lya56S-44Op44Kv44K544OR44O844OI44OK44O844K6!5e0!3m2!1sja!2sjp!4v1678233520521!5m2!1sja!2sjp"
+                width="400"
+                height="400"
+                // style="border:0;"
+                // allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
             <div className={styles.link}>
               <Link href={'注文詳細'}>詳細を見る</Link>
             </div>
