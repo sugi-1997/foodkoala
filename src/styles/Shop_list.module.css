@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     margin: 25px 10px;
     justify-content: center;
+    width: 100%;
 }
 
 .shop_list {
@@ -101,8 +102,8 @@
 }
 
 /* ログイン後のfavoriteページ */
-.favorite_list {
-    display: flex;
+.favorite {
+    margin:10% 0;
 }
 
 /* menulistのCSS */
