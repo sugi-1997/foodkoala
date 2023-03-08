@@ -25,7 +25,7 @@ export default function InquiryForm() {
       </div>
       <div className={styles.button}>
         <button type="submit"
-        className={styles.button_inside}><Link href='/'>送信する</Link></button>
+        className={styles.button_inside}><Link href='/inquiry_completed'>送信する</Link></button>
       </div>
       <Footer />
     </>

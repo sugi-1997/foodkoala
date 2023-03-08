@@ -243,7 +243,6 @@ export default function OrderCheck() {
       <Head>
         <title>注文確認ページ</title>
       </Head>
-      <div className={styles.order_check_background}>
         <Header />
         <BreadList list={[menu_list, order_check]} />
         <div className={styles.order_check}>
@@ -301,7 +300,6 @@ export default function OrderCheck() {
         </div>
 
         <Footer />
-      </div>
     </>
   );
 }

@@ -52,7 +52,7 @@ export default function Coupon({
 
   return (
     <>
-      <h1 className={styles.order_list_details_h1}>クーポン</h1>
+      <h1>クーポン</h1>
       <div className={styles.order_list_details}>
         <dl>
           <dt>クーポン</dt>
