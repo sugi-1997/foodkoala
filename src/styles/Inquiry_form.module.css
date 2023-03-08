@@ -14,7 +14,7 @@
 }
 
 .button_inside {
-    background-color: aquamarine;
+    background-color: #f8b856;
     border: none;
     border-radius: 3em;
     width: 200px;
@@ -23,7 +23,6 @@
 }
 
 .button_design{
-    background-color: #f7ad4d;
     border: none;
     color: #f2f2f2;
     width: 200px;
