@@ -1,7 +1,7 @@
 .footer {
   background-color: #f8b856;
   height: 60px;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: right;
   align-items: center;
@@ -10,5 +10,5 @@
 .link {
   text-decoration: none;
   color: #4f4842;
-  margin-right: 5%;
+  margin-right: 30px;
 }
