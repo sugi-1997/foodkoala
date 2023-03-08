@@ -73,63 +73,51 @@ export default function OrderCompleted() {
             ご注文コード:{' '}
             <span>{data[data.length - 1].order_code}</span>
           </h2>
-          <div className={styles.order_complete_border}>
-            <div>
-              <dl>
-                <dt className={styles.order_complete_group}>
-                  ご注文内容
+          <Timer date={data[data.length - 1].ordered_at} />
+          <div className={styles.order_complete}>
+            <dl className={styles.dl}>
+              <div className={styles.background_orange}>
+                <dt>
+                  <span>ご注文内容</span>
                 </dt>
-                <div className={styles.order_complete_item}>
-                  {orderItems.map((item, index) => (
-                    <dd key={index}>{item.item_name}</dd>
-                  ))}
-                </div>
-              </dl>
-            </div>
-            <div>
-              <p className={styles.order_complete_group}>
-                小計（税込）
-              </p>
-              <p className={styles.order_complete_item}>
-                {data[data.length - 1].subtotal}円
-              </p>
-            </div>
-            <div>
-              <p className={styles.order_complete_group}>クーポン</p>
-              <p className={styles.order_complete_item}>
-                -{data[data.length - 1].discount}%
-              </p>
-            </div>
-            <div>
-              <p className={styles.order_complete_group}>
-                合計（税込）
-              </p>
-              <p className={styles.order_complete_item}>
-                {data[data.length - 1].total}円
-              </p>
-            </div>
-            <div>
-              <p className={styles.order_complete_group}>
-                お支払い方法
-              </p>
-              <p className={styles.order_complete_item}>
-                {data[data.length - 1].payment_method}
-              </p>
+                {orderItems.map((item, index) => (
+                  <dd key={index}>{item.item_name}</dd>
+                ))}
+              </div>
+              <dt>
+                <span>小計（税込）</span>
+              </dt>
+              <dd>{data[data.length - 1].subtotal}円</dd>
+              <div className={styles.background_orange}>
+                <dt>
+                  <span>クーポン</span>{' '}
+                </dt>
+                <dd>-{data[data.length - 1].discount}%</dd>
+              </div>
+              <dt>
+                <span>合計（税込）</span>{' '}
+              </dt>
+              <dd>{data[data.length - 1].total}円</dd>
+              <div className={styles.background_orange}>
+                <dt>
+                  <span>お支払い方法</span>{' '}
+                </dt>
+                <dd>{data[data.length - 1].payment_method}</dd>
+              </div>
+            </dl>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1620.2499744702093!2d139.70209411744383!3d35.689312900000026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d9c8bc1bfbb%3A0xcb44f68a614c714a!2z5qCq5byP5Lya56S-44Op44Kv44K544OR44O844OI44OK44O844K6!5e0!3m2!1sja!2sjp!4v1678233520521!5m2!1sja!2sjp"
+              width="400"
+              height="400"
+              // style="border:0;"
+              // allowfullscreen=""
+              loading="lazy"
+            ></iframe>
+            <div className={styles.link}>
+              <Link href={'#'}>詳細を見る</Link>
             </div>
           </div>
-          <div>
-            <Link href={'#'}>詳細を見る</Link>
-            <Timer date={data[data.length - 1].ordered_at} />
-            <div>
-              <Image
-                /*className*/
-                src="/images/map.png"
-                alt="GoogleMap"
-                width={500}
-                height={500}
-                priority
-              />
-            </div>
+          <div className={styles.topbtn}>
             <Link href={'/'}>別のメニューを注文する</Link>
           </div>
         </div>

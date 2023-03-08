@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import styles from 'styles/Timer.module.css';
 
 export default function Timer({ date }: { date: Date }) {
   const [minute, setMinute] = useState(0);
@@ -16,9 +17,9 @@ export default function Timer({ date }: { date: Date }) {
       //経過時間を秒数に変換
       const secondPassed = timePassed / 1000;
       //15分(900秒)経過後にタイマーを終了
-      if (secondPassed > 900) return;
+      if (secondPassed > 300) return;
       //15分から経過時間を引いた残り時間を計算
-      const remainTime = 900 - secondPassed;
+      const remainTime = 300 - secondPassed;
       const remainMinute = Math.floor(remainTime / 60);
       const remainSecond = Math.floor(remainTime - remainMinute * 60);
       setMinute(remainMinute);
@@ -32,7 +33,13 @@ export default function Timer({ date }: { date: Date }) {
 
   if (minute > 0 || second > 0) {
     return (
-      <div>
+      <div className={styles.timer}>
+        <img
+          src="/images/timer.png"
+          alt="時計のイメージ写真"
+          height={50}
+          width={50}
+        />
         <p>お受け取り可能時間まで</p>
         <h2>
           {minute}分{second}秒
@@ -41,7 +48,13 @@ export default function Timer({ date }: { date: Date }) {
     );
   } else {
     return (
-      <div>
+      <div className={styles.completed}>
+        <img
+          src="/images/foodkoala_logo.png"
+          alt="Food Koalaのロゴ"
+          height={50}
+          width={50}
+        />
         <h2>注文した商品が出来上がりました！</h2>
       </div>
     );

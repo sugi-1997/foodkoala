@@ -1,0 +1,25 @@
+.timer {
+  margin: 1%;
+}
+
+.timer h2{
+  display: inline;
+  color:#E75304
+}
+
+.timer img {
+  display: inline;
+}
+
+.completed {
+  margin: 1%;
+}
+
+.completed h2 {
+  display: inline;
+  color:#E75304
+}
+
+.completed img {
+  display: inline;
+}
