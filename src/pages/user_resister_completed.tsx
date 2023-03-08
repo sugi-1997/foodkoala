@@ -3,7 +3,6 @@ import Footer from 'components/header';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import styles from '../styles/userResister_completed.module.css';
 
 export default function ItemListPage() {

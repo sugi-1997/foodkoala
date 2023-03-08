@@ -1,9 +1,9 @@
 .header {
   background-color: #f8b856;
   height: 60px;
-  width: 100vw;
+  width: 100%;
   display: flex;
-  justify-content: right;
+  justify-content: space-between;
   align-items: center;
   /* margin-bottom: 3%; */
 }
@@ -16,6 +16,7 @@
 
 .logo {
   margin-left: 1%;
+  justify-self: flex-start;
 }
 
 .header ul {
@@ -45,62 +46,77 @@
   display: none;
 }
 
-/* ハンバーガーメニュー */
+/* ハンバーガーメニュー用 */
 .hamburger input {
   display: none;
 }
 
-
-@media screen and (max-width:480px) {
-  .nav {
+@media screen and (max-width:768px) {
+  .logo {
+    display: flex;
+    justify-content: center;
+    /* margin: 0 auto; */
     width: 100%;
-    height: 300px;
+  }
+
+  .hamburger {
+    width: 50px;
+    height: 50px;
+  }
+  .nav {
+    display: block;
+    min-width: 100vw;
+    height: auto;
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 8px;
+    left: 100%;
     z-index: 80;
-    background-color: #c7c0ba;
-    left: 0;     /*leftの値を変更してメニューを画面外へ */
-    z-index: 80;
+    background-color: #f7ad4d;
+    opacity: 0.8;
     transition: all 0.5s;
   }
+
+  .menu_btn_check:checked ~ .nav {
+    left: 0;
+    transition: all 1s;
+  }
+
   .nav ul {
     padding: 50px 10px 0;
     display: block;
     text-align: center;
   }
+  
   .nav li {
     margin: 10px auto;
   }
-  .nav link {
-    border-bottom: 1px solid #fff;
+
+  .nav a {
+    color: #fff;
+    /* border-bottom: 1px solid #000; */
   }
 
-  #menu_btn:checked ~ .nav {
-    left: 0px;
-  }
-  
   .menu_btn {
     position: fixed;
-    top: 10px;
-    right: 10px;
+    top: 12px;
+    right: 12px;
     display: flex;
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
     justify-content: center;
     align-items: center;
     z-index: 90;
     border: 1px solid #fff;
-    background-color: #c7c0ba;
+    /* background-color: #c7c0ba; */
   }
 
   .menu_btn span,
   .menu_btn span:before,
   .menu_btn span:after {
     content: '';
-    display: block;
+    display: inline-block;
     height: 3px;
-    width: 25px;
+    width: 30px;
     border-radius: 3px;
     background-color: #ffffff;
     position: absolute;
@@ -109,20 +125,23 @@
   .menu_btn span:before {
     bottom: 8px;
   }
+
   .menu_btn span:after {
     top: 8px;
   }
 
-  .menu_btn:checked ~ .menu_btn_ span {
-    background-color: rgba(255, 255, 255, 0);/*メニューオープン時は真ん中の線を透明にする*/
+  .menu_btn_check:checked ~ .menu_btn span {
+    background-color: rgba(255, 255, 255, 0); /*メニューオープン時は真ん中の線を透明にする*/
   }
 
-  #menu_btn_check:checked ~ .menu_btn span::before {
+  .menu_btn_check:checked ~ .menu_btn span::before {
     bottom: 0;
     transform: rotate(45deg);
+    transition: 0.5s;
   }
-  #menu_btn_check:checked ~ .menu_btn span::after {
+  .menu_btn_check:checked ~ .menu_btn span::after {
     top: 0;
+    transition: 0.5s;
     transform: rotate(-45deg);
   }
 }

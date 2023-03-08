@@ -42,39 +42,43 @@ export default function Header({ onClick }: any) {
         </div>
         {/* ここからハンバーガーメニュー */}
         <div className={styles.hamburger}>
-          <input type="checkbox" id="menu_btn_check" />
+          <input
+            type="checkbox"
+            id="menu_btn_check"
+            className={styles.menu_btn_check}
+          />
           <label htmlFor="menu_btn_check" className={styles.menu_btn}>
             <span></span>
           </label>
+          {/* ここまでハンバーガーメニュー */}
+          <nav className={styles.nav}>
+            <ul>
+              <li>
+                <Link href="/" onClick={onClick}>
+                  メニュー
+                </Link>
+              </li>
+              <li>
+                <Link href="/shop/list">ショップ</Link>
+              </li>
+              <li>
+                <Link href="/shop/favorite">お気に入り</Link>
+              </li>
+              <li>
+                <Link href="/order/list">注文リスト</Link>
+              </li>
+              <li>
+                <Link href="/order/order_history">注文履歴</Link>
+              </li>
+              <li className={styles[loginStatus]}>
+                <Link href="/login">ログイン</Link>
+              </li>
+              <li className={styles[logoutStatus]} onClick={logout}>
+                ログアウト
+              </li>
+            </ul>
+          </nav>
         </div>
-        {/* ここまでハンバーガーメニュー */}
-        <nav className={styles.nav}>
-          <ul>
-            <li>
-              <Link href="/" onClick={onClick}>
-                メニュー
-              </Link>
-            </li>
-            <li>
-              <Link href="/shop/list">ショップ</Link>
-            </li>
-            <li>
-              <Link href="/shop/favorite">お気に入り</Link>
-            </li>
-            <li>
-              <Link href="/order/list">注文リスト</Link>
-            </li>
-            <li>
-              <Link href="/order/order_history">注文履歴</Link>
-            </li>
-            <li className={styles[loginStatus]}>
-              <Link href="/login">ログイン</Link>
-            </li>
-            <li className={styles[logoutStatus]} onClick={logout}>
-              ログアウト
-            </li>
-          </ul>
-        </nav>
       </header>
     </>
   );

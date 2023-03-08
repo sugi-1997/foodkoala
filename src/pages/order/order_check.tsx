@@ -12,6 +12,7 @@ import BreadList, {
 } from 'components/bread_list';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import Image from 'next/image';
 
 export default function OrderCheck() {
   const router = useRouter();
@@ -257,7 +258,7 @@ export default function OrderCheck() {
                     <dl>
                       <dt>{item.name}</dt>
                       <dd>
-                        <img
+                        <Image
                           src={item.image_url}
                           alt="商品画像"
                           width={100}
