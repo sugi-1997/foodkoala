@@ -10,6 +10,8 @@ import BreadList, {
 } from 'components/bread_list';
 import { useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
+import styles from 'styles/index.module.css'
+
 
 const fetcher = (resource: string) =>
   fetch(resource).then((res) => res.json());
@@ -50,12 +52,18 @@ export default function ShopList() {
         <title>ショップ一覧</title>
       </Head>
       <main>
-        <Header />
+      <a id="link2"><Header /></a>
         <BreadList list={[menu_list, shop_list]} />
         <Genre onClick={(e: any) => handleGenreClick(e.target.id)} />
         <Area onClick={(e: any) => handleAreaClick(e.target.id)} />
         <ShopName data={data} />
-        <Footer />
+        <a id="link"><Footer /></a>
+        <a href="#link">
+        <input type="button" value='Down↓'className={styles.button_down}/>
+        </a>
+        <a href="#link2">
+        <input type="button" value='Up↑'className={styles.button_up}/>
+        </a>
       </main>
     </>
   );
