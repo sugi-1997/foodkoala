@@ -293,7 +293,7 @@ export default function OrderCheck() {
                 onClick={handleOrder}
                 className={styles.order_check_button}
               >
-                注文を確定する
+                注文確定
               </button>
             </div>
           </div>
