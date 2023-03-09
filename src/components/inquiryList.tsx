@@ -23,16 +23,19 @@ export default function InquiryList() {
         </tr>
 
         <tr>
+          {/* 必須 */}
         <th>メールアドレス<span>*</span></th>
         <td>
           <input 
           type="mail" 
           className={styles.input_width}
           required
+          name='email'
           />
         </td>
         </tr>
 
+       {/* 必須 */}
         <tr>
         <th>電話番号<span>*</span></th>
         <td>
@@ -82,7 +85,8 @@ export default function InquiryList() {
 
         </td>
         </tr>
-
+        
+        {/* 必須 */}
         <tr>
         <th>お問い合わせ内容の詳細（300字以内）<span>*</span></th>
         <td>

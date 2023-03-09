@@ -1,4 +1,6 @@
 import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
+import styles from 'styles/index.module.css'
+
 
 export default class Document extends NextDocument {
   render() {
@@ -12,6 +14,8 @@ export default class Document extends NextDocument {
         <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5"/>
         <meta name="msapplication-TileColor" content="/favicons/browserconfig.xml"/>
         <meta name="theme-color" content="#ffffff"/>
+
+
           
         </Head>
         <body>

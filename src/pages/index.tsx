@@ -5,6 +5,7 @@ import BreadList, { menu_list } from 'components/bread_list';
 import Header from 'components/header';
 import useSWR, { useSWRConfig } from 'swr';
 import { SyntheticEvent, useState } from 'react';
+import styles from 'styles/index.module.css'
 
 const fetcher = (resource: string) =>
   fetch(resource).then((res) => res.json());
@@ -41,10 +42,16 @@ export default function ItemListPage() {
         <title>商品一覧ページ</title>
       </Head>
       <main>
-        <Header onClick={handleMenuClick} />
+       <a href="#link">
+       <input type="button" value='Down↓'className={styles.button_down}/>
+       </a>
+       <a href="#link2">
+       <input type="button" value='Up↑'className={styles.button_up}/>
+       </a>
+        <a id="link2"><Header onClick={handleMenuClick} /></a>
         <BreadList list={[menu_list]} />
         <MenuList />
-        <Footer />
+        <a id="link"><Footer /></a>
       </main>
     </>
   );
