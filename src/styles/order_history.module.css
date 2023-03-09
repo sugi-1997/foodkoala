@@ -109,3 +109,18 @@
 .dl {
     border: 3px solid #fddaa5;
 }
+
+.map {
+    width: 100%;
+}
+
+@media screen and (max-width:780px){
+    .h1{
+        display: inline-block;
+    }
+
+    .order_history {
+        width: 85%;
+    }
+
+}

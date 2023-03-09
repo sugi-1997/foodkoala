@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import OrderList from 'components/order_list';
 import Option from 'components/option';
 import SelectPay from '../../components/select_pay';
 import Header from 'components/header';
@@ -9,7 +8,6 @@ import Coupon from 'components/Coupon';
 import styles from 'styles/order_check.module.css';
 import BreadList, {
   menu_list,
-  order_list,
   order_check,
 } from 'components/bread_list';
 import { useEffect, useState } from 'react';

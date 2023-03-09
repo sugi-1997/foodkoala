@@ -1,8 +1,8 @@
 .h2{
-  display: flex;
   width: 80%;
-  margin: 0 auto;
+  margin: 1% auto;
   font-size: 30px;
+  color: rgb(123, 116, 116);;
   /* border: 1px solid #000; */
 }
 .arealist {

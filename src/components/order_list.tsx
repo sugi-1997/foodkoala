@@ -101,8 +101,8 @@ export default function OrderList() {
                 <img
                   src={item.image_url}
                   alt="商品画像"
-                  width={100}
-                  height={100}
+                  width={150}
+                  height={150}
                 />
               </dd>
               <dd>

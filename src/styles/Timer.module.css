@@ -21,5 +21,6 @@
 }
 
 .completed img {
-  display: inline;
+  display: block;
+  margin: auto;
 }

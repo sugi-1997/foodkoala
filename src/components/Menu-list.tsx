@@ -98,7 +98,7 @@ export default function MenuList() {
             }
           />
         </div>
-        <h2 className={styles.h2}>メニュー</h2>
+        <h2 className={styles.h2}>--- Menu ---</h2>
         <div className={styles.all_menu}>
           {data.map((menu: Item) => (
             <div key={menu.id} className={styles.menu}>

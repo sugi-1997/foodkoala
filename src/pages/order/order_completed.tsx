@@ -1,12 +1,10 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from 'styles/order_completed.module.css';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import useSWR from 'swr';
 import Timer from 'components/Timer';
-import Auth from 'components/auth';
 import Header from 'components/header';
 import Footer from 'components/footer';
 import { useRouter } from 'next/router';
@@ -34,7 +32,7 @@ export default function OrderCompleted() {
   //order_historyテーブルのcart_idを使用して、order_itemsテーブルからitemのデータを取得
   useEffect(() => {
     async function getOrderItems() {
-      if (data === undefined || data === null) {
+      if (data === undefined || data === null || data.length === 0) {
         return;
       } else if (userId === null || userId === undefined) {
         router.push('/login');
@@ -112,10 +110,11 @@ export default function OrderCompleted() {
               // style="border:0;"
               // allowfullscreen=""
               loading="lazy"
+              className={styles.map}
             ></iframe>
-            <div className={styles.link}>
+            {/* <div className={styles.link}>
               <Link href={'#'}>詳細を見る</Link>
-            </div>
+            </div> */}
           </div>
           <div className={styles.topbtn}>
             <Link href={'/'}>別のメニューを注文する</Link>

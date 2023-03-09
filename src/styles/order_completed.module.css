@@ -87,3 +87,7 @@
 .dl {
     border: 3px solid #fddaa5;
 }
+
+.map {
+    width: 100%;
+}

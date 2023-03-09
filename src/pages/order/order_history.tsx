@@ -5,7 +5,6 @@ import BreadList, {
 import Footer from 'components/footer';
 import Header from 'components/header';
 import Head from 'next/head';
-import Link from 'next/link';
 import styles from 'styles/order_history.module.css';
 import Cookies from 'js-cookie';
 import useSWR from 'swr';
@@ -197,11 +196,12 @@ export default function OrderHistory() {
                 // allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
+                className={styles.map}
               ></iframe>
             </div>
-            <div className={styles.link}>
+            {/* <div className={styles.link}>
               <Link href={'注文詳細'}>詳細を見る</Link>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className={styles.buttons}>
