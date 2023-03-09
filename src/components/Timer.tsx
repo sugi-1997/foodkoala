@@ -31,6 +31,10 @@ export default function Timer({ date }: { date: Date }) {
     }
   }, [date, intervalId]);
 
+  if (!date) {
+    return <div>Loading...</div>;
+  }
+
   if (minute > 0 || second > 0) {
     return (
       <div className={styles.timer}>

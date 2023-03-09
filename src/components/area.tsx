@@ -15,7 +15,7 @@ export default function Area({ onClick }: any) {
 
   return (
     <>
-      <h2 className={styles.h2}>エリア</h2>
+      <h2 className={styles.h2}>--- Area ---</h2>
       <div className={styles.arealist}>
         <div className={styles.all_area}>
           {data.map((area: any) => (

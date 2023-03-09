@@ -1,7 +1,7 @@
 .shop_list_main {
     display: flex;
     flex-wrap: wrap;
-    margin: 25px 10px;
+    margin: 0 auto;
     justify-content: center;
     width: 100%;
 }
@@ -10,8 +10,10 @@
     width:30%;
     border: solid 3px #F78404;
     border-radius: 5px;
-    margin: 0 8px 15px 8px;
+    margin: 0 1% 2% 1%;
     place-items: center;
+    padding: 1%;
+    box-shadow: 3px 5px #9bb0a5;
 }
 
 .shop_list_name {
@@ -44,6 +46,10 @@
     padding-bottom: 10px;
 }
 
+.shop_list_image img:hover {
+    opacity: 0.7;
+}
+
 .shop_list_menu {
     padding: 15px 0;
 }
@@ -51,6 +57,10 @@
 .shop_list_menuImg img{
     object-fit:cover;
     padding:0 5px;
+}
+
+.shop_list_menuImg img:hover {
+    opacity: 0.7;
 }
 
 .shop_menu {
@@ -75,7 +85,17 @@
     background-color: orange;
     color: #fff;
     font-size: 85%;
+    box-shadow: 1px 2px #9bb0a5;
   }
+
+.shop_menu button:hover {
+    opacity: 0.7;
+}
+
+.shop_menu button:active {
+  box-shadow: none;
+  transform: translateY(1px);
+}
 
 /* ログイン前のお気に入りページ */
 .favorite_login {

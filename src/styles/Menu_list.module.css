@@ -3,10 +3,11 @@
 }
 
 .h2 {
-  display: flex;
   width: 80%;
+  text-align: center;
   margin: 0 auto;
   font-size: 30px;
+  color: rgb(123, 116, 116);;
   /* border:  1px solid #000; */
 }
 
@@ -20,6 +21,7 @@
   justify-content: center;
   width: 80%;
   margin: 0px auto;
+  
   /* border: 1px solid #000; */
 }
 
@@ -27,6 +29,10 @@
   text-align: center;
   margin: 50px auto;
   font-size: 20px;
+  border: solid 3px #F78404;
+  border-radius: 5px;
+  padding: 3%;
+  box-shadow: 3px 5px #9bb0a5;
   /* border: 1px solid #000; */
 }
 
@@ -47,10 +53,16 @@
   background-color: orange;
   color: #fff;
   font-size: 15px;
+  box-shadow: 1px 2px #9bb0a5;
 }
 
 .menu button:hover {
   opacity: 0.6;
+}
+
+.menu button:active {
+  box-shadow: none;
+  transform: translateY(1px);
 }
 
 .topPage img {
