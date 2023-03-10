@@ -1,30 +1,16 @@
-// 商品詳細画面
-
+import Image from 'next/image';
+import Head from 'next/head';
+import { useState } from 'react';
 import Footer from 'components/footer';
 import Header from 'components/header';
-import Head from 'next/head';
-import Image from 'next/image';
 import BreadList, {
   menu_list,
   menu_page,
 } from 'components/bread_list';
-import { useState } from 'react';
-
+import type { Menu } from 'types/menu';
 import styles from 'styles/item_detail.module.css';
 
-export default function ItemPage({ data }) {
-  type Item = {
-    id: number;
-    name: string;
-    explain: string;
-    price: number;
-    image_url: string;
-    favorite: boolean;
-    genre_id: number;
-    area_id: number;
-    shop_id: number;
-  };
-
+export default function ItemPage({ data }: { data: Menu[] }) {
   const item = data[0];
   const [count, setCount] = useState(1);
 
@@ -99,7 +85,11 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }: { params: any }) {
+export async function getStaticProps({
+  params,
+}: {
+  params: { id: string };
+}) {
   const response = await fetch(
     `http://127.0.0.1:8000/items?id=eq.${params.id}`
   );

@@ -6,8 +6,6 @@ import styles from '../styles/userRegisterPage.module.css';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-const resource = 'http://localhost:3000/api/post_users';
-
 export default function UserRegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -52,7 +50,7 @@ export default function UserRegisterPage() {
       });
   }
   function userPost() {
-    fetch(resource, {
+    fetch('/api/post_users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -97,8 +95,6 @@ export default function UserRegisterPage() {
             必要事項を入力し、登録ボタンを押してください。
           </p>
           <form
-            action={resource}
-            method="POST"
             onSubmit={(e) => {
               e.preventDefault();
 
