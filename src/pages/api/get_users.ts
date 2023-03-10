@@ -1,6 +1,3 @@
-// リクエストを受け取るためのAPIルートを定義する
-// ハンドラー関数内で必要なデータを取得し、処理する
-
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
@@ -9,7 +6,6 @@ export default async function handler(
 ) {
   const url = process.env['BACKEND_API_URL'];
   try {
-    // fetchでhttp://127.0.0.1:8000/usersへ情報を送る
     const response = await fetch(
       `${url}/users?email=eq.${req.body.email}`
     );
