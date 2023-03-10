@@ -5,7 +5,6 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import styles from '../styles/concept.module.css';
 import BreadList, { menu_list, concept } from 'components/bread_list';
-import { text } from 'stream/consumers';
 
 export default function TopPage() {
   return (
@@ -17,13 +16,8 @@ export default function TopPage() {
           crossOrigin="anonymous"
         ></script>
       </Head>
-
       <Header />
-
-      {/* パンくずリスト */}
       <BreadList list={[menu_list, concept]} />
-
-      {/*画像・理念・コアラの島*/}
       <div className={styles.concept}>
         <div className={styles.concept_title}>
           <Image
@@ -54,14 +48,12 @@ export default function TopPage() {
           </div>
         </div>
 
-        {/* 中段 */}
-
         <div className={styles.about}>
           <h2>Food Koalaについて</h2>
           <div className={styles.flex_box}>
             <div className={styles.box}>
               <div className={styles.Img}>
-                <img
+                <Image
                   src="/images/concept/waste.concept.png"
                   alt="concept"
                   width={100}
@@ -81,7 +73,7 @@ export default function TopPage() {
 
             <div className={styles.box}>
               <div className={styles.Img}>
-                <img
+                <Image
                   src="/images/concept/eat.concept.png"
                   alt="concept"
                   width={100}
@@ -101,7 +93,7 @@ export default function TopPage() {
 
             <div className={styles.box}>
               <div className={styles.Img}>
-                <img
+                <Image
                   src="/images/concept/money.concept.png"
                   alt="concept"
                   width={100}
@@ -121,14 +113,12 @@ export default function TopPage() {
           </div>
         </div>
 
-        {/* 下段 */}
-
         <div className={styles.howTo}>
           <h2>ご利用方法</h2>
           <div className={styles.flex_box}>
             <div className={styles.box}>
               <div className={styles.Img}>
-                <img
+                <Image
                   src="/images/concept/search.concept.png"
                   alt="concept"
                   width={100}
@@ -144,7 +134,7 @@ export default function TopPage() {
 
             <div className={styles.box}>
               <div className={styles.Img}>
-                <img
+                <Image
                   src="/images/concept/cart.concept.png"
                   alt="concept"
                   width={100}
@@ -160,7 +150,7 @@ export default function TopPage() {
 
             <div className={styles.box}>
               <div className={styles.Img}>
-                <img
+                <Image
                   src="/images/concept/get.concept.png"
                   alt="concept"
                   width={100}
@@ -176,21 +166,20 @@ export default function TopPage() {
           </div>
         </div>
 
-        {/* 新規会員登録へ */}
         <div className={styles.start}>
           <h2>&nbsp;&nbsp;いますぐ始める&nbsp;&nbsp;</h2>
           <div className={styles.start_flex_box}>
             <div className={styles.start_box}>
-              <a href="/user_resister">
+              <Link href="/user_resister">
                 会員登録はこちら&nbsp;
                 <i className="fa-solid fa-users"></i>
-              </a>
+              </Link>
             </div>
             <div className={styles.start_box}>
-              <a href="/">
+              <Link href="/">
                 商品一覧はこちら&nbsp;
                 <i className="fa-solid fa-cart-shopping"></i>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
