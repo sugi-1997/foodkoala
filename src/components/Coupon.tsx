@@ -2,12 +2,8 @@ import Cookies from 'js-cookie';
 import { MouseEventHandler, useState } from 'react';
 import styles from 'styles/order_check.module.css';
 import useSWR from 'swr';
-
-const fetcher = async (resource: string) => {
-  const res = await fetch(resource);
-  const data = await res.json();
-  return data;
-};
+import { Fetcher } from 'lib/Fetcher';
+import type { Coupon } from 'types/coupon';
 
 export default function Coupon({
   subTotal,
@@ -20,7 +16,7 @@ export default function Coupon({
   const userId = Cookies.get('user_id');
   const { data, error } = useSWR(
     `/api/coupon?user_id=eq.${userId}`,
-    fetcher
+    Fetcher
   );
 
   if (error) return <div>Error...</div>;
@@ -78,10 +74,10 @@ export default function Coupon({
               ))}
             </select>
           </dd>
-          <dt>容器返却</dt>
           <p>
             前回使った容器を返却すると次回使えるクーポンをプレゼント!
           </p>
+          <dt>容器返却</dt>
           <dd>
             <input
               type="radio"
@@ -104,14 +100,10 @@ export default function Coupon({
         <p>値引き合計：{calcDiscount}円</p>
       </div>
       <div>
-        <h2 className={styles.order_list_details_h2}>合計：{calcTotal}円</h2>
+        <h2 className={styles.order_list_details_h2}>
+          合計：{calcTotal}円
+        </h2>
       </div>
     </>
   );
 }
-
-type Coupon = {
-  user_id: number;
-  couponcode: string;
-  discount: number;
-};

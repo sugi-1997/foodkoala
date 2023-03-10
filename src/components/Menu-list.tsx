@@ -1,24 +1,24 @@
+import { SyntheticEvent, useState } from 'react';
+import useSWR, { useSWRConfig } from 'swr';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import Area from 'components/area';
 import Genre from 'components/genre';
-import useSWR, { useSWRConfig } from 'swr';
-import { SyntheticEvent, useState } from 'react';
+import { Fetcher } from 'lib/Fetcher';
+import { MenuName } from 'lib/MenuName';
+import type { Menu } from 'types/menu';
 import styles from 'styles/Menu_list.module.css';
-
-const fetcher = (resource: string) =>
-  fetch(resource).then((res) => res.json());
 
 export default function MenuList() {
   const [genreId, setGenreId] = useState<string>('gt.0');
   const [areaId, setAreaId] = useState<string>('gt.0');
-  const [itemId, setItemId] = useState<string>('gt.0');
   const [count, setCount] = useState(1);
+  const itemId = 'gt.0';
 
   const { data, error } = useSWR(
     `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`,
-    fetcher,
+    Fetcher,
     {
       revalidateOnMount: true,
     }
@@ -28,12 +28,9 @@ export default function MenuList() {
   if (error) return <div>エラーです</div>;
   if (!data) return <div>Loading...</div>;
 
-  console.log(data);
-
   const handleGenreClick = (clickedId: any) => {
     setAreaId('gt.0');
     setGenreId(`eq.${clickedId}`);
-    console.log(clickedId);
     mutate(
       `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`
     );
@@ -42,7 +39,6 @@ export default function MenuList() {
   const handleAreaClick = (clickedId: any) => {
     setGenreId('gt.0');
     setAreaId(`eq.${clickedId}`);
-    console.log(clickedId);
     mutate(
       `/api/menu?areaId=${areaId}&genreId=${genreId}&id=${itemId}`
     );
@@ -70,16 +66,6 @@ export default function MenuList() {
     }
   }
 
-  // メニュー名が長い時は短く表示
-  function menuName(menu: { name: string }) {
-    const menuName = menu.name.slice(0, 12);
-    if (menu.name.length > 12) {
-      return <p>{menuName}...</p>;
-    } else {
-      return <p>{menu.name}</p>;
-    }
-  }
-
   return (
     <>
       <Head>
@@ -100,7 +86,7 @@ export default function MenuList() {
         </div>
         <h2 className={styles.h2}>--- Menu ---</h2>
         <div className={styles.all_menu}>
-          {data.map((menu: Item) => (
+          {data.map((menu: Menu) => (
             <div key={menu.id} className={styles.menu}>
               <Link
                 href={`/item/${menu.id}`}
@@ -115,7 +101,7 @@ export default function MenuList() {
                   />
                 </div>
                 <div className={styles.shop_detail_menuName}>
-                  {menuName(menu)}
+                  {MenuName(menu)}
                 </div>
               </Link>
               <div className={styles.shop_detail_menuPrice}>
@@ -136,14 +122,3 @@ export default function MenuList() {
     </>
   );
 }
-
-type Item = {
-  id: number;
-  name: string;
-  image_url: string;
-  price: number;
-  explain: string;
-  genre_id: number;
-  area_id: number;
-  shop_id: number;
-};

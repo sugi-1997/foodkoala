@@ -1,23 +1,23 @@
-import styles from '../../styles/Shop.module.css';
-import Header from 'components/header';
-import Footer from 'components/footer';
+import useSWR from 'swr';
 import Head from 'next/head';
 import Image from 'next/image';
-import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
+import Header from 'components/header';
+import Footer from 'components/footer';
 import score from 'components/shop/score';
-import useSWR from 'swr';
+import ShopReview from 'components/shop_review';
 import BreadList, {
   shop_page,
   shop_list,
   menu_list,
 } from 'components/bread_list';
 import FavoriteButton from 'components/shop/favorite_button';
-import Link from 'next/link';
+import { Fetcher } from 'lib/Fetcher';
+import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
+import styles from '../../styles/Shop.module.css';
 
 //お店情報の取得
 export async function getStaticPaths() {
   const res = await fetch('http://127.0.0.1:8000/shops');
-
   const shops = await res.json();
   const paths = shops.map((shop: Shop) => ({
     params: {
@@ -39,10 +39,6 @@ export async function getStaticProps({ params }: GetStaticProps) {
     props: { shopData },
   };
 }
-
-//fetcher
-const fetcher = (resource: string, init: object) =>
-  fetch(resource, init).then((res) => res.json());
 
 //メニュー情報の取得
 export function MenuList({ data }: { data: Menu[] }) {
@@ -73,7 +69,7 @@ export function MenuList({ data }: { data: Menu[] }) {
 export function ShopMenu({ shopId }: { shopId: number }) {
   const { data, error } = useSWR(
     `http://localhost:8000/items?shop_id=eq.${shopId}`,
-    fetcher
+    Fetcher
   );
 
   if (error) return <div>エラーです</div>;
@@ -91,22 +87,6 @@ export function ShopMenu({ shopId }: { shopId: number }) {
 //全体
 export default function ShopDetail({ shopData }: ShopProps) {
   const shop = shopData[0];
-  const { data, error } = useSWR(
-    'http://localhost:8000/shops',
-    fetcher
-  );
-
-  if (error) return <div>エラーです</div>;
-  if (!data) return <div>データを取得できませんでした</div>;
-
-  //レビューのコアラアイコン
-  function koalaIcon() {
-    return (
-      <div className={styles.shop_id_review_img}>
-        <img src="/images/foodkoala_logo.png" alt="コアラ" />
-      </div>
-    );
-  }
 
   return (
     <>
@@ -144,34 +124,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
             {shop.description}
           </p>
           <ShopMenu shopId={shop.id} />
-          <div className={styles.shopDetail_review}>
-            <p className={styles.shop_id_review_title}>
-              <span>
-                <i className="fa-solid fa-face-laugh"></i>
-                &nbsp;みんなのレビュー
-              </span>
-            </p>
-            <div className={styles.shop_review}>
-              {koalaIcon()}
-              <div className={styles.shop_id_review}>
-                {shop.review_1}
-              </div>
-            </div>
-            <br />
-            <div className={styles.shop_review}>
-              {koalaIcon()}
-              <div className={styles.shop_id_review}>
-                {shop.review_2}
-              </div>
-            </div>
-            <br />
-            <div className={styles.shop_review}>
-              {koalaIcon()}
-              <div className={styles.shop_id_review}>
-                {shop.review_3}
-              </div>
-            </div>
-          </div>
+          <ShopReview shop={shop} />
         </div>
       </main>
       <Footer />

@@ -13,14 +13,14 @@ import BreadList, {
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
+import type { CartItem } from 'types/cart_item';
 
 export default function OrderCheck() {
   const router = useRouter();
-  const [itemId, setItemId] = useState<ItemId[]>([]);
+  const [itemId, setItemId] = useState<CartItem[]>([]);
   const [cartItems, setCartItems] = useState<CartItems[]>([]);
   const [subTotal, setSubTotal] = useState(0);
   const [errorAlert, setErrorAlert] = useState('ok');
-  let count = 1;
   let code: string;
   let orderedAt: Date;
   let optionData: Options;
@@ -53,13 +53,13 @@ export default function OrderCheck() {
         )
           .then((res) => res.json())
           .then((data) => {
-            newCartItems.push({ ...data[0], count: count });
+            newCartItems.push({ ...data[0], count: itemId[i].count });
           });
       }
       setCartItems(newCartItems);
     }
     itemData();
-  }, [count, itemId]);
+  }, [itemId]);
 
   //商品の小計を計算
   useEffect(() => {
@@ -298,18 +298,10 @@ export default function OrderCheck() {
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );
 }
-
-type ItemId = {
-  id: number;
-  item_id: number;
-  cart_id: number;
-  count: number;
-};
 
 type CartItems = {
   id: number;

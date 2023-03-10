@@ -1,25 +1,44 @@
 import styles from '../styles/Shop.module.css';
 import Image from 'next/image';
+import { Shop } from 'types/shops';
 
-export default function ShopReview() {
+export default function ShopReview({ shop }: { shop: Shop }) {
+  //レビューのコアラアイコン
+  function koalaIcon() {
+    return (
+      <div className={styles.shop_id_review_img}>
+        <Image
+          src="/images/foodkoala_logo.png"
+          alt="コアラ"
+          width={50}
+          height={50}
+        />
+      </div>
+    );
+  }
+
   return (
     <>
-      <div className={styles.shop_detail_reviewTitle}>
-        <p>みんなのレビュー</p>
-      </div>
-      <div className={styles.shop_review}>
-        <div className={styles.shop_detail_reviewImg}>
-          <Image
-            src="/images/provisional_logo.png"
-            alt="コアラ"
-            width={100}
-            height={100}
-          />
+      <div className={styles.shopDetail_review}>
+        <p className={styles.shop_id_review_title}>
+          <span>
+            <i className="fa-solid fa-face-laugh"></i>
+            &nbsp;みんなのレビュー
+          </span>
+        </p>
+        <div className={styles.shop_review}>
+          {koalaIcon()}
+          <div className={styles.shop_id_review}>{shop.review_1}</div>
         </div>
-        <div className={styles.shop_detail_review}>
-          {
-            'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
-          }
+        <br />
+        <div className={styles.shop_review}>
+          {koalaIcon()}
+          <div className={styles.shop_id_review}>{shop.review_2}</div>
+        </div>
+        <br />
+        <div className={styles.shop_review}>
+          {koalaIcon()}
+          <div className={styles.shop_id_review}>{shop.review_3}</div>
         </div>
       </div>
     </>
