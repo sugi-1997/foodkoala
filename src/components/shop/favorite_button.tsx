@@ -1,5 +1,5 @@
 import styles from '../../styles/Shop.module.css';
-import { Shop } from 'types/shops';
+import type { Shop } from 'types/shops';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
