@@ -63,14 +63,46 @@ export default function UserRegisterPage() {
         phone_number: phone_number,
         password: password,
       }),
-    })
-      // 登録完了画面へ遷移
-      .then((response) => {
-        if (response.ok) {
-          localStorage.setItem('name', name);
-          router.push('/user_resister_completed');
-        }
-      });
+    }).then((response) => {
+      //userテーブルからidを取得
+      if (response.ok) {
+        fetch('/api/get_users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const user_id = data[0].id;
+            console.log('user_id', user_id);
+            //couponテーブルにwelcome couponをPOST
+            fetch(`/api/post_coupon`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                user_id: user_id,
+                couponcode: 'welcome coupon',
+                discount: 10,
+              }),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                // 登録完了画面へ遷移
+                console.log('welcome couponを付与しました');
+                localStorage.setItem('name', name);
+                router.push('/user_register_completed');
+              })
+              .catch((error) => console.error(error));
+          })
+          .catch((error) => console.error(error));
+      }
+    });
   }
 
   return (
