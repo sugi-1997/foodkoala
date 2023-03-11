@@ -24,6 +24,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
       )
         .then((res) => res.json())
         .then((data) => {
+          console.log('data', data);
           if (data.length === 0) {
             setHeart('shop_favorite_false');
           } else {
