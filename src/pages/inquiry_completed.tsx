@@ -1,7 +1,3 @@
-import BreadList, {
-  menu_list,
-  inquiry_form,
-} from 'components/bread_list';
 import Header from 'components/header';
 import Footer from 'components/footer';
 import Head from 'next/head';

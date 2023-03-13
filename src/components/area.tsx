@@ -1,8 +1,7 @@
 // Areaコンポーネントの作成
-import Image from 'next/image';
 import useSWR from 'swr';
-import Link from 'next/link';
 import styles from 'styles/Area.module.css';
+import type { Area } from 'types/area';
 
 const fetcher = (resource: string, init: any) =>
   fetch(resource, init).then((res) => res.json());
@@ -18,10 +17,14 @@ export default function Area({ onClick }: any) {
       <h2 className={styles.h2}>--- Area ---</h2>
       <div className={styles.arealist}>
         <div className={styles.all_area}>
-          {data.map((area: any) => (
-            <div className={styles.area} key={area.id} id={area.id}>
-              <button id={area.id} onClick={onClick}>
-                <p id={area.id}>{area.name}</p>
+          {data.map((area: Area, index: number) => (
+            <div
+              className={styles.area}
+              key={index}
+              id={`${area.id}`}
+            >
+              <button id={`${area.id}`} onClick={onClick}>
+                <p id={`${area.id}`}>{area.name}</p>
               </button>
             </div>
           ))}
