@@ -1,20 +1,19 @@
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
+import Cookies from 'js-cookie';
+import useSWR from 'swr';
+import { useEffect, useState } from 'react';
 import BreadList, {
   menu_list,
   order_history,
 } from 'components/bread_list';
 import Footer from 'components/footer';
 import Header from 'components/header';
-import Head from 'next/head';
+import type { OrderHistory } from 'types/order_history';
+import type { OrderItems } from 'types/order_items';
+import { Fetcher } from 'lib/Fetcher';
 import styles from 'styles/order_history.module.css';
-import Cookies from 'js-cookie';
-import useSWR from 'swr';
-import { useEffect, useState } from 'react';
-
-const fetcher = async (resource: string) => {
-  const res = await fetch(resource);
-  const data: OrderData[] = await res.json();
-  return data;
-};
 
 export default function OrderHistory() {
   const userId = Cookies.get('user_id');
@@ -25,7 +24,7 @@ export default function OrderHistory() {
   //order_historyテーブルから注文内容を取得
   const { data, error } = useSWR(
     `/api/order_history?user_id=eq.${userId}`,
-    fetcher
+    Fetcher
   );
 
   //ordersテーブルのcart_idを使用して、order_itemsテーブルからitemのデータを取得
@@ -102,10 +101,15 @@ export default function OrderHistory() {
         <main>
           <div className={styles.favorite_login}>
             <div className={styles.favorite_login_link}>
-              <img src="/images/foodkoala_img2.png" alt="コアラ" />
+              <Image
+                src="/images/foodkoala_img2.png"
+                alt="コアラ"
+                width={50}
+                height={50}
+              />
               <br />
               <br />
-              <a href="/login">ログイン</a>
+              <Link href="/login">ログイン</Link>
             </div>
             <br />
             <p>注文履歴を表示したい場合はログインをしてください</p>
@@ -124,10 +128,10 @@ export default function OrderHistory() {
         <main>
           <div className={styles.favorite_login}>
             <div className={styles.favorite_login_link}>
-              <img src="/images/foodkoala_img2.png" alt="コアラ" />
+              <Image src="/images/foodkoala_img2.png" alt="コアラ" />
               <br />
               <br />
-              <a href="/">メニュー一覧へ</a>
+              <Link href="/">メニュー一覧へ</Link>
             </div>
             <br />
             <p>注文履歴がありません</p>
@@ -192,10 +196,7 @@ export default function OrderHistory() {
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1620.2499744702093!2d139.70209411744383!3d35.689312900000026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d9c8bc1bfbb%3A0xcb44f68a614c714a!2z5qCq5byP5Lya56S-44Op44Kv44K544OR44O844OI44OK44O844K6!5e0!3m2!1sja!2sjp!4v1678233520521!5m2!1sja!2sjp"
                 width="400"
                 height="400"
-                // style="border:0;"
-                // allowfullscreen=""
                 loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
                 className={styles.map}
               ></iframe>
             </div>
@@ -205,11 +206,11 @@ export default function OrderHistory() {
           </div>
         </div>
         <div className={styles.buttons}>
-          {data.map((item, index) => (
+          {data.map((item: OrderHistory, index: number) => (
             <input
               type="button"
               value={index + 1}
-              onClick={(e) => {
+              onClick={() => {
                 setPageId(index + 1);
               }}
               key={index}
@@ -221,27 +222,3 @@ export default function OrderHistory() {
     );
   }
 }
-
-type OrderData = {
-  cart_id: number;
-  user_id: number;
-  order_code: string;
-  ordered_at: Date;
-  couponcode: string;
-  discount: number;
-  subtotal: number;
-  total: number;
-  payment_method: string;
-  chopstick: number;
-  folk: number;
-  spoon: number;
-  oshibori: number;
-};
-
-type OrderItems = {
-  order_id: number;
-  item_name: string;
-  price: number;
-  shop_id: number;
-  quantitiy: number;
-};

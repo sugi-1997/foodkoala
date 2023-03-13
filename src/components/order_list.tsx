@@ -1,50 +1,39 @@
 import styles from 'styles/order_check.module.css';
 import useSWR, { useSWRConfig } from 'swr';
 import { useState, useEffect } from 'react';
-import CartItems from 'pages/api/delete_cart_items';
+import type { CartItem } from 'types/cart_item';
+import type { CurrentCartItems } from 'types/current_cart_items';
+import { Fetcher } from 'lib/Fetcher';
+import Image from 'next/image';
 
 export default function OrderList() {
-  const fetcher = (resource: string, init: object) => {
-    fetch(resource, init)
-      .then((res) => res.json())
-      .then((data) => setItemId(data));
-  };
-  const [itemId, setItemId] = useState<ItemId[]>([]);
-  const [cartItems, setCartItems] = useState<CartItems[]>([]);
+  const [cartItems, setCartItems] = useState<CurrentCartItems[]>([]);
   const [subTotal, setSubTotal] = useState(0);
-  let count = 1;
   const { mutate } = useSWRConfig();
-  const { data, error } = useSWR('/api/get_cart_items', fetcher);
-
   //cart_itemsテーブルからデータを取得
-  useEffect(() => {
-    async function getItemId() {
-      await fetch('/api/get_cart_items')
-        .then((res) => res.json())
-        .then((data) => {
-          setItemId(data);
-        });
-    }
-    getItemId();
-  }, []);
+  const { data, error } = useSWR('/api/get_cart_items', Fetcher);
+  let itemId: CartItem[] = data;
 
   //item_idが一致する商品のデータを取得
   useEffect(() => {
+    if (!data) {
+      return;
+    }
     async function itemData() {
-      const newCartItems: CartItems[] = [];
+      const newCartItems: CurrentCartItems[] = [];
       for (let i = 0; i <= itemId.length - 1; i++) {
         await fetch(
           `/api/menu?genre_id=gt.0&area_id=gt.0&id=eq.${itemId[i].item_id}`
         )
           .then((res) => res.json())
           .then((data) => {
-            newCartItems.push({ ...data[0], count: count });
+            newCartItems.push({ ...data[0], count: itemId[i].count });
           });
       }
       setCartItems(newCartItems);
     }
     itemData();
-  }, [count, itemId]);
+  }, [data, itemId]);
 
   //商品の小計を計算
   useEffect(() => {
@@ -70,11 +59,14 @@ export default function OrderList() {
     mutate('/api/get_cart_items');
   };
 
+  if (error) <div>Error...</div>;
+  if (!data) <div>Loading...</div>;
+
   if (cartItems.length === 0) {
     return (
       <>
         <div>
-          <h1 className={styles.h1}>注文リスト</h1>
+          <h1>注文リスト</h1>
         </div>
         <div className={styles.order_list}>
           <br />
@@ -98,7 +90,7 @@ export default function OrderList() {
             <dl key={item.id}>
               <dt>{item.name}</dt>
               <dd>
-                <img
+                <Image
                   src={item.image_url}
                   alt="商品画像"
                   width={150}
@@ -109,12 +101,22 @@ export default function OrderList() {
                 <select
                   name="itemCount"
                   id={`itemCount-${index}`}
-                  onChange={(e) => {
+                  onChange={async (e) => {
                     const selectedCount = e.target.value;
                     const newCartItems = [...cartItems];
                     newCartItems[index].count =
                       parseInt(selectedCount);
                     setCartItems(newCartItems);
+                    await fetch(`/api/patch_cart_items`, {
+                      method: 'PATCH',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        item_id: Number(item.id),
+                        count: Number(selectedCount),
+                      }),
+                    });
                   }}
                   value={item.count}
                 >
@@ -142,21 +144,3 @@ export default function OrderList() {
     </>
   );
 }
-
-type ItemId = {
-  id: number;
-  item_id: number;
-  cart_id: number;
-};
-
-type CartItems = {
-  id: number;
-  name: string;
-  price: number;
-  image_url: string;
-  genre_id: number;
-  shop_id: number;
-  area_id: number;
-  explain: string;
-  count: number;
-};

@@ -1,28 +1,28 @@
 import Head from 'next/head';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 import Option from 'components/option';
-import SelectPay from '../../components/select_pay';
+import SelectPay from 'components/select_pay';
 import Header from 'components/header';
 import Footer from 'components/footer';
-import { useRouter } from 'next/router';
 import Coupon from 'components/Coupon';
-import styles from 'styles/order_check.module.css';
 import BreadList, {
   menu_list,
   order_check,
 } from 'components/bread_list';
-import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-import Image from 'next/image';
+import type { CartItem } from 'types/cart_item';
+import type { CurrentCartItems } from 'types/current_cart_items';
+import type { Options } from 'types/options';
+import styles from 'styles/order_check.module.css';
 
 export default function OrderCheck() {
   const router = useRouter();
-  const [itemId, setItemId] = useState<ItemId[]>([]);
-  const [cartItems, setCartItems] = useState<CartItems[]>([]);
+  const [itemId, setItemId] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CurrentCartItems[]>([]);
   const [subTotal, setSubTotal] = useState(0);
   const [errorAlert, setErrorAlert] = useState('ok');
-  let count = 1;
-  let code: string;
-  let orderedAt: Date;
   let optionData: Options;
 
   const userId = Cookies.get('user_id');
@@ -46,20 +46,20 @@ export default function OrderCheck() {
   //item_idが一致する商品のデータを取得
   useEffect(() => {
     async function itemData() {
-      const newCartItems: CartItems[] = [];
+      const newCartItems: CurrentCartItems[] = [];
       for (let i = 0; i <= itemId.length - 1; i++) {
         await fetch(
           `/api/menu?genre_id=gt.0&area_id=gt.0&id=eq.${itemId[i].item_id}`
         )
           .then((res) => res.json())
           .then((data) => {
-            newCartItems.push({ ...data[0], count: count });
+            newCartItems.push({ ...data[0], count: itemId[i].count });
           });
       }
       setCartItems(newCartItems);
     }
     itemData();
-  }, [count, itemId]);
+  }, [itemId]);
 
   //商品の小計を計算
   useEffect(() => {
@@ -71,6 +71,7 @@ export default function OrderCheck() {
   }, [cartItems, subTotal]);
 
   // 1.注文した日付を取得
+  let orderedAt: Date;
   const orderDate = async () => {
     const date = new Date();
     orderedAt = date;
@@ -78,6 +79,7 @@ export default function OrderCheck() {
   };
 
   // 2.ランダムな10文字を生成（注文コード）
+  let code: string;
   const orderCode = async () => {
     const chars =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -298,39 +300,7 @@ export default function OrderCheck() {
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );
 }
-
-type ItemId = {
-  id: number;
-  item_id: number;
-  cart_id: number;
-  count: number;
-};
-
-type CartItems = {
-  id: number;
-  name: string;
-  price: number;
-  image_url: string;
-  genre_id: number;
-  shop_id: number;
-  area_id: number;
-  explain: string;
-  count: number;
-  cart_id: number;
-};
-
-type Options = {
-  user_id: number;
-  couponcode: string;
-  discount: number;
-  chopstick: number;
-  folk: number;
-  spoon: number;
-  oshibori: number;
-  payment_method: string | null;
-};

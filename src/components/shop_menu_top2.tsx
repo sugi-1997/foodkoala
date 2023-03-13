@@ -1,16 +1,15 @@
 import styles from '../styles/Shop_list.module.css';
 import useSWR from 'swr';
 import Image from 'next/image';
-import { useState } from 'react';
-
-const fetcher = (resource: string, init: object) =>
-  fetch(resource, init).then((res) => res.json());
+import type { Menu } from 'types/shops';
+import { Fetcher } from 'lib/Fetcher';
+import { MenuName } from 'lib/MenuName';
 
 export default function ShopMenu({ id }: { id: number }) {
   let count = 1;
   const { data, error } = useSWR(
     `http://localhost:8000/items?shop_id=eq.${id}`,
-    fetcher
+    Fetcher
   );
 
   if (error) return <div>エラーです</div>;
@@ -40,16 +39,6 @@ export default function ShopMenu({ id }: { id: number }) {
     }
   }
 
-  // メニュー名が長い時は短く表示
-  function menuName(menu: { name: string }) {
-    const menuName = menu.name.slice(0, 8);
-    if (menu.name.length > 8) {
-      return <p>{menuName}...</p>;
-    } else {
-      return <p>{menu.name}</p>;
-    }
-  }
-
   return (
     <>
       <div className={styles.shop_menu_list}>
@@ -65,7 +54,7 @@ export default function ShopMenu({ id }: { id: number }) {
                 />
               </div>
               <div className={styles.shop_list_menuName}>
-                {menuName(menu)}
+                {MenuName(menu)}
               </div>
             </a>
             <div className={styles.shop_list_menuPrice}>
@@ -85,10 +74,3 @@ export default function ShopMenu({ id }: { id: number }) {
     </>
   );
 }
-
-type Menu = {
-  id: number;
-  image_url: string;
-  name: string;
-  price: number;
-};

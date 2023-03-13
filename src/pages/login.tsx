@@ -34,7 +34,7 @@ export default function Login() {
           Cookies.set('user_id', data[0].id);
 
           // メインページに遷移(遷移先はあとで変更してもよし)
-          router.push('/');
+          // router.push('/');
         } else {
           alert('入力内容を確認してください');
         }
@@ -130,7 +130,7 @@ export default function Login() {
         <div className={styles.go_to_resister}>
           <p>アカウントをお持ちではありませんか？</p>
           <p>
-            <Link href="/user_resister">アカウントを作成</Link>
+            <Link href="/user_register">アカウントを作成</Link>
           </p>
         </div>
       </div>
