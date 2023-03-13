@@ -16,10 +16,25 @@ export default function UserRegisterPage() {
   const [phone_number, setPhone_number] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  // 未入力時のエラー表示
+  const [errorName, setErrorName] = useState('ok');
+  const [errorEmail, setErrorEmail] = useState('ok');
   const [errorZipcode, setErrorZipcode] = useState('ok');
+  const [errorPhoneNumber, setErrorPhoneNumber] = useState('ok');
   const [errorAddress, setErrorAddress] = useState('ok');
-  const [errorMail, setErrorMail] = useState('ok');
+  const [errorNoAddress, setErrorNoAddress] = useState('ok');
   const [errorPassword, setErrorPassword] = useState('ok');
+  const [errorPassword2, setErrorPassword2] = useState('ok');
+  // メールアドレスの重複エラー表示
+  const [errorMail, setErrorMail] = useState('ok');
+  // 文字数に対するエラー表示
+  const [zipcodeValidation, setZipcodeValidation] = useState('ok');
+  const [phoneLength, setPhoneLength] = useState('ok');
+  const [passwordLength, setPasswordLength] = useState('ok');
+  const [passwordValidation, setPasswordValidation] = useState('ok');
+  // パスワードが不一致のエラー表示
+  const [errorMismatchPassword, setErrorMismatchPassword] =
+    useState('ok');
 
   const router = useRouter();
 
@@ -30,14 +45,15 @@ export default function UserRegisterPage() {
       return;
     }
     setErrorZipcode('ok');
+
     fetch(
       `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipcode}`
     )
       .then((res) => res.json())
       .then((data) => {
-        if (data.length === 0) {
+        if (data.results === null) {
           console.log('郵便番号が取得できませんでした');
-          setErrorAddress('alert');
+          setErrorNoAddress('alert');
           return;
         } else {
           console.log('郵便番号が取得できました');
@@ -49,6 +65,7 @@ export default function UserRegisterPage() {
             }`
           );
         }
+        setErrorNoAddress('ok');
       });
   }
   function userPost() {
@@ -70,7 +87,7 @@ export default function UserRegisterPage() {
       .then((response) => {
         if (response.ok) {
           localStorage.setItem('name', name);
-          router.push('/user_resister_completed');
+          router.push('/user_register_completed');
         }
       });
   }
@@ -101,13 +118,19 @@ export default function UserRegisterPage() {
             method="POST"
             onSubmit={(e) => {
               e.preventDefault();
-
-              if (password !== password2) {
-                console.log('※パスワードが一致していません。');
-                setErrorPassword('alert');
+              if (name === '') {
+                console.log('※お名前が入力されていません。');
+                setErrorName('alert');
                 return;
               }
-              setErrorPassword('ok');
+              setErrorName('ok');
+
+              if (email === '') {
+                console.log('※メールアドレスが入力されていません。');
+                setErrorEmail('alert');
+                return;
+              }
+              setErrorEmail('ok');
 
               fetch('/api/get_users', {
                 method: 'POST',
@@ -128,8 +151,86 @@ export default function UserRegisterPage() {
                     return;
                   }
                   setErrorMail('ok');
-                  userPost();
                 });
+
+              if (zipcode === '') {
+                console.log('※郵便番号が入力されていません。');
+                setErrorZipcode('alert');
+                return;
+              }
+              setErrorZipcode('ok');
+
+              if (
+                !zipcode.match(
+                  /^[0-9]{3}-[0-9]{4}$/ || /^[0-9]{3}[0-9]{4}$/
+                )
+              ) {
+                console.log('※郵便番号が正しくありません。');
+                setZipcodeValidation('alert');
+              }
+              setZipcodeValidation('ok');
+
+              if (address === '') {
+                console.log('※住所が入力されていません。');
+                setErrorAddress('alert');
+                return;
+              }
+              setErrorAddress('ok');
+
+              if (phone_number === '') {
+                console.log('※電話番号が入力されていません。');
+                setErrorPhoneNumber('alert');
+                return;
+              }
+              setErrorPhoneNumber('ok');
+              // 電話番号が9~12文字（ハイフン有無問わず）以外の場合エラーを表示
+              if (!phone_number.match(/^0[-\d]{9,12}$/)) {
+                console.log('※電話番号が正しくありません。');
+                setPhoneLength('alert');
+                return;
+              }
+              setPhoneLength('ok');
+
+              if (password === '') {
+                console.log('※パスワードが入力されていません。');
+                setErrorPassword('alert');
+                return;
+              }
+              setErrorPassword('ok');
+
+              if (password.length < 8 || password.length > 16) {
+                console.log(
+                  'パスワードは8文字以上、16文字以内で入力してください'
+                );
+                setPasswordLength('alert');
+                return;
+              }
+              setPasswordLength('ok');
+
+              if (!password.match(/^[A-Za-z0-9]+$/)) {
+                console.log(
+                  'パスワードは半角英数で入力してください。'
+                );
+                setPasswordValidation('alert');
+              }
+              setPasswordValidation('ok');
+
+              if (password2 === '') {
+                console.log(
+                  '※確認用パスワードが入力されていません。'
+                );
+                setErrorPassword2('alert');
+                return;
+              }
+              setErrorPassword2('ok');
+
+              if (password2 !== password) {
+                console.log('※パスワードが一致していません。');
+                setErrorMismatchPassword('alert');
+                return;
+              }
+              setErrorMismatchPassword('ok');
+              userPost();
             }}
           >
             <div className={styles.name}>
@@ -141,9 +242,10 @@ export default function UserRegisterPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="例:佐藤 太郎"
-                required
               />
-              <p>※文字が入ります。</p>
+              <p className={styles[errorName]}>
+                ※お名前を入力してください。
+              </p>
             </div>
 
             <div className={styles.email}>
@@ -155,8 +257,10 @@ export default function UserRegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="example@example.com"
-                required
               />
+              <p className={styles[errorEmail]}>
+                ※メールアドレスを入力してください。
+              </p>
               <p className={styles[errorMail]}>
                 ※このメールアドレスは、既に使われています。
               </p>
@@ -172,10 +276,10 @@ export default function UserRegisterPage() {
                 value={zipcode}
                 onChange={(e) => setZipcode(e.target.value)}
                 placeholder="xxx-xxxx"
-                required
               />
               &nbsp;
               <button
+                type="button"
                 className={styles.search_button}
                 onClick={getZipcode}
               >
@@ -183,6 +287,9 @@ export default function UserRegisterPage() {
               </button>
               <p className={styles[errorZipcode]}>
                 ※郵便番号を入力してください。
+              </p>
+              <p className={styles[zipcodeValidation]}>
+                ※郵便番号は、xxx-xxxxの形で入力してください。
               </p>
             </div>
 
@@ -196,8 +303,11 @@ export default function UserRegisterPage() {
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="東京都新宿区新宿4-3-25"
               />
-              <p className={styles[errorAddress]}>
+              <p className={styles[errorNoAddress]}>
                 ※郵便番号を取得できませんでした。住所を入力してください。
+              </p>
+              <p className={styles[errorAddress]}>
+                ※住所を入力してください。
               </p>
             </div>
 
@@ -210,9 +320,13 @@ export default function UserRegisterPage() {
                 value={phone_number}
                 onChange={(e) => setPhone_number(e.target.value)}
                 placeholder="0366753638"
-                required
               />
-              <p>※電話番号はxxxx-xxxx-xxxxの形で入力してください。</p>
+              <p className={styles[errorPhoneNumber]}>
+                ※電話番号を入力してください。
+              </p>
+              <p className={styles[phoneLength]}>
+                ※電話番号が正しくありません。
+              </p>
             </div>
 
             <div className={styles.password}>
@@ -223,12 +337,17 @@ export default function UserRegisterPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="半角英数字で8文字以上"
-                required
+                placeholder="半角英数字で8文字以上、16文字以内"
                 pattern="^[a-zA-Z0-9]+$"
               />
-              <p>
+              <p className={styles[errorPassword]}>
+                ※パスワードを入力してください。
+              </p>
+              <p className={styles[passwordLength]}>
                 ※パスワードは８文字以上１６文字以内で設定してください。
+              </p>
+              <p className={styles[passwordValidation]}>
+                ※パスワードは半角英数で入力してください。
               </p>
             </div>
 
@@ -240,10 +359,12 @@ export default function UserRegisterPage() {
                 value={password2}
                 onChange={(e) => setPassword2(e.target.value)}
                 placeholder="前述のパスワード"
-                required
                 pattern="^[a-zA-Z0-9]+$"
               />
-              <p className={styles[errorPassword]}>
+              <p className={styles[errorPassword2]}>
+                ※確認用パスワードを入力してください。
+              </p>
+              <p className={styles[errorMismatchPassword]}>
                 ※パスワードが一致していません。
               </p>
             </div>
