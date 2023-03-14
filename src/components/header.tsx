@@ -2,12 +2,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from 'styles/Header.module.css';
-import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
+import Logout from 'lib/Logout';
 
 export default function Header({ onClick }: any) {
-  const router = useRouter();
   const user_id = Cookies.get('user_id');
   const [loginStatus, setLoginStatus] = useState('true');
   const [logoutStatus, setLogoutStatus] = useState('false');
@@ -18,13 +17,6 @@ export default function Header({ onClick }: any) {
       setLogoutStatus('true');
     }
   }, [user_id]);
-
-  const logout = () => {
-    Cookies.remove('user_id');
-    router.replace('/login');
-    setLoginStatus('true');
-    setLogoutStatus('false');
-  };
 
   return (
     <>
@@ -73,9 +65,7 @@ export default function Header({ onClick }: any) {
               <li className={styles[loginStatus]}>
                 <Link href="/login">ログイン</Link>
               </li>
-              <li className={styles[logoutStatus]} onClick={logout}>
-                ログアウト
-              </li>
+              <Logout className={styles[logoutStatus]} />
             </ul>
           </nav>
         </div>
