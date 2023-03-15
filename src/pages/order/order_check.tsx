@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Cookies from 'js-cookie';
 import Option from 'components/option';
 import SelectPay from 'components/select_pay';
 import Header from 'components/header';
@@ -16,6 +15,7 @@ import type { CartItem } from 'types/cart_item';
 import type { CurrentCartItems } from 'types/current_cart_items';
 import type { Options } from 'types/options';
 import styles from 'styles/order_check.module.css';
+import { userId } from 'lib/UserId';
 
 export default function OrderCheck() {
   const router = useRouter();
@@ -24,8 +24,6 @@ export default function OrderCheck() {
   const [subTotal, setSubTotal] = useState(0);
   const [errorAlert, setErrorAlert] = useState('ok');
   let optionData: Options;
-
-  const userId = Cookies.get('user_id');
 
   //cart_itemsテーブルからデータを取得
   useEffect(() => {

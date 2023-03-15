@@ -1,144 +1,31 @@
-import Head from 'next/head';
-import useSWR from 'swr';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import Cookies from 'js-cookie';
-import Link from 'next/link';
-import Head from 'next/head';
-import useSWR from 'swr';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import Cookies from 'js-cookie';
-import Link from 'next/link';
-import ShopName from 'components/shop_name';
-import Header from 'components/header';
-import Footer from 'components/footer';
-import BreadList, {
-  menu_list,
-  favorite_list,
-} from 'components/bread_list';
 import type { Shop } from 'types/shops';
-import styles from 'styles/Shop_list.module.css';
-import type { Shop } from 'types/shops';
-import styles from 'styles/Shop_list.module.css';
-
-const fetcher = (resource: string) =>
-  fetch(resource).then((res) =>
-    res.json().then((data) => {
-      return data;
-    })
-  );
+import NoFavorite from 'components/shop/no_favorite';
+import NoLoginFavorite from 'components/shop/no_login_favorite';
+import LoadingFavorite from 'components/shop/loading_favorite';
+import { userId } from 'lib/UserId';
+import getData from 'lib/favorite/getData';
+import { useSetShops } from 'lib/favorite/setShops';
+import Favorite from 'components/shop/favorite';
 
 export default function ShopFavorite() {
-  const userId = Cookies.get('user_id');
-  const [favoriteShops, setFavoriteShops] = useState<Shop[]>([]);
-  const [favoriteShops, setFavoriteShops] = useState<Shop[]>([]);
+  const { data, error } = getData();
 
-  //userが登録したお気に入りのshop_idをfavoriteテーブルから取得
-  const { data, error } = useSWR(
-    `/api/favorite?user_id=eq.${userId}`,
-    fetcher,
-    {
-      revalidateOnMount: true,
-    }
-  );
-
-  //favorirteのshop_idからお気に入りのショップ一覧を取得
-  useEffect(() => {
-    if (userId === null || userId === undefined || !data) {
-      return;
-    } else {
-      const getFavoriteShops = async () => {
-        const newFavoriteShops: Shop[] = [];
-        console.log(data);
-        for (const fav of data) {
-          try {
-            const res = await fetch(
-              `/api/favorite_shops?id=eq.${fav.shop_id}`
-            );
-            const data = await res.json();
-            newFavoriteShops.push(data[0]);
-            console.log(
-              'newfavoriteShopsにデータを追加しました',
-              newFavoriteShops
-            );
-          } catch (error) {
-            console.error(error);
-          }
-        }
-        setFavoriteShops(newFavoriteShops);
-      };
-      getFavoriteShops();
-    }
-  }, [data, userId]);
+  //favoriteのshop_idからお気に入りのショップ一覧を取得
+  const favoriteShops: Shop[] = useSetShops(data);
 
   if (error) return <div>Error...</div>;
+
   if (!data) {
-    return (
-      <>
-        <Header />
-        <BreadList list={[menu_list, favorite_list]} />
-        <div>Loading...</div>
-        <Footer />
-      </>
-    );
+    return <LoadingFavorite />;
   }
 
   if (userId === null || userId === undefined) {
-    return (
-      <>
-        <Header />
-        <BreadList list={[menu_list, favorite_list]} />
-        <div>
-          <div className={styles.favorite_login}>
-            <div className={styles.favorite_login_link}>
-              <Image src="/images/foodkoala_img2.png" alt="コアラ" />
-              <br />
-              <br />
-              <Link href="/login">ログイン</Link>
-            </div>
-            <br />
-            <p>
-              お気に入り店舗一覧を表示したい場合はログインをしてください
-            </p>
-          </div>
-        </div>
-        <Footer />
-      </>
-    );
+    return <NoLoginFavorite />;
   }
 
   if (favoriteShops.length === 0) {
-    return (
-      <>
-        <Header />
-        <BreadList list={[menu_list, favorite_list]} />
-        <div>
-          <div className={styles.favorite_login}>
-            <div className={styles.favorite_login_link}>
-              <Image src="/images/foodkoala_img2.png" alt="コアラ" />
-              <br />
-              <br />
-              <Link href="/shop/list">ショップ一覧へ</Link>
-            </div>
-            <br />
-            <p>お気に入り店舗がありません</p>
-          </div>
-        </div>
-        <Footer />
-      </>
-    );
+    return <NoFavorite />;
   }
 
-  return (
-    <>
-      <Head>
-        <title>お気に入り店舗一覧</title>
-      </Head>
-      <Header />
-      <BreadList list={[menu_list, favorite_list]} />
-      <ShopName data={favoriteShops} />
-      <Footer />
-    </>
-  );
+  return <Favorite favoriteShops={favoriteShops} />;
 }

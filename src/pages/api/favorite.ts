@@ -1,12 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 // import fetch from 'isomorphic-unfetch';
 
-type Data = {
-  id: number;
-  name: string;
-  image_url: string;
-};
-
 export default async function ShopData(
   req: NextApiRequest,
   res: NextApiResponse
