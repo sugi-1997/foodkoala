@@ -16,8 +16,10 @@ import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
 import styles from '../../styles/Shop.module.css';
 
 //お店情報の取得
+const url = process.env['API_URL'];
+
 export async function getStaticPaths() {
-  const res = await fetch('http://127.0.0.1:8000/shops');
+  const res = await fetch(`${url}/api/shop_detail?id=gt.0`);
   const shops = await res.json();
   const paths = shops.map((shop: Shop) => ({
     params: {
@@ -32,7 +34,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: GetStaticProps) {
   const res = await fetch(
-    `http://127.0.0.1:8000/shops?id=eq.${params.id}`
+    `${url}/api/shop_detail?id=eq.${params.id}`
   );
   const shopData = await res.json();
   return {
