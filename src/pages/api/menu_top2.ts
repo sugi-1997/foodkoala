@@ -8,10 +8,16 @@ export default async function ItemData(
   const genre_id = req.query.genre_id;
   const area_id = req.query.area_id;
   const id = req.query.shop_id;
+  const url = process.env['SUPABASE_URL'];
+
   if (id!.includes('eq')) {
     try {
-      const url = process.env['BACKEND_API_URL'];
-      const response = await fetch(`${url}/items?shop_id=${id}`);
+      const response = await fetch(`${url}/items?shop_id=${id}`, {
+        headers: {
+          apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
+        },
+      });
       const data = await response.json();
       if (!response.ok) {
         throw new Error('Fail to Load...');
@@ -25,8 +31,15 @@ export default async function ItemData(
     }
   } else if (area_id!.includes('eq')) {
     try {
-      const url = process.env['BACKEND_API_URL'];
-      const response = await fetch(`${url}/items?area_id=${area_id}`);
+      const response = await fetch(
+        `${url}/items?area_id=${area_id}`,
+        {
+          headers: {
+            apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+            Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
+          },
+        }
+      );
       const data = await response.json();
       if (!response.ok) {
         throw new Error('Fail to Load...');
@@ -40,9 +53,14 @@ export default async function ItemData(
     }
   } else {
     try {
-      const url = process.env['BACKEND_API_URL'];
       const response = await fetch(
-        `${url}/items?genre_id=${genre_id}`
+        `${url}/items?genre_id=${genre_id}`,
+        {
+          headers: {
+            apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+            Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
+          },
+        }
       );
       const data = await response.json();
       if (!response.ok) {

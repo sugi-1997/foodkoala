@@ -12,9 +12,14 @@ export default async function ShopData(
   res: NextApiResponse
 ) {
   const id = req.query.id;
-  const url = process.env['BACKEND_API_URL'];
+  const url = process.env['SUPABASE_URL'];
   try {
-    const response = await fetch(`${url}/shops?id=${id}`);
+    const response = await fetch(`${url}/shops?id=${id}`, {
+      headers: {
+        apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+        Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
+      },
+    });
     const data = await response.json();
     if (!response.ok) {
       throw new Error('Fail to Load...');

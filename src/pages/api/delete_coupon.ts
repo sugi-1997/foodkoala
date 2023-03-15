@@ -13,7 +13,8 @@ export default async function CartItems(
       {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
+          apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
         },
       }
     );

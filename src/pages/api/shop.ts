@@ -7,14 +7,14 @@ export default async function ItemData(
 ) {
   const genreId = req.query.genreId;
   const areaId = req.query.areaId;
-  const url = process.env['NEXT_PUBLIC_SUPABASE_URL'];
+  const url = process.env['SUPABASE_URL'];
 
   if (areaId!.includes('eq')) {
     try {
       const response = await fetch(`${url}/shops?area_id=${areaId}`, {
         headers: {
-          apikey: `${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
-          Authorization: `Bearer ${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+          apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
         },
       });
       const data = await response.json();
@@ -34,8 +34,8 @@ export default async function ItemData(
         `${url}/shops?genre_id=${genreId}`,
         {
           headers: {
-            apikey: `${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
-            Authorization: `Bearer ${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+            apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+            Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
           },
         }
       );
