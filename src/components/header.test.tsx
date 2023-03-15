@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from 'styles/Header.module.css';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 describe('Header', () => {
   //関数以外のスナップショットを実施

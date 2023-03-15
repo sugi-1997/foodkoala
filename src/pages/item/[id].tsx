@@ -71,8 +71,10 @@ export default function ItemPage({ data }: { data: Menu[] }) {
   );
 }
 
+const url = process.env['API_URL'];
+
 export async function getStaticPaths() {
-  const response = await fetch('http://127.0.0.1:8000/items');
+  const response = await fetch(`${url}/api/items?id=gt.0`);
   const data = await response.json();
   const paths = data.map((item: any) => ({
     params: {
@@ -90,9 +92,7 @@ export async function getStaticProps({
 }: {
   params: { id: string };
 }) {
-  const response = await fetch(
-    `http://127.0.0.1:8000/items?id=eq.${params.id}`
-  );
+  const response = await fetch(`${url}/api/items?id=eq.${params.id}`);
   const data = await response.json();
   return {
     props: {

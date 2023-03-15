@@ -1,8 +1,20 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import Orderlist from './list';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import useSWR, { Middleware, SWRConfig, SWRResponse } from 'swr';
-import renderer from 'react-test-renderer';
 import { useRouter } from 'next/router';
+import mockRouter from 'next-router-mock';
+
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      asPath: '/login',
+    };
+  },
+}));
 
 const fetchMockError = () => {
   const error = new Error('Failed to fetch data');
@@ -19,11 +31,8 @@ const fetchMockError = () => {
 
 describe('OrderList', () => {
   beforeAll(() => {
-    jest.mock('next/router', () => ({
-      useRouter: jest.fn().mockReturnValue({
-        replace: jest.fn(),
-      }),
-    }));
+    (global as any).fetch = jest.fn();
+    jest.mock('next/router', () => require('next-router-mock'));
   });
 
   afterEach(() => {
@@ -46,42 +55,36 @@ describe('OrderList', () => {
   });
 
   it('renders OrderList correctly when the cart is empty', async () => {
-    const testMiddleware: Middleware = () => {
-      return (): SWRResponse<any, any> => {
-        const mockData: any = [];
-        return {
-          data: mockData,
-          error: undefined,
-          mutate: (_) => Promise.resolve(),
-          isValidating: false,
-          isLoading: false,
-        };
-      };
-    };
+    jest.mock('swr');
+    (global as any).fetch.mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => [],
+    });
 
     // Orderlistをレンダリング
-    const tree = renderer
-      .create(
-        <SWRConfig value={{ use: [testMiddleware] }}>
-          <Orderlist />
-        </SWRConfig>
-      )
-      .toJSON();
+    const { asFragment } = render(
+      <SWRConfig>
+        <Orderlist />
+      </SWRConfig>
+    );
 
     //エラーメッセージが画面に描写されているか確認
     const errorMessage = await screen.findByText(
       '※カートに商品がないため、購入できません'
     );
-    expect(errorMessage).toBeInTheDocument();
+    await waitFor(() => expect(errorMessage).toBeInTheDocument());
 
     //リンクが画面に描写されているか確認
     const link = screen.getByRole('link', { name: 'メニュー一覧へ' });
-    expect(link).toBeInTheDocument();
+    await waitFor(() => expect(link).toBeInTheDocument());
 
     //fetchの引数が正しいか確認
     expect(fetch).toHaveBeenCalledWith('/api/get_cart_items');
 
     //スナップショットテスト
-    expect(tree).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
+
+  it('renders Orderlist ');
 });
