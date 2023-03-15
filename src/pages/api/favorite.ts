@@ -6,7 +6,7 @@ export default async function ShopData(
   res: NextApiResponse
 ) {
   const userId = req.query.user_id;
-  const url = process.env['NEXT_PUBLIC_SUPABASE_URL'];
+  const url = process.env['SUPABASE_URL'];
 
   try {
     if (userId?.includes('undefined')) {
@@ -17,8 +17,8 @@ export default async function ShopData(
         `${url}/favorite?user_id=${userId}`,
         {
           headers: {
-            apikey: `${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
-            Authorization: `Bearer ${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+            apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+            Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
           },
         }
       );

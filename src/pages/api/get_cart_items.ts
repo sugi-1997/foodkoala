@@ -5,11 +5,11 @@ export default async function CartItems(
   res: NextApiResponse
 ) {
   try {
-    const url = process.env['NEXT_PUBLIC_SUPABASE_URL'];
+    const url = process.env['SUPABASE_URL'];
     const response = await fetch(`${url}/cart_items`, {
       headers: {
-        apikey: `${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
-        Authorization: `Bearer ${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+        apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+        Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
       },
     });
     if (!response.ok) {

@@ -5,12 +5,13 @@ export default async function CartItems(
   res: NextApiResponse
 ) {
   try {
-    const url = process.env['BACKEND_API_URL'];
+    const url = process.env['SUPABASE_URL'];
     const id = req.query.user_id;
     const response = await fetch(`${url}/carts?user_id=eq.${id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
+        apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+        Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
       },
     });
     if (response.ok) {

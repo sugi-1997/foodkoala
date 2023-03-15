@@ -4,7 +4,7 @@ export default async function CartItems(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const url = process.env['BACKEND_API_URL'];
+  const url = process.env['SUPABASE_URL'];
   const itemId = req.body.item_id;
   try {
     const response = await fetch(
@@ -12,7 +12,8 @@ export default async function CartItems(
       {
         method: req.method,
         headers: {
-          Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
+          apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
           Prefer: 'return=representation',
           'Content-Type': 'application/json',
         },

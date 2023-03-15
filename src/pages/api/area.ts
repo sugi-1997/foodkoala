@@ -6,11 +6,11 @@ export default async function GenreData(
   res: NextApiResponse
 ) {
   try {
-    const url = process.env['NEXT_PUBLIC_SUPABASE_URL'];
+    const url = process.env['SUPABASE_URL'];
     const response = await fetch(`${url}/area`, {
       headers: {
-        apikey: `${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
-        Authorization: `Bearer ${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+        apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+        Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
       },
     });
     const data = await response.json();

@@ -4,15 +4,15 @@ export default async function OrderItems(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const url = process.env['NEXT_PUBLIC_SUPABASE_URL'];
+  const url = process.env['SUPABASE_URL'];
   const orderId = req.query.order_id;
   try {
     const response = await fetch(
       `${url}/order_items?order_id=${orderId}`,
       {
         headers: {
-          apikey: `${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
-          Authorization: `Bearer ${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+          apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
         },
       }
     );
