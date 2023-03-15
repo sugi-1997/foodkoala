@@ -1,9 +1,7 @@
-
-
 /* スマホ */
 @media screen and (max-width:670px) {
 
-    /*全体*/
+/*画面全体*/
  
 .order_check {
     margin-top: 20%;
@@ -26,11 +24,11 @@
     bottom: 10%; 
     right: 1%;
     font-size: 0.5vw;
-    opacity: 0.7;
+    opacity: 0.5;
 }
 
 .order_check_button:hover{
-    opacity: 0.6;
+    opacity: 0.9;
     transition: 0.3s;
     box-shadow: #ffffff;
     transform: rotateY(-2px);
@@ -192,7 +190,7 @@
 /* タブレット */
 @media only screen and (min-width:671px) and (max-width:1023px) {
 
-/*全体*/
+/*画面全体*/
 .order_check {
     margin-top: 5%;
     margin-left: 20%;
@@ -205,7 +203,7 @@
     margin: 0px 10px 10px -50px;
     padding: 0;
     width: 15%;
-    height: 2.5%;
+    height: 5%;
     border: 0;
     border-radius: 8px;
     cursor: pointer;
@@ -219,7 +217,7 @@
 }
 
 .order_check_button:hover{
-    opacity: 0.6;
+    opacity: 0.9;
     transition: 0.3s;
     box-shadow: #ffffff;
     transform: rotateY(-2px);
@@ -384,10 +382,12 @@
 
 @media screen and (min-width:1024px) {
     
-/*全体*/
+/*画面全体*/
 .order_check {
     display: flex;
     justify-content: center;
+    margin-top: 2%;
+    margin-left: 7%;
 }
 
 /* 注文確定ボタン */
@@ -408,10 +408,11 @@
     bottom: 20%; 
     right: 6%;
     padding: 6px 40px;
+    opacity: 0.5;
 }
 
 .order_check_button:hover{
-    opacity: 0.6;
+    opacity: 0.9;
     transition: 0.3s;
     box-shadow: #ffffff;
     transform: rotateY(-2px);

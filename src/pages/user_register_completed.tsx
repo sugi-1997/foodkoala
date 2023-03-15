@@ -3,7 +3,7 @@ import Footer from 'components/header';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from '../styles/userResister_completed.module.css';
+import styles from '../styles/userRegister_completed.module.css';
 
 export default function ItemListPage() {
   const userName = localStorage.getItem('name');

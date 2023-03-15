@@ -9,7 +9,7 @@ const Auth = ({ children }: any) => {
   const user_id = Cookies.get('user_id');
 
   if (user_id === null || user_id === undefined)
-    router.replace('/loginPage');
+    router.replace('/login');
 
   return children;
 };

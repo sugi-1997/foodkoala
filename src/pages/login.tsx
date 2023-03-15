@@ -34,7 +34,7 @@ export default function Login() {
           Cookies.set('user_id', data[0].id);
 
           // メインページに遷移(遷移先はあとで変更してもよし)
-          // router.push('/');
+          router.push('/');
         } else {
           alert('入力内容を確認してください');
         }
