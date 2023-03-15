@@ -1,18 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-type Data = {
-  id: number;
-  name: string;
-  image_url: string;
-};
-
 export default async function GenreData(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const url = process.env['BACKEND_API_URL'];
-    const response = await fetch(`${url}/genre`);
+    const url = process.env['NEXT_PUBLIC_SUPABASE_URL'];
+    const response = await fetch(`${url}/genre?select=*`, {
+      headers: {
+        apikey: `${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+        Authorization: `Bearer ${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+      },
+    });
     const data = await response.json();
     if (!response.ok) {
       throw new Error('データの送信に失敗しました');

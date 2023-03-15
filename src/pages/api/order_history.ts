@@ -4,7 +4,7 @@ export default async function Orders(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const url = process.env['BACKEND_API_URL'];
+  const url = process.env['NEXT_PUBLIC_SUPABASE_URL'];
   const userId = req.query.user_id;
   try {
     if (userId!.includes('undefined')) {
@@ -12,7 +12,13 @@ export default async function Orders(
       res.status(200).json(data);
     } else {
       const response = await fetch(
-        `${url}/order_history?user_id=${userId}`
+        `${url}/order_history?user_id=${userId}`,
+        {
+          headers: {
+            apikey: `${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+            Authorization: `Bearer ${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+          },
+        }
       );
       const data = await response.json();
       res.status(200).json(data);

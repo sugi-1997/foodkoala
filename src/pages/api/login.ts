@@ -11,11 +11,17 @@ export default async function LoginData(
 ) {
   const email = req.body.email;
   const password = req.body.password;
+  const url = process.env['NEXT_PUBLIC_SUPABASE_URL'];
 
   try {
-    const url = process.env['BACKEND_API_URL'];
     const response = await fetch(
-      `${url}/users?email=eq.${email}&password=eq.${password}`
+      `${url}/users?email=eq.${email}&password=eq.${password}`,
+      {
+        headers: {
+          apikey: `${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+        },
+      }
     );
     const data = await response.json();
     if (!response.ok) {

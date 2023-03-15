@@ -4,10 +4,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const url = process.env['BACKEND_API_URL'];
+  const url = process.env['NEXT_PUBLIC_SUPABASE_URL'];
   try {
     const response = await fetch(
-      `${url}/users?email=eq.${req.body.email}`
+      `${url}/users?email=eq.${req.body.email}`,
+      {
+        headers: {
+          apikey: `${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+        },
+      }
     );
     const data = await response.json();
     if (!response.ok) {
