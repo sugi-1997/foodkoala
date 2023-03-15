@@ -4,6 +4,12 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
+import Head from 'next/head';
+import useSWR from 'swr';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Cookies from 'js-cookie';
+import Link from 'next/link';
 import ShopName from 'components/shop_name';
 import Header from 'components/header';
 import Footer from 'components/footer';
@@ -11,6 +17,8 @@ import BreadList, {
   menu_list,
   favorite_list,
 } from 'components/bread_list';
+import type { Shop } from 'types/shops';
+import styles from 'styles/Shop_list.module.css';
 import type { Shop } from 'types/shops';
 import styles from 'styles/Shop_list.module.css';
 
@@ -23,6 +31,7 @@ const fetcher = (resource: string) =>
 
 export default function ShopFavorite() {
   const userId = Cookies.get('user_id');
+  const [favoriteShops, setFavoriteShops] = useState<Shop[]>([]);
   const [favoriteShops, setFavoriteShops] = useState<Shop[]>([]);
 
   //userが登録したお気に入りのshop_idをfavoriteテーブルから取得

@@ -2,10 +2,12 @@ import styles from '../../styles/Shop.module.css';
 import type { Shop } from 'types/shops';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
 export default function FavoriteButton({ shop }: { shop: Shop }) {
   const [heart, setHeart] = useState('shop_favorite_false');
   const userId = Cookies.get('user_id');
+  const router = useRouter();
   //ページ遷移時にログイン前の場合はお気に入りボタンをグレーに。ログイン後の場合はshop_idとuser_idが一致するデータがfavoriteテーブルに存在するか確認してCSSを切り替え。
   useEffect((): any => {
     if (userId === undefined || userId === null) {
@@ -22,6 +24,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
       )
         .then((res) => res.json())
         .then((data) => {
+          console.log('data', data);
           if (data.length === 0) {
             setHeart('shop_favorite_false');
           } else {
@@ -31,15 +34,11 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
     }
   }, [shop.id, userId]);
 
-  //ログイン前はonClickでボタンのCSSを切り替え。ログイン後はcheckFavoriteを呼び出し
+  //ログイン前はonClickでログイン画面に切り替え。ログイン後はcheckFavoriteを呼び出し
   function handleClick() {
     if (userId === undefined || userId === null) {
-      if (heart === 'shop_favorite_true') {
-        setHeart('shop_favorite_false');
-      } else if (heart === 'shop_favorite_false') {
-        console.log('false');
-        setHeart('shop_favorite_true');
-      }
+      console.log('ログインしてください');
+      router.push('/login');
     } else {
       checkFavorite();
     }
