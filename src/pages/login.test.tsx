@@ -1,6 +1,68 @@
+import {
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+} from '@testing-library/react';
+import { useRouter } from 'next/router';
+import Login from './login';
+import fetch from 'node-fetch';
+
 export {};
 
-describe('Snapshot Testing', () => {
+//遷移のテストの時に使うはず…？
+jest.mock('next/router', () => ({ useRouter: jest.fn() }));
+
+describe('Login', () => {
+  test('ポストできてるか', async () => {
+    const fetchMock = jest.fn(() =>
+      Promise.resolve({ json: () => [] })
+    );
+    global.fetch = fetchMock;
+
+    render(<Login />);
+
+    fireEvent.change(
+      screen.getByPlaceholderText('something@example.com'),
+      {
+        target: { value: 'test@example.com' },
+      }
+    );
+    fireEvent.change(
+      screen.getByPlaceholderText('半角英数字で8文字以上'),
+      {
+        target: { value: 'password' },
+      }
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'ログイン' }));
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+    expect(fetchMock).toHaveBeenCalledWith('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: 'test@example.com',
+        password: 'password',
+      }),
+    });
+  });
+
+  test('ログイン失敗時にアラートがでるか否か', async () => {
+    const fetchMock = jest.fn(() =>
+      Promise.resolve({ json: () => [] })
+    );
+    global.fetch = fetchMock;
+
+    render(<Login />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'ログイン' }));
+
+    const alert = await screen.findByRole('alert');
+    expect(alert).toHaveTextContent('入力内容を確認してください');
+  });
+
+  //cookieのセットのやつまだテストかけていない
+
   // ログイン時、スナップショット
   test('toMatchSnapshot - 基本', () => {
     const login = `<>
@@ -80,4 +142,5 @@ describe('Snapshot Testing', () => {
   });
   // ログインエラー時のやつ→ということはエラー分岐を完成させなくてはいかん？
   // ログイン成功時のやつ…？
+  // 一旦保留するか。
 });
