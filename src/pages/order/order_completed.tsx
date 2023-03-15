@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from 'styles/order_completed.module.css';
 import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
 import useSWR from 'swr';
 import Timer from 'components/Timer';
 import Header from 'components/header';
@@ -10,9 +9,9 @@ import Footer from 'components/footer';
 import { useRouter } from 'next/router';
 import { Fetcher } from 'lib/Fetcher';
 import type { OrderItems } from 'types/order_items';
+import { userId } from 'lib/UserId';
 
 export default function OrderCompleted() {
-  const userId = Cookies.get('user_id');
   const [orderItems, setOrderItems] = useState<OrderItems[]>([]);
   const router = useRouter();
 

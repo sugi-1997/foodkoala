@@ -5,11 +5,11 @@ import Cookies from 'js-cookie';
 import styles from '../../styles/Shop.module.css';
 import { Shop } from 'types/shops';
 import { useRouter } from 'next/router';
+import { userId } from 'lib/UserId';
 
 describe('favorite_button', () => {
   it('Get favorite button status', () => {
     const [heart, setHeart] = useState('shop_favorite_false');
-    const userId = Cookies.get('user_id');
     useEffect(() => {
       if (userId === undefined || userId === null) {
         setHeart('shop_favorite_false');
@@ -23,7 +23,7 @@ describe('favorite_button', () => {
 // describe('favorite_button', () => {
 //   it('Favorite button to be false when render', () => {
 //     const [heart, setHeart] = useState('shop_favorite_false');
-//     const userId = Cookies.get('user_id');
+//
 //     const shop = {
 //       id: 1,
 //       name: '食堂麒麟',
