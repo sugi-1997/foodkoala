@@ -12,7 +12,9 @@ const url = '/api/login';
 export default function Login() {
   const router = useRouter();
 
-  const handleSend = (e) => {
+  // eの型を一時的にanyで指定しています
+
+  const handleSend = (e: any) => {
     e.preventDefault();
 
     // login.tsにポスト
@@ -33,8 +35,8 @@ export default function Login() {
           //data配列の0番目のオブジェクトからidを抽出してcookieのvalueに付与
           Cookies.set('user_id', data[0].id);
 
-          // メインページに遷移(遷移先はあとで変更してもよし)
-          router.push('/');
+          // メインページに遷移
+          // router.push('/');
         } else {
           alert('入力内容を確認してください');
         }
@@ -51,7 +53,9 @@ export default function Login() {
     password: '',
   });
 
-  const handleChange = (e) => {
+  // eの型を一時的にanyで指定しています
+
+  const handleChange = (e: any) => {
     setLoginForm((prevState) => {
       return {
         ...prevState,
