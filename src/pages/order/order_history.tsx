@@ -127,7 +127,12 @@ export default function OrderHistory() {
         <main>
           <div className={styles.favorite_login}>
             <div className={styles.favorite_login_link}>
-              <Image src="/images/foodkoala_img2.png" alt="コアラ" />
+              <Image
+                src="/images/foodkoala_img2.png"
+                alt="コアラ"
+                width={300}
+                height={300}
+              />
               <br />
               <br />
               <Link href="/">メニュー一覧へ</Link>

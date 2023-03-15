@@ -6,10 +6,16 @@ export default async function favoriteButton(
 ) {
   const shop_id = req.query.shop_id;
   const user_id = req.query.user_id;
-  const url = process.env['BACKEND_API_URL'];
+  const url = process.env['SUPABASE_URL'];
   try {
     const response = await fetch(
-      `${url}/favorite?shop_id=${shop_id}&user_id=${user_id}`
+      `${url}/favorite?shop_id=${shop_id}&user_id=${user_id}`,
+      {
+        headers: {
+          apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
+        },
+      }
     );
     const data = await response.json();
     if (!response) {
