@@ -6,7 +6,6 @@ import BreadList, {
 } from 'components/bread_list';
 import OrderList from 'components/order_list';
 import Footer from 'components/footer';
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import useSWR from 'swr';
@@ -14,9 +13,9 @@ import styles from 'styles/order_list.module.css';
 import type { CartItem } from 'types/cart_item';
 import Link from 'next/link';
 import { Fetcher } from 'lib/Fetcher';
+import { userId } from 'lib/UserId';
 
 export default function Orderlist() {
-  const userId = Cookies.get('user_id');
   const router = useRouter();
   let itemId: CartItem[] = [];
 

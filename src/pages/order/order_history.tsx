@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import Cookies from 'js-cookie';
 import useSWR from 'swr';
 import { useEffect, useState } from 'react';
 import BreadList, {
@@ -14,9 +13,9 @@ import type { OrderHistory } from 'types/order_history';
 import type { OrderItems } from 'types/order_items';
 import { Fetcher } from 'lib/Fetcher';
 import styles from 'styles/order_history.module.css';
+import { userId } from 'lib/UserId';
 
 export default function OrderHistory() {
-  const userId = Cookies.get('user_id');
   const [orderDate, setOrderDate] = useState<Date[]>([]);
   const [orderItems, setOrderItems] = useState<OrderItems[]>([]);
   const [pageId, setPageId] = useState(1);
