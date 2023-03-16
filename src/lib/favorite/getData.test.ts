@@ -1,4 +1,4 @@
-import getData from './getData';
+import GetData from './getData';
 import '@testing-library/jest-dom';
 import useSWR from 'swr';
 
@@ -16,7 +16,7 @@ describe('お気に入りデータを取得する', () => {
       error: undefined,
     });
     //getDataの呼び出し
-    const { data, error } = getData();
+    const { data, error } = GetData();
     //useSWRの呼び出し
     useSWR(`/api/favorite?user_id=eq.${userId}`, mockFetcher, {
       revalidateOnMount: true,
