@@ -20,7 +20,7 @@ import Script from 'next/script';
 const url = process.env['SUPABASE_URL'];
 
 export async function getStaticPaths() {
-  const res = await fetch(`${url}/shop_detail?id=gt.0`, {
+  const res = await fetch(`${url}/shop_detail`, {
     headers: {
       apikey: `${process.env['SUPABASE_ANON_KEY']}`,
       Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
