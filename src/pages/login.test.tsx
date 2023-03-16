@@ -18,7 +18,8 @@ describe('Login', () => {
     const fetchMock = jest.fn(() =>
       Promise.resolve({ json: () => [] })
     );
-    global.fetch = fetchMock;
+
+    (global as any).fetch = fetchMock;
 
     render(<Login />);
 
@@ -49,9 +50,11 @@ describe('Login', () => {
 
   test('ログイン失敗時にアラートがでるか否か', async () => {
     const fetchMock = jest.fn(() =>
-      Promise.resolve({ json: () => [] })
+      /*ここの扱いが決めっぽい↓*/
+
+      Promise.resolve({ json: () => null || undefined })
     );
-    global.fetch = fetchMock;
+    (global as any).fetch = fetchMock;
 
     render(<Login />);
 
