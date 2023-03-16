@@ -25,7 +25,7 @@ export default async function favoriteButton(
       throw new Error('Loading...');
     }
     res.status(200).json(data);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+  } catch (error: any) {
+    res.status(400).json({ message: error.message });
   }
 }
