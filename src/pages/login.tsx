@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import styles from '../styles/loginPage.module.css';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -12,7 +12,7 @@ const url = '/api/login';
 export default function Login() {
   const router = useRouter();
 
-  const handleSend = (e) => {
+  const handleSend = (e: SyntheticEvent) => {
     e.preventDefault();
 
     // login.tsにポスト
@@ -51,11 +51,11 @@ export default function Login() {
     password: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (target: any) => {
     setLoginForm((prevState) => {
       return {
         ...prevState,
-        [e.target.name]: e.target.value,
+        [target.name]: target.value,
       };
     });
   };
@@ -88,7 +88,7 @@ export default function Login() {
               <input
                 name="email"
                 type="email"
-                onChange={handleChange}
+                onChange={(e) => handleChange(e.currentTarget)}
                 placeholder="something@example.com"
                 required
                 className={styles.input_text_design}
@@ -100,7 +100,7 @@ export default function Login() {
               <input
                 name="password"
                 type="password"
-                onChange={handleChange}
+                onChange={(e) => handleChange(e.currentTarget)}
                 placeholder="半角英数字で8文字以上"
                 required
                 pattern="^[a-zA-Z0-9]+$"
