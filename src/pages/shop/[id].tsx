@@ -17,10 +17,10 @@ import styles from '../../styles/Shop.module.css';
 import Script from 'next/script';
 
 //お店情報の取得
-const url = process.env['API_URL'];
+const url = process.env['SUPABASE_URL'];
 
 export async function getStaticPaths() {
-  const res = await fetch(`${url}/api/shop_detail?id=gt.0`);
+  const res = await fetch(`${url}/shop_detail?id=gt.0`);
   const shops = await res.json();
   const paths = shops.map((shop: Shop) => ({
     params: {

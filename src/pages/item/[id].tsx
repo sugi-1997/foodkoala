@@ -71,10 +71,10 @@ export default function ItemPage({ data }: { data: Menu[] }) {
   );
 }
 
-const url = process.env['API_URL'];
+const url = process.env['SUPABASE_URL'];
 
 export async function getStaticPaths() {
-  const response = await fetch(`${url}/api/items?id=gt.0`);
+  const response = await fetch(`${url}/items?id=gt.0`);
   const data = await response.json();
   const paths = data.map((item: any) => ({
     params: {
