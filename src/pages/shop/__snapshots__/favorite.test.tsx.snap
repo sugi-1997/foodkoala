@@ -53,3 +53,11 @@ exports[`Snapshot Snapshot test of no_favorite_page 1`] = `
     <Footer />
   </>"
 `;
+
+exports[`お気に入りページのテスト データ待ちの場合のスナップショット 1`] = `[Function]`;
+
+exports[`お気に入りページのテスト ログインしていない場合のスナップショット 1`] = `[Function]`;
+
+exports[`お気に入りページのテスト ログイン後お気に入りがある場合のスナップショットテスト 1`] = `[Function]`;
+
+exports[`お気に入りページのテスト ログイン後お気に入りがない場合のスナップショットテスト 1`] = `[Function]`;
