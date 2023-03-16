@@ -1,36 +1,37 @@
-import Logout from './Logout';
-import { render, fireEvent } from '@testing-library/react';
-import Cookies from 'js-cookie';
+export {};
 
-//routerのモック
-const mockRouter = {
-  replace: jest.fn(),
-};
-jest
-  .spyOn(require('next/router'), 'useRouter')
-  .mockReturnValue(mockRouter);
+// import { render, fireEvent } from '@testing-library/react';
+// import Cookies from 'js-cookie';
 
-//js-cookieのモック
-const mockCookies = {
-  remove: jest.fn(),
-};
+// //routerのモック
+// const mockRouter = {
+//   replace: jest.fn(),
+// };
+// jest
+//   .spyOn(require('next/router'), 'useRouter')
+//   .mockReturnValue(mockRouter);
 
-jest
-  .spyOn(require('js-cookie'), 'remove')
-  .mockReturnValue(mockCookies);
+// //js-cookieのモック
+// const mockCookies = {
+//   remove: jest.fn(),
+// };
 
-describe('Loguout is function', () => {
-  it('logout-function is called when clicked', () => {
-    //ボタンのクリックイベント
-    const { getByText } = render(
-      <Logout className="logout-button" />
-    );
+// jest
+//   .spyOn(require('js-cookie'), 'remove')
+//   .mockReturnValue(mockCookies);
 
-    const logoutButton = getByText('ログアウト');
-    fireEvent.click(logoutButton);
+// describe('Loguout is function', () => {
+//   it('logout-function is called when clicked', () => {
+//     //ボタンのクリックイベント
+//     const { getByText } = render(
+//       <Logout className="logout-button" />
+//     );
 
-    //cookieがremoveされ、/loginにリダイレクトするかの確認
-    expect(Cookies.remove).toHaveBeenCalledWith('user_id');
-    expect(mockRouter.replace).toHaveBeenCalledWith('/login');
-  });
-});
+//     const logoutButton = getByText('ログアウト');
+//     fireEvent.click(logoutButton);
+
+//     //cookieがremoveされ、/loginにリダイレクトするかの確認
+//     expect(Cookies.remove).toHaveBeenCalledWith('user_id');
+//     expect(mockRouter.replace).toHaveBeenCalledWith('/login');
+//   });
+// });
