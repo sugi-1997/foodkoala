@@ -14,6 +14,7 @@ import FavoriteButton from 'components/shop/favorite_button';
 import { Fetcher } from 'lib/Fetcher';
 import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
 import styles from '../../styles/Shop.module.css';
+import Script from 'next/script';
 
 //お店情報の取得
 const url = process.env['API_URL'];
@@ -94,10 +95,10 @@ export default function ShopDetail({ shopData }: ShopProps) {
     <>
       <Head>
         <title id="title">ショップ詳細画面</title>
-        <script
+        <Script
           src="https://kit.fontawesome.com/acecca202b.js"
           crossOrigin="anonymous"
-        ></script>
+        ></Script>
       </Head>
       <Header />
       <BreadList list={[menu_list, shop_list, shop_page]} />
