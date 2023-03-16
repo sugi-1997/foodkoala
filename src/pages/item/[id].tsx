@@ -65,10 +65,15 @@ export default function ItemPage({ data }: { data: Menu[] }) {
   );
 }
 
-const url = process.env['API_URL'];
+const url = process.env['SUPABASE_URL'];
 
 export async function getStaticPaths() {
-  const response = await fetch(`${url}/api/items?id=gt.0`);
+  const response = await fetch(`${url}/items`, {
+    headers: {
+      apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+      Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
+    },
+  });
   const data = await response.json();
   const paths = data.map((item: any) => ({
     params: {
@@ -86,7 +91,12 @@ export async function getStaticProps({
 }: {
   params: { id: string };
 }) {
-  const response = await fetch(`${url}/api/items?id=eq.${params.id}`);
+  const response = await fetch(`${url}/items?id=eq.${params.id}`, {
+    headers: {
+      apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+      Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
+    },
+  });
   const data = await response.json();
   return {
     props: {
