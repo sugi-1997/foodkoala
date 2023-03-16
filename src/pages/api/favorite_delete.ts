@@ -6,7 +6,6 @@ export default async function FavoriteDelete(
 ) {
   try {
     const url = process.env['SUPABASE_URL'];
-    const body = req.body;
     const response = await fetch(
       `${url}/favorite?shop_id=${req.query.shop_id}`,
       {
@@ -15,13 +14,12 @@ export default async function FavoriteDelete(
           apikey: `${process.env['SUPABASE_ANON_KEY']}`,
           Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
         },
-        body: JSON.stringify(body),
       }
     );
     if (!response.ok) {
       throw new Error('送信に失敗しました');
     }
-    const data = await response.json();
+    const data = await response.text();
     res.status(200).json(data);
   } catch (error: any) {
     res.status(400).json({ message: error.message });
