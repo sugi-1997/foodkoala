@@ -55,13 +55,7 @@ export default function ItemPage({ data }: { data: Menu[] }) {
           <h1>{item.name}</h1>
           <p>{item.price}円</p>
           <p>{item.explain}</p>
-          <button
-            // className={styles.add_button}
-            data-menu-id={item.id}
-            onClick={(e) =>
-              cartSubmit(e.target.getAttribute('data-menu-id'))
-            }
-          >
+          <button value={item.id} onClick={() => cartSubmit(item.id)}>
             注文リストに追加
           </button>
         </div>
