@@ -95,11 +95,11 @@ export default function ShopDetail({ shopData }: ShopProps) {
     <>
       <Head>
         <title id="title">ショップ詳細画面</title>
-        <Script
-          src="https://kit.fontawesome.com/acecca202b.js"
-          crossOrigin="anonymous"
-        ></Script>
       </Head>
+      <Script
+        src="https://kit.fontawesome.com/acecca202b.js"
+        crossOrigin="anonymous"
+      ></Script>
       <Header />
       <BreadList list={[menu_list, shop_list, shop_page]} />
       <main>
