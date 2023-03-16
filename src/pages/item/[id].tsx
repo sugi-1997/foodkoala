@@ -59,7 +59,7 @@ export default function ItemPage({ data }: { data: Menu[] }) {
             // className={styles.add_button}
             data-menu-id={item.id}
             onClick={(e) =>
-              cartSubmit(e.target.getAttribute('data-menu-id'))
+              cartSubmit(e.currentTarget.getAttribute('data-menu-id'))
             }
           >
             注文リストに追加

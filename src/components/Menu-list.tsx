@@ -75,12 +75,12 @@ export default function MenuList() {
         <div className={styles.genre_area}>
           <Genre
             onClick={(e: SyntheticEvent) =>
-              handleGenreClick(e.target.id)
+              handleGenreClick(e.currentTarget.id)
             }
           />
           <Area
             onClick={(e: SyntheticEvent) =>
-              handleAreaClick(e.target.id)
+              handleAreaClick(e.currentTarget.id)
             }
           />
         </div>
@@ -110,7 +110,9 @@ export default function MenuList() {
               <button
                 data-menu-id={menu.id}
                 onClick={(e) =>
-                  cartSubmit(e.target.getAttribute('data-menu-id'))
+                  cartSubmit(
+                    e.currentTarget.getAttribute('data-menu-id')
+                  )
                 }
               >
                 注文リストに追加

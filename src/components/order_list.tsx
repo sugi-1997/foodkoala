@@ -131,7 +131,7 @@ export default function OrderList() {
                 <button
                   className={styles.delete_button}
                   id={`${item.id}`}
-                  onClick={(e) => handleDelete(e.target.id)}
+                  onClick={(e) => handleDelete(e.currentTarget.id)}
                 >
                   削除
                 </button>
