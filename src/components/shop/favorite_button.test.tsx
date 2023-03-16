@@ -90,7 +90,7 @@ describe('favorite_button', () => {
 
   it('お気に入りの時はお気に入りを削除してハートをグレーに', () => {
     // ログイン状態
-    const mockUserId = Cookies.set('access_token', '1');
+    const mockUserId = Cookies.set('1', 'access_token');
     expect(mockUserId).toBe('1');
 
     //　お気に入りのモック
