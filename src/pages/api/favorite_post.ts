@@ -4,7 +4,7 @@ export default async function FavoritePost(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const url = process.env['BACKEND_API_URL'];
+  const url = process.env['SUPABASE_URL'];
   try {
     const body = req.body;
     const response = await fetch(
