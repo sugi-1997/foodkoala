@@ -5,9 +5,14 @@ export default async function patchCarts(
   res: NextApiResponse
 ) {
   try {
-    const url = process.env['BACKEND_API_URL'];
+    const url = process.env['SUPABASE_URL'];
     const userId = req.query.user_id;
-    const response = await fetch(`${url}/carts?user_id=${userId}`);
+    const response = await fetch(`${url}/carts?user_id=${userId}`, {
+      headers: {
+        apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+        Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
+      },
+    });
     const data = await response.json();
     if (!response.ok) {
       throw new Error(`${response.statusText}`);
@@ -16,7 +21,8 @@ export default async function patchCarts(
       const response = await fetch(`${url}/carts?user_id=${userId}`, {
         method: 'PATCH',
         headers: {
-          Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
+          apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
           Prefer: 'return=representation',
           'Content-Type': 'application/json',
         },
@@ -33,7 +39,8 @@ export default async function patchCarts(
       const response = await fetch(`${url}/carts`, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
+          apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
           Prefer: 'return=representation',
           'Content-Type': 'application/json',
         },

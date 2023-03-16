@@ -7,13 +7,13 @@ export default async function ItemData(
   const genreId = req.query.genreId;
   const areaId = req.query.areaId;
   const id = req.query.id;
-  const url = process.env['NEXT_PUBLIC_SUPABASE_URL'];
+  const url = process.env['SUPABASE_URL'];
   if (id!.includes('eq')) {
     try {
       const response = await fetch(`${url}/items?id=${id}`, {
         headers: {
-          apikey: `${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
-          Authorization: `Bearer ${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+          apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
         },
       });
       const data = await response.json();
@@ -31,8 +31,8 @@ export default async function ItemData(
     try {
       const response = await fetch(`${url}/items?area_id=${areaId}`, {
         headers: {
-          apikey: `${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
-          Authorization: `Bearer ${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+          apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
         },
       });
       const data = await response.json();
@@ -52,8 +52,8 @@ export default async function ItemData(
         `${url}/items?genre_id=${genreId}`,
         {
           headers: {
-            apikey: `${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
-            Authorization: `Bearer ${process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']}`,
+            apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+            Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
           },
         }
       );
