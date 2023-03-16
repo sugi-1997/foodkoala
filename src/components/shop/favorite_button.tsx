@@ -9,7 +9,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
   const [heart, setHeart] = useState('shop_favorite_false');
   const router = useRouter();
   //ページ遷移時にログイン前の場合はお気に入りボタンをグレーに。ログイン後の場合はshop_idとuser_idが一致するデータがfavoriteテーブルに存在するか確認してCSSを切り替え。
-  useEffect((): any => {
+  useEffect((): void => {
     if (userId === undefined || userId === null) {
       setHeart('shop_favorite_false');
     } else {
@@ -68,16 +68,19 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
 
   //favoriteテーブルに登録（shop_id&user_id)してボタンのCSSをsetHeart
   function postFavorite() {
-    fetch(`/api/favorite_post?shop_id=eq.${shop.id}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        shop_id: shop.id,
-        user_id: userId,
-      }),
-    })
+    fetch(
+      `/api/favorite_post?shop_id=eq.${shop.id}&user_id=eq.${userId}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          shop_id: shop.id,
+          user_id: userId,
+        }),
+      }
+    )
       .then((response) => {
         if (response.ok) {
           setHeart('shop_favorite_true');
@@ -90,15 +93,15 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
 
   //favoriteテーブルから削除（shop_id&user_id)してボタンのCSSをsetHeart
   function deleteFavorite() {
-    fetch(`/api/favorite_delete?shop_id=eq.${shop.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user_id: userId,
-      }),
-    })
+    fetch(
+      `/api/favorite_delete?shop_id=eq.${shop.id}&user_id=eq.${userId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
       .then((response) => {
         if (response.ok) {
           setHeart('shop_favorite_false');
@@ -113,7 +116,11 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
   return (
     <>
       <div className={styles[heart]}>
-        <button type="button" onClick={handleClick}>
+        <button
+          type="button"
+          onClick={handleClick}
+          data-testid={'favorite'}
+        >
           <i className="fa-solid fa-heart"></i>
         </button>
       </div>

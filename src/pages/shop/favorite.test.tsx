@@ -1,68 +1,48 @@
-import '@testing-library/jest-dom/extend-expect';
-import ShopFavorite from './favorite';
 import { render } from '@testing-library/react';
+import NoLoginFavorite from 'components/shop/no_login_favorite';
+import LoadingFavorite from 'components/shop/loading_favorite';
+import NoFavorite from 'components/shop/no_favorite';
+import Favorite from 'components/shop/favorite';
 
-// describe('Snapshot', () => {
-//   // ログイン時のスナップショットテスト
-//   it('Snapshot test of favorite_page_login', () => {
-//     const favorite = `    <>
-//         <Head>
-//           <title>お気に入り店舗一覧</title>
-//         </Head>
-//         <Header />
-//         <BreadList list={[menu_list, favorite_list]} />
-//         <ShopName data={favoriteShops} />
-//         <Footer />
-//       </>`;
-//     expect(favorite).toMatchSnapshot();
-//   });
-//   // ログイン前のスナップショットテスト
-//   it('Snapshot test of favorite_page_logout', () => {
-//     const favorite_logout = `<>
-//     <Header />
-//     <BreadList list={[menu_list, favorite_list]} />
-//     <div>
-//       <div className={styles.favorite_login}>
-//         <div className={styles.favorite_login_link}>
-//           <img src="/images/foodkoala_img2.png" alt="コアラ" />
-//           <br />
-//           <br />
-//           <a href="/login">ログイン</a>
-//         </div>
-//         <br />
-//         <p>
-//           お気に入り店舗一覧を表示したい場合はログインをしてください
-//         </p>
-//       </div>
-//     </div>
-//     <Footer />
-//   </>`;
-//     expect(favorite_logout).toMatchSnapshot();
-//   });
-//   // ログイン後お気に入り登録がない場合のスナップショットテスト
-//   it('Snapshot test of no_favorite_page', () => {
-//     const no_favorite_page = `<>
-//     <Header />
-//     <BreadList list={[menu_list, favorite_list]} />
-//     <div>
-//       <div className={styles.favorite_login}>
-//         <div className={styles.favorite_login_link}>
-//           <img src="/images/foodkoala_img2.png" alt="コアラ" />
-//           <br />
-//           <br />
-//           <a href="/shop/list">ショップ一覧へ</a>
-//         </div>
-//         <br />
-//         <p>お気に入り店舗がありません</p>
-//       </div>
-//     </div>
-//     <Footer />
-//   </>`;
-//     expect(no_favorite_page).toMatchSnapshot();
-//   });
-// });
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      asPath: '/login',
+    };
+  },
+}));
 
-// describe('favoriteスナップショット', () => {
-//   const { asFragment } = render(<ShopFavorite />);
-//   expect(asFragment()).toMatchSnapshot();
-// });
+describe('お気に入りページのテスト', () => {
+  it('ログイン後お気に入りがある場合のスナップショットテスト', () => {
+    const mockFavoriteShops = [
+      {
+        id: 1,
+        name: '麒麟食堂',
+        description: '美味しいです',
+        image_url: '/images/shop/shokudo.shop.jpg',
+        score: 3,
+        genre_id: 1,
+        area_id: 2,
+        review_1: '美味しいです',
+        review_2: '美味しいです',
+        review_3: '美味しいです',
+      },
+    ];
+    const { asFragment } = render(
+      <Favorite favoriteShops={mockFavoriteShops} />
+    );
+    expect(asFragment).toMatchSnapshot();
+  });
+  it('ログイン後お気に入りがない場合のスナップショットテスト', () => {
+    const { asFragment } = render(<NoFavorite />);
+    expect(asFragment).toMatchSnapshot();
+  });
+  it('データ待ちの場合のスナップショット', () => {
+    const { asFragment } = render(<LoadingFavorite />);
+    expect(asFragment).toMatchSnapshot();
+  });
+  it('ログインしていない場合のスナップショット', () => {
+    const { asFragment } = render(<NoLoginFavorite />);
+    expect(asFragment).toMatchSnapshot();
+  });
+});
