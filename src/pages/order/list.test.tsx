@@ -85,35 +85,35 @@ describe('OrderList', () => {
     //スナップショットテスト
     expect(asFragment()).toMatchSnapshot();
   });
+});
 
-  it('renders Orderlist when items in the cart', async () => {
-    const mockData = [
-      {
-        id: 1,
-        cart_id: 1,
-        item_id: 5,
-        count: 1,
-      },
-    ];
-    jest.mock('swr');
-    (global as any).fetch.mockResolvedValue({
-      ok: true,
-      status: 200,
-      json: async () => mockData,
-    });
-
-    const { asFragment } = render(
-      <SWRConfig>
-        <Orderlist />
-      </SWRConfig>
-    );
-    // 画面に商品が描写されているかの確認
-
-    expect(await screen.findByText('焼きいも')).toBeInTheDocument();
-
-    // fetchの引数が正しいかの確認
-    expect(fetch).toHaveBeenCalledWith('/api/get_cart_items');
-    // スナップショットテストの実施
-    expect(asFragment()).toMatchSnapshot();
+it('renders Orderlist when items in the cart', async () => {
+  const mockData = [
+    {
+      id: 1,
+      cart_id: 1,
+      item_id: 5,
+      count: 1,
+    },
+  ];
+  jest.mock('swr');
+  global.fetch = jest.fn().mockResolvedValue({
+    ok: true,
+    status: 200,
+    json: async () => mockData,
   });
+
+  const { asFragment } = render(
+    <SWRConfig>
+      <Orderlist />
+    </SWRConfig>
+  );
+  // 画面に商品が描写されているかの確認
+
+  expect(await screen.findByText(/小計/)).toBeInTheDocument();
+
+  // fetchの引数が正しいかの確認
+  expect(fetch).toHaveBeenCalledWith('/api/get_cart_items');
+  // スナップショットテストの実施
+  expect(asFragment()).toMatchSnapshot();
 });
