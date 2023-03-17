@@ -33,7 +33,7 @@ export function useSetShops(data: any) {
       };
       getFavoriteShops();
     }
-  }, [data, userId]);
+  }, [data]);
 
   return favoriteShops;
 }

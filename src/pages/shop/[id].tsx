@@ -16,10 +16,15 @@ import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
 import styles from '../../styles/Shop.module.css';
 
 //お店情報の取得
-const url = process.env['API_URL'];
+const url = process.env['SUPABASE_URL'];
 
 export async function getStaticPaths() {
-  const res = await fetch(`${url}/api/shop_detail?id=gt.0`);
+  const res = await fetch(`${url}/shops`, {
+    headers: {
+      apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+      Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
+    },
+  });
   const shops = await res.json();
   const paths = shops.map((shop: Shop) => ({
     params: {
@@ -33,9 +38,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: GetStaticProps) {
-  const res = await fetch(
-    `${url}/api/shop_detail?id=eq.${params.id}`
-  );
+  const res = await fetch(`${url}/shops?id=eq.${params.id}`, {
+    headers: {
+      apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+      Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
+    },
+  });
   const shopData = await res.json();
   return {
     props: { shopData },
@@ -95,6 +103,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
       <Head>
         <title id="title">ショップ詳細画面</title>
         <script
+          async
           src="https://kit.fontawesome.com/acecca202b.js"
           crossOrigin="anonymous"
         ></script>

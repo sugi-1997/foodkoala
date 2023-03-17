@@ -20,7 +20,7 @@ export default async function CartItems(
     }
     const data = await response.text();
     res.status(200).json(data);
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ message: error.message });
   }
 }
