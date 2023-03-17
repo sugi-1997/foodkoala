@@ -5,25 +5,21 @@ export default async function FavoriteDelete(
   res: NextApiResponse
 ) {
   try {
-    const url = process.env['BACKEND_API_URL'];
-    const body = req.body;
+    const url = process.env['SUPABASE_URL'];
     const response = await fetch(
       `${url}/favorite?shop_id=${req.query.shop_id}`,
       {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json',
-          Prefer: 'return=representation',
-          //↓TOKEN設定
-          Authorization: `Bearer ${process.env.POSTGREST_API_TOKEN}`,
+          apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
         },
-        body: JSON.stringify(body),
       }
     );
     if (!response.ok) {
       throw new Error('送信に失敗しました');
     }
-    const data = await response.json();
+    const data = await response.text();
     res.status(200).json(data);
   } catch (error: any) {
     res.status(400).json({ message: error.message });

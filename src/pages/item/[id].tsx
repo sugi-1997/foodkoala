@@ -55,13 +55,7 @@ export default function ItemPage({ data }: { data: Menu[] }) {
           <h1>{item.name}</h1>
           <p>{item.price}円</p>
           <p>{item.explain}</p>
-          <button
-            // className={styles.add_button}
-            data-menu-id={item.id}
-            onClick={(e) =>
-              cartSubmit(e.target.getAttribute('data-menu-id'))
-            }
-          >
+          <button value={item.id} onClick={() => cartSubmit(item.id)}>
             注文リストに追加
           </button>
         </div>
@@ -71,8 +65,15 @@ export default function ItemPage({ data }: { data: Menu[] }) {
   );
 }
 
+const url = process.env['SUPABASE_URL'];
+
 export async function getStaticPaths() {
-  const response = await fetch('http://127.0.0.1:8000/items');
+  const response = await fetch(`${url}/items`, {
+    headers: {
+      apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+      Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
+    },
+  });
   const data = await response.json();
   const paths = data.map((item: any) => ({
     params: {
@@ -90,9 +91,12 @@ export async function getStaticProps({
 }: {
   params: { id: string };
 }) {
-  const response = await fetch(
-    `http://127.0.0.1:8000/items?id=eq.${params.id}`
-  );
+  const response = await fetch(`${url}/items?id=eq.${params.id}`, {
+    headers: {
+      apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+      Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
+    },
+  });
   const data = await response.json();
   return {
     props: {

@@ -4,7 +4,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const url = process.env['BACKEND_API_URL'];
+  const url = process.env['SUPABASE_URL'];
   const userInfo = req.body;
   try {
     const response = await fetch(`${url}/users`, {
@@ -12,7 +12,8 @@ export default async function handler(
       headers: {
         'Content-Type': 'application/json',
         Prefer: 'return=representation',
-        Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
+        apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+        Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
       },
       body: JSON.stringify(userInfo),
     });
@@ -24,7 +25,7 @@ export default async function handler(
       throw new Error('データが見つかりませんでした');
     }
     res.status(200).json(data);
-  } catch (error) {
-    res.status(400).json({ error: error });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
   }
 }

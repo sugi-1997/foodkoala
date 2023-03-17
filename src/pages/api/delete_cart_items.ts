@@ -5,23 +5,22 @@ export default async function CartItems(
   res: NextApiResponse
 ) {
   try {
-    const url = process.env['BACKEND_API_URL'];
+    const url = process.env['SUPABASE_URL'];
     const id = req.query.item_id;
     const response = await fetch(`${url}/cart_items?item_id=${id}`, {
       method: req.method,
       headers: {
-        Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
-        Prefer: 'return=representation',
-        'Content-Type': 'application/json',
+        apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+        Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
       },
       body: JSON.stringify(req.body),
     });
     if (!response.ok) {
       throw new Error('送信に失敗しました');
     }
-    const data = await response.json();
+    const data = await response.text();
     res.status(200).json(data);
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ message: error.message });
   }
 }

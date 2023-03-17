@@ -1,9 +1,7 @@
-import '@testing-library/jest-dom/extend-expect';
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
-describe('Snapshot', () => {
-  // ログイン時のスナップショットテスト
-  it('Snapshot test of favorite_page_login', () => {
-    const favorite = `    <>
+exports[`Snapshot Snapshot test of favorite_page_login 1`] = `
+"    <>
         <Head>
           <title>お気に入り店舗一覧</title>
         </Head>
@@ -11,12 +9,11 @@ describe('Snapshot', () => {
         <BreadList list={[menu_list, favorite_list]} />
         <ShopName data={favoriteShops} />
         <Footer />
-      </>`;
-    expect(favorite).toMatchSnapshot();
-  });
-  // ログイン前のスナップショットテスト
-  it('Snapshot test of favorite_page_logout', () => {
-    const favorite_logout = `<>
+      </>"
+`;
+
+exports[`Snapshot Snapshot test of favorite_page_logout 1`] = `
+"<>
     <Header />
     <BreadList list={[menu_list, favorite_list]} />
     <div>
@@ -34,12 +31,11 @@ describe('Snapshot', () => {
       </div>
     </div>
     <Footer />
-  </>`;
-    expect(favorite_logout).toMatchSnapshot();
-  });
-  // ログイン後お気に入り登録がない場合のスナップショットテスト
-  it('Snapshot test of no_favorite_page', () => {
-    const no_favorite_page = `<>
+  </>"
+`;
+
+exports[`Snapshot Snapshot test of no_favorite_page 1`] = `
+"<>
     <Header />
     <BreadList list={[menu_list, favorite_list]} />
     <div>
@@ -55,7 +51,13 @@ describe('Snapshot', () => {
       </div>
     </div>
     <Footer />
-  </>`;
-    expect(no_favorite_page).toMatchSnapshot();
-  });
-});
+  </>"
+`;
+
+exports[`お気に入りページのテスト データ待ちの場合のスナップショット 1`] = `[Function]`;
+
+exports[`お気に入りページのテスト ログインしていない場合のスナップショット 1`] = `[Function]`;
+
+exports[`お気に入りページのテスト ログイン後お気に入りがある場合のスナップショットテスト 1`] = `[Function]`;
+
+exports[`お気に入りページのテスト ログイン後お気に入りがない場合のスナップショットテスト 1`] = `[Function]`;

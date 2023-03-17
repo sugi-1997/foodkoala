@@ -12,6 +12,7 @@ export default function TopPage() {
       <Head>
         <title>Food Koala について</title>
         <script
+          async
           src="https://kit.fontawesome.com/acecca202b.js"
           crossOrigin="anonymous"
         ></script>

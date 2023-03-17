@@ -4,10 +4,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const url = process.env['BACKEND_API_URL'];
+  const url = process.env['SUPABASE_URL'];
   try {
     const response = await fetch(
-      `${url}/users?email=eq.${req.body.email}`
+      `${url}/users?email=eq.${req.body.email}`,
+      {
+        headers: {
+          apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+          Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
+        },
+      }
     );
     const data = await response.json();
     if (!response.ok) {
@@ -17,7 +23,7 @@ export default async function handler(
       throw new Error('データが見つかりませんでした');
     }
     res.status(200).json(data);
-  } catch (error) {
-    res.status(400).json({ error: error });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
   }
 }

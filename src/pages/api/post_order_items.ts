@@ -4,12 +4,13 @@ export default async function OrderItems(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const url = process.env['BACKEND_API_URL'];
+  const url = process.env['SUPABASE_URL'];
   try {
     const response = await fetch(`${url}/order_items`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env['POSTGREST_API_TOKEN']}`,
+        apikey: `${process.env['SUPABASE_ANON_KEY']}`,
+        Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
         Prefer: 'return=representation',
         'Content-Type': 'application/json',
       },
@@ -17,7 +18,7 @@ export default async function OrderItems(
     });
     const data = response.json();
     res.status(200).json(data);
-  } catch (error) {
-    res.status(400).json({ error: error });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
   }
 }

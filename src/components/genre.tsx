@@ -6,7 +6,9 @@ import type { Genre } from 'types/genre';
 import { Fetcher } from 'lib/Fetcher';
 
 export default function Genre({ onClick }: any) {
-  const { data, error } = useSWR('/api/genre', Fetcher);
+  const { data, error } = useSWR('/api/genre', Fetcher, {
+    revalidateOnMount: true,
+  });
 
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データがありませんでした</div>;
@@ -21,7 +23,6 @@ export default function Genre({ onClick }: any) {
               <button id={`${genre.id}`} onClick={onClick}>
                 <Image
                   src={genre.image_url}
-                  id={`${genre.id}`}
                   alt="genre-icon"
                   width={300}
                   height={300}
