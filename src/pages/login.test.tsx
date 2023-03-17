@@ -9,7 +9,10 @@ import Login from './login';
 import Cookies from 'js-cookie';
 import { act } from 'react-dom/test-utils';
 
-export {};
+const ExampleComponent = () => {
+  return <div>Hello, World!</div>;
+};
+export default ExampleComponent;
 
 // jest.mock('next/router', () => ({ useRouter: jest.fn() }));
 
