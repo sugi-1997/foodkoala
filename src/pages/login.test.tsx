@@ -41,7 +41,7 @@ describe('Login', () => {
     expect(passwordInput).toHaveValue('password');
   });
 
-  //ポストのチェック　いけた
+  //ポストのチェック
   test('ポストできてるか', async () => {
     const fetchMock = jest.fn(() =>
       Promise.resolve({ json: () => [] })
@@ -76,7 +76,7 @@ describe('Login', () => {
     });
   });
 
-  //アラート　いけてない
+  //アラート
   test('ログイン失敗時にアラートがでるか否か', async () => {
     const fetchMock = jest.fn(() =>
       /*ここの扱いが決めっぽい↓*/
@@ -97,7 +97,7 @@ describe('Login', () => {
     expect(global.alert).toHaveBeenCalled();
   });
 
-  //cookieのセット　いけた
+  //cookieのセット
   test('set cookie', async () => {
     const user = {
       id: '1',
