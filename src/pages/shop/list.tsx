@@ -48,7 +48,7 @@ export default function ShopList() {
       <Head>
         <title>ショップ一覧</title>
       </Head>
-      <main>
+      <main className={styles.main}>
         <a id="link2">
           <Header />
         </a>

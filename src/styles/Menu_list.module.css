@@ -8,7 +8,6 @@
   margin: 0 auto;
   font-size: 30px;
   color: rgb(123, 116, 116);;
-  /* border:  1px solid #000; */
 }
 
 .genre_area {
@@ -22,7 +21,6 @@
   width: 80%;
   margin: 0px auto;
   
-  /* border: 1px solid #000; */
 }
 
 .menu {
@@ -33,7 +31,6 @@
   border-radius: 5px;
   padding: 3%;
   box-shadow: 3px 5px #9bb0a5;
-  /* border: 1px solid #000; */
 }
 
 .menu_link {

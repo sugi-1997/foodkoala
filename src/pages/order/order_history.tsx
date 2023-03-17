@@ -154,72 +154,74 @@ export default function OrderHistory() {
           <title>注文履歴</title>
         </Head>
         <Header />
-        <BreadList list={[menu_list, order_history]} />
-        <div className={styles.h1}>
-          <h1>注文履歴一覧</h1>
-        </div>
-        <div className={styles.order_history}>
-          <h2>
-            {orderDate[data.length - pageId].getFullYear()}年
-            {orderDate[data.length - pageId].getMonth() + 1}月
-            {orderDate[data.length - pageId].getDate()}日
-            {orderDate[data.length - pageId].getHours()}時
-            {orderDate[data.length - pageId].getMinutes()}分
-          </h2>
-          <div>
-            <dl className={styles.dl}>
-              <div className={styles.background_orange}>
-                <dt>
-                  <span>注文コード</span>
-                </dt>
-                <dd>{data[data.length - pageId].order_code}</dd>
-              </div>
-              <div>
-                <dt>
-                  <span>ご注文内容</span>
-                </dt>
-                {orderItems.map((item, index) => (
-                  <dd key={index}>{item.item_name}</dd>
-                ))}
-              </div>
-              <div className={styles.background_orange}>
-                <dt>
-                  <span>お支払い金額</span>
-                </dt>
-                <dd>{data[data.length - pageId].total}円</dd>
-              </div>
-              <div>
-                <dt>
-                  <span>お支払い方法</span>
-                </dt>
-                <dd>{data[data.length - pageId].payment_method}</dd>
-              </div>
-            </dl>
+        <div className={styles.main}>
+          <BreadList list={[menu_list, order_history]} />
+          <div className={styles.h1}>
+            <h1>注文履歴一覧</h1>
+          </div>
+          <div className={styles.order_history}>
+            <h2>
+              {orderDate[data.length - pageId].getFullYear()}年
+              {orderDate[data.length - pageId].getMonth() + 1}月
+              {orderDate[data.length - pageId].getDate()}日
+              {orderDate[data.length - pageId].getHours()}時
+              {orderDate[data.length - pageId].getMinutes()}分
+            </h2>
             <div>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1620.2499744702093!2d139.70209411744383!3d35.689312900000026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d9c8bc1bfbb%3A0xcb44f68a614c714a!2z5qCq5byP5Lya56S-44Op44Kv44K544OR44O844OI44OK44O844K6!5e0!3m2!1sja!2sjp!4v1678233520521!5m2!1sja!2sjp"
-                width="400"
-                height="400"
-                loading="lazy"
-                className={styles.map}
-              ></iframe>
-            </div>
-            {/* <div className={styles.link}>
+              <dl className={styles.dl}>
+                <div className={styles.background_orange}>
+                  <dt>
+                    <span>注文コード</span>
+                  </dt>
+                  <dd>{data[data.length - pageId].order_code}</dd>
+                </div>
+                <div>
+                  <dt>
+                    <span>ご注文内容</span>
+                  </dt>
+                  {orderItems.map((item, index) => (
+                    <dd key={index}>{item.item_name}</dd>
+                  ))}
+                </div>
+                <div className={styles.background_orange}>
+                  <dt>
+                    <span>お支払い金額</span>
+                  </dt>
+                  <dd>{data[data.length - pageId].total}円</dd>
+                </div>
+                <div>
+                  <dt>
+                    <span>お支払い方法</span>
+                  </dt>
+                  <dd>{data[data.length - pageId].payment_method}</dd>
+                </div>
+              </dl>
+              <div>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1620.2499744702093!2d139.70209411744383!3d35.689312900000026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d9c8bc1bfbb%3A0xcb44f68a614c714a!2z5qCq5byP5Lya56S-44Op44Kv44K544OR44O844OI44OK44O844K6!5e0!3m2!1sja!2sjp!4v1678233520521!5m2!1sja!2sjp"
+                  width="400"
+                  height="400"
+                  loading="lazy"
+                  className={styles.map}
+                ></iframe>
+              </div>
+              {/* <div className={styles.link}>
               <Link href={'注文詳細'}>詳細を見る</Link>
             </div> */}
+            </div>
           </div>
-        </div>
-        <div className={styles.buttons}>
-          {data.map((item: OrderHistory, index: number) => (
-            <input
-              type="button"
-              value={index + 1}
-              onClick={() => {
-                setPageId(index + 1);
-              }}
-              key={index}
-            />
-          ))}
+          <div className={styles.buttons}>
+            {data.map((item: OrderHistory, index: number) => (
+              <input
+                type="button"
+                value={index + 1}
+                onClick={() => {
+                  setPageId(index + 1);
+                }}
+                key={index}
+              />
+            ))}
+          </div>
         </div>
         <Footer />
       </>

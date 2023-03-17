@@ -109,7 +109,6 @@ it('renders Orderlist when items in the cart', async () => {
     </SWRConfig>
   );
   // 画面に商品が描写されているかの確認
-
   expect(await screen.findByText(/小計/)).toBeInTheDocument();
 
   // fetchの引数が正しいかの確認

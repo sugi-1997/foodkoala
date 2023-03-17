@@ -1,7 +1,6 @@
 .shop_list_main {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 auto;
     justify-content: center;
     width: 100%;
 }
@@ -99,8 +98,16 @@
 
 /* ログイン前のお気に入りページ */
 .favorite_login {
-    margin: 70px 0;
+    margin: 90px 0;
     text-align: center;
+}
+
+.favorite_login_link {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
 }
 
 .favorite_login_link a{
