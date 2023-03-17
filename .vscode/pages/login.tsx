@@ -5,6 +5,7 @@ import { SyntheticEvent, useState } from 'react';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import Image from 'next/image';
+import React from 'react';
 
 // login.tsの住所
 const url = '/api/login';
