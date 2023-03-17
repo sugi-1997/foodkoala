@@ -55,13 +55,7 @@ export default function ItemPage({ data }: { data: Menu[] }) {
           <h1>{item.name}</h1>
           <p>{item.price}円</p>
           <p>{item.explain}</p>
-          <button
-            // className={styles.add_button}
-            data-menu-id={item.id}
-            onClick={(e) =>
-              cartSubmit(e.currentTarget.getAttribute('data-menu-id'))
-            }
-          >
+          <button value={item.id} onClick={() => cartSubmit(item.id)}>
             注文リストに追加
           </button>
         </div>
@@ -80,8 +74,8 @@ export async function getStaticPaths() {
       Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,
     },
   });
-  const data: Menu[] = await response.json();
-  const paths = data.map((item: Menu) => ({
+  const data = await response.json();
+  const paths = data.map((item: any) => ({
     params: {
       id: `${item.id}`,
     },

@@ -18,7 +18,7 @@ export default async function OrderItems(
     });
     const data = response.json();
     res.status(200).json(data);
-  } catch (error) {
-    res.status(400).json({ error: error });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
   }
 }

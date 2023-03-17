@@ -19,7 +19,7 @@ export default async function Orders(
     const data = response.json();
     console.log('ordersにデータを追加しました', data);
     res.status(200).json(data);
-  } catch (error) {
-    res.status(400).json({ error: error });
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
   }
 }

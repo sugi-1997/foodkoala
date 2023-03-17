@@ -52,7 +52,7 @@ export default function OrderHistory() {
       }
     }
     getOrderItems();
-  }, [data, userId, pageId]);
+  }, [data, pageId]);
 
   //ordered_atをDate型に変換
   useEffect(() => {
