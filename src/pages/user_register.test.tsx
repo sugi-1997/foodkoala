@@ -1,8 +1,4 @@
 import '@testing-library/jest-dom/extend-expect';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import UserRegisterPage, { validate } from './user_register';
-import React, { useState as useStateMock } from 'react';
 
 // ユーザー登録（初期画面）
 describe('ユーザー登録画面', () => {
@@ -295,28 +291,3 @@ describe('ユーザー登録画面', () => {
     expect(userRegister).toMatchSnapshot();
   });
 });
-
-// fetchできた時のテスト
-// jest.mock('next/router', () => {
-//   useRouter() {
-//     return {
-//       replace: jest.fn(),
-//       push: jest.fn(),
-//       reload: jest.fn()
-//     }
-//   }
-// });
-
-// 各項目でエラーが起きた時
-// 名前が未入力の場合エラーを表示
-describe('お名前', () => {
-  test('formが未入力の場合、値がalertに変更される', () => {
-    expect('').toBe('alert');
-  });
-});
-
-// メールアドレスが未入力の場合エラーを表示
-// 郵便番号が未入力の場合エラーを表示
-// 住所が未入力の場合エラーを表示
-// パスワードが未入力の場合エラーを表示
-// パスワード（確認用）が未入力の場合エラーを表示
