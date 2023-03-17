@@ -1,7 +1,6 @@
 import styles from '../../styles/Shop.module.css';
 import type { Shop } from 'types/shops';
 import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { userId } from 'lib/UserId';
 
@@ -83,6 +82,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
     )
       .then((response) => {
         if (response.ok) {
+          console.log('response', response);
           setHeart('shop_favorite_true');
         }
       })
