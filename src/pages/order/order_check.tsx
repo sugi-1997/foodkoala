@@ -39,7 +39,7 @@ export default function OrderCheck() {
       }
     }
     getItemId();
-  }, [router, userId]);
+  }, [router]);
 
   //item_idが一致する商品のデータを取得
   useEffect(() => {

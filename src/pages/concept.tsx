@@ -5,18 +5,18 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import styles from '../styles/concept.module.css';
 import BreadList, { menu_list, concept } from 'components/bread_list';
-import Script from 'next/script';
 
 export default function TopPage() {
   return (
     <>
       <Head>
         <title>Food Koala について</title>
+        <script
+          async
+          src="https://kit.fontawesome.com/acecca202b.js"
+          crossOrigin="anonymous"
+        ></script>
       </Head>
-      <Script
-        src="https://kit.fontawesome.com/acecca202b.js"
-        crossOrigin="anonymous"
-      ></Script>
       <Header />
       <BreadList list={[menu_list, concept]} />
       <div className={styles.concept}>
