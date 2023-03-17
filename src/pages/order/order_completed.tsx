@@ -46,7 +46,7 @@ export default function OrderCompleted() {
       }
     }
     getOrderItems();
-  }, [data, router, userId]);
+  }, [data, router]);
 
   if (error) return <div>エラーです</div>;
   if (!data) return <div>Loading...</div>;

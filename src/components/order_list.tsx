@@ -45,11 +45,11 @@ export default function OrderList() {
   }, [cartItems, subTotal]);
 
   //商品の削除
-  const handleDelete = async (clickedId: string) => {
+  const handleDelete = async (clickedId: number) => {
     await fetch(`/api/delete_cart_items?item_id=eq.${clickedId}`, {
       method: 'DELETE',
       body: JSON.stringify({
-        item_id: Number(clickedId),
+        item_id: clickedId,
       }),
     })
       .then((res) => res.json())
@@ -130,8 +130,8 @@ export default function OrderList() {
               <dd>
                 <button
                   className={styles.delete_button}
-                  id={`${item.id}`}
-                  onClick={(e) => handleDelete(e.target.id)}
+                  value={item.id}
+                  onClick={() => handleDelete(item.id)}
                 >
                   削除
                 </button>

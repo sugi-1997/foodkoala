@@ -4,10 +4,23 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/userRegister_completed.module.css';
+import { useEffect, useState } from 'react';
 
 export default function ItemListPage() {
-  const userName = localStorage.getItem('name');
+  const [userName, setUserName] = useState<string>('');
 
+  useEffect(() => {
+    const newUserName = localStorage.getItem('name');
+    if (newUserName === null || newUserName === undefined) {
+      return;
+    } else {
+      setUserName(newUserName);
+    }
+  }, []);
+
+  if (userName === undefined || userName === '') {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <Head>

@@ -39,7 +39,7 @@ export default function OrderCheck() {
       }
     }
     getItemId();
-  }, [router, userId]);
+  }, [router]);
 
   //item_idが一致する商品のデータを取得
   useEffect(() => {
@@ -284,8 +284,8 @@ export default function OrderCheck() {
           <Coupon
             subTotal={subTotal}
             onClick={(e) => {
-              console.log(e.target.id);
-              thanks = e.target.id;
+              console.log(e.currentTarget.id);
+              thanks = e.currentTarget.id;
             }}
           />
           <div>

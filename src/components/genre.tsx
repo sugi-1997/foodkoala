@@ -23,7 +23,6 @@ export default function Genre({ onClick }: any) {
               <button id={`${genre.id}`} onClick={onClick}>
                 <Image
                   src={genre.image_url}
-                  id={`${genre.id}`}
                   alt="genre-icon"
                   width={300}
                   height={300}

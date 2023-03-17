@@ -74,14 +74,16 @@ export default function MenuList() {
       <main className={styles.topPage}>
         <div className={styles.genre_area}>
           <Genre
-            onClick={(e: SyntheticEvent) =>
-              handleGenreClick(e.target.id)
-            }
+            onClick={(e: SyntheticEvent) => {
+              const clickedId = e.currentTarget.id;
+              handleGenreClick(clickedId);
+            }}
           />
           <Area
-            onClick={(e: SyntheticEvent) =>
-              handleAreaClick(e.target.id)
-            }
+            onClick={(e: SyntheticEvent) => {
+              const clickedId = e.currentTarget.id;
+              handleAreaClick(clickedId);
+            }}
           />
         </div>
         <h2 className={styles.h2}>--- Menu ---</h2>
@@ -108,10 +110,8 @@ export default function MenuList() {
                 <p>{menu.price}円</p>
               </div>
               <button
-                data-menu-id={menu.id}
-                onClick={(e) =>
-                  cartSubmit(e.target.getAttribute('data-menu-id'))
-                }
+                value={menu.id}
+                onClick={() => cartSubmit(menu.id)}
               >
                 注文リストに追加
               </button>
