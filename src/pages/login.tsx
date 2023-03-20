@@ -37,21 +37,13 @@ export default function Login() {
           // メインページに遷移
           router.push('/');
         } else {
-          handleError();
-          alert('入力内容を確認してくだせい');
+          alert('入力内容を確認してください');
         }
       })
       .catch((error) => {
         console.error('Error:', error);
         alert('エラー(.catch)');
       });
-  };
-
-  const handleError = () => {
-    setLoginForm({
-      email: '',
-      password: '',
-    });
   };
 
   // フォームの内容をlogin.tsにPOST
