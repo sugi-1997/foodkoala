@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import styles from 'styles/order_check.module.css';
 import type { CartItem } from 'types/cart_item';
-import { userId } from 'lib/UserId';
+import Cookies from 'js-cookie';
 
 export default function Option() {
   const [itemId, setItemId] = useState<CartItem[]>([]);
+  const userId = Cookies.get('user_id');
 
   //cart_itemsテーブルからデータを取得
   useEffect(() => {
