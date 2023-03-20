@@ -6,8 +6,9 @@ import { Shop } from 'types/shops';
 import Link from 'next/link';
 import score from 'components/shop/score';
 import FavoriteButton from './shop/favorite_button';
+import ShopScore from 'components/shop/score';
 
-export default function ShopName({ data }: { data: Shop[] }) {
+export default function ShopName({ data }: any) {
   return (
     <>
       <Script
@@ -22,8 +23,7 @@ export default function ShopName({ data }: { data: Shop[] }) {
               &nbsp;&nbsp;{shop.name}
             </h2>
             <div className={styles.shop_list_score}>
-              {shop.score}
-              {score(shop.score)}
+              <ShopScore id={shop.id} />
             </div>
             <div className={styles.shop_list_image}>
               <Link href={`/shop/${shop.id}`}>
@@ -45,3 +45,20 @@ export default function ShopName({ data }: { data: Shop[] }) {
     </>
   );
 }
+
+type Shops = {
+  data: {
+    id: number;
+    name: string;
+    description: string;
+    image_url: string;
+    score: number;
+    favorite: boolean;
+    genre_id: number;
+    area_id: number;
+    deleted_at: Date;
+    review_1: string;
+    review_2: string;
+    review_3: string;
+  };
+};
