@@ -103,8 +103,8 @@ export default function OrderHistory() {
               <Image
                 src="/images/foodkoala_img2.png"
                 alt="コアラ"
-                width={50}
-                height={50}
+                width={300}
+                height={300}
               />
               <br />
               <br />
