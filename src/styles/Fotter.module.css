@@ -1,14 +1,16 @@
 .footer {
-  background-color: #f8b856;
-  height: 60px;
+  background-color: white;
+  height: 80px;
   width: 100%;
   display: flex;
   justify-content: right;
   align-items: center;
+  border-top: 2px solid rgba(189, 140, 66, 0.5);
 }
 
 .link {
   text-decoration: none;
   color: #4f4842;
   margin-right: 30px;
+  font-weight: 700;
 }

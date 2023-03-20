@@ -39,7 +39,7 @@ export default function ItemListPage() {
       <Head>
         <title>商品一覧ページ</title>
       </Head>
-      <main>
+      <main className={styles.main}>
         <a href="#link">
           <input
             type="button"

@@ -18,22 +18,16 @@ export default function TopPage() {
         ></script>
       </Head>
       <Header />
-      <BreadList list={[menu_list, concept]} />
-      <div className={styles.concept}>
-        <div className={styles.concept_title}>
-          <Image
-            src="/images/concept/background.concept.png"
-            alt="concept"
-            width={1050}
-            height={100}
-          />
+      <div className={styles.main}>
+        <BreadList list={[menu_list, concept]} />
+        <div className={styles.concept}>
           <div className={styles.concept_flex}>
             <div className={styles.concept_koala}>
               <Image
                 src="/images/concept/foodkoala_img2.png"
                 alt="concept"
-                width={500}
-                height={500}
+                width={300}
+                height={300}
               />
             </div>
             <div className={styles.concept_koala}>
@@ -47,140 +41,141 @@ export default function TopPage() {
               </h3>
             </div>
           </div>
-        </div>
+          <div className={styles.about}>
+            <h2>Food Koalaについて</h2>
+            <div className={styles.flex_box}>
+              <div className={styles.box}>
+                <div className={styles.Img}>
+                  <Image
+                    src="/images/concept/waste.concept.png"
+                    alt="concept"
+                    width={100}
+                    height={100}
+                  />
+                </div>
+                <div className={styles.text}>
+                  <h3>食品ロス削減に貢献！</h3>
+                  <p>日本国内における食品ロスは年間520万トン。</p>
+                  <p>
+                    うち、事業系による食品ロスは275万トン。※2020年度
+                  </p>
+                  <p>FoodKoalaの利用で、</p>
+                  <p>
+                    食品廃棄物削減の社会貢献をすることができます。
+                  </p>
+                </div>
+              </div>
 
-        <div className={styles.about}>
-          <h2>Food Koalaについて</h2>
-          <div className={styles.flex_box}>
-            <div className={styles.box}>
-              <div className={styles.Img}>
-                <Image
-                  src="/images/concept/waste.concept.png"
-                  alt="concept"
-                  width={100}
-                  height={100}
-                />
+              <div className={styles.box}>
+                <div className={styles.Img}>
+                  <Image
+                    src="/images/concept/eat.concept.png"
+                    alt="concept"
+                    width={100}
+                    height={100}
+                  />
+                </div>
+                <div className={styles.text}>
+                  <h3>おいしい店舗たくさん！</h3>
+                  <p>Food Koalaの登録店舗のジャンルは様々。</p>
+                  <p>
+                    気になっていたお店のお試しにもご利用いただけます。
+                  </p>
+                  <p>あなたのお気に入りなお店も見つかるかも！</p>
+                  <p>おいしく楽しい食事の時間を提供します。</p>
+                </div>
               </div>
-              <div className={styles.text}>
-                <h3>食品ロス削減に貢献！</h3>
-                <p>日本国内における食品ロスは年間520万トン。</p>
-                <p>
-                  うち、事業系による食品ロスは275万トン。※2020年度
-                </p>
-                <p>FoodKoalaの利用で、</p>
-                <p>食品廃棄物削減の社会貢献をすることができます。</p>
-              </div>
-            </div>
 
-            <div className={styles.box}>
-              <div className={styles.Img}>
-                <Image
-                  src="/images/concept/eat.concept.png"
-                  alt="concept"
-                  width={100}
-                  height={100}
-                />
-              </div>
-              <div className={styles.text}>
-                <h3>おいしい店舗たくさん！</h3>
-                <p>Food Koalaの登録店舗のジャンルは様々。</p>
-                <p>
-                  気になっていたお店のお試しにもご利用いただけます。
-                </p>
-                <p>あなたのお気に入りなお店も見つかるかも！</p>
-                <p>おいしく楽しい食事の時間を提供します。</p>
-              </div>
-            </div>
-
-            <div className={styles.box}>
-              <div className={styles.Img}>
-                <Image
-                  src="/images/concept/money.concept.png"
-                  alt="concept"
-                  width={100}
-                  height={100}
-                />
-              </div>
-              <div className={styles.text}>
-                <h3>環境への配慮でお得に！</h3>
-                <p>廃棄予定の食品を販売しているため、</p>
-                <p>
-                  すべてのメニューが通常よりお得な金額となっております。
-                </p>
-                <p>さらに、容器の持参で</p>
-                <p>地球にやさしくお得な割引も行っています。</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.howTo}>
-          <h2>ご利用方法</h2>
-          <div className={styles.flex_box}>
-            <div className={styles.box}>
-              <div className={styles.Img}>
-                <Image
-                  src="/images/concept/search.concept.png"
-                  alt="concept"
-                  width={100}
-                  height={100}
-                />
-              </div>
-              <div className={styles.text}>
-                <br />
-                <i className="fa-solid fa-1"></i>
-                <h3>商品を探す</h3>
-              </div>
-            </div>
-
-            <div className={styles.box}>
-              <div className={styles.Img}>
-                <Image
-                  src="/images/concept/cart.concept.png"
-                  alt="concept"
-                  width={100}
-                  height={100}
-                />
-              </div>
-              <div className={styles.text}>
-                <br />
-                <i className="fa-solid fa-2"></i>
-                <h3>商品を予約する</h3>
-              </div>
-            </div>
-
-            <div className={styles.box}>
-              <div className={styles.Img}>
-                <Image
-                  src="/images/concept/get.concept.png"
-                  alt="concept"
-                  width={100}
-                  height={100}
-                />
-              </div>
-              <div className={styles.text}>
-                <br />
-                <i className="fa-solid fa-3"></i>
-                <h3>お店で商品を受け取る</h3>
+              <div className={styles.box}>
+                <div className={styles.Img}>
+                  <Image
+                    src="/images/concept/money.concept.png"
+                    alt="concept"
+                    width={100}
+                    height={100}
+                  />
+                </div>
+                <div className={styles.text}>
+                  <h3>環境への配慮でお得に！</h3>
+                  <p>廃棄予定の食品を販売しているため、</p>
+                  <p>
+                    すべてのメニューが通常よりお得な金額となっております。
+                  </p>
+                  <p>さらに、容器の持参で</p>
+                  <p>地球にやさしくお得な割引も行っています。</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className={styles.start}>
-          <h2>&nbsp;&nbsp;いますぐ始める&nbsp;&nbsp;</h2>
-          <div className={styles.start_flex_box}>
-            <div className={styles.start_box}>
-              <Link href="/user_resister">
-                会員登録はこちら&nbsp;
-                <i className="fa-solid fa-users"></i>
-              </Link>
+          <div className={styles.howTo}>
+            <h2>ご利用方法</h2>
+            <div className={styles.flex_box}>
+              <div className={styles.box}>
+                <div className={styles.Img}>
+                  <Image
+                    src="/images/concept/search.concept.png"
+                    alt="concept"
+                    width={100}
+                    height={100}
+                  />
+                </div>
+                <div className={styles.text}>
+                  <br />
+                  <i className="fa-solid fa-1"></i>
+                  <h3>商品を探す</h3>
+                </div>
+              </div>
+
+              <div className={styles.box}>
+                <div className={styles.Img}>
+                  <Image
+                    src="/images/concept/cart.concept.png"
+                    alt="concept"
+                    width={100}
+                    height={100}
+                  />
+                </div>
+                <div className={styles.text}>
+                  <br />
+                  <i className="fa-solid fa-2"></i>
+                  <h3>商品を予約する</h3>
+                </div>
+              </div>
+
+              <div className={styles.box}>
+                <div className={styles.Img}>
+                  <Image
+                    src="/images/concept/get.concept.png"
+                    alt="concept"
+                    width={100}
+                    height={100}
+                  />
+                </div>
+                <div className={styles.text}>
+                  <br />
+                  <i className="fa-solid fa-3"></i>
+                  <h3>お店で商品を受け取る</h3>
+                </div>
+              </div>
             </div>
-            <div className={styles.start_box}>
-              <Link href="/">
-                商品一覧はこちら&nbsp;
-                <i className="fa-solid fa-cart-shopping"></i>
-              </Link>
+          </div>
+
+          <div className={styles.start}>
+            <h2>&nbsp;&nbsp;いますぐ始める&nbsp;&nbsp;</h2>
+            <div className={styles.start_flex_box}>
+              <div className={styles.start_box}>
+                <Link href="/user_resister">
+                  会員登録はこちら&nbsp;
+                  <i className="fa-solid fa-users"></i>
+                </Link>
+              </div>
+              <div className={styles.start_box}>
+                <Link href="/">
+                  商品一覧はこちら&nbsp;
+                  <i className="fa-solid fa-cart-shopping"></i>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
