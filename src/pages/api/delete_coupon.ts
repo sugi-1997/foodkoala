@@ -5,7 +5,7 @@ export default async function CartItems(
   res: NextApiResponse
 ) {
   try {
-    const url = process.env['BACKEND_API_URL'];
+    const url = process.env['SUPABASE_URL'];
     const userId = req.query.user_id;
     const couponcode = req.query.couponcode;
     if (couponcode === undefined || couponcode.includes('null')) {
