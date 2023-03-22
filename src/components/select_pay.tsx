@@ -1,8 +1,9 @@
+import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import styles from 'styles/order_check.module.css';
-import { userId } from 'lib/UserId';
 
 export default function SelectPay() {
+  const userId = Cookies.get('user_id');
   useEffect(() => {
     const postPayment = async () => {
       await fetch(`/api/patch_carts?user_id=eq.${userId}`, {

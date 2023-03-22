@@ -3,9 +3,9 @@ import type { Shop } from 'types/shops';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { userId } from 'lib/UserId';
 
 export default function FavoriteButton({ shop }: { shop: Shop }) {
+  const userId = Cookies.get('user_id');
   const [heart, setHeart] = useState('shop_favorite_false');
   const router = useRouter();
   //ページ遷移時にログイン前の場合はお気に入りボタンをグレーに。ログイン後の場合はshop_idとuser_idが一致するデータがfavoriteテーブルに存在するか確認してCSSを切り替え。

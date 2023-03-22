@@ -1,13 +1,12 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import Option from 'components/option';
 import SelectPay from 'components/select_pay';
 import Header from 'components/header';
 import Footer from 'components/footer';
 import Coupon from 'components/Coupon';
-import OrderCompleted from 'lib/Order_completed';
 import BreadList, {
   menu_list,
   order_check,
@@ -16,16 +15,21 @@ import type { CartItem } from 'types/cart_item';
 import type { CurrentCartItems } from 'types/current_cart_items';
 import type { Options } from 'types/options';
 import styles from 'styles/order_check.module.css';
+import { loadStripe } from '@stripe/stripe-js';
 import Cookies from 'js-cookie';
 
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
+
 export default function OrderCheck() {
+  const userId = Cookies.get('user_id');
   const router = useRouter();
   const [itemId, setItemId] = useState<CartItem[]>([]);
   const [cartItems, setCartItems] = useState<CurrentCartItems[]>([]);
   const [subTotal, setSubTotal] = useState(0);
   const [errorAlert, setErrorAlert] = useState('ok');
   let optionData: Options;
-  const userId = Cookies.get('user_id');
   let thanks: string;
 
   //cart_itemsテーブルからデータを取得
@@ -71,7 +75,7 @@ export default function OrderCheck() {
     setSubTotal(add);
   }, [cartItems, subTotal]);
 
-  // クリックすると、OrderCompleted関数の処理を開始
+  // 現金の場合は注文コード等の作成へ、クレジットカードの場合はAPIに接続
   const handleOrder = async () => {
     try {
       const res = await fetch(`/api/carts?user_id=eq.${userId}`);
@@ -82,16 +86,25 @@ export default function OrderCheck() {
         console.log('payment_methodがnullです');
         setErrorAlert('alert');
         return;
-      } else {
+      } else if (data[0].payment_method === '現金') {
         setErrorAlert('ok');
-        OrderCompleted(
-          userId!,
-          cartItems,
-          subTotal,
-          optionData,
-          thanks
-        );
-        router.replace('/order/order_completed');
+        router.push({
+          pathname: '/order/order_sending',
+          query: {
+            cartItems: JSON.stringify(cartItems),
+            amount: subTotal,
+            options: JSON.stringify(optionData),
+            thanks: thanks,
+          },
+        });
+      } else if (data[0].payment_method === 'クレジットカード') {
+        router.push({
+          pathname: '/checkout_form',
+          query: {
+            amount: subTotal,
+            items: JSON.stringify(cartItems),
+          },
+        });
       }
     } catch (error) {
       console.error(error);
@@ -109,9 +122,9 @@ export default function OrderCheck() {
       </Head>
       <Header />
       <BreadList list={[menu_list, order_check]} />
-      <div className={styles.main}>
-        <div className={styles.order_check}>
-          <div className={styles.order_check_float1}>
+      <div className={styles.order_check}>
+        <div className={styles.order_check_float1}>
+          <>
             <div className={styles.h1}>
               <h1 className={styles.order_list_h1}>注文リスト</h1>
             </div>
@@ -137,29 +150,29 @@ export default function OrderCheck() {
                 <p>小計：{subTotal}円</p>
               </div>
             </div>
-            <SelectPay />
-            <p className={styles[errorAlert]}>
-              ※お支払い方法を選択してください
-            </p>
-          </div>
-          <div className={styles.order_check_float2}>
-            <Option />
-            <Coupon
-              subTotal={subTotal}
-              onClick={(e) => {
-                console.log(e.currentTarget.id);
-                thanks = e.currentTarget.id;
-              }}
-            />
-          </div>
+          </>
+          <SelectPay />
+          <p className={styles[errorAlert]}>
+            ※お支払い方法を選択してください
+          </p>
         </div>
-        <div>
-          <button
-            onClick={handleOrder}
-            className={styles.order_check_button}
-          >
-            注文確定
-          </button>
+        <div className={styles.order_check_float2}>
+          <Option />
+          <Coupon
+            subTotal={subTotal}
+            onClick={(e) => {
+              console.log(e.currentTarget.id);
+              thanks = e.currentTarget.id;
+            }}
+          />
+          <div>
+            <button
+              onClick={handleOrder}
+              className={styles.order_check_button}
+            >
+              注文確定
+            </button>
+          </div>
         </div>
       </div>
       <Footer />

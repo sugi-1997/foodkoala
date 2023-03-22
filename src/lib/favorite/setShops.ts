@@ -1,11 +1,12 @@
+import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { userId } from 'lib/UserId';
 import { Shop } from 'types/shops';
 
 //favoriteのshop_idからお気に入りのショップ一覧を取得
 export function useSetShops(data: any) {
   const [favoriteShops, setFavoriteShops] = useState<Shop[]>([]);
+  const userId = Cookies.get('user_id');
 
   useEffect((): any => {
     if (userId === null || userId === undefined || !data) {
@@ -37,24 +38,3 @@ export function useSetShops(data: any) {
 
   return favoriteShops;
 }
-
-// import { useState } from 'react';
-// import { useEffect } from 'react';
-// import { userId } from 'lib/UserId';
-// import { Shop } from 'types/shops';
-// import { getFavoriteShops } from './getFavoriteShops';
-
-// //favoriteのshop_idからお気に入りのショップ一覧を取得
-// export function useSetShops(data: any) {
-//   const [favoriteShops, setFavoriteShops] = useState<Shop[]>([]);
-
-//   useEffect((): any => {
-//     if (userId === null || userId === undefined || !data) {
-//       return;
-//     } else {
-//       getFavoriteShops(data, setFavoriteShops);
-//       console.log('setFavoriteData()', setFavoriteShops);
-//     }
-//   }, [data, userId]);
-//   return favoriteShops;
-// }
