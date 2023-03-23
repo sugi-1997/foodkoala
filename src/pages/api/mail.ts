@@ -5,32 +5,38 @@ export default async function Mail(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === 'POST') {
-    const { name, nameKana, email, phone, message } = req.body;
-    const transporter = nodemailer.createTransport({
-      host: 'sandbox.smtp.mailtrap.io',
-      port: 2525,
-      auth: {
-        user: process.env.MAILTRAP_USERNAME,
-        pass: process.env.MAILTRAP_PASSWORD,
-      },
-    });
+  const transport = nodemailer.createTransport({
+    host: process.env.MAILTRAP_HOST,
+    port: 587,
+    auth: {
+      user: process.env.MAILTRAP_USERNAME,
+      pass: process.env.MAILTRAP_PASSWORD,
+    },
+  });
 
-    const mailOptions = {
-      from: `${name}(${nameKana})`,
-      to: '(to@example.com)',
-      subject: 'お問い合わせ',
-      text: `本文:${message}\nメールアドレス:${email}\n電話番号:${phone}`,
-    };
+  // 受け取るメール
+  const mailOptions = {
+    from: req.body.email,
+    to: 'horiakwa.hiroki0820@gmail.com',
+    subject: `お問い合わせ(${req.body.name}様)`,
+    text: `${req.body.message}sent from ${req.body.email}`,
+    html: `
+      <p>【名前】</p>
+      <p>${req.body.name}</p>
+      <p>【かな】</p>
+      <p>${req.body.nameKana}</p>
+      <p>【メールアドレス】</p>
+      <p>${req.body.email}</p>
+      <p>【電話番号】</p>
+      <p>${req.body.phone}</p>
+      <p>【メッセージ】</p>
+      <p>${req.body.message}</p>
+      `,
+  };
 
-    try {
-      await transporter.sendMail(mailOptions);
-      res.status(200).json({ message: '送信成功' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: '送信エラー' });
-    }
-  } else {
-    res.status(405).json({ message: 'メソッドの不許可' });
-  }
+  transport.sendMail(mailOptions, function (err, info) {
+    if (err) console.log(err);
+    else console.log(info);
+  });
+  return res.send('成功しました');
 }
