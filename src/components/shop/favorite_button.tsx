@@ -2,9 +2,9 @@ import styles from '../../styles/Shop.module.css';
 import type { Shop } from 'types/shops';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 export default function FavoriteButton({ shop }: { shop: Shop }) {
-  const userId = Cookies.get('user_id');
   const [heart, setHeart] = useState('shop_favorite_false');
   const router = useRouter();
   const userId = Cookies.get('user_id');

@@ -78,7 +78,7 @@ export function MenuList({ data }: { data: Menu[] }) {
 
 export function ShopMenu({ shopId }: { shopId: number }) {
   const { data, error } = useSWR(
-    `http://localhost:8000/items?shop_id=eq.${shopId}`,
+    `/api/items?shop_id=eq.${shopId}`,
     Fetcher
   );
 
@@ -109,9 +109,11 @@ export default function ShopDetail({ shopData }: ShopProps) {
         ></script>
       </Head>
       <Header />
-      <BreadList list={[menu_list, shop_list, shop_page]} />
-      <main>
-        <div key={shop.id} className={styles.main}>
+      <div className={styles.main}>
+        <div className={styles.bread}>
+          <BreadList list={[menu_list, shop_list, shop_page]} />
+        </div>
+        <div key={shop.id} className={styles.contents}>
           <h1 className={styles.shop_id_name}>
             <i className="fa-solid fa-utensils"></i>
             &nbsp;&nbsp;{shop.name}
@@ -136,7 +138,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
           <ShopMenu shopId={shop.id} />
           <ShopReview id={shop.id} />
         </div>
-      </main>
+      </div>
       <Footer />
     </>
   );

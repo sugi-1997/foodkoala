@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import Option from 'components/option';
 import SelectPay from 'components/select_pay';
@@ -13,9 +13,9 @@ import BreadList, {
 } from 'components/bread_list';
 import type { CartItem } from 'types/cart_item';
 import type { CurrentCartItems } from 'types/current_cart_items';
-import type { Options } from 'types/options';
 import styles from 'styles/order_check.module.css';
 import Cookies from 'js-cookie';
+import { Options } from 'types/options';
 
 export default function OrderCheck() {
   const userId = Cookies.get('user_id');
@@ -24,7 +24,8 @@ export default function OrderCheck() {
   const [cartItems, setCartItems] = useState<CurrentCartItems[]>([]);
   const [subTotal, setSubTotal] = useState(0);
   const [errorAlert, setErrorAlert] = useState('ok');
-  let optionData: Options;
+  const [optionData, setOptionData] = useState<Options>();
+  const memorizedOptionData = useMemo(() => optionData, [optionData]);
   let thanks = '';
 
   //cart_itemsテーブルからデータを取得
@@ -83,12 +84,12 @@ export default function OrderCheck() {
         query: {
           cartItems: JSON.stringify(cartItems),
           amount: subTotal,
-          options: JSON.stringify(optionData),
+          options: JSON.stringify(memorizedOptionData),
           thanks: thanks,
         },
       });
     }
-  }, [cartItems, optionData, router, subTotal, thanks]);
+  }, [cartItems, memorizedOptionData, router, subTotal, thanks]);
 
   // 現金の場合は注文コード等の作成へ、クレジットカードの場合はAPIに接続
   const handleOrder = async () => {
@@ -96,7 +97,7 @@ export default function OrderCheck() {
       const res = await fetch(`/api/carts?user_id=eq.${userId}`);
       const data = await res.json();
       console.log('cartsテーブルから取得したデータ', data[0]);
-      optionData = data[0];
+      setOptionData(data[0]);
       if (data[0].payment_method === null) {
         console.log('payment_methodがnullです');
         setErrorAlert('alert');
@@ -108,7 +109,7 @@ export default function OrderCheck() {
           query: {
             cartItems: JSON.stringify(cartItems),
             amount: subTotal,
-            options: JSON.stringify(optionData),
+            options: JSON.stringify(data[0]),
             thanks: thanks,
           },
         });

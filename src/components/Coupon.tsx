@@ -12,7 +12,6 @@ export default function Coupon({
   subTotal: number;
   onClick: MouseEventHandler<HTMLInputElement>;
 }) {
-  const userId = Cookies.get('user_id');
   const [coupon, setCoupon] = useState('');
   const userId = Cookies.get('user_id');
   const { data, error } = useSWR(
