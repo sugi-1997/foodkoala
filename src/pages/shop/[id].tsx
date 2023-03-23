@@ -14,6 +14,7 @@ import FavoriteButton from 'components/shop/favorite_button';
 import { Fetcher } from 'lib/Fetcher';
 import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
 import styles from '../../styles/Shop.module.css';
+import ReviewForm from 'components/shop/review_form';
 
 //お店情報の取得
 const url = process.env['SUPABASE_URL'];
@@ -132,11 +133,16 @@ export default function ShopDetail({ shopData }: ShopProps) {
           <div>
             <FavoriteButton shop={shop} />
           </div>
-          <p className={styles.shop_id_description}>
+          <div className={styles.shop_id_description}>
             {shop.description}
-          </p>
+          </div>
           <ShopMenu shopId={shop.id} />
-          <ShopReview id={shop.id} />
+          <div>
+            <ShopReview id={shop.id} />
+          </div>
+          <div>
+            <ReviewForm id={shop.id} />
+          </div>
         </div>
       </div>
       <Footer />

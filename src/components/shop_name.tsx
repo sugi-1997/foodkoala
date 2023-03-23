@@ -4,7 +4,6 @@ import styles from '../styles/Shop_list.module.css';
 import ShopMenu from '../components/shop_menu_top2';
 import { Shop } from 'types/shops';
 import Link from 'next/link';
-import score from 'components/shop/score';
 import FavoriteButton from './shop/favorite_button';
 import ShopScore from 'components/shop/score';
 
