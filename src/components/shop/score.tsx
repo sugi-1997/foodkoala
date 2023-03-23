@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { Fetcher } from 'lib/Fetcher';
 
-export function getScore(id: number): number | undefined {
+export function GetScore(id: number): number | undefined {
   const { data, error } = useSWR(
     `/api/score?shop_id=eq.${id}`,
     Fetcher,
@@ -26,7 +26,7 @@ export function getScore(id: number): number | undefined {
 }
 
 export default function ShopScore({ id }: { id: number }) {
-  const score: number | undefined = getScore(id);
+  const score: number | undefined = GetScore(id);
   if (score === undefined) {
     return <div> Failed to Load... </div>;
   } else {

@@ -7,7 +7,6 @@ import { Shop } from 'types/shops';
 export function useSetShops(data: any) {
   const [favoriteShops, setFavoriteShops] = useState<Shop[]>([]);
   const userId = Cookies.get('user_id');
-  const userId = Cookies.get('user_id');
 
   useEffect((): any => {
     if (userId === null || userId === undefined || !data) {
