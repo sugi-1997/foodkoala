@@ -32,7 +32,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
           }
         });
     }
-  }, [shop.id]);
+  }, [shop.id, userId]);
 
   //ログイン前はonClickでログイン画面に切り替え。ログイン後はcheckFavoriteを呼び出し
   function handleClick() {

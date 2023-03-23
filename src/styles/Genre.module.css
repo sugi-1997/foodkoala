@@ -3,7 +3,6 @@
   margin: 1% auto;
   font-size: 30px;
   color: rgb(123, 116, 116);
-  /* border:  1px solid #000; */
 }
 
 .genrelist {
@@ -12,9 +11,6 @@
   align-items: center;
   width: 80%;
   margin: 0px auto;
-  /* min-width: 100vw; */
-  /* padding: 0 50px; */
-  /* border: 1px solid #000; */
 }
 
 .all_genre {
@@ -29,7 +25,6 @@
   width: 100%;
   margin: auto;
   height: 50%;
-  /* border: 1px solid #000; */
 }
 
 .genre:hover {
@@ -40,7 +35,6 @@
   border: none;
   width: 100%;
   background-color: rgba(0, 0, 0 , 0);
-  /* cursor: pointer; */
 }
 
 .genre img {

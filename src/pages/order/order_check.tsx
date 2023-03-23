@@ -15,12 +15,7 @@ import type { CartItem } from 'types/cart_item';
 import type { CurrentCartItems } from 'types/current_cart_items';
 import type { Options } from 'types/options';
 import styles from 'styles/order_check.module.css';
-import { loadStripe } from '@stripe/stripe-js';
 import Cookies from 'js-cookie';
-
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-);
 
 export default function OrderCheck() {
   const userId = Cookies.get('user_id');
@@ -30,7 +25,7 @@ export default function OrderCheck() {
   const [subTotal, setSubTotal] = useState(0);
   const [errorAlert, setErrorAlert] = useState('ok');
   let optionData: Options;
-  let thanks: string;
+  let thanks = '';
 
   //cart_itemsテーブルからデータを取得
   useEffect(() => {
@@ -75,6 +70,26 @@ export default function OrderCheck() {
     setSubTotal(add);
   }, [cartItems, subTotal]);
 
+  // クレジットAPIからのリダイレクトの場合はorder_sendingページに遷移
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const credit = urlParams.get('credit');
+    console.log(credit);
+    if (credit === null) {
+      return;
+    } else if (credit === 'ok') {
+      router.push({
+        pathname: '/order/order_sending',
+        query: {
+          cartItems: JSON.stringify(cartItems),
+          amount: subTotal,
+          options: JSON.stringify(optionData),
+          thanks: thanks,
+        },
+      });
+    }
+  }, [cartItems, optionData, router, subTotal, thanks]);
+
   // 現金の場合は注文コード等の作成へ、クレジットカードの場合はAPIに接続
   const handleOrder = async () => {
     try {
@@ -102,7 +117,6 @@ export default function OrderCheck() {
           pathname: '/checkout_form',
           query: {
             amount: subTotal,
-            items: JSON.stringify(cartItems),
           },
         });
       }
@@ -121,57 +135,59 @@ export default function OrderCheck() {
         <title>注文確認ページ</title>
       </Head>
       <Header />
-      <BreadList list={[menu_list, order_check]} />
-      <div className={styles.order_check}>
-        <div className={styles.order_check_float1}>
-          <>
-            <div className={styles.h1}>
-              <h1 className={styles.order_list_h1}>注文リスト</h1>
-            </div>
-            <div className={styles.order_list}>
-              <div>
-                {cartItems.map((item, index) => (
-                  <div key={index}>
-                    <dl>
-                      <dt>{item.name}</dt>
-                      <dd>
-                        <Image
-                          src={item.image_url}
-                          alt="商品画像"
-                          width={100}
-                          height={100}
-                        />
-                      </dd>
-                      <dd>{item.count}個</dd>
-                      <dd>{item.price * item.count}円</dd>
-                    </dl>
-                  </div>
-                ))}
-                <p>小計：{subTotal}円</p>
+      <div className={styles.main}>
+        <BreadList list={[menu_list, order_check]} />
+        <div className={styles.order_check}>
+          <div className={styles.order_check_float1}>
+            <>
+              <div className={styles.h1}>
+                <h1 className={styles.order_list_h1}>注文リスト</h1>
               </div>
+              <div className={styles.order_list}>
+                <div>
+                  {cartItems.map((item, index) => (
+                    <div key={index}>
+                      <dl>
+                        <dt>{item.name}</dt>
+                        <dd>
+                          <Image
+                            src={item.image_url}
+                            alt="商品画像"
+                            width={100}
+                            height={100}
+                          />
+                        </dd>
+                        <dd>{item.count}個</dd>
+                        <dd>{item.price * item.count}円</dd>
+                      </dl>
+                    </div>
+                  ))}
+                  <p>小計：{subTotal}円</p>
+                </div>
+              </div>
+            </>
+            <SelectPay />
+            <p className={styles[errorAlert]}>
+              ※お支払い方法を選択してください
+            </p>
+          </div>
+          <div className={styles.order_check_float2}>
+            <Option />
+            <Coupon
+              subTotal={subTotal}
+              onClick={(e) => {
+                console.log(e.currentTarget.id);
+                thanks = e.currentTarget.id;
+              }}
+            />
+            <div>
+              <button
+                onClick={handleOrder}
+                className={styles.order_check_button}
+              >
+                注文確定
+              </button>
             </div>
-          </>
-          <SelectPay />
-          <p className={styles[errorAlert]}>
-            ※お支払い方法を選択してください
-          </p>
-        </div>
-        <div className={styles.order_check_float2}>
-          <Option />
-          <Coupon
-            subTotal={subTotal}
-            onClick={(e) => {
-              console.log(e.currentTarget.id);
-              thanks = e.currentTarget.id;
-            }}
-          />
-          <div>
-            <button
-              onClick={handleOrder}
-              className={styles.order_check_button}
-            >
-              注文確定
-            </button>
           </div>
         </div>
       </div>

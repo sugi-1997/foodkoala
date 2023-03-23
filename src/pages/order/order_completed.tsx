@@ -40,7 +40,7 @@ export default function OrderCompleted() {
         )
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            console.log('order_itemsの最新データ', data);
             setOrderItems(data);
           })
           .catch((error) => console.error(error));

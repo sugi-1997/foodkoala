@@ -20,7 +20,7 @@ export default function SelectPay() {
         .catch((error) => console.error(error));
     };
     postPayment();
-  }, []);
+  }, [userId]);
 
   const patchPayment = async (selectedpayment: string) => {
     await fetch(`/api/patch_carts?user_id=eq.${userId}`, {

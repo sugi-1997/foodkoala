@@ -34,7 +34,7 @@ export function useSetShops(data: any) {
       };
       getFavoriteShops();
     }
-  }, [data]);
+  }, [data, userId]);
 
   return favoriteShops;
 }

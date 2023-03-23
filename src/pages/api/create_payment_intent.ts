@@ -5,7 +5,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const items = req.body.items;
   const amount = req.body.amount;
 
   try {

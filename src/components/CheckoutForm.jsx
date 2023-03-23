@@ -1,10 +1,11 @@
-import React, { SyntheticEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   PaymentElement,
   LinkAuthenticationElement,
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
+import styles from 'styles/Checkout_form.module.css';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -51,17 +52,18 @@ export default function CheckoutForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const url = process.env['NEXT_PUBLIC_API_URL'];
+    console.log(url);
 
     if (!stripe || !elements) {
       return;
     }
 
     setIsLoading(true);
-
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: '/order/order_check',
+        return_url: `${url}/order/order_check?credit=ok`,
       },
     });
     if (
@@ -81,28 +83,32 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <LinkAuthenticationElement
-        id="link-authentication-element"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <PaymentElement
-        id="payment-element"
-        options={paymentElementOptions}
-      />
-      <button
-        disabled={isLoading || !stripe || !elements}
-        id="submit"
-      >
-        <span id="button-text">
-          {isLoading ? (
-            <div className="spinner" id="spinner"></div>
-          ) : (
-            'Pay now'
-          )}
-        </span>
-      </button>
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+    <div className={styles.main}>
+      <form id="payment-form" onSubmit={handleSubmit}>
+        <LinkAuthenticationElement
+          id="link-authentication-element"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <PaymentElement
+          id="payment-element"
+          options={paymentElementOptions}
+        />
+        <button
+          disabled={isLoading || !stripe || !elements}
+          id="submit"
+        >
+          <span id="button-text">
+            {isLoading ? (
+              <div className="spinner" id="spinner">
+                クレジットカード認証中...
+              </div>
+            ) : (
+              'クレジットカードで注文する'
+            )}
+          </span>
+        </button>
+        {message && <div id="payment-message">{message}</div>}
+      </form>
+    </div>
   );
 }

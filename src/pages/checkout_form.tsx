@@ -11,24 +11,33 @@ const stripePromise = loadStripe(
 export default function Checkout() {
   const [clientSecret, setClientSecret] = useState('');
   const router = useRouter();
-  const amount = router.query.amount;
-  const items = router.query.items as string;
-  const itemData = JSON.parse(items);
+  const amount = Number(router.query.amount);
 
   //stripeのpayment_intentを作成
   useEffect(() => {
     fetch('/api/create_payment_intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: itemData, amount: amount }),
+      body: JSON.stringify({ amount: amount }),
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
-  }, [amount, itemData]);
+  }, [amount]);
 
   const appearance = {
     theme: 'stripe',
+
+    variables: {
+      colorPrimary: '#0570de',
+      colorBackground: '#ffffff',
+      colorText: '#30313d',
+      colorDanger: '#df1b41',
+      fontFamily: 'Ideal Sans, system-ui, sans-serif',
+      spacingUnit: '2px',
+      borderRadius: '4px',
+    },
   };
+
   const options = {
     clientSecret,
     appearance,

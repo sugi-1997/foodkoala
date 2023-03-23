@@ -1,13 +1,13 @@
 import Cookies from 'js-cookie';
-import type { CurrentCartItems } from 'types/current_cart_items';
-import type { Options } from 'types/options';
 import { useRouter } from 'next/router';
+import type { Options } from 'types/options';
 
 export default function OrderSending() {
   const router = useRouter();
-  const userId = Cookies.get('usr_id');
+  const userId = Cookies.get('user_id');
   const itemData = router.query.cartItems as string;
-  const cartItems = JSON.parse(itemData);
+  const itemDataObj = JSON.parse(itemData);
+  const cartItems = Object.values(itemDataObj);
   const subTotal = Number(router.query.amount);
   const optionData = router.query.options as string;
   const options = JSON.parse(optionData);
@@ -18,6 +18,7 @@ export default function OrderSending() {
   const orderDate = async () => {
     const date = new Date();
     orderedAt = date;
+    console.log('注文日付：', orderedAt);
     orderCode();
   };
 
@@ -31,6 +32,7 @@ export default function OrderSending() {
       str += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     code = str;
+    console.log('注文コードを作成しました:', code);
     postOrders();
   };
 
@@ -56,7 +58,7 @@ export default function OrderSending() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log('order_historyにデータをPOSTしました');
         deleteCoupon();
       })
       .catch((error) => console.error(error));
@@ -64,15 +66,19 @@ export default function OrderSending() {
 
   //使用したクーポンの削除
   const deleteCoupon = async () => {
-    await fetch(
-      `/api/delete_coupon?user_id=eq.${userId}&couponcode=eq.${options.couponcode}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('使用したクーポンを削除しました');
-        addThanksCoupon();
-      })
-      .catch((error) => console.error(error));
+    if (options.couponcode === undefined) {
+      addThanksCoupon();
+    } else {
+      await fetch(
+        `/api/delete_coupon?user_id=eq.${userId}&couponcode=eq.${options.couponcode}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('使用したクーポンを削除しました');
+          addThanksCoupon();
+        })
+        .catch((error) => console.error(error));
+    }
   };
 
   //容器返却を選択した場合、thanks couponを取得
