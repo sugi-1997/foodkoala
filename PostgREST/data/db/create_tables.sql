@@ -32,10 +32,7 @@ CREATE TABLE api.shops (
     score float  NOT NULL,
     genre_id INTEGER  NOT NULL,
     area_id INTEGER  NOT NULL,
-    deleted_at TIMESTAMPTZ DEFAULT NULL,
-    review_1 TEXT NOT NULL,
-    review_2 TEXT NOT NULL,
-    review_3 TEXT NOT NULL
+    deleted_at TIMESTAMPTZ DEFAULT NULL
 );
 GRANT SELECT ON api.shops TO web_anon;
 GRANT ALL ON api.shops to api_user;
@@ -155,3 +152,26 @@ CREATE TABLE api.favorite (
 );
 GRANT SELECT ON api.favorite TO web_anon;
 GRANT ALL ON api.favorite to api_user;
+
+--@block
+DROP TABLE IF EXISTS api.review;
+
+CREATE TABLE api.review (
+    id SERIAL PRIMARY KEY,
+    shop_id integer,
+    review TEXT
+);
+GRANT SELECT ON api.review TO web_anon;
+GRANT ALL ON api.review to api_user;
+
+
+--@block
+DROP TABLE IF EXISTS api.score;
+
+CREATE TABLE api.score (
+    id SERIAL PRIMARY KEY,
+    shop_id integer,
+    score integer
+);
+GRANT SELECT ON api.score TO web_anon;
+GRANT ALL ON api.score to api_user;

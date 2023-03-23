@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Header from 'components/header';
 import Footer from 'components/footer';
-import score from 'components/shop/score';
+import ShopScore from 'components/shop/score';
 import ShopReview from 'components/shop_review';
 import BreadList, {
   shop_page,
@@ -78,7 +78,7 @@ export function MenuList({ data }: { data: Menu[] }) {
 
 export function ShopMenu({ shopId }: { shopId: number }) {
   const { data, error } = useSWR(
-    `http://localhost:8000/items?shop_id=eq.${shopId}`,
+    `/api/items?shop_id=eq.${shopId}`,
     Fetcher
   );
 
@@ -109,16 +109,17 @@ export default function ShopDetail({ shopData }: ShopProps) {
         ></script>
       </Head>
       <Header />
-      <BreadList list={[menu_list, shop_list, shop_page]} />
-      <main>
-        <div key={shop.id} className={styles.main}>
+      <div className={styles.main}>
+        <div className={styles.bread}>
+          <BreadList list={[menu_list, shop_list, shop_page]} />
+        </div>
+        <div key={shop.id} className={styles.contents}>
           <h1 className={styles.shop_id_name}>
             <i className="fa-solid fa-utensils"></i>
             &nbsp;&nbsp;{shop.name}
           </h1>
           <div className={styles.shop_id_score}>
-            {shop.score}
-            {score(shop.score)}
+            <ShopScore id={shop.id} />
           </div>
           <div className={styles.shop_id_image}>
             <Image
@@ -135,9 +136,9 @@ export default function ShopDetail({ shopData }: ShopProps) {
             {shop.description}
           </p>
           <ShopMenu shopId={shop.id} />
-          <ShopReview shop={shop} />
+          <ShopReview id={shop.id} />
         </div>
-      </main>
+      </div>
       <Footer />
     </>
   );

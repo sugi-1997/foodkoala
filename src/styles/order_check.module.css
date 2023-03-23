@@ -4,7 +4,7 @@
 /*画面全体*/
  
 .order_check {
-    margin-top: 20%;
+    margin-top: 100px;
     margin-left: 15%;
 } 
 
@@ -192,7 +192,7 @@
 
 /*画面全体*/
 .order_check {
-    margin-top: 5%;
+    margin-top: 100px;
     margin-left: 20%;
 }
 
@@ -383,19 +383,20 @@
 @media screen and (min-width:1024px) {
     
 /*画面全体*/
+.main {
+    margin-top: 100px;
+}
+
 .order_check {
     display: flex;
     justify-content: center;
-    margin-top: 2%;
-    margin-left: 7%;
+    width: 100%;
 }
 
 /* 注文確定ボタン */
 
 .order_check_button {
-    /* text-align: center; */
-    margin: 0px 10px 10px -50px;
-    padding: 0;
+    display: inline-block;
     width: 150px;
     height: 30px;
     border: 0;
@@ -407,7 +408,6 @@
     position: fixed;
     bottom: 20%; 
     right: 6%;
-    padding: 6px 40px;
     opacity: 0.5;
 }
 
