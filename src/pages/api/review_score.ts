@@ -5,9 +5,9 @@ export default async function getScore(
   res: NextApiResponse
 ) {
   const url = process.env['SUPABASE_URL'];
-  const shop_id = req.query.shop_id;
+  const id = req.query.id;
   try {
-    const response = await fetch(`${url}/review?shop_id=${shop_id}`, {
+    const response = await fetch(`${url}/review?id=${id}`, {
       headers: {
         apikey: `${process.env['SUPABASE_ANON_KEY']}`,
         Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,

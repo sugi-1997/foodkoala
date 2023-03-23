@@ -1,3 +1,54 @@
+--@block
+
+INSERT INTO review(
+    shop_id,
+    user_id,
+    name,
+    date,
+    review,
+    image_url,
+    score
+)
+VALUES (
+    1,
+    2,
+    'saki',
+    '2023-03-23',
+    '本格的な味を家で味わえてとても贅沢です。',
+    '/images/menu/kaki.food.jpg',
+    3.5
+  ),
+(
+    1,
+    1,
+    'yuka',
+    '2023-03-23',
+    '彩りもとても綺麗で、テンションが上がりました。',
+    '/images/menu/soba.food.jpg',
+    2.7
+  ),
+  (
+    1,
+    9,
+    'mizuki',
+    '2023-03-23',
+    '出汁のきいたうどんがとても美味しかったです。',
+    '/images/menu/inarizushi.food.jpg',
+    3.0
+  ),
+  (
+    2,
+    11,
+    'hiroki',
+    '2023-03-22',
+    'ボリュームたっぷりで高校生の息子も大満足でした。',
+    '/images/menu/jikaseibeef.food.jpg',
+    4.0
+  );
+
+
+
+--@block
 INSERT INTO api.review (
     shop_id,
     review
