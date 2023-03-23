@@ -11,7 +11,7 @@ import { Fetcher } from 'lib/Fetcher';
 export default function ItemListPage() {
   const [genreId, setGenreId] = useState<string>('gt.0');
   const [areaId, setAreaId] = useState<string>('gt.0');
-  const [itemId, setItemId] = useState<string>('gt.0');
+  const itemId = 'gt.0';
   const { data, error } = useSWR(
     `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`,
     Fetcher,
@@ -39,7 +39,7 @@ export default function ItemListPage() {
       <Head>
         <title>商品一覧ページ</title>
       </Head>
-      <main>
+      <main className={styles.main}>
         <a href="#link">
           <input
             type="button"

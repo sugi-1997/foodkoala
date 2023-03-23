@@ -1,4 +1,12 @@
 /* [id]のCSS */
+.main {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
 .shop_id_image, .shop_id_description {
     display: flex;
     justify-content: center;
@@ -77,13 +85,16 @@
     object-fit: cover;
 }
 
-.main {
-    margin: 5%;
+.contents {
+    width: 90%;
+    margin: 0 auto;
     border:solid 5px #F78404;
     border-radius: 30px;
 }
 
-.review_score{
+.bread {
+    margin-left: auto;
+}.review_score{
     text-align: end;
     margin-right: 5%;
     color: #F78404;

@@ -1,4 +1,4 @@
-import Logout from './Logout';
+import Logout from '../src/lib/Logout';
 import { render, fireEvent } from '@testing-library/react';
 import Cookies from 'js-cookie';
 

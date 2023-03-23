@@ -1,22 +1,13 @@
+.main {
+    margin-top: 80px;
+    background-image: url("/images/concept/background.concept.png");
+    background-repeat: repeat;
+}
+
 .concept{
-    background-color: hsl(38, 98%, 83%);
     width: 100%;
 }
 
-.concept_title {
-    position: relative;
-}
-
-.concept_title img{
-    height:auto;
-    width: 100%;
-}
-/* .concept_koala{
-    position: absolute;     
-    right: 50%;
-    top:50%;
-    transform: translate(-50%, -50%);
- } */
 
 .concept_koala h2{
 text-align: center;
@@ -28,18 +19,15 @@ text-align: center;
 color: rgb(144, 112, 38);
 font-size: 1.5vw;
 }
-.concept_koala img {
-    width: 30%;
-}
+
 
 .concept_flex {
-    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
     height: auto;
-    left: 50%;
-    top:53%;
-    transform: translate(-50%, -50%);
     width: 100%;
-    text-align: center;
 }
 
 /* フレックスボックスたち */
@@ -50,6 +38,7 @@ font-size: 1.5vw;
     text-align: center;
     margin: 0 10px;
     flex-wrap: wrap;
+
 }
 
 .box{
