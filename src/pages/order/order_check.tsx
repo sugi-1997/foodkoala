@@ -75,6 +75,7 @@ export default function OrderCheck() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const credit = urlParams.get('credit');
+    const thanks = urlParams.get('thanks');
     console.log(credit);
     if (credit === null) {
       return;
@@ -118,6 +119,7 @@ export default function OrderCheck() {
           pathname: '/checkout_form',
           query: {
             amount: subTotal,
+            thanks: thanks,
           },
         });
       }

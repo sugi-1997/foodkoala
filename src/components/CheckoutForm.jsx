@@ -7,7 +7,7 @@ import {
 } from '@stripe/react-stripe-js';
 import styles from 'styles/Checkout_form.module.css';
 
-export default function CheckoutForm() {
+export default function CheckoutForm({ thanks }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -63,7 +63,7 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${url}/order/order_check?credit=ok`,
+        return_url: `${url}/order/order_check?credit=ok&thanks=${thanks}`,
       },
     });
     if (

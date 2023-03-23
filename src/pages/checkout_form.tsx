@@ -12,6 +12,7 @@ export default function Checkout() {
   const [clientSecret, setClientSecret] = useState('');
   const router = useRouter();
   const amount = Number(router.query.amount);
+  const thanks = router.query.thanks as string;
 
   //stripeのpayment_intentを作成
   useEffect(() => {
@@ -47,7 +48,7 @@ export default function Checkout() {
     <div className="App">
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm thanks={thanks} />
         </Elements>
       )}
     </div>
