@@ -13,12 +13,13 @@ import type { OrderHistory } from 'types/order_history';
 import type { OrderItems } from 'types/order_items';
 import { Fetcher } from 'lib/Fetcher';
 import styles from 'styles/order_history.module.css';
-import { userId } from 'lib/UserId';
+import Cookies from 'js-cookie';
 
 export default function OrderHistory() {
   const [orderDate, setOrderDate] = useState<Date[]>([]);
   const [orderItems, setOrderItems] = useState<OrderItems[]>([]);
   const [pageId, setPageId] = useState(1);
+  const userId = Cookies.get('user_id');
 
   //order_historyテーブルから注文内容を取得
   const { data, error } = useSWR(
