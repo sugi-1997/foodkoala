@@ -3,7 +3,7 @@ import styles from 'styles/order_check.module.css';
 import useSWR from 'swr';
 import { Fetcher } from 'lib/Fetcher';
 import type { Coupon } from 'types/coupon';
-import { userId } from 'lib/UserId';
+import Cookies from 'js-cookie';
 
 export default function Coupon({
   subTotal,
@@ -13,6 +13,7 @@ export default function Coupon({
   onClick: MouseEventHandler<HTMLInputElement>;
 }) {
   const [coupon, setCoupon] = useState('');
+  const userId = Cookies.get('user_id');
   const { data, error } = useSWR(
     `/api/coupon?user_id=eq.${userId}`,
     Fetcher
