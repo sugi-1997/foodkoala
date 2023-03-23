@@ -28,6 +28,16 @@
   box-shadow: 0 7px 7px rgba(0, 0, 0, 0.2);
 }
 
+.header li:hover {
+  opacity: 0.6;
+
+}
+
+.header li:active {
+  box-shadow: none;
+  transform: translateY(1px);
+}
+
 .header ul {
   display: flex;
   list-style: none;

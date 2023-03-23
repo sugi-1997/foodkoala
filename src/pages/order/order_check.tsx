@@ -76,16 +76,19 @@ export default function OrderCheck() {
     const urlParams = new URLSearchParams(window.location.search);
     const credit = urlParams.get('credit');
     const thanks = urlParams.get('thanks');
+    const options = urlParams.get('options');
     console.log(credit);
     if (credit === null) {
       return;
     } else if (credit === 'ok') {
+      console.log('options', options);
+      console.log('thanks', thanks);
       router.push({
         pathname: '/order/order_sending',
         query: {
           cartItems: JSON.stringify(cartItems),
           amount: subTotal,
-          options: JSON.stringify(memorizedOptionData),
+          options: options,
           thanks: thanks,
         },
       });
@@ -120,6 +123,7 @@ export default function OrderCheck() {
           query: {
             amount: subTotal,
             thanks: thanks,
+            options: JSON.stringify(data[0]),
           },
         });
       }
