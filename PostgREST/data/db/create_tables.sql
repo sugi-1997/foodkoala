@@ -158,8 +158,13 @@ DROP TABLE IF EXISTS api.review;
 
 CREATE TABLE api.review (
     id SERIAL PRIMARY KEY,
-    shop_id integer,
-    review TEXT
+    shop_id integer NOT NULL,
+    user_id integer NOT NULL,
+    name    text NOT NULL,
+    date    date NOT NULL,
+    review  text NOT NULL,
+    image_url text,
+    score  float NOT NULL
 );
 GRANT SELECT ON api.review TO web_anon;
 GRANT ALL ON api.review to api_user;
@@ -171,7 +176,7 @@ DROP TABLE IF EXISTS api.score;
 CREATE TABLE api.score (
     id SERIAL PRIMARY KEY,
     shop_id integer,
-    score integer
+    score float NOT NULL
 );
 GRANT SELECT ON api.score TO web_anon;
 GRANT ALL ON api.score to api_user;
