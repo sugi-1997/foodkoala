@@ -2,36 +2,45 @@ import styles from 'styles/inquiryList.module.css';
 import React, { useState, SyntheticEvent } from 'react';
 
 export default function InquiryList() {
+  // 各フォーム初期値
   const [name, setName] = useState('');
   const [nameKana, setNameKana] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSend = async (e: SyntheticEvent) => {
+  // handleSend関数
+  const handleSend = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    try {
-      await fetch('/api/mail', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          nameKana,
-          email,
-          phone,
-          message,
-        }),
+    fetch('/api/mail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        nameKana,
+        email,
+        phone,
+        message,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.length !== 0) {
+          console.log('success', data);
+        } else {
+          console.log('エラーその1');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('エラーその2');
       });
-      console.log('success');
-    } catch (error) {
-      console.error(error);
-      alert('エラーっすわ');
-    }
   };
 
+  // handleChange関数
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -54,6 +63,7 @@ export default function InquiryList() {
     }
   };
 
+  // フォームの様子
   return (
     <>
       <div className={styles.inquiryList_box}>
@@ -82,8 +92,8 @@ export default function InquiryList() {
             </tr>
 
             <tr>
-              {/* 必須 */}
               <th>
+                {/* 必須マークの(*) */}
                 メールアドレス<span>*</span>
               </th>
               <td>
@@ -97,7 +107,6 @@ export default function InquiryList() {
               </td>
             </tr>
 
-            {/* 必須 */}
             <tr>
               <th>
                 電話番号<span>*</span>
@@ -114,6 +123,7 @@ export default function InquiryList() {
 
             <tr>
               <th>
+                {/* 必須マークの(*) */}
                 お問合わせ内容を選ぶ<span>*</span>
               </th>
               <td>
@@ -172,9 +182,9 @@ export default function InquiryList() {
               </td>
             </tr>
 
-            {/* 必須 */}
             <tr>
               <th>
+                {/* 必須マークの(*) */}
                 お問い合わせ内容の詳細（300字以内）<span>*</span>
               </th>
               <td>
