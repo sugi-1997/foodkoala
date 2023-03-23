@@ -16,7 +16,6 @@ import type { CurrentCartItems } from 'types/current_cart_items';
 import type { Options } from 'types/options';
 import styles from 'styles/order_check.module.css';
 import Cookies from 'js-cookie';
-import Cookies from 'js-cookie';
 
 export default function OrderCheck() {
   const userId = Cookies.get('user_id');

@@ -2,7 +2,6 @@ import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import styles from 'styles/order_check.module.css';
 import type { CartItem } from 'types/cart_item';
-import Cookies from 'js-cookie';
 
 export default function Option() {
   const [itemId, setItemId] = useState<CartItem[]>([]);
