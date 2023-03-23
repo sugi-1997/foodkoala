@@ -33,7 +33,7 @@ export default function Login() {
           //data配列の0番目のオブジェクトからidを抽出してcookieのvalueに付与
           Cookies.set('user_id', data[0].id);
 
-          // メインページに遷移(遷移先はあとで変更してもよし)
+          // メインページに遷移
           router.push('/');
         } else {
           alert('入力内容を確認してください');
@@ -92,6 +92,7 @@ export default function Login() {
                 placeholder="something@example.com"
                 required
                 className={styles.input_text_design}
+                data-testid="email"
               />
             </div>
 
@@ -105,6 +106,7 @@ export default function Login() {
                 required
                 pattern="^[a-zA-Z0-9]+$"
                 className={styles.input_text_design}
+                data-testid="password"
               />
             </div>
             <br />
@@ -121,6 +123,7 @@ export default function Login() {
                   type="button"
                   value="ログインせずに商品を探す"
                   className={styles.login_button_design}
+                  data-testid="submit"
                 />
               </Link>
             </div>

@@ -4,6 +4,7 @@ import styles from 'styles/order_check.module.css';
 
 export default function SelectPay() {
   const userId = Cookies.get('user_id');
+  const userId = Cookies.get('user_id');
   useEffect(() => {
     const postPayment = async () => {
       await fetch(`/api/patch_carts?user_id=eq.${userId}`, {

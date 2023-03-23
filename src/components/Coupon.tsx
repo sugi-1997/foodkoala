@@ -14,6 +14,7 @@ export default function Coupon({
 }) {
   const userId = Cookies.get('user_id');
   const [coupon, setCoupon] = useState('');
+  const userId = Cookies.get('user_id');
   const { data, error } = useSWR(
     `/api/coupon?user_id=eq.${userId}`,
     Fetcher
