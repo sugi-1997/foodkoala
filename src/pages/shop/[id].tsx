@@ -79,7 +79,7 @@ export function MenuList({ data }: { data: Menu[] }) {
 
 export function ShopMenu({ shopId }: { shopId: number }) {
   const { data, error } = useSWR(
-    `http://localhost:8000/items?shop_id=eq.${shopId}`,
+    `/api/items?shop_id=eq.${shopId}`,
     Fetcher
   );
 

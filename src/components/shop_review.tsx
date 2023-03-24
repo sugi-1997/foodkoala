@@ -48,7 +48,7 @@ export default function ShopReview({ id }: { id: number }) {
             <br />
             <div className={styles.review_detail}>{rev.review}</div>
             <br />
-            <div className={styles.review_img}>
+            {/* <div className={styles.review_img}>
               <Image
                 src={rev.image_url}
                 alt="投稿画像"
@@ -56,7 +56,7 @@ export default function ShopReview({ id }: { id: number }) {
                 height={200}
               />
             </div>
-            <br />
+            <br /> */}
           </div>
         </>
       ));
@@ -74,7 +74,7 @@ export default function ShopReview({ id }: { id: number }) {
       const revData = rev();
       return revData;
     } else if (data.length === 2) {
-      for (let i = data.length - 1; i >= 1; i--) {
+      for (let i = data.length - 1; i >= 0; i--) {
         review.push(data[i]);
       }
       console.log('review', review);
