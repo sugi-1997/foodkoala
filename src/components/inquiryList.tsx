@@ -1,5 +1,6 @@
 import styles from 'styles/inquiryList.module.css';
 import React, { useRef } from 'react';
+import Link from 'next/link';
 
 export default function InquiryList() {
   // 各フォーム初期値
@@ -183,7 +184,11 @@ export default function InquiryList() {
               </tr>
             </tbody>
           </table>
-          <button type="submit">送る</button>
+          <Link href="/inquiry_completed">
+            <button type="submit" className={styles.button_inside}>
+              送る
+            </button>
+          </Link>
         </form>
       </div>
     </>
