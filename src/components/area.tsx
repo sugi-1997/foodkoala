@@ -18,13 +18,9 @@ export default function Area({ onClick }: any) {
       <div className={styles.arealist}>
         <div className={styles.all_area}>
           {data.map((area: Area, index: number) => (
-            <div
-              className={styles.area}
-              key={index}
-              id={`${area.id}`}
-            >
+            <div className={styles.area} key={index}>
               <button id={`${area.id}`} onClick={onClick}>
-                <p id={`${area.id}`}>{area.name}</p>
+                <p>{area.name}</p>
               </button>
             </div>
           ))}

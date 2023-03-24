@@ -9,11 +9,12 @@ import Footer from 'components/footer';
 import { useRouter } from 'next/router';
 import { Fetcher } from 'lib/Fetcher';
 import type { OrderItems } from 'types/order_items';
-import { userId } from 'lib/UserId';
+import Cookies from 'js-cookie';
 
 export default function OrderCompleted() {
   const [orderItems, setOrderItems] = useState<OrderItems[]>([]);
   const router = useRouter();
+  const userId = Cookies.get('user_id');
 
   //order_historyテーブルから注文内容を取得
   const { data, error } = useSWR(
@@ -46,7 +47,7 @@ export default function OrderCompleted() {
       }
     }
     getOrderItems();
-  }, [data, router, userId]);
+  }, [data, router]);
 
   if (error) return <div>エラーです</div>;
   if (!data) return <div>Loading...</div>;

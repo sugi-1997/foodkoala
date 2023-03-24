@@ -5,7 +5,7 @@ export default async function CartItems(
   res: NextApiResponse
 ) {
   try {
-    const url = process.env['BACKEND_API_URL'];
+    const url = process.env['SUPABASE_URL'];
     const userId = req.query.user_id;
     const couponcode = req.query.couponcode;
     if (couponcode === undefined || couponcode.includes('null')) {
@@ -30,7 +30,7 @@ export default async function CartItems(
         throw new Error('送信に失敗しました');
       }
     }
-  } catch (error) {
+  } catch (error: any) {
     res.status(400).json({ message: error.message });
   }
 }
