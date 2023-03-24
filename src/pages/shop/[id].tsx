@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Header from 'components/header';
 import Footer from 'components/footer';
-import score from 'components/shop/score';
+import ShopScore from 'components/shop/score';
 import ShopReview from 'components/shop_review';
 import BreadList, {
   shop_page,
@@ -14,6 +14,7 @@ import FavoriteButton from 'components/shop/favorite_button';
 import { Fetcher } from 'lib/Fetcher';
 import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
 import styles from '../../styles/Shop.module.css';
+import ReviewForm from 'components/shop/review_form';
 
 //お店情報の取得
 const url = process.env['SUPABASE_URL'];
@@ -117,8 +118,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
             &nbsp;&nbsp;{shop.name}
           </h1>
           <div className={styles.shop_id_score}>
-            {shop.score}
-            {score(shop.score)}
+            <ShopScore id={shop.id} />
           </div>
           <div className={styles.shop_id_image}>
             <Image
@@ -131,11 +131,16 @@ export default function ShopDetail({ shopData }: ShopProps) {
           <div>
             <FavoriteButton shop={shop} />
           </div>
-          <p className={styles.shop_id_description}>
+          <div className={styles.shop_id_description}>
             {shop.description}
-          </p>
+          </div>
           <ShopMenu shopId={shop.id} />
-          <ShopReview shop={shop} />
+          <div>
+            <ShopReview id={shop.id} />
+          </div>
+          <div>
+            <ReviewForm id={shop.id} />
+          </div>
         </div>
       </main>
       <Footer />
