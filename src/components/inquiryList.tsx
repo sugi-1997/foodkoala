@@ -60,6 +60,7 @@ export default function InquiryList() {
                     type="text"
                     className={styles.input_width}
                     ref={nameRef}
+                    placeholder="例:佐藤 太郎"
                   />
                 </td>
               </tr>
@@ -71,6 +72,7 @@ export default function InquiryList() {
                     type="text"
                     className={styles.input_width}
                     ref={nameKanaRef}
+                    placeholder="例:さとう たろう"
                   />
                 </td>
               </tr>
@@ -87,6 +89,7 @@ export default function InquiryList() {
                     required
                     name="email"
                     ref={emailRef}
+                    placeholder="例:example@example.com"
                   />
                 </td>
               </tr>
@@ -101,6 +104,7 @@ export default function InquiryList() {
                     className={styles.input_width}
                     required
                     ref={phoneRef}
+                    placeholder="例:000-000-0000"
                   />
                 </td>
               </tr>
@@ -179,6 +183,7 @@ export default function InquiryList() {
                     rows={5}
                     required
                     ref={messageRef}
+                    placeholder="ご意見・ご要望などを自由記述でご記入ください"
                   ></textarea>
                 </td>
               </tr>
