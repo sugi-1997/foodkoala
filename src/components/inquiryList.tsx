@@ -51,135 +51,137 @@ export default function InquiryList() {
           }
         >
           <table>
-            <tr>
-              <th>お名前（漢字）</th>
-              <td>
-                <input
-                  type="text"
-                  className={styles.input_width}
-                  ref={nameRef}
-                />
-              </td>
-            </tr>
-
-            <tr>
-              <th>お名前（ふりがな）</th>
-              <td>
-                <input
-                  type="text"
-                  className={styles.input_width}
-                  ref={nameKanaRef}
-                />
-              </td>
-            </tr>
-
-            <tr>
-              <th>
-                {/* 必須マークの(*) */}
-                メールアドレス<span>*</span>
-              </th>
-              <td>
-                <input
-                  type="mail"
-                  className={styles.input_width}
-                  required
-                  name="email"
-                  ref={emailRef}
-                />
-              </td>
-            </tr>
-
-            <tr>
-              <th>
-                電話番号<span>*</span>
-              </th>
-              <td>
-                <input
-                  type="text"
-                  className={styles.input_width}
-                  required
-                  ref={phoneRef}
-                />
-              </td>
-            </tr>
-
-            <tr>
-              <th>
-                {/* 必須マークの(*) */}
-                お問合わせ内容を選ぶ<span>*</span>
-              </th>
-              <td>
-                <div>
+            <tbody>
+              <tr>
+                <th>お名前（漢字）</th>
+                <td>
                   <input
-                    type="radio"
-                    id="inquiry_choice1"
-                    name="inquiry"
+                    type="text"
+                    className={styles.input_width}
+                    ref={nameRef}
                   />
-                  <label htmlFor="inquiry_choice1">
-                    追加して欲しいショップがある
-                  </label>
-                </div>
+                </td>
+              </tr>
 
-                <div>
+              <tr>
+                <th>お名前（ふりがな）</th>
+                <td>
                   <input
-                    type="radio"
-                    id="inquiry_choice2"
-                    name="inquiry"
+                    type="text"
+                    className={styles.input_width}
+                    ref={nameKanaRef}
                   />
-                  <label htmlFor="inquiry_choice2">
-                    注文に関するお問い合わせ
-                  </label>
-                </div>
+                </td>
+              </tr>
 
-                <div>
+              <tr>
+                <th>
+                  {/* 必須マークの(*) */}
+                  メールアドレス<span>*</span>
+                </th>
+                <td>
                   <input
-                    type="radio"
-                    id="inquiry_choice3"
-                    name="inquiry"
+                    type="mail"
+                    className={styles.input_width}
+                    required
+                    name="email"
+                    ref={emailRef}
                   />
-                  <label htmlFor="inquiry_choice3">
-                    ショップに関するお問い合わせ
-                  </label>
-                </div>
+                </td>
+              </tr>
 
-                <div>
+              <tr>
+                <th>
+                  電話番号<span>*</span>
+                </th>
+                <td>
                   <input
-                    type="radio"
-                    id="inquiry_choice4"
-                    name="inquiry"
+                    type="text"
+                    className={styles.input_width}
+                    required
+                    ref={phoneRef}
                   />
-                  <label htmlFor="inquiry_choice4">
-                    お支払いに関するお問い合わせ
-                  </label>
-                </div>
+                </td>
+              </tr>
 
-                <div>
-                  <input
-                    type="radio"
-                    id="inquiry_choice5"
-                    name="inquiry"
-                  />
-                  <label htmlFor="inquiry_choice5">その他</label>
-                </div>
-              </td>
-            </tr>
+              <tr>
+                <th>
+                  {/* 必須マークの(*) */}
+                  お問合わせ内容を選ぶ<span>*</span>
+                </th>
+                <td>
+                  <div>
+                    <input
+                      type="radio"
+                      id="inquiry_choice1"
+                      name="inquiry"
+                    />
+                    <label htmlFor="inquiry_choice1">
+                      追加して欲しいショップがある
+                    </label>
+                  </div>
 
-            <tr>
-              <th>
-                {/* 必須マークの(*) */}
-                お問い合わせ内容の詳細（300字以内）<span>*</span>
-              </th>
-              <td>
-                <textarea
-                  name="textarea"
-                  id=""
-                  cols={50}
-                  rows={5}
-                  required
-                  ref={messageRef}
-                ></textarea>
-              </td>
-            </tr>
+                  <div>
+                    <input
+                      type="radio"
+                      id="inquiry_choice2"
+                      name="inquiry"
+                    />
+                    <label htmlFor="inquiry_choice2">
+                      注文に関するお問い合わせ
+                    </label>
+                  </div>
+
+                  <div>
+                    <input
+                      type="radio"
+                      id="inquiry_choice3"
+                      name="inquiry"
+                    />
+                    <label htmlFor="inquiry_choice3">
+                      ショップに関するお問い合わせ
+                    </label>
+                  </div>
+
+                  <div>
+                    <input
+                      type="radio"
+                      id="inquiry_choice4"
+                      name="inquiry"
+                    />
+                    <label htmlFor="inquiry_choice4">
+                      お支払いに関するお問い合わせ
+                    </label>
+                  </div>
+
+                  <div>
+                    <input
+                      type="radio"
+                      id="inquiry_choice5"
+                      name="inquiry"
+                    />
+                    <label htmlFor="inquiry_choice5">その他</label>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <th>
+                  {/* 必須マークの(*) */}
+                  お問い合わせ内容の詳細（300字以内）<span>*</span>
+                </th>
+                <td>
+                  <textarea
+                    name="textarea"
+                    id=""
+                    cols={50}
+                    rows={5}
+                    required
+                    ref={messageRef}
+                  ></textarea>
+                </td>
+              </tr>
+            </tbody>
           </table>
           <button type="submit">送る</button>
         </form>
