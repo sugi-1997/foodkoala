@@ -31,7 +31,7 @@ export default function InquiryList() {
       body: JSON.stringify(data),
     })
       .then((res) => {
-        if (res.status === 200) console.log('成功');
+        if (res.status === 200) console.log('成功', data);
       })
       .catch((error) => {
         console.error(error);

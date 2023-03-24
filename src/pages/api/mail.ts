@@ -17,7 +17,7 @@ export default async function Mail(
   // 受け取るメール
   const mailOptions = {
     from: req.body.email,
-    to: 'horiakwa.hiroki0820@gmail.com',
+    to: 'コンタクトセンター(foodkoala@example.com)',
     subject: `お問い合わせ(${req.body.name}様)`,
     text: `${req.body.message}sent from ${req.body.email}`,
     html: `
