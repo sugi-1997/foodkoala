@@ -2,13 +2,13 @@ import type { Shop } from 'types/shops';
 import NoFavorite from 'components/shop/no_favorite';
 import NoLoginFavorite from 'components/shop/no_login_favorite';
 import LoadingFavorite from 'components/shop/loading_favorite';
-import Cookies from 'js-cookie';
-import GetData from 'lib/favorite/getData';
+import getData from 'lib/favorite/getData';
 import { useSetShops } from 'lib/favorite/setShops';
 import Favorite from 'components/shop/favorite';
+import Cookies from 'js-cookie';
 
 export default function ShopFavorite() {
-  const { data, error } = GetData();
+  const { data, error } = getData();
   const userId = Cookies.get('user_id');
 
   //favoriteのshop_idからお気に入りのショップ一覧を取得

@@ -1,3 +1,7 @@
+.main {
+    margin-top: 90px;
+}
+
 .h1 {
     text-align: center;
     color:#E75304;
@@ -84,7 +88,7 @@
 
 /* ログイン前 */
 .favorite_login {
-    margin: 70px 0;
+    margin: 90px 0;
     text-align: center;
 }
 
@@ -97,9 +101,7 @@
     text-decoration: none;
 }
 
-.favorite_login_link img {
-    width: 300px;
-}
+
 
 /* オレンジと白のボーダー */
 .background_orange {
