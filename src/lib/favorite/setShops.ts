@@ -1,6 +1,6 @@
+import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import Cookies from 'js-cookie';
 import { Shop } from 'types/shops';
 
 //favoriteのshop_idからお気に入りのショップ一覧を取得
@@ -34,7 +34,7 @@ export function useSetShops(data: any) {
       };
       getFavoriteShops();
     }
-  }, [data]);
+  }, [data, userId]);
 
   return favoriteShops;
 }

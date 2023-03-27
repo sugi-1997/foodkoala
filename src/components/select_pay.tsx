@@ -1,6 +1,6 @@
+import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import styles from 'styles/order_check.module.css';
-import Cookies from 'js-cookie';
 
 export default function SelectPay() {
   const userId = Cookies.get('user_id');
@@ -20,7 +20,7 @@ export default function SelectPay() {
         .catch((error) => console.error(error));
     };
     postPayment();
-  }, []);
+  }, [userId]);
 
   const patchPayment = async (selectedpayment: string) => {
     await fetch(`/api/patch_carts?user_id=eq.${userId}`, {

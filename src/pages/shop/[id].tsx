@@ -110,9 +110,11 @@ export default function ShopDetail({ shopData }: ShopProps) {
         ></script>
       </Head>
       <Header />
-      <BreadList list={[menu_list, shop_list, shop_page]} />
-      <main>
-        <div key={shop.id} className={styles.main}>
+      <div className={styles.main}>
+        <div className={styles.bread}>
+          <BreadList list={[menu_list, shop_list, shop_page]} />
+        </div>
+        <div key={shop.id} className={styles.contents}>
           <h1 className={styles.shop_id_name}>
             <i className="fa-solid fa-utensils"></i>
             &nbsp;&nbsp;{shop.name}
@@ -142,7 +144,7 @@ export default function ShopDetail({ shopData }: ShopProps) {
             <ReviewForm id={shop.id} />
           </div>
         </div>
-      </main>
+      </div>
       <Footer />
     </>
   );

@@ -24,12 +24,11 @@ export default function Header({ onClick }: any) {
         <div className={styles.logo}>
           <Link href="/">
             <Image
-              src="/images/provisional_logo.png"
-              alt="logo"
-              width={35}
-              height={35}
+              src="/images/header_logo.png"
+              alt="header-logo"
+              width={170}
+              height={170}
             />
-            <span>Food Koala</span>
           </Link>
         </div>
         {/* ここからハンバーガーメニュー */}

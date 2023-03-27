@@ -1,15 +1,15 @@
 import styles from 'styles/order_check.module.css';
-import useSWR, { useSWRConfig } from 'swr';
+import useSWR from 'swr';
 import { useState, useEffect } from 'react';
 import type { CartItem } from 'types/cart_item';
 import type { CurrentCartItems } from 'types/current_cart_items';
 import { Fetcher } from 'lib/Fetcher';
 import Image from 'next/image';
+import DeleteButton from 'components/DeleteButton';
 
 export default function OrderList() {
   const [cartItems, setCartItems] = useState<CurrentCartItems[]>([]);
   const [subTotal, setSubTotal] = useState(0);
-  const { mutate } = useSWRConfig();
   //cart_itemsテーブルからデータを取得
   const { data, error } = useSWR('/api/get_cart_items', Fetcher);
   let itemId: CartItem[] = data;
@@ -43,21 +43,6 @@ export default function OrderList() {
     );
     setSubTotal(add);
   }, [cartItems, subTotal]);
-
-  //商品の削除
-  const handleDelete = async (clickedId: number) => {
-    await fetch(`/api/delete_cart_items?item_id=eq.${clickedId}`, {
-      method: 'DELETE',
-      body: JSON.stringify({
-        item_id: clickedId,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-    mutate('/api/get_cart_items');
-  };
 
   if (error) <div>Error...</div>;
   if (!data) <div>Loading...</div>;
@@ -128,13 +113,7 @@ export default function OrderList() {
               </dd>
               <dd>{item.price * item.count}円</dd>
               <dd>
-                <button
-                  className={styles.delete_button}
-                  value={item.id}
-                  onClick={() => handleDelete(item.id)}
-                >
-                  削除
-                </button>
+                <DeleteButton value={item.id} />
               </dd>
             </dl>
           ))}

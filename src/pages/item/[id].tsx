@@ -42,8 +42,8 @@ export default function ItemPage({ data }: { data: Menu[] }) {
         <title>商品詳細画面</title>
       </Head>
       <Header />
-      <BreadList list={[menu_list, menu_page]} />
-      <main>
+      <div className={styles.main}>
+        <BreadList list={[menu_list, menu_page]} />
         <div key={item.id} className={styles.item_detail}>
           <Image
             src={item.image_url}
@@ -59,7 +59,7 @@ export default function ItemPage({ data }: { data: Menu[] }) {
             注文リストに追加
           </button>
         </div>
-      </main>
+      </div>
       <Footer />
     </>
   );
