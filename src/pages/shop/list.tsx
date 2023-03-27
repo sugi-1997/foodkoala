@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
 import ShopName from '../../components/shop_name';
 import Header from 'components/header';
@@ -16,6 +16,7 @@ import styles from 'styles/index.module.css';
 export default function ShopList() {
   const [genreId, setGenreId] = useState<string>('gt.0');
   const [areaId, setAreaId] = useState<string>('gt.0');
+  const [page, setPage] = useState(0);
 
   const { data, error } = useSWR(
     `/api/shop?genreId=${genreId}&areaId=${areaId}`,
@@ -25,6 +26,24 @@ export default function ShopList() {
     }
   );
   const { mutate } = useSWRConfig();
+
+  // ページ数を取得
+  const pageCount =
+    data.length % 6 === 0 ? data.length / 6 : data.length / 6 + 1;
+
+  //ページ数の配列を作成
+  let pageArr = [];
+  for (let i = 1; i <= pageCount; i++) {
+    pageArr.push(i);
+  }
+
+  // 6個分のデータを作成
+  let pagingData;
+  if (data.length >= 6) {
+    pagingData = data.slice(page * 6, page * 6 + 6);
+  } else {
+    pagingData = data;
+  }
 
   const handleGenreClick = (clickedId: any) => {
     setAreaId('gt.0');
@@ -49,17 +68,43 @@ export default function ShopList() {
         <title>ショップ一覧</title>
       </Head>
       <main className={styles.main}>
-        <a id="link2">
-          <Header />
-        </a>
+        {/* <a id="link2"> */}
+        <Header />
+        {/* </a> */}
         <BreadList list={[menu_list, shop_list]} />
-        <Genre onClick={(e: any) => handleGenreClick(e.target.id)} />
-        <Area onClick={(e: any) => handleAreaClick(e.target.id)} />
-        <ShopName data={data} />
-        <a id="link">
-          <Footer />
-        </a>
-        <a href="#link">
+        <aside className={styles.aside}>
+          <Genre
+            onClick={(e: SyntheticEvent) => {
+              const clickedId = e.currentTarget.id;
+              handleGenreClick(clickedId);
+            }}
+          />
+          <Area
+            onClick={(e: SyntheticEvent) => {
+              const clickedId = e.currentTarget.id;
+              handleAreaClick(clickedId);
+            }}
+          />
+        </aside>
+        <ShopName data={pagingData} />
+        <div className={styles.buttons}>
+          {pageArr.map((page, index) => (
+            <button
+              key={index}
+              value={page}
+              onClick={() => {
+                setPage(index);
+                mutate;
+              }}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+        {/* <a id="link"> */}
+        <Footer />
+        {/* </a> */}
+        {/* <a href="#link">
           <input
             type="button"
             value="Down↓"
@@ -72,7 +117,7 @@ export default function ShopList() {
             value="Up↑"
             className={styles.button_up}
           />
-        </a>
+        </a> */}
       </main>
     </>
   );

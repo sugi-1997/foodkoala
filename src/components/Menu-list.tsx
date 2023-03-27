@@ -31,7 +31,7 @@ export default function MenuList() {
 
   // ページ数を取得
   const pageCount =
-    data.length % 8 === 0 ? data.length / 8 : data.length / 8 + 1;
+    data.length % 9 === 0 ? data.length / 9 : data.length / 9 + 1;
 
   // ページ数の配列を作成
   let pageArr = [];
@@ -113,7 +113,10 @@ export default function MenuList() {
                 type="button"
                 value={page}
                 key={index}
-                onClick={(e) => console.log(e.currentTarget.value)}
+                onClick={() => {
+                  setPage(Number(index));
+                  mutate;
+                }}
               />
             ))}
           </div>
