@@ -109,6 +109,11 @@
     text-align: center;
 }
 
+.review_delete {
+    margin: 10px 0;
+    text-align: center;
+}
+
 /* .review_score_component {
     position: relative;
 } */

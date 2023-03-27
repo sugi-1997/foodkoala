@@ -4,6 +4,7 @@ import { Review } from 'types/review';
 import useSWR from 'swr';
 import { Fetcher } from 'lib/Fetcher';
 import ShopScore from './shop/review_score';
+import reviewDelete from './shop/review_delete';
 
 export default function ShopReview({ id }: { id: number }) {
   //レビューのコアラアイコン
@@ -47,7 +48,6 @@ export default function ShopReview({ id }: { id: number }) {
             </div>
             <br />
             <div className={styles.review_detail}>{rev.review}</div>
-            <br />
             {/* <div className={styles.review_img}>
               <Image
                 src={rev.image_url}
@@ -57,6 +57,9 @@ export default function ShopReview({ id }: { id: number }) {
               />
             </div>
             <br /> */}
+            <div className={styles.review_delete}>
+              {reviewDelete(rev.id, rev.user_id, rev.shop_id)}
+            </div>
           </div>
         </>
       ));
@@ -66,14 +69,7 @@ export default function ShopReview({ id }: { id: number }) {
           <p>まだレビューがありません。</p>
         </div>
       );
-    } else if (data.length === 1) {
-      for (let i = data.length - 1; i >= 0; i--) {
-        review.push(data[i]);
-      }
-      console.log('review', review);
-      const revData = rev();
-      return revData;
-    } else if (data.length === 2) {
+    } else if (data.length === 1 || data.length === 2) {
       for (let i = data.length - 1; i >= 0; i--) {
         review.push(data[i]);
       }
