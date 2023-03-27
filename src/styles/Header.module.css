@@ -8,7 +8,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid rgba(189, 140, 66, 0.5);
+  border-bottom: 2px solid rgba(189, 140, 66, 0.3);
   background-color: #fff;
 }
 
