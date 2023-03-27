@@ -145,7 +145,7 @@ export default function ReviewForm({ id }: { id: number }) {
                 <input
                   type="date"
                   name="date"
-                  max={`${currentDate}`}
+                  max={`${today}`}
                   onChange={(e) => setDate(e.currentTarget.value)}
                 />
                 {error.date && (

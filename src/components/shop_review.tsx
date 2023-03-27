@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import { Fetcher } from 'lib/Fetcher';
 import ShopScore from './shop/review_score';
 import reviewDelete from './shop/review_delete';
+import fs from 'fs';
 
 export default function ShopReview({ id }: { id: number }) {
   //レビューのコアラアイコン
@@ -18,6 +19,15 @@ export default function ShopReview({ id }: { id: number }) {
       />
     );
   }
+
+  async function toBeBase64() {
+    const res = await fetch('/images/foodkoala_logo.png');
+    const buffer = await res.arrayBuffer();
+    const base64buffer = Buffer.from(buffer).toString('base64');
+    console.log('buffer', buffer);
+    console.log('base64buffer', base64buffer);
+  }
+  toBeBase64();
 
   const { data, error } = useSWR(
     `/api/review?shop_id=eq.${id}`,
