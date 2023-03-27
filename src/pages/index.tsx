@@ -40,7 +40,7 @@ export default function ItemListPage() {
         <title>商品一覧ページ</title>
       </Head>
       <main className={styles.main}>
-        <a href="#link">
+        {/* <a href="#link">
           <input
             type="button"
             value="Down↓"
@@ -53,7 +53,7 @@ export default function ItemListPage() {
             value="Up↑"
             className={styles.button_up}
           />
-        </a>
+        </a> */}
         <a id="link2">
           <Header onClick={handleMenuClick} />
         </a>
