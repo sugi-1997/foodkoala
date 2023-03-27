@@ -24,7 +24,7 @@
     font-weight: 700;
     border-radius: 5px;
     background-color: white;
-    border: 3px double  #00D698;
+    border: 3px double  rgba(226, 143, 18, 0.3);
     box-shadow: 1px 2px #9bb0a5;
   }
   
