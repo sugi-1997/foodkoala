@@ -14,6 +14,7 @@ export default function Header({ onClick }: any) {
   const [logoutStatus, setLogoutStatus] = useState('false');
   let noItemCart = 'on';
   let koalaOnCart = 'off';
+  let itemAmount = 0;
 
   const { data, error } = useSWR('/api/get_cart_items', Fetcher);
 
@@ -26,6 +27,7 @@ export default function Header({ onClick }: any) {
   } else {
     koalaOnCart = 'on';
     noItemCart = 'off';
+    itemAmount = data.length;
   }
 
   useEffect(() => {
@@ -79,27 +81,29 @@ export default function Header({ onClick }: any) {
                 <Link href="/login">ログイン</Link>
               </li>
               <Logout className={styles[logoutStatus]} />
-              <Link href="/order/list">
-                <div className={styles[noItemCart]}>
+            </ul>
+            <Link href="/order/list">
+              <div className={styles[noItemCart]}>
+                <Image
+                  className={styles.shoppingcart}
+                  alt="ショッピングカートのアイコン"
+                  src="/images/shoppingcart.icon.png"
+                  width={30}
+                  height={30}
+                />
+              </div>
+              <div className={styles[koalaOnCart]}>
+                <div className={styles.shoppingcart}>
                   <Image
-                    className={styles.shoppingcart}
-                    alt="ショッピングカートのアイコン"
-                    src="/images/shoppingcart.icon.png"
-                    width={30}
-                    height={30}
-                  />
-                </div>
-                <div className={styles[koalaOnCart]}>
-                  <Image
-                    className={styles.shoppingcart}
                     alt="ショッピングカートのアイコン"
                     src="/images/koala-on-cart.png"
                     width={60}
                     height={60}
                   />
+                  <span>{itemAmount}</span>
                 </div>
-              </Link>
-            </ul>
+              </div>
+            </Link>
           </nav>
         </div>
       </header>

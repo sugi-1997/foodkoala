@@ -48,13 +48,12 @@
   color: #4f4842;
 }
 
-.shoppingcart {
-  padding-top: 10px;
-}
-
 .nav {
   cursor: pointer;
+  display: flex;
 }
+
+/* ショッピングカートアイコンのCSS */
 
 .false{
   display: none;
@@ -62,6 +61,29 @@
 
 .off {
   display: none
+}
+
+.shoppingcart {
+  margin-left: 30px;
+}
+
+.shoppingcart span{
+  position: absolute;
+  top: 27px;
+  right: 40px;
+  background-color: #e97007;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  width: 15px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.shoppingcart img {
+  position: absolute;
+  top: 20px;
+  right: 1%;
 }
 
 /* ハンバーガーメニュー用 */
