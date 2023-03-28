@@ -6,6 +6,7 @@ import Header from 'components/header';
 import Genre from 'components/genre';
 import Area from 'components/area';
 import Footer from 'components/footer';
+import OrderListModal from 'components/orderlist_modal';
 import BreadList, {
   menu_list,
   shop_list,
@@ -17,6 +18,8 @@ export default function ShopList() {
   const [genreId, setGenreId] = useState<string>('gt.0');
   const [areaId, setAreaId] = useState<string>('gt.0');
   const [page, setPage] = useState(0);
+  const [modal, setModal] = useState('close');
+  const [modalOpen, setModalOpen] = useState('false');
 
   const { data, error } = useSWR(
     `/api/shop?genreId=${genreId}&areaId=${areaId}`,
@@ -26,6 +29,9 @@ export default function ShopList() {
     }
   );
   const { mutate } = useSWRConfig();
+
+  if (error) return <div>エラーです</div>;
+  if (!data) return <div>Loading...</div>;
 
   // ページ数を取得
   const pageCount =
@@ -59,66 +65,62 @@ export default function ShopList() {
     mutate(`/api/shop?areaId=${areaId}&genreId=${genreId}`);
   };
 
-  if (error) return <div>エラーです</div>;
-  if (!data) return <div>Loading...</div>;
+  //カートアイコンがクリックされると、モーダルを表示し、背景を暗くする
+  const openModal = () => {
+    setModal('open');
+    setModalOpen('true');
+  };
+
+  //×ボタンがクリックされると、モーダルを非表示にし、背景を元に戻す
+  const closeModal = () => {
+    setModal('close');
+    setModalOpen('false');
+  };
 
   return (
     <>
       <Head>
         <title>ショップ一覧</title>
       </Head>
-      <main className={styles.main}>
-        {/* <a id="link2"> */}
-        <Header />
-        {/* </a> */}
-        <BreadList list={[menu_list, shop_list]} />
-        <aside className={styles.aside}>
-          <Genre
-            onClick={(e: SyntheticEvent) => {
-              const clickedId = e.currentTarget.id;
-              handleGenreClick(clickedId);
-            }}
-          />
-          <Area
-            onClick={(e: SyntheticEvent) => {
-              const clickedId = e.currentTarget.id;
-              handleAreaClick(clickedId);
-            }}
-          />
-        </aside>
-        <ShopName data={pagingData} />
-        <div className={styles.buttons}>
-          {pageArr.map((page, index) => (
-            <button
-              key={index}
-              value={page}
-              onClick={() => {
-                setPage(index);
-                mutate;
-              }}
-            >
-              {page}
-            </button>
-          ))}
+      <div className={styles.screen}>
+        <div className={styles[modal]}>
+          <OrderListModal closeModal={closeModal} />
         </div>
-        {/* <a id="link"> */}
-        <Footer />
-        {/* </a> */}
-        {/* <a href="#link">
-          <input
-            type="button"
-            value="Down↓"
-            className={styles.button_down}
-          />
-        </a>
-        <a href="#link2">
-          <input
-            type="button"
-            value="Up↑"
-            className={styles.button_up}
-          />
-        </a> */}
-      </main>
+        <main className={styles.main}>
+          <Header openModal={openModal} />
+          <BreadList list={[menu_list, shop_list]} />
+          <aside className={styles.aside}>
+            <Genre
+              onClick={(e: SyntheticEvent) => {
+                const clickedId = e.currentTarget.id;
+                handleGenreClick(clickedId);
+              }}
+            />
+            <Area
+              onClick={(e: SyntheticEvent) => {
+                const clickedId = e.currentTarget.id;
+                handleAreaClick(clickedId);
+              }}
+            />
+          </aside>
+          <ShopName data={pagingData} />
+          <div className={styles.buttons}>
+            {pageArr.map((page, index) => (
+              <button
+                key={index}
+                value={page}
+                onClick={() => {
+                  setPage(index);
+                  mutate;
+                }}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+          <Footer />
+        </main>
+      </div>
     </>
   );
 }

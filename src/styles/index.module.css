@@ -1,3 +1,12 @@
+.screen {
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
 .aside{
     width: 19%;
     height: 100%;
@@ -6,12 +15,12 @@
     padding-top: 2%;
     padding-bottom: 15%;
   }
-  
 
-.main {
-    margin-top: 80px;
+  .main {
+  margin-top: 80px;
 }
 
+/* ページング用のボタンのCSS */
 .buttons {
     display: flex;
     justify-content: center;
@@ -37,9 +46,55 @@
     transform: translateY(1px);
   }
 
+/* モーダル用のCSS */
+.screen {
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: -400px;
+  transition: all 0.7s ;
+}
+
+.open {
+  z-index: 15;
+  position: absolute;
+  top: 0;
+  right: 0px;
+  width: 35%;
+  height: 100%;
+  background-color: white;
+  border: 1px solid rgba(226, 143, 18, 0.3);
+  overflow: scroll;
+  transition: all 0.7s;
+}
+
+/* モーダルが開いている時の背景のCSS */
+.true {
+  width:100%;
+  height:100vw;
+  position: fixed;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+
+
+
+
+
+
+
 
   /* UP・DOWNボタン用のCSS */
-.button_down{
+/* .button_down{
         
         width: 7%;
         height: 5%;
@@ -115,4 +170,4 @@
     
         }
         
-    }
+    } */

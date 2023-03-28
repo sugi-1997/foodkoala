@@ -8,7 +8,7 @@ import Logout from 'lib/Logout';
 import useSWR from 'swr';
 import { Fetcher } from 'lib/Fetcher';
 
-export default function Header({ onClick }: any) {
+export default function Header({ onClick, openModal }: any) {
   const user_id = Cookies.get('user_id');
   const [loginStatus, setLoginStatus] = useState('true');
   const [logoutStatus, setLogoutStatus] = useState('false');
@@ -82,28 +82,33 @@ export default function Header({ onClick }: any) {
               </li>
               <Logout className={styles[logoutStatus]} />
             </ul>
-            <Link href="/order/list">
-              <div className={styles[noItemCart]}>
+            <div className={styles[noItemCart]}>
+              <button
+                className={styles.shoppingcart}
+                onClick={openModal}
+              >
                 <Image
-                  className={styles.shoppingcart}
                   alt="ショッピングカートのアイコン"
                   src="/images/shoppingcart.icon.png"
                   width={30}
                   height={30}
                 />
-              </div>
-              <div className={styles[koalaOnCart]}>
-                <div className={styles.shoppingcart}>
-                  <Image
-                    alt="ショッピングカートのアイコン"
-                    src="/images/koala-on-cart.png"
-                    width={60}
-                    height={60}
-                  />
-                  <span>{itemAmount}</span>
-                </div>
-              </div>
-            </Link>
+              </button>
+            </div>
+            <div className={styles[koalaOnCart]}>
+              <button
+                className={styles.koala_on_cart}
+                onClick={openModal}
+              >
+                <Image
+                  alt="ショッピングカートのアイコン"
+                  src="/images/koala-on-cart.png"
+                  width={60}
+                  height={60}
+                />
+                <span>{itemAmount}</span>
+              </button>
+            </div>
           </nav>
         </div>
       </header>

@@ -54,7 +54,6 @@
 }
 
 /* ショッピングカートアイコンのCSS */
-
 .false{
   display: none;
 }
@@ -63,26 +62,43 @@
   display: none
 }
 
-.shoppingcart {
-  margin-left: 30px;
-}
-
-.shoppingcart span{
-  position: absolute;
-  top: 27px;
-  right: 40px;
-  background-color: #e97007;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  width: 15px;
-  border-radius: 15px;
-  text-align: center;
+.shoppingcart{
+  margin-left: 10px;
+  cursor: pointer;
+  border: none;
+  background-color: white;
 }
 
 .shoppingcart img {
   position: absolute;
-  top: 20px;
+  top: 25px;
+  right: 2%;
+}
+
+.koala_on_cart{
+  margin-left: 25px;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+}
+
+.koala_on_cart span{
+  position: absolute;
+  top: 23px;
+  right: 40px;
+  background-color: #e97007;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.koala_on_cart img {
+  position: absolute;
+  top: 15px;
   right: 1%;
 }
 
