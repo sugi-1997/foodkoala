@@ -10,6 +10,7 @@ import InquiryList from 'components/inquiryList';
 import Link from 'next/link';
 import OrderListModal from 'components/orderlist_modal';
 import { useState } from 'react';
+import modalStyle from 'styles/OrderListModal.module.css';
 
 export default function InquiryForm() {
   const [modal, setModal] = useState('close');
@@ -45,11 +46,6 @@ export default function InquiryForm() {
               <dl className={styles.input_form}>
                 <InquiryList />
               </dl>
-            </div>
-            <div className={styles.button}>
-              <button type="submit" className={styles.button_inside}>
-                <Link href="/inquiry_completed">送信する</Link>
-              </button>
             </div>
           </div>
           <Footer />

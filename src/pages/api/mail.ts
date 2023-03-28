@@ -7,7 +7,7 @@ export default async function Mail(
 ) {
   const transport = nodemailer.createTransport({
     host: process.env.MAILTRAP_HOST,
-    port: 587,
+    port: 2525,
     auth: {
       user: process.env.MAILTRAP_USERNAME,
       pass: process.env.MAILTRAP_PASSWORD,
