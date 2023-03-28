@@ -6,7 +6,6 @@ import Header from 'components/header';
 import Footer from 'components/footer';
 import Head from 'next/head';
 import styles from 'styles/Inquiry_form.module.css';
-import modalStyle from 'styles/OrderListModal.module.css';
 import InquiryList from 'components/inquiryList';
 import Link from 'next/link';
 import OrderListModal from 'components/orderlist_modal';
