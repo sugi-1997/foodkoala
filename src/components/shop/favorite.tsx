@@ -7,6 +7,7 @@ import BreadList, {
 import ShopName from 'components/shop_name';
 import Footer from 'components/footer';
 import { Shop } from 'types/shops';
+import styles from 'styles/favorite.module.css';
 
 export default function Favorite({
   favoriteShops,
@@ -19,8 +20,11 @@ export default function Favorite({
         <title>お気に入り店舗一覧</title>
       </Head>
       <Header />
-      <BreadList list={[menu_list, favorite_list]} />
-      <ShopName data={favoriteShops} />
+      <div className={styles.main}>
+        <BreadList list={[menu_list, favorite_list]} />
+        <aside className={styles.aside}></aside>
+        <ShopName data={favoriteShops} />
+      </div>
       <Footer />
     </>
   );

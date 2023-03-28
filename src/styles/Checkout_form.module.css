@@ -1,0 +1,19 @@
+.main {
+  width: 30%;
+  margin: 5% auto;
+  border: 1px solid rgb(154, 150, 150);
+  padding: 3% 3%;
+  box-shadow: 1px 2px #9bb0a5;
+}
+
+.main button {
+  margin-top: 5%;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  border: 1px solid orange;
+  background-color: orange;
+  color: #fff;
+  font-size: 15px;
+  box-shadow: 1px 2px #9bb0a5;
+}

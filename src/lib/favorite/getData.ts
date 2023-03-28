@@ -1,6 +1,6 @@
 import useSWR from 'swr';
-import Cookies from 'js-cookie';
 import { Fetcher } from 'lib/Fetcher';
+import Cookies from 'js-cookie';
 
 type Data = {
   data: any;
