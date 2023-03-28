@@ -1,4 +1,12 @@
 /* [id]のCSS */
+.main {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
 .shop_id_image, .shop_id_description {
     display: flex;
     justify-content: center;
@@ -43,12 +51,15 @@
     object-fit:cover;
 }
 
+/* reviewのCSS */
+
 .shopDetail_review {
-    padding-bottom: 70px;
+    padding-bottom: 50px;
+    margin:0 15%;
 }
 
 .shop_id_review_title{
-    margin: 30px 20% 10px 20%;
+    margin: 30px 0 30px 0;
 }
 
 .shop_id_review_title span {
@@ -59,43 +70,139 @@
     font-size: 18px;
 }
 
-.shop_review {
-    padding: 30px 0;
-}
-
-.shop_id_review_img img{
-    width: auto;
-    height:60px;
-}
-
-.shop_id_review,.shop_id_review_img{
-    display: inline-block;
-    float: left;
-    margin-left: 20%;
-}
-
-.shop_id_review{
+.review {
     border: solid 3px #f8b856;
     border-radius: 5px;
-    height: 55px;
-    margin-left: 30px;
-    padding:5px;
-    width: 60%;
-    word-wrap: break-word;
-    display: grid;
-    place-items: center;
-    white-space:pre;
+    padding:2% 0;
+    margin-bottom: 20px;
 }
 
-.main {
-    margin: 5%;
+.review_img{
+    text-align: center;
+}
+
+.review_img img{
+    object-fit: cover;
+}
+
+.contents {
+    width: 90%;
+    margin: 0 auto;
     border:solid 5px #F78404;
     border-radius: 30px;
 }
 
+.bread {
+    margin-left: auto;
+}.review_score{
+    text-align: end;
+    margin-right: 5%;
+    color: #F78404;
+}
 
+.review_name,.review_date {
+    margin-left: 5%;
+}
 
+.review_name {
+    display: grid;
+    place-items: center;
+    font-size: large;
+    color:#E75304;
+    font-weight: bold;
+}
 
+.review_detail {
+    margin:0 5%;
+}
+
+.review p{
+    text-align: center;
+}
+
+.review_delete {
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* .review_score_component {
+    position: relative;
+} */
+
+/* ReviewFormのCSS */
+.review_form_title{
+    margin: 30px 0 30px 0;
+}
+
+.review_form_title span {
+    background-color: #E75304;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    font-size: 18px;
+    margin:0 15%;
+}
+
+.review_form {
+    padding-bottom: 70px;
+    margin:0 15%;
+}
+
+.not_review {
+    text-align: center;
+}
+
+.review_forms {
+    margin: 0 8%;
+}
+
+.review_forms textarea,.review_forms_name input {
+    width:100%;
+}
+
+.review_forms_name input {
+    height:25px
+}
+
+.review_forms_name,.review_forms_date,.review_forms_score,.review_forms_review,.review_forms_img {
+    margin:20px 0;
+}
+
+.review button {
+    background-color: #E75304;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    width:40px;
+    height:30px;
+}
+
+.review_form {
+    text-align: center;
+  }
+  
+  .review_forms_button {
+    display: inline-block;
+    margin: 0 auto;
+  }
+
+.review_forms_flexbox {
+    display: flex;
+    justify-content: center;
+    flex: 2;
+}
+
+.review_forms_date,.review_forms_score {
+    flex: 1;
+}
+
+.review_forms_date label,.review_forms_score label {
+    background-color: #F78404;
+    width:40px;
+    height:30px;
+    color: white;
+    padding: 5px 10px;
+}
 
 /* favorite_buttonのCSS */
 
@@ -112,6 +219,7 @@
     border-radius: 5px;
     width:40px;
     height:30px;
+    cursor: pointer;
 }
 
 .shop_favorite_false button{
@@ -121,4 +229,5 @@
     border-radius: 5px;
     width:40px;
     height:30px;
+    cursor: pointer;
 }
