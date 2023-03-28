@@ -8,7 +8,6 @@ import OrderList from 'components/order_list';
 import Footer from 'components/footer';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import useSWR from 'swr';
 import styles from 'styles/order_list.module.css';
 import type { CartItem } from 'types/cart_item';
@@ -44,8 +43,8 @@ export default function Orderlist() {
           <title>注文リスト</title>
         </Head>
         <Header />
-        <BreadList list={[menu_list, order_list]} />
         <div className={styles.order_list}>
+          <BreadList list={[menu_list, order_list]} />
           <OrderList />
           <div className={styles.alert}>
             <p>※カートに商品がないため、購入できません</p>
@@ -65,15 +64,17 @@ export default function Orderlist() {
         <title>注文リスト</title>
       </Head>
       <Header />
-      <BreadList list={[menu_list, order_list]} />
-      <div className={styles.order_list}>
-        <OrderList />
-        <button
-          className={styles.transition_button}
-          onClick={handleClick}
-        >
-          購入画面へ
-        </button>
+      <div className={styles.main}>
+        <BreadList list={[menu_list, order_list]} />
+        <div className={styles.order_list}>
+          <OrderList />
+          <button
+            className={styles.transition_button}
+            onClick={handleClick}
+          >
+            購入画面へ
+          </button>
+        </div>
       </div>
       <Footer />
     </>
