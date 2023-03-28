@@ -32,7 +32,7 @@ export default function InquiryList() {
       body: JSON.stringify(data),
     })
       .then((res) => {
-        if (res.status === 200) console.log('成功', data);
+        if (res.status === 200) console.log('成・功！', data);
       })
       .catch((error) => {
         console.error(error);
@@ -189,11 +189,9 @@ export default function InquiryList() {
               </tr>
             </tbody>
           </table>
-          <Link href="/inquiry_completed">
-            <button type="submit" className={styles.button_inside}>
-              送る
-            </button>
-          </Link>
+          <button type="submit" className={styles.button_inside}>
+            送る
+          </button>
         </form>
       </div>
     </>
