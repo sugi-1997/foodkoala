@@ -1,18 +1,14 @@
 import styles from 'styles/order_list.module.css';
 import useSWR from 'swr';
 import { useState, useEffect } from 'react';
-import type { CartItem } from 'types/cart_item';
 import type { CurrentCartItems } from 'types/current_cart_items';
-import { Fetcher } from 'lib/Fetcher';
 import Image from 'next/image';
 import DeleteButton from 'components/DeleteButton';
 
-export default function OrderList() {
+export default function OrderList({ data }: any) {
   const [cartItems, setCartItems] = useState<CurrentCartItems[]>([]);
   const [subTotal, setSubTotal] = useState(0);
-  //cart_itemsテーブルからデータを取得
-  const { data, error } = useSWR('/api/get_cart_items', Fetcher);
-  let itemId: CartItem[] = data;
+  const itemId = data;
 
   //item_idが一致する商品のデータを取得
   useEffect(() => {
@@ -43,9 +39,6 @@ export default function OrderList() {
     );
     setSubTotal(add);
   }, [cartItems, subTotal]);
-
-  if (error) <div>Error...</div>;
-  if (!data) <div>Loading...</div>;
 
   if (cartItems.length === 0) {
     return (
