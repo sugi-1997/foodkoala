@@ -8,6 +8,7 @@ import ShopName from 'components/shop_name';
 import Footer from 'components/footer';
 import { Shop } from 'types/shops';
 import styles from 'styles/favorite.module.css';
+import modalStyle from 'styles/OrderListModal.module.css';
 import { useState } from 'react';
 import OrderListModal from 'components/orderlist_modal';
 
@@ -36,11 +37,11 @@ export default function Favorite({
       <Head>
         <title>お気に入り店舗一覧</title>
       </Head>
-      <div className={styles.screen}>
-        <div className={styles[modal]}>
+      <div className={modalStyle.screen}>
+        <div className={modalStyle[modal]}>
           <OrderListModal closeModal={closeModal} />
         </div>
-        <div className={styles[modalOpen]}>
+        <div className={modalStyle[modalOpen]}>
           <Header openModal={openModal} />
           <div className={styles.main}>
             <BreadList list={[menu_list, favorite_list]} />

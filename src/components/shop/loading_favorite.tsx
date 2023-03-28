@@ -8,6 +8,7 @@ import BreadList, {
 import Footer from 'components/footer';
 import OrderListModal from 'components/orderlist_modal';
 import styles from 'styles/index.module.css';
+import modalStyle from 'styles/OrderListModal.module.css';
 
 export default function LoadingFavorite() {
   const [modal, setModal] = useState('close');
@@ -30,11 +31,11 @@ export default function LoadingFavorite() {
       <Head>
         <title>お気に入り店舗一覧</title>
       </Head>
-      <div className={styles.screen}>
-        <div className={styles[modal]}>
+      <div className={modalStyle.screen}>
+        <div className={modalStyle[modal]}>
           <OrderListModal closeModal={closeModal} />
         </div>
-        <div className={`${styles.main} ${styles[modalOpen]}`}>
+        <div className={`${styles.main} ${modalStyle[modalOpen]}`}>
           <Header openModal={openModal} />
           <BreadList list={[menu_list, favorite_list]} />
           <div>Loading...</div>

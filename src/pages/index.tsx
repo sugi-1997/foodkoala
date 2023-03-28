@@ -6,6 +6,7 @@ import Header from 'components/header';
 import useSWR, { useSWRConfig } from 'swr';
 import { useState } from 'react';
 import styles from 'styles/index.module.css';
+import modalStyle from 'styles/OrderListModal.module.css';
 import { Fetcher } from 'lib/Fetcher';
 import OrderListModal from 'components/orderlist_modal';
 
@@ -52,11 +53,11 @@ export default function ItemListPage() {
       <Head>
         <title>商品一覧ページ</title>
       </Head>
-      <div className={styles.screen}>
-        <div className={styles[modal]}>
+      <div className={modalStyle.screen}>
+        <div className={modalStyle[modal]}>
           <OrderListModal closeModal={closeModal} />
         </div>
-        <main className={`${styles.main} ${styles[modalOpen]}`}>
+        <main className={`${styles.main} ${modalStyle[modalOpen]}`}>
           <Header onClick={handleMenuClick} openModal={openModal} />
           <BreadList list={[menu_list]} />
           <MenuList />

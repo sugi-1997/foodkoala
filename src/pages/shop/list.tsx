@@ -13,6 +13,7 @@ import BreadList, {
 } from 'components/bread_list';
 import { Fetcher } from 'lib/Fetcher';
 import styles from 'styles/index.module.css';
+import modalStyle from 'styles/OrderListModal.module.css';
 
 export default function ShopList() {
   const [genreId, setGenreId] = useState<string>('gt.0');
@@ -82,11 +83,11 @@ export default function ShopList() {
       <Head>
         <title>ショップ一覧</title>
       </Head>
-      <div className={styles.screen}>
-        <div className={styles[modal]}>
+      <div className={modalStyle.screen}>
+        <div className={modalStyle[modal]}>
           <OrderListModal closeModal={closeModal} />
         </div>
-        <main className={styles.main}>
+        <main className={`${styles.main} ${modalStyle.modalOpen}`}>
           <Header openModal={openModal} />
           <BreadList list={[menu_list, shop_list]} />
           <aside className={styles.aside}>
