@@ -96,7 +96,7 @@ export default function OrderList({ data }: any) {
             </dd>
             <dd>{item.price * item.count}円</dd>
             <dd>
-              <DeleteButton value={item.id} />
+              <DeleteButton value={itemId[index].id} />
             </dd>
           </dl>
         ))}

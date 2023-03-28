@@ -11,7 +11,7 @@ export default function DeleteButton({ value }: { value: number }) {
     await fetch(`/api/delete_cart_items?item_id=eq.${clickedId}`, {
       method: 'DELETE',
       body: JSON.stringify({
-        item_id: clickedId,
+        id: clickedId,
       }),
     })
       .then((res) => res.json())

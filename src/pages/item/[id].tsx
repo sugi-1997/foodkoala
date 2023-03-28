@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Footer from 'components/footer';
 import Header from 'components/header';
 import BreadList, {
@@ -16,9 +16,9 @@ import { Fetcher } from 'lib/Fetcher';
 
 export default function ItemPage({ itemData }: { itemData: Menu[] }) {
   const item = itemData[0];
-  const [count, setCount] = useState(1);
   const [modal, setModal] = useState('close');
   const [modalOpen, setModalOpen] = useState('false');
+  const [count, setCount] = useState(0);
 
   //cart_itemsテーブルからデータを取得
   const { data, error } = useSWR('/api/get_cart_items', Fetcher);
@@ -46,7 +46,7 @@ export default function ItemPage({ itemData }: { itemData: Menu[] }) {
         body: JSON.stringify({
           cart_id: 1,
           item_id: Number(menuId),
-          count: count,
+          count: count + 1,
         }),
       })
         .then((res) => res.json())

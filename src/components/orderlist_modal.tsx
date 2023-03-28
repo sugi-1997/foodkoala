@@ -14,7 +14,7 @@ export default function OrderListModal({
   const router = useRouter();
   let itemId;
 
-  //cart_itemsテーブルからデータを取得
+  // //cart_itemsテーブルからデータを取得
   const { data, error } = useSWR('/api/get_cart_items', Fetcher);
 
   if (error) return <div>Error...</div>;
@@ -45,7 +45,7 @@ export default function OrderListModal({
           <button className={styles.closebtn} onClick={closeModal}>
             &times;
           </button>
-          <OrderList data={data} />
+          <OrderList data={itemId} />
           <div className={styles.alert}>
             <p>※カートに商品がないため、購入できません</p>
             <button>
@@ -64,7 +64,7 @@ export default function OrderListModal({
         <button className={styles.closebtn} onClick={closeModal}>
           &times;
         </button>
-        <OrderList data={data} />
+        <OrderList data={itemId} />
         <button
           className={styles.transition_button}
           onClick={handleClick}
