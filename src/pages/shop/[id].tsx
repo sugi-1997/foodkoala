@@ -136,7 +136,6 @@ export default function ShopDetail({ shopData }: ShopProps) {
                   <i className="fa-solid fa-utensils"></i>
                   &nbsp;&nbsp;{shop.name}
                 </h1>
-                <FavoriteButton shop={shop} />
                 <ShopScore id={shop.id} />
               </div>
               <div className={styles.shop_id_image}>
@@ -146,6 +145,9 @@ export default function ShopDetail({ shopData }: ShopProps) {
                   width={300}
                   height={300}
                 />
+                <div className={styles.favorite}>
+                  <FavoriteButton shop={shop} />
+                </div>
                 <p>{shop.description}</p>
               </div>
               <ShopMenu shopId={shop.id} />

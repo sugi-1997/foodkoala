@@ -1,5 +1,4 @@
 import styles from '../../styles/Shop.module.css';
-import detailStyles from '../../styles/Shop_detail.module.css';
 import type { Shop } from 'types/shops';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -115,7 +114,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
 
   //ハートボタンの表示
   return (
-    <div className={`${styles[heart]} ${detailStyles.favorite}`}>
+    <div className={`${styles[heart]}`}>
       <button
         type="button"
         onClick={handleClick}
