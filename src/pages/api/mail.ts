@@ -12,12 +12,16 @@ export default async function Mail(
       user: process.env.MAILTRAP_USERNAME,
       pass: process.env.MAILTRAP_PASSWORD,
     },
+    secure: true,
+    tls: {
+      rejectUnauthorized: true,
+    },
   });
 
   // 受け取るメール
   const mailOptions = {
     from: req.body.email,
-    to: 'horikawa.hiroki0820@gmail.com',
+    to: 'something@example.com',
     subject: `お問い合わせ(${req.body.name}様)`,
     text: `${req.body.message}sent from ${req.body.email}`,
     html: `
