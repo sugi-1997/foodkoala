@@ -204,7 +204,7 @@ export default function UserRegisterPage() {
             <div className={styles.form_position}>
               <h2>新規会員登録</h2>
               <p className={styles.message}>
-                必要事項を入力し、登録ボタンを押してください。
+                必要事項を入力し、「登録する」ボタンを押してください。
               </p>
               <form
                 onSubmit={(e) => {
@@ -440,11 +440,12 @@ export default function UserRegisterPage() {
                   </p>
                 </div>
                 <br />
+                <div className={styles.border}></div>
                 <button
                   type="submit"
                   className={styles.submit_button}
                 >
-                  登録
+                  登録する
                 </button>
               </form>
             </div>
