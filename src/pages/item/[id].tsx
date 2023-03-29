@@ -51,9 +51,9 @@ export default function ItemPage({ itemData }: { itemData: Menu[] }) {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
-          mutate('/api/get_cart_items');
+          console.log('POSTしました', data);
           openModal();
+          mutate('/api/get_cart_items');
         });
     } catch (error) {
       console.error(error);
