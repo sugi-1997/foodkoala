@@ -97,7 +97,7 @@
         /* スマホ */
     @media screen and (max-width:670px) {
         .koala{
-            margin:  1%;
+            margin-top:  20%;
         }
         
         
@@ -126,7 +126,7 @@
     /* タブレット */
     @media only screen and (min-width:671px) and (max-width:1023px) {
         .koala{
-            margin:  1%;
+            margin-top:  10%;
         }
         
         
@@ -156,7 +156,7 @@
     /* PC */
     @media screen and (min-width:1024px) {
         .koala{
-            margin:  1%;
+            margin-top:  10%;
         }
         
         
