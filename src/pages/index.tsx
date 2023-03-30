@@ -1,5 +1,6 @@
 import MenuList from 'components/Menu-list';
 import Head from 'next/head';
+import { useKey } from 'react-use';
 import Footer from 'components/footer';
 import BreadList, { menu_list } from 'components/bread_list';
 import Header from 'components/header';
@@ -27,6 +28,21 @@ export default function ItemListPage() {
     }
   );
   const { mutate } = useSWRConfig();
+
+  //カートアイコンがクリックされると、モーダルを表示し、背景を暗くする
+  const openModal = () => {
+    setModal('open');
+    setModalOpen('true');
+  };
+
+  //×ボタンがクリックされると、モーダルを非表示にし、背景を元に戻す
+  const closeModal = () => {
+    setModal('close');
+    setModalOpen('false');
+  };
+
+  //エスケープボタンが押された時にモーダルを閉じる
+  useKey('Escape', closeModal);
 
   if (error) return <div>エラーです</div>;
   if (!data) return <div>Loading...</div>;
@@ -56,18 +72,6 @@ export default function ItemListPage() {
     setSortBy(clickedValue);
     mutate;
     console.log('並び替えました');
-  };
-
-  //カートアイコンがクリックされると、モーダルを表示し、背景を暗くする
-  const openModal = () => {
-    setModal('open');
-    setModalOpen('true');
-  };
-
-  //×ボタンがクリックされると、モーダルを非表示にし、背景を元に戻す
-  const closeModal = () => {
-    setModal('close');
-    setModalOpen('false');
   };
 
   return (

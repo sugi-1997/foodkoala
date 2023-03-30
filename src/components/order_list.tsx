@@ -45,7 +45,7 @@ export default function OrderList({ data }: any) {
   if (cartItems.length === 0) {
     return (
       <>
-        <div className={styles.main}>
+        <div className={styles.noitem}>
           <br />
           <p>カートに商品はありません</p>
           <br />

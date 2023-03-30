@@ -80,11 +80,10 @@ export default function Header({ onClick, openModal }: any) {
               </Link>
               <Logout className={styles[logoutStatus]} />
             </ul>
-            <div className={styles[noItemCart]}>
-              <button
-                className={styles.shoppingcart}
-                onClick={openModal}
-              >
+            <div
+              className={`${styles[noItemCart]} ${styles.shoppingcart}`}
+            >
+              <button onClick={openModal}>
                 <Image
                   alt="ショッピングカートのアイコン"
                   src="/images/shoppingcart.icon.png"
@@ -93,11 +92,10 @@ export default function Header({ onClick, openModal }: any) {
                 />
               </button>
             </div>
-            <div className={styles[koalaOnCart]}>
-              <button
-                className={styles.koala_on_cart}
-                onClick={openModal}
-              >
+            <div
+              className={`${styles[koalaOnCart]} ${styles.koala_on_cart}`}
+            >
+              <button onClick={openModal}>
                 <Image
                   alt="ショッピングカートのアイコン"
                   src="/images/koala-on-cart.png"

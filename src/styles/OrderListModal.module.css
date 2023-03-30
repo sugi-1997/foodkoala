@@ -77,11 +77,14 @@
 
 /* モーダルが開いている時の背景のCSS */
 .true {
-  width:100%;
+  width:100vw;
   height:100vw;
   position: fixed;
-  opacity: 0.3;
-  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  opacity: 0.5;
+  z-index: 10;
 }
 
 /* お会計へ進むボタン*/
@@ -138,4 +141,9 @@
   color: #fff;
   box-shadow: 1px 2px #9bb0a5;
   cursor: pointer;
+}
+
+/* カートに商品がないとき */
+.noitem {
+  text-align: center;
 }
