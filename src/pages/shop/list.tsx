@@ -90,7 +90,7 @@ export default function ShopList() {
         </div>
         <main className={`${styles.main} ${modalStyle[modalOpen]}`}>
           <Header openModal={openModal} />
-          <BreadList list={[menu_list, shop_list]} />
+
           <aside className={styles.aside}>
             <Genre
               onClick={(e: SyntheticEvent) => {
@@ -105,7 +105,12 @@ export default function ShopList() {
               }}
             />
           </aside>
-          <ShopName data={pagingData} />
+          <div>
+            <div className={styles.shop_list}>
+              <BreadList list={[menu_list, shop_list]} />
+            </div>
+            <ShopName data={pagingData} />
+          </div>
           <div className={styles.buttons}>
             {pageArr.map((page, index) => (
               <button

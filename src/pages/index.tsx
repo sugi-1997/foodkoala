@@ -81,7 +81,6 @@ export default function ItemListPage() {
         </div>
         <main className={`${styles.main} ${modalStyle[modalOpen]}`}>
           <Header onClick={handleMenuClick} openModal={openModal} />
-          <BreadList list={[menu_list]} />
           <aside className={styles.aside}>
             <SortItems
               onChange={(e: any) => {
@@ -102,7 +101,12 @@ export default function ItemListPage() {
               }}
             />
           </aside>
-          <MenuList data={data} mutate={mutate} />
+          <div>
+            <div className={styles.menu_list}>
+              <BreadList list={[menu_list]} />
+            </div>
+            <MenuList data={data} mutate={mutate} />
+          </div>
           <Footer />
         </main>
       </div>
