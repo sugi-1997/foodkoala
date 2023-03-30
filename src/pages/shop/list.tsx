@@ -44,7 +44,6 @@ export default function ShopList() {
         <main className={`${styles.main} ${modalStyle[modalOpen]}`}>
           <Header openModal={openModal} />
           <BreadList list={[menu_list, shop_list]} />
-          <Aside />
           <ShopName />
           <Footer />
         </main>

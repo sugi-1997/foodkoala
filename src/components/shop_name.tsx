@@ -10,8 +10,9 @@ import ShopScore from 'components/shop/score';
 import { useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
 import { Fetcher } from 'lib/Fetcher';
+import Aside from './Aside';
 
-export default function ShopName() {
+export default function ShopName({ favoriteData }: any) {
   const [genreId, setGenreId] = useState<string>('gt.0');
   const [areaId, setAreaId] = useState<string>('gt.0');
   const [page, setPage] = useState(0);
@@ -25,6 +26,18 @@ export default function ShopName() {
   );
   const { mutate } = useSWRConfig();
 
+  const handleGenreClick = (clickedId: any) => {
+    setAreaId('gt.0');
+    setGenreId(`eq.${clickedId}`);
+    mutate;
+  };
+
+  const handleAreaClick = (clickedId: any) => {
+    setGenreId('gt.0');
+    setAreaId(`eq.${clickedId}`);
+    mutate;
+  };
+
   if (error) return <div>Error...</div>;
   if (!data)
     return (
@@ -34,8 +47,16 @@ export default function ShopName() {
     );
 
   // ページ数を取得
-  const pageCount =
-    data.length % 3 === 0 ? data.length / 3 : data.length / 3 + 1;
+  let pageCount;
+  if (favoriteData) {
+    pageCount =
+      favoriteData.length % 3 === 0
+        ? favoriteData.length / 3
+        : favoriteData.length / 3 + 1;
+  } else {
+    pageCount =
+      data.length % 3 === 0 ? data.length / 3 : data.length / 3 + 1;
+  }
 
   //ページ数の配列を作成
   let pageArr = [];
@@ -45,10 +66,18 @@ export default function ShopName() {
 
   // 3個分のデータを作成
   let pagingData;
-  if (data.length >= 3) {
-    pagingData = data.slice(page * 3, page * 3 + 3);
+  if (favoriteData) {
+    if (favoriteData.length >= 3) {
+      pagingData = favoriteData.slice(page * 3, page * 3 + 3);
+    } else {
+      pagingData = favoriteData;
+    }
   } else {
-    pagingData = data;
+    if (data.length >= 3) {
+      pagingData = data.slice(page * 3, page * 3 + 3);
+    } else {
+      pagingData = data;
+    }
   }
 
   return (
@@ -57,6 +86,10 @@ export default function ShopName() {
         src="https://kit.fontawesome.com/acecca202b.js"
         crossOrigin="anonymous"
       ></Script>
+      <Aside
+        handleGenreClick={handleGenreClick}
+        handleAreaClick={handleAreaClick}
+      />
       <main className={styles.shop_list_main}>
         {pagingData.map((shop: Shop) => (
           <div key={shop.id} className={styles.shop_list}>
