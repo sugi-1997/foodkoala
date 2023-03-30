@@ -204,6 +204,11 @@
     padding: 5px 10px;
 }
 
+.error_name,.error_date,.error_score,.error_review,.error_overReview {
+    font-size: small;
+    color: red;
+    }
+
 /* favorite_buttonのCSS */
 
 .shop_favorite_true,.shop_favorite_false{

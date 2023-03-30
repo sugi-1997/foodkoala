@@ -5,7 +5,6 @@ import useSWR from 'swr';
 import { Fetcher } from 'lib/Fetcher';
 import ShopScore from './shop/review_score';
 import reviewDelete from './shop/review_delete';
-import fs from 'fs';
 
 export default function ShopReview({ id }: { id: number }) {
   //レビューのコアラアイコン
@@ -20,15 +19,6 @@ export default function ShopReview({ id }: { id: number }) {
     );
   }
 
-  async function toBeBase64() {
-    const res = await fetch('/images/foodkoala_logo.png');
-    const buffer = await res.arrayBuffer();
-    const base64buffer = Buffer.from(buffer).toString('base64');
-    console.log('buffer', buffer);
-    console.log('base64buffer', base64buffer);
-  }
-  toBeBase64();
-
   const { data, error } = useSWR(
     `/api/review?shop_id=eq.${id}`,
     Fetcher,
@@ -42,6 +32,7 @@ export default function ShopReview({ id }: { id: number }) {
 
   function getRev() {
     const review: Review[] = [];
+    console.log('review', review);
     const rev = () =>
       review.map((rev: Review) => (
         <>
@@ -58,15 +49,7 @@ export default function ShopReview({ id }: { id: number }) {
             </div>
             <br />
             <div className={styles.review_detail}>{rev.review}</div>
-            {/* <div className={styles.review_img}>
-              <Image
-                src={rev.image_url}
-                alt="投稿画像"
-                width={200}
-                height={200}
-              />
-            </div>
-            <br /> */}
+            <img src={''} />
             <div className={styles.review_delete}>
               {reviewDelete(rev.id, rev.user_id, rev.shop_id)}
             </div>
@@ -110,3 +93,24 @@ export default function ShopReview({ id }: { id: number }) {
     </>
   );
 }
+
+// async function toBeBase64() {
+//   const res = await fetch('/images/foodkoala_logo.png');
+//   const buffer = await res.arrayBuffer();
+//   const base64buffer = Buffer.from(buffer).toString('base64');
+// }
+// toBeBase64();
+
+// function ReviewImage(image_base64: any) {
+//   if (
+//     image_base64 === null ||
+//     image_base64 === undefined ||
+//     image_base64 === '{}'
+//   ) {
+//     return;
+//   } else {
+//     const blob = new Blob([image_base64], { type: 'image/jpeg' });
+//     const imageUrl = URL.createObjectURL(blob);
+//     return imageUrl;
+//   }
+// }
