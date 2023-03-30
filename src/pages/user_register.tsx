@@ -3,8 +3,10 @@ import { useState } from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import styles from '../styles/userRegisterPage.module.css';
+import modalStyle from 'styles/OrderListModal.module.css';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import OrderListModal from 'components/orderlist_modal';
 
 // 未入力の場合、エラーを返す
 export function validate(input: { [k: string]: string }): {
@@ -17,7 +19,6 @@ export function validate(input: { [k: string]: string }): {
     address: 'ok',
     phone_number: 'ok',
     password: 'ok',
-    passwordValidation: 'ok',
     password2: 'ok',
   };
 
@@ -33,14 +34,6 @@ export function validate(input: { [k: string]: string }): {
     error.zipcode = 'alert';
   }
 
-  if (
-    !input.zipcode.match(
-      /^[0-9]{3}-[0-9]{4}$/ || /^[0-9]{3}[0-9]{4}$/
-    )
-  ) {
-    error.zipcode = 'alert';
-  }
-
   if (input.address === '') {
     error.address = 'alert';
   }
@@ -51,18 +44,6 @@ export function validate(input: { [k: string]: string }): {
 
   if (input.password === '') {
     error.password = 'alert';
-  }
-
-  // if (input.password.length < 8 || input.password.length > 16) {
-  //   console.log(
-  //     'パスワードは8文字以上、16文字以内で入力してください'
-  //   );
-  //   error.passwordLength = 'alert';
-  // }
-
-  if (!input.password.match(/^[A-Za-z0-9]+$/)) {
-    console.log('パスワードは半角英数で入力してください。');
-    error.passwordValidation;
   }
 
   if (input.password2 === '') {
@@ -79,12 +60,20 @@ export default function UserRegisterPage() {
   const [phone_number, setPhone_number] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
-  // 半角英数指定のエラー表示
-  // const [validation, setValidation] = useState({
-  //   zipcode: 'ok',
-  //   phone_number: 'ok',
-  //   password: 'ok',
-  // });
+  const [modal, setModal] = useState('close');
+  const [modalOpen, setModalOpen] = useState('false');
+
+  //カートアイコンがクリックされると、モーダルを表示し、背景を暗くする
+  const openModal = () => {
+    setModal('open');
+    setModalOpen('true');
+  };
+
+  //×ボタンがクリックされると、モーダルを非表示にし、背景を元に戻す
+  const closeModal = () => {
+    setModal('close');
+    setModalOpen('false');
+  };
 
   // 未入力時のエラー表示
   const [error, setError] = useState<{ [k: string]: string }>({
@@ -94,17 +83,14 @@ export default function UserRegisterPage() {
     address: 'ok',
     phone_number: 'ok',
     password: 'ok',
-    passwordValidation: 'ok',
     password2: 'ok',
   });
-
-  const [errorZipcode, setErrorZipcode] = useState('ok');
 
   const [errorNoAddress, setErrorNoAddress] = useState('ok');
   // メールアドレスの重複エラー表示
   const [errorMail, setErrorMail] = useState('ok');
   // 文字数に対するエラー表示
-  const [lengthError, setLengthError] = useState('ok');
+  const [phoneLength, setPhoneLength] = useState('ok');
   const [passLength, setPassLength] = useState('ok');
   // パスワードが不一致のエラー表示
   const [mismatchPassword, setMismatchPassword] = useState('ok');
@@ -112,13 +98,6 @@ export default function UserRegisterPage() {
   const router = useRouter();
 
   function getZipcode() {
-    if (zipcode === '') {
-      console.log('※郵便番号を入力してください。');
-      setErrorZipcode('alert');
-      return;
-    }
-    setErrorZipcode('ok');
-
     fetch(
       `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipcode}`
     )
@@ -137,8 +116,8 @@ export default function UserRegisterPage() {
               data.results[0].address3
             }`
           );
+          setErrorNoAddress('ok');
         }
-        setErrorNoAddress('ok');
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -206,234 +185,274 @@ export default function UserRegisterPage() {
       <Head>
         <title>新規会員登録</title>
       </Head>
-      <Header />
-      <div className={styles.background}>
-        <div className={styles.logo}>
-          <Image
-            src="/images/foodkoala_logo.png"
-            width={100}
-            height={100}
-            alt="logo"
-          />
-          <h1>Food Koala</h1>
+      <div className={modalStyle.screen}>
+        <div className={modalStyle[modal]}>
+          <OrderListModal closeModal={closeModal} />
         </div>
-        <div className={styles.form_position}>
-          <h2>新規会員登録</h2>
-          <p className={styles.message}>
-            必要事項を入力し、登録ボタンを押してください。
-          </p>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const results = validate({
-                name,
-                email,
-                zipcode,
-                address,
-                phone_number,
-                password,
-                password2,
-              });
-              console.log(results);
-              // 各項目が未入力だった場合、エラーを表示する
-              for (const prop in results) {
-                if (results[prop] === 'alert') {
-                  setError(results);
+        <div className={modalStyle[modalOpen]}>
+          <Header openModal={openModal} />
+          <div className={styles.background}>
+            <div className={styles.logo}>
+              <Image
+                src="/images/foodkoala_logo.png"
+                width={100}
+                height={100}
+                alt="logo"
+              />
+              <h1>Food Koala</h1>
+            </div>
+            <div className={styles.form_position}>
+              <h2>新規会員登録</h2>
+              <p className={styles.message}>
+                必要事項を入力し、「登録する」ボタンを押してください。
+              </p>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const results = validate({
+                    name,
+                    email,
+                    zipcode,
+                    address,
+                    phone_number,
+                    password,
+                    password2,
+                  });
                   // console.log(results);
-                }
-              }
 
-              // 電話番号が9~12文字（ハイフン有無問わず）以外の場合エラーを表示
-              if (!phone_number.match(/^0[-\d]{9,12}$/)) {
-                console.log('※電話番号が正しくありません。');
-                setLengthError('alert');
-                return;
-              }
-              setLengthError('ok');
-
-              if (password.length < 8 || password.length > 16) {
-                console.log(
-                  'パスワードは8文字以上、16文字以内で入力してください'
-                );
-                setPassLength('alert');
-                return;
-              }
-              setPassLength('ok');
-
-              if (password2 !== password) {
-                console.log('※パスワードが一致していません。');
-                setMismatchPassword('alert');
-                return;
-              }
-              setMismatchPassword('ok');
-
-              fetch('/api/get_users', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  email: email,
-                }),
-              })
-                .then((response) => response.json())
-                .then((data) => {
-                  if (data.length > 0) {
-                    console.log(
-                      '※このメールアドレスは、既に使われています。'
-                    );
-                    setErrorMail('alert');
-                    return;
+                  // 各項目が未入力だった場合、エラーを表示する
+                  for (const prop in results) {
+                    if (results[prop] === 'alert') {
+                      setError(results);
+                    } else {
+                      results[prop] === 'ok';
+                      setError(results);
+                      setErrorNoAddress('ok');
+                    }
                   }
-                  setErrorMail('ok');
-                });
 
-              userPost();
-            }}
-          >
-            <div className={styles.name}>
-              <label htmlFor="name">お名前（漢字）</label>
-              <br />
-              <input
-                name="name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="佐藤 太郎"
-              />
-              <p className={styles[error.name]}>
-                ※お名前を入力してください。
-              </p>
-            </div>
+                  // 電話番号が10~12文字（ハイフン有無問わず）以外の場合エラーを表示
+                  if (
+                    phone_number !== '' &&
+                    !phone_number.match(/^0[-\d]{9,12}$/)
+                  ) {
+                    console.log('※電話番号が正しくありません。');
+                    setPhoneLength('alert');
+                  } else {
+                    setPhoneLength('ok');
+                  }
 
-            <div className={styles.email}>
-              <label htmlFor="email">メールアドレス</label>
-              <br />
-              <input
-                name="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="example@example.com"
-              />
-              <p className={styles[error.email]}>
-                ※メールアドレスを入力してください。
-              </p>
-              <p className={styles[errorMail]}>
-                ※このメールアドレスは、既に使われています。
-              </p>
-            </div>
+                  // パスワードの文字数によってエラーを表示
+                  if (
+                    password !== '' &&
+                    (password.length < 8 || password.length > 16)
+                  ) {
+                    console.log(
+                      '※パスワードは8文字以上、16文字以内で入力してください'
+                    );
+                    setPassLength('alert');
+                  } else {
+                    setPassLength('ok');
+                  }
 
-            <div className={styles.zipcode}>
-              <label htmlFor="zipcode">郵便番号</label>
-              <br />
-              <input
-                name="zipcode"
-                type="text"
-                size={8}
-                value={zipcode}
-                onChange={(e) => setZipcode(e.target.value)}
-                placeholder="xxx-xxxx"
-              />
-              &nbsp;
-              <button
-                type="button"
-                className={styles.search_button}
-                onClick={getZipcode}
+                  // パスワードが一致していない場合エラーを表示
+                  if (
+                    password2.length > 0 &&
+                    password2 !== password
+                  ) {
+                    console.log('※パスワードが一致していません。');
+                    setMismatchPassword('alert');
+                    // return;
+                  } else {
+                    setMismatchPassword('ok');
+                  }
+
+                  // 登録済みメールアドレスの場合、エラーを表示する
+                  if (
+                    name !== '' &&
+                    email !== '' &&
+                    zipcode !== '' &&
+                    address !== '' &&
+                    phone_number !== '' &&
+                    password !== '' &&
+                    password2 !== '' &&
+                    phoneLength === 'ok' &&
+                    passLength === 'ok' &&
+                    mismatchPassword === 'ok'
+                  ) {
+                    fetch('/api/get_users', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        email: email,
+                      }),
+                    })
+                      .then((response) => response.json())
+                      .then((data) => {
+                        setErrorMail('ok');
+                        // 入力値が正しい場合はPOSTする
+                        if (data.length > 0 && email !== '') {
+                          console.log(
+                            '※このメールアドレスは、既に使われています。'
+                          );
+                          setErrorMail('alert');
+                          return;
+                        } else {
+                          setErrorMail('ok');
+                          userPost();
+                        }
+                        setErrorMail('ok');
+                      });
+                  }
+                }}
               >
-                検索
-              </button>
-              <p className={styles[error.zipcode]}>
-                ※郵便番号を入力してください。
-              </p>
-              {/* <p className={styles[validation.zipcode]}>
-                ※郵便番号は、xxx-xxxxの形で入力してください。
-              </p> */}
-            </div>
+                <div className={styles.name}>
+                  <label htmlFor="name">お名前（漢字）</label>
+                  <br />
+                  <input
+                    name="name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="佐藤 太郎"
+                  />
+                  <p className={styles[error.name]}>
+                    ※お名前を入力してください。
+                  </p>
+                </div>
 
-            <div className={styles.address}>
-              <label htmlFor="address">住所</label>
-              <br />
-              <input
-                name="address"
-                type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="東京都新宿区新宿4-3-25"
-              />
-              <p className={styles[errorNoAddress]}>
-                ※郵便番号を取得できませんでした。住所を入力してください。
-              </p>
-              <p className={styles[error.address]}>
-                ※住所を入力してください。
-              </p>
-            </div>
+                <div className={styles.email}>
+                  <label htmlFor="email">メールアドレス</label>
+                  <br />
+                  <input
+                    name="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="example@example.com"
+                  />
+                  <p className={styles[error.email]}>
+                    ※メールアドレスを入力してください。
+                  </p>
+                  <p className={styles[errorMail]}>
+                    ※このメールアドレスは、既に使われています。
+                  </p>
+                </div>
 
-            <div className={styles.phone_number}>
-              <label htmlFor="phone_number">電話番号</label>
-              <br />
-              <input
-                name="phone_number"
-                type="tel"
-                value={phone_number}
-                onChange={(e) => setPhone_number(e.target.value)}
-                placeholder="0366753638"
-              />
-              <p className={styles[error.phone_number]}>
-                ※電話番号を入力してください。
-              </p>
-              <p className={styles[lengthError]}>
-                ※電話番号が正しくありません。
-              </p>
-            </div>
+                <div className={styles.zipcode}>
+                  <label htmlFor="zipcode">郵便番号</label>
+                  <br />
+                  <input
+                    name="zipcode"
+                    type="text"
+                    size={8}
+                    value={zipcode}
+                    onChange={(e) => setZipcode(e.target.value)}
+                    placeholder="xxx-xxxx"
+                  />
+                  &nbsp;
+                  <button
+                    type="button"
+                    className={styles.search_button}
+                    onClick={getZipcode}
+                  >
+                    検索
+                  </button>
+                  <p className={styles[error.zipcode]}>
+                    ※郵便番号を入力してください。
+                  </p>
+                </div>
 
-            <div className={styles.password}>
-              <label htmlFor="password">パスワード</label>
-              <br />
-              <input
-                name="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="半角英数字で8文字以上、16文字以内"
-                pattern="^[a-zA-Z0-9]+$"
-              />
-              <p className={styles[error.password]}>
-                ※パスワードを入力してください。
-              </p>
-              <p className={styles[passLength]}>
-                ※パスワードは８文字以上１６文字以内で設定してください。
-              </p>
-              <p className={styles[error.passwordValidation]}>
-                ※パスワードは半角英数で入力してください。
-              </p>
-            </div>
+                <div className={styles.address}>
+                  <label htmlFor="address">住所</label>
+                  <br />
+                  <input
+                    name="address"
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="東京都新宿区新宿4-3-25"
+                  />
+                  <p className={styles[errorNoAddress]}>
+                    ※郵便番号を取得できませんでした。住所を入力してください。
+                  </p>
+                  <p className={styles[error.address]}>
+                    ※住所を入力してください。
+                  </p>
+                </div>
 
-            <div className={styles.password2}>
-              <label htmlFor="password2">パスワード（確認用）</label>
-              <br />
-              <input
-                type="password"
-                value={password2}
-                onChange={(e) => setPassword2(e.target.value)}
-                placeholder="前述のパスワード"
-                pattern="^[a-zA-Z0-9]+$"
-              />
-              <p className={styles[error.password2]}>
-                ※確認用パスワードを入力してください。
-              </p>
-              <p className={styles[mismatchPassword]}>
-                ※パスワードが一致していません。
-              </p>
+                <div className={styles.phone_number}>
+                  <label htmlFor="phone_number">電話番号</label>
+                  <br />
+                  <input
+                    name="phone_number"
+                    type="tel"
+                    value={phone_number}
+                    onChange={(e) => setPhone_number(e.target.value)}
+                    placeholder="0366753638"
+                  />
+                  <p className={styles[error.phone_number]}>
+                    ※電話番号を入力してください。
+                  </p>
+                  <p className={styles[phoneLength]}>
+                    ※電話番号が正しくありません。
+                  </p>
+                </div>
+
+                <div className={styles.password}>
+                  <label htmlFor="password">パスワード</label>
+                  <br />
+                  <input
+                    name="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="半角英数字で8文字以上、16文字以内"
+                    pattern="^[a-zA-Z0-9]+$"
+                  />
+                  <p className={styles[error.password]}>
+                    ※パスワードを入力してください。
+                  </p>
+                  <p className={styles[passLength]}>
+                    ※パスワードは８文字以上１６文字以内で設定してください。
+                  </p>
+                </div>
+
+                <div className={styles.password2}>
+                  <label htmlFor="password2">
+                    パスワード（確認用）
+                  </label>
+                  <br />
+                  <input
+                    type="password"
+                    value={password2}
+                    onChange={(e) => setPassword2(e.target.value)}
+                    placeholder="前述のパスワード"
+                    pattern="^[a-zA-Z0-9]+$"
+                  />
+                  <p className={styles[error.password2]}>
+                    ※確認用パスワードを入力してください。
+                  </p>
+                  <p className={styles[mismatchPassword]}>
+                    ※パスワードが一致していません。
+                  </p>
+                </div>
+                <br />
+                <div className={styles.border}></div>
+                <button
+                  type="submit"
+                  className={styles.submit_button}
+                >
+                  登録する
+                </button>
+              </form>
             </div>
-            <br />
-            <button type="submit" className={styles.submit_button}>
-              登録
-            </button>
-          </form>
+          </div>
+          <Footer />
         </div>
       </div>
-      <Footer />
     </>
   );
 }

@@ -1,17 +1,25 @@
+.screen {
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
 .aside{
     width: 19%;
-    height: 100%;
+    height: 100vh;
     float: left;
     box-shadow: 2px 0 7px rgba(189, 140, 66, 0.3);
     padding-top: 2%;
-    padding-bottom: 15%;
   }
-  
 
-.main {
-    margin-top: 80px;
+  .main {
+  margin-top: 80px;
 }
 
+/* ページング用のボタンのCSS */
 .buttons {
     display: flex;
     justify-content: center;
@@ -38,8 +46,15 @@
   }
 
 
+
+
+
+
+
+
+
   /* UP・DOWNボタン用のCSS */
-.button_down{
+/* .button_down{
         
         width: 7%;
         height: 5%;
@@ -115,4 +130,4 @@
     
         }
         
-    }
+    } */
