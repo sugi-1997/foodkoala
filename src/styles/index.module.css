@@ -45,7 +45,11 @@
     transform: translateY(1px);
   }
 
-
+/* shopリストのパンくずリスト */
+.shop_list,.menu_list{
+  padding-top: 8px;
+  display: flex;
+}
 
 
 
