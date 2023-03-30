@@ -1,5 +1,5 @@
 import OrderList from './order_list';
-import styles from 'styles/order_list.module.css';
+import styles from 'styles/OrderListModal.module.css';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';

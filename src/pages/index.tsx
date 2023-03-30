@@ -79,7 +79,8 @@ export default function ItemListPage() {
         <div className={modalStyle[modal]}>
           <OrderListModal closeModal={closeModal} />
         </div>
-        <main className={`${styles.main} ${modalStyle[modalOpen]}`}>
+        <div className={modalStyle[modalOpen]}></div>
+        <main className={styles.main}>
           <Header onClick={handleMenuClick} openModal={openModal} />
           <BreadList list={[menu_list]} />
           <aside className={styles.aside}>
