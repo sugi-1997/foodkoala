@@ -1,5 +1,6 @@
 import Header from 'components/header';
 import Footer from 'components/footer';
+import { useKey } from 'react-use';
 import Head from 'next/head';
 import styles from 'styles/Inquiry_form.module.css';
 import modalStyle from 'styles/OrderListModal.module.css';
@@ -24,6 +25,9 @@ export default function InquiryCompleated() {
     setModalOpen('false');
   };
 
+  //エスケープボタンが押された時にモーダルを閉じる
+  useKey('Escape', closeModal);
+
   return (
     <>
       <Head>
@@ -46,8 +50,8 @@ export default function InquiryCompleated() {
             <h1>お問い合わせ、ありがとうございました</h1>
             <p>後日、担当者よりご連絡差し上げます</p>
           </div>
-          <div>
-            <button type="submit" className={styles.button_design}>
+          <div className={styles.button_completed_position}>
+            <button type="submit" className={styles.button_completed}>
               <Link href="/">お買い物を続ける</Link>
             </button>
           </div>

@@ -1,6 +1,6 @@
 import styles from 'styles/inquiryList.module.css';
 import React, { useRef } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function InquiryList() {
   // 各フォーム初期値
@@ -9,6 +9,8 @@ export default function InquiryList() {
   const emailRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
+
+  const router = useRouter();
 
   // handleSend関数
   const handleSubmit = async (
@@ -32,7 +34,10 @@ export default function InquiryList() {
       body: JSON.stringify(data),
     })
       .then((res) => {
-        if (res.status === 200) console.log('成・功！', data);
+        if (res.status === 200) {
+          console.log('成・功！', data);
+          router.push('inquiry_completed');
+        }
       })
       .catch((error) => {
         console.error(error);

@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useKey } from 'react-use';
 import Image from 'next/image';
 import Header from '../components/header';
 import Footer from '../components/footer';
@@ -24,6 +25,9 @@ export default function TopPage() {
     setModal('close');
     setModalOpen('false');
   };
+
+  //エスケープボタンが押された時にモーダルを閉じる
+  useKey('Escape', closeModal);
 
   return (
     <>
@@ -188,7 +192,7 @@ export default function TopPage() {
                 <h2>&nbsp;&nbsp;いますぐ始める&nbsp;&nbsp;</h2>
                 <div className={styles.start_flex_box}>
                   <div className={styles.start_box}>
-                    <Link href="/user_resister">
+                    <Link href="/user_register">
                       会員登録はこちら&nbsp;
                       <i className="fa-solid fa-users"></i>
                     </Link>

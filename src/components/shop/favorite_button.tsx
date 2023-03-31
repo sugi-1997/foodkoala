@@ -11,7 +11,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
   //ページ遷移時にログイン前の場合はお気に入りボタンをグレーに。ログイン後の場合はshop_idとuser_idが一致するデータがfavoriteテーブルに存在するか確認してCSSを切り替え。
   useEffect((): void => {
     if (userId === undefined || userId === null) {
-      setHeart('shop_favorite_false');
+      setHeart('shop_favorite_false_start');
     } else {
       fetch(
         `/api/favorite_button?shop_id=eq.${shop.id}&user_id=eq.${userId}`,
@@ -27,7 +27,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
           if (data.length === 0) {
             setHeart('shop_favorite_false');
           } else {
-            setHeart('shop_favorite_true');
+            setHeart('shop_favorite_true_start');
           }
         });
     }
@@ -114,16 +114,14 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
 
   //ハートボタンの表示
   return (
-    <>
-      <div className={styles[heart]}>
-        <button
-          type="button"
-          onClick={handleClick}
-          data-testid={'favorite'}
-        >
-          <i className="fa-solid fa-heart"></i>
-        </button>
-      </div>
-    </>
+    <div className={`${styles[heart]}`}>
+      <button
+        type="button"
+        onClick={handleClick}
+        data-testid={'favorite'}
+      >
+        <i className="fa-solid fa-heart"></i>
+      </button>
+    </div>
   );
 }

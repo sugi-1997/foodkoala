@@ -1,40 +1,33 @@
 import MenuList from 'components/Menu-list';
 import Head from 'next/head';
+import { useKey } from 'react-use';
 import Footer from 'components/footer';
 import BreadList, { menu_list } from 'components/bread_list';
 import Header from 'components/header';
 import useSWR, { useSWRConfig } from 'swr';
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import styles from 'styles/index.module.css';
 import modalStyle from 'styles/OrderListModal.module.css';
 import { Fetcher } from 'lib/Fetcher';
 import OrderListModal from 'components/orderlist_modal';
+import SortItems from 'components/sort';
+import Genre from 'components/genre';
+import Area from 'components/area';
 
 export default function ItemListPage() {
   const [genreId, setGenreId] = useState<string>('gt.0');
   const [areaId, setAreaId] = useState<string>('gt.0');
+  const [sortBy, setSortBy] = useState('new');
   const [modal, setModal] = useState('close');
   const [modalOpen, setModalOpen] = useState('false');
-  const itemId = 'gt.0';
   const { data, error } = useSWR(
-    `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`,
+    `/api/menu?genreId=${genreId}&areaId=${areaId}&order=${sortBy}`,
     Fetcher,
     {
       revalidateOnMount: true,
     }
   );
   const { mutate } = useSWRConfig();
-
-  if (error) return <div>エラーです</div>;
-  if (!data) return <div>Loading...</div>;
-
-  const handleMenuClick = () => {
-    setAreaId('gt.0');
-    setGenreId('gt.0');
-    mutate(
-      `/api/menu?genreId=${genreId}&areaId=${areaId}&id=${itemId}`
-    );
-  };
 
   //カートアイコンがクリックされると、モーダルを表示し、背景を暗くする
   const openModal = () => {
@@ -48,6 +41,39 @@ export default function ItemListPage() {
     setModalOpen('false');
   };
 
+  //エスケープボタンが押された時にモーダルを閉じる
+  useKey('Escape', closeModal);
+
+  if (error) return <div>エラーです</div>;
+  if (!data) return <div>Loading...</div>;
+
+  const handleMenuClick = () => {
+    setAreaId('gt.0');
+    setGenreId('gt.0');
+    mutate;
+  };
+
+  const handleGenreClick = (clickedId: any) => {
+    setSortBy('new');
+    setAreaId('gt.0');
+    setGenreId(`eq.${clickedId}`);
+    mutate;
+  };
+
+  const handleAreaClick = (clickedId: any) => {
+    setSortBy('new');
+    setGenreId('gt.0');
+    setAreaId(`eq.${clickedId}`);
+    mutate;
+  };
+
+  // 並び替え
+  const sortMenu = (clickedValue: string) => {
+    setSortBy(clickedValue);
+    mutate;
+    console.log('並び替えました');
+  };
+
   return (
     <>
       <Head>
@@ -57,10 +83,35 @@ export default function ItemListPage() {
         <div className={modalStyle[modal]}>
           <OrderListModal closeModal={closeModal} />
         </div>
-        <main className={`${styles.main} ${modalStyle[modalOpen]}`}>
+        <div className={modalStyle[modalOpen]}></div>
+        <main className={styles.main}>
           <Header onClick={handleMenuClick} openModal={openModal} />
-          <BreadList list={[menu_list]} />
-          <MenuList />
+          <aside className={styles.aside}>
+            <SortItems
+              onChange={(e: any) => {
+                const clickedValue = e.target.value;
+                sortMenu(clickedValue);
+              }}
+            />
+            <Genre
+              onClick={(e: SyntheticEvent) => {
+                const clickedId = e.currentTarget.id;
+                handleGenreClick(clickedId);
+              }}
+            />
+            <Area
+              onClick={(e: SyntheticEvent) => {
+                const clickedId = e.currentTarget.id;
+                handleAreaClick(clickedId);
+              }}
+            />
+          </aside>
+          <div>
+            <div className={styles.menu_list}>
+              <BreadList list={[menu_list]} />
+            </div>
+            <MenuList data={data} mutate={mutate} />
+          </div>
           <Footer />
         </main>
       </div>
