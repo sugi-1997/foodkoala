@@ -207,7 +207,7 @@ export default function ReviewForm({ id }: { id: number }) {
                 </p>
               )}
             </div>
-            <div className={styles.review_forms_img}>
+            {/* <div className={styles.review_forms_img}>
               <input
                 type="file"
                 accept="image/jpg,image/png"
@@ -222,7 +222,7 @@ export default function ReviewForm({ id }: { id: number }) {
                   handleSelect;
                 }}
               />
-            </div>
+            </div> */}
           </div>
           <button
             type="submit"
