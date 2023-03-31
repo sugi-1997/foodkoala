@@ -5,30 +5,12 @@ import styles from 'styles/Header.module.css';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import Logout from 'lib/Logout';
-import useSWR from 'swr';
-import { Fetcher } from 'lib/Fetcher';
+import Shoppingcart from './Shoppingcart';
 
-export default function Header({ onClick, openModal }: any) {
+export default function Header({ openModal }: any) {
   const user_id = Cookies.get('user_id');
   const [loginStatus, setLoginStatus] = useState('true');
   const [logoutStatus, setLogoutStatus] = useState('false');
-  let noItemCart = 'on';
-  let koalaOnCart = 'off';
-  let itemAmount = 0;
-
-  const { data, error } = useSWR('/api/get_cart_items', Fetcher);
-
-  if (error) <div>HTML Error</div>;
-  if (!data) <div>Loading...</div>;
-  console.log('cart-items', data);
-  if (data === undefined || data.length === 0) {
-    noItemCart = 'on';
-    koalaOnCart = 'off';
-  } else {
-    koalaOnCart = 'on';
-    noItemCart = 'off';
-    itemAmount = data.length;
-  }
 
   useEffect(() => {
     if (user_id) {
@@ -47,6 +29,7 @@ export default function Header({ onClick, openModal }: any) {
               alt="header-logo"
               width={170}
               height={170}
+              className={styles.logo_img}
             />
           </Link>
         </div>
@@ -63,7 +46,7 @@ export default function Header({ onClick, openModal }: any) {
           {/* ここまでハンバーガーメニュー */}
           <nav className={styles.nav}>
             <ul>
-              <Link href="/" onClick={onClick}>
+              <Link href="/">
                 <li>メニュー</li>
               </Link>
               <Link href="/shop/list">
@@ -80,32 +63,8 @@ export default function Header({ onClick, openModal }: any) {
               </Link>
               <Logout className={styles[logoutStatus]} />
             </ul>
-            <div
-              className={`${styles[noItemCart]} ${styles.shoppingcart}`}
-            >
-              <button onClick={openModal}>
-                <Image
-                  alt="ショッピングカートのアイコン"
-                  src="/images/shoppingcart.icon.png"
-                  width={30}
-                  height={30}
-                />
-              </button>
-            </div>
-            <div
-              className={`${styles[koalaOnCart]} ${styles.koala_on_cart}`}
-            >
-              <button onClick={openModal}>
-                <Image
-                  alt="ショッピングカートのアイコン"
-                  src="/images/koala-on-cart.png"
-                  width={60}
-                  height={60}
-                />
-                <span>{itemAmount}</span>
-              </button>
-            </div>
           </nav>
+          <Shoppingcart openModal={openModal} />
         </div>
       </header>
     </>
