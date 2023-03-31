@@ -46,7 +46,7 @@ export default function Checkout() {
     },
   };
 
-  const options = {
+  const options: any = {
     clientSecret,
     appearance,
   };
