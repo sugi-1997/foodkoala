@@ -145,9 +145,6 @@
     text-align: center;
 }
 
-/* .review_score_component {
-    position: relative;
-} */
 
 /* ReviewFormのCSS */
 .review_form_title{
@@ -326,23 +323,18 @@
       }
 }
 
+@media  screen and (max-width:780px) {
+    .shopDetail_review {
+        margin: 0 auto;
+        padding-bottom: 10px;
+    }
 
-/* @keyframes heart {
-    0% {
-        opacity: 0;
-        transform:scale(0);
-      }
-    25% {
-        transform:scale(1);
-        opacity: 1;
-      }
+    .review_form_title span {
+        margin:0 auto;
+    }
 
-    75% {
-        transform:scale(2);
-        opacity: 1;
-      }
-    100% {
-        transform: scale(3);
-        opacity: 0;
-      }
-} */
+    .review_form {
+        padding-bottom: 20px;
+        margin:0 auto;
+    }
+}

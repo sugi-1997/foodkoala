@@ -11,7 +11,7 @@ export default function FavoriteButton({ shop }: { shop: Shop }) {
   //ページ遷移時にログイン前の場合はお気に入りボタンをグレーに。ログイン後の場合はshop_idとuser_idが一致するデータがfavoriteテーブルに存在するか確認してCSSを切り替え。
   useEffect((): void => {
     if (userId === undefined || userId === null) {
-      setHeart('shop_favorite_false_start');
+      setHeart('shop_favorite_false');
     } else {
       fetch(
         `/api/favorite_button?shop_id=eq.${shop.id}&user_id=eq.${userId}`,
