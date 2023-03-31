@@ -4,19 +4,19 @@ import Cookies from 'js-cookie';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import stream from 'stream';
 
 const currentDate = new Date();
 const year = currentDate.getFullYear();
 const month = ('00' + (currentDate.getMonth() + 1)).slice(-2);
 const date = ('00' + currentDate.getDate()).slice(-2);
 const today = `${year}-${month}-${date}`;
+
 export default function ReviewForm({ id }: { id: number }) {
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
   const [score, setScore] = useState('');
   const [review, setReview] = useState('');
-  const [image, setImage] = useState<File | null>(null);
+  // const [image, setImage] = useState<File | null>(null);
   const [error, setError] = useState({
     name: '',
     date: '',
@@ -57,18 +57,32 @@ export default function ReviewForm({ id }: { id: number }) {
     return error;
   }
 
-  function handleSelect(event: SyntheticEvent) {
-    event.preventDefault();
-    const formData = new FormData();
-    if (image === null) {
-      console.log('ミス！！');
-      return;
-    } else {
-      formData.append('image', image);
-      console.log('formData', formData.get('image'));
-      fetch('/api/upload_image', { method: 'POST', body: formData });
-    }
-  }
+  // // imageの送付：模索中
+  // function handleSelect(event: any) {
+  //   const selectedFile = event.target.files[0];
+  //   if (selectedFile) {
+  //     setImage(selectedFile);
+  //     console.log('selectedFile', selectedFile);
+  //   } else {
+  //     throw new Error('画像を選択してください。');
+  //   }
+  // }
+
+  // async function upload() {
+  //   console.log('image', image);
+  //   if (!image) {
+  //     return;
+  //   }
+  // const formData = new FormData();
+  // formData.append('image', image, image.name);
+  // console.log('formData', formData);
+
+  //   const response = await fetch('/api/upload_image', {
+  //     method: 'POST',
+  //     body: JSON.stringify(image),
+  //   });
+  //   console.log(response);
+  // }
 
   // const shop_id = router.asPath.split('/shop/')[1];
   async function handleSubmit(event: SyntheticEvent) {
@@ -83,7 +97,8 @@ export default function ReviewForm({ id }: { id: number }) {
       review.length <= 500 &&
       userId !== undefined
     ) {
-      postReview();
+      // await upload();
+      await postReview();
     }
   }
 
@@ -207,22 +222,16 @@ export default function ReviewForm({ id }: { id: number }) {
                 </p>
               )}
             </div>
-            <div className={styles.review_forms_img}>
+            {/* <div className={styles.review_forms_img}>
               <input
                 type="file"
                 accept="image/jpg,image/png"
                 name="filetoupload"
                 id="img_url"
-                onChange={(e) => {
-                  if (e.target.files === null) {
-                    return console.log('ミス');
-                  } else {
-                    setImage(e.target.files);
-                  }
-                  handleSelect;
-                }}
+                onChange={handleSelect}
               />
-            </div>
+              <button onClick={handleUpload}>アップロード</button>
+            </div> */}
           </div>
           <button
             type="submit"

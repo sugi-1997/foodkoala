@@ -20,7 +20,6 @@ export default async function getReview(
     if (!data) {
       throw new Error('Loading');
     }
-    console.log('res_data', data);
     res.status(200).json(data);
   } catch (error: any) {
     res.status(400).json({ error: error.message });

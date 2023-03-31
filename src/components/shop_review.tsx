@@ -45,7 +45,7 @@ export default function ShopReview({ id }: { id: number }) {
               <ShopScore id={rev.id} />
             </div>
             <div className={styles.review_date}>
-              利用日 {rev.date}
+              購入日: {rev.date}
             </div>
             <br />
             <div className={styles.review_detail}>{rev.review}</div>
