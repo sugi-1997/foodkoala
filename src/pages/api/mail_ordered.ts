@@ -21,20 +21,12 @@ export default async function MailOrdered(
   // 受け取るメール
   const mailOptionsOrdered = {
     from: 'something@example.com',
-    to: req.body.email,
+    to: '仮',
     subject: `ご注文ありがとうございます`,
-    text: `${req.body.message}sent from ${req.body.email}`,
+    text: req.body,
     html: `
-      <p>【お名前】</p>
-      <p>${req.body.name}</p>
-      <p>【かな】</p>
-      <p>${req.body.nameKana}</p>
-      <p>【ご注文内容】</p>
-      <p>${req.body.message}</p>
-      <p>【メールアドレス】</p>
-      <p>${req.body.email}</p>
-      <p>【電話番号】</p>
-      <p>${req.body.phone}</p>
+      <p>【注文コード】</p>
+      <p>${req.body}</p>
       `,
   };
 
