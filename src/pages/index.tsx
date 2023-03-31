@@ -8,11 +8,11 @@ import { useState } from 'react';
 import styles from 'styles/index.module.css';
 import modalStyle from 'styles/OrderListModal.module.css';
 import OrderListModal from 'components/orderlist_modal';
-import Aside from 'components/Aside';
 
 export default function ItemListPage() {
   const [modal, setModal] = useState('close');
   const [modalOpen, setModalOpen] = useState('false');
+  const [searchModal, setSearchModal] = useState(false);
 
   //カートアイコンがクリックされると、モーダルを表示し、背景を暗くする
   const openModal = () => {
@@ -24,6 +24,11 @@ export default function ItemListPage() {
   const closeModal = () => {
     setModal('close');
     setModalOpen('false');
+  };
+
+  // スマホサイズの時に検索用モーダルを開閉する
+  const openSearchModal = () => {
+    setSearchModal(!searchModal);
   };
 
   //エスケープボタンが押された時にモーダルを閉じる
@@ -40,7 +45,11 @@ export default function ItemListPage() {
         </div>
         <div className={modalStyle[modalOpen]}></div>
         <main className={styles.main}>
-          <Header openModal={openModal} />
+          <Header
+            openModal={openModal}
+            openSearchModal={openSearchModal}
+            searchModal={searchModal}
+          />
           <BreadList list={[menu_list]} />
           <MenuList />
           <Footer />

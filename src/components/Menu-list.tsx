@@ -70,11 +70,13 @@ export default function MenuList() {
 
   return (
     <>
-      <Aside
-        handleGenreClick={handleGenreClick}
-        handleAreaClick={handleAreaClick}
-        sortMenu={sortMenu}
-      />
+      <div className={styles.topPage_aside}>
+        <Aside
+          handleGenreClick={handleGenreClick}
+          handleAreaClick={handleAreaClick}
+          sortMenu={sortMenu}
+        />
+      </div>
       <div className={styles.topPage}>
         <div className={styles.all_menu}>
           {pagingData.map((menu: Menu) => (
@@ -92,7 +94,7 @@ export default function MenuList() {
                   />
                 </div>
                 <div className={styles.shop_detail_menuName}>
-                  {MenuName(menu)} ¥{menu.price}円
+                  {MenuName(menu)} ¥{menu.price}(税込)
                 </div>
               </Link>
             </div>

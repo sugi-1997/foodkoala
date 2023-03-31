@@ -6,10 +6,13 @@ import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import Logout from 'lib/Logout';
 import Shoppingcart from './Shoppingcart';
-import { Fetcher } from 'lib/Fetcher';
-import useSWR, { useSWRConfig } from 'swr';
+import SearchModal from './Search_modal';
 
-export default function Header({ openModal }: any) {
+export default function Header({
+  openModal,
+  openSearchModal,
+  searchModal,
+}: any) {
   const user_id = Cookies.get('user_id');
   const [loginStatus, setLoginStatus] = useState('true');
   const [logoutStatus, setLogoutStatus] = useState('false');
@@ -24,6 +27,10 @@ export default function Header({ openModal }: any) {
   return (
     <>
       <header className={styles.header}>
+        <SearchModal
+          openSearchModal={openSearchModal}
+          searchModal={searchModal}
+        />
         <div className={styles.logo}>
           <Link href="/">
             <Image
@@ -64,8 +71,8 @@ export default function Header({ openModal }: any) {
               </Link>
               <Logout className={styles[logoutStatus]} />
             </ul>
-            <Shoppingcart openModal={openModal} />
           </nav>
+          <Shoppingcart openModal={openModal} />
         </div>
       </header>
     </>
