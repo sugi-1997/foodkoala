@@ -3,19 +3,19 @@ import Image from 'next/image';
 import { Review } from 'types/review';
 import useSWR from 'swr';
 import { Fetcher } from 'lib/Fetcher';
+import ShopScore from './shop/review_score';
+import reviewDelete from './shop/review_delete';
 
 export default function ShopReview({ id }: { id: number }) {
   //レビューのコアラアイコン
   function koalaIcon() {
     return (
-      <div className={styles.shop_id_review_img}>
-        <Image
-          src="/images/foodkoala_logo.png"
-          alt="コアラ"
-          width={50}
-          height={50}
-        />
-      </div>
+      <Image
+        src="/images/foodkoala_logo.png"
+        alt="コアラ"
+        width={50}
+        height={50}
+      />
     );
   }
 
@@ -31,37 +31,86 @@ export default function ShopReview({ id }: { id: number }) {
   if (!data) return <div>Loading...</div>;
 
   function getRev() {
-    const review = [];
-    for (let i = data.length - 1; i >= data.length - 3; i--) {
-      review.push(data[i]);
+    const review: Review[] = [];
+    console.log('review', review);
+    const rev = () =>
+      review.map((rev: Review) => (
+        <>
+          <div className={styles.review}>
+            <div className={styles.review_name}>
+              {koalaIcon()}
+              <span>{rev.name}さんのレビュー</span>
+            </div>
+            <div className={styles.review_score_component}>
+              <ShopScore id={rev.id} />
+            </div>
+            <div className={styles.review_date}>
+              購入日: {rev.date}
+            </div>
+            <br />
+            <div className={styles.review_detail}>{rev.review}</div>
+            <img src={''} />
+            <div className={styles.review_delete}>
+              {reviewDelete(rev.id, rev.user_id, rev.shop_id)}
+            </div>
+          </div>
+        </>
+      ));
+    if (data.length === 0) {
+      return (
+        <div className={styles.review}>
+          <p>まだレビューがありません。</p>
+        </div>
+      );
+    } else if (data.length === 1 || data.length === 2) {
+      for (let i = data.length - 1; i >= 0; i--) {
+        review.push(data[i]);
+      }
+      console.log('review', review);
+      const revData = rev();
+      return revData;
+    } else {
+      for (let i = data.length - 1; i >= data.length - 3; i--) {
+        review.push(data[i]);
+      }
+      const revData = rev();
+      return revData;
     }
-    return review;
   }
-  const rev = getRev();
-
   console.log('revdata', data);
-  console.log('rev', rev);
+
   return (
     <>
       <div className={styles.shopDetail_review}>
-        <p className={styles.shop_id_review_title}>
+        <div className={styles.shop_id_review_title}>
           <span>
             <i className="fa-solid fa-face-laugh"></i>
             &nbsp;みんなのレビュー
           </span>
-        </p>
-        {rev.map((rev: Review) => (
-          <>
-            <div className={styles.shop_review}>
-              {koalaIcon()}
-              <div className={styles.shop_id_review}>
-                {rev.review}
-              </div>
-            </div>
-            <br />
-          </>
-        ))}
+        </div>
+        {getRev()}
       </div>
     </>
   );
 }
+
+// async function toBeBase64() {
+//   const res = await fetch('/images/foodkoala_logo.png');
+//   const buffer = await res.arrayBuffer();
+//   const base64buffer = Buffer.from(buffer).toString('base64');
+// }
+// toBeBase64();
+
+// function ReviewImage(image_base64: any) {
+//   if (
+//     image_base64 === null ||
+//     image_base64 === undefined ||
+//     image_base64 === '{}'
+//   ) {
+//     return;
+//   } else {
+//     const blob = new Blob([image_base64], { type: 'image/jpeg' });
+//     const imageUrl = URL.createObjectURL(blob);
+//     return imageUrl;
+//   }
+// }

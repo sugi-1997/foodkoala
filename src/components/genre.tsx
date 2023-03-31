@@ -15,22 +15,20 @@ export default function Genre({ onClick }: any) {
 
   return (
     <>
-      <h2 className={styles.h2}>--- Genre ---</h2>
+      <p className={styles.p}>▶︎ジャンルで絞り込む</p>
       <div className={styles.genrelist}>
-        <div className={styles.all_genre}>
-          {data.map((genre: Genre) => (
-            <div className={styles.genre} key={genre.id}>
-              <button id={`${genre.id}`} onClick={onClick}>
-                <Image
-                  src={genre.image_url}
-                  alt="genre-icon"
-                  width={300}
-                  height={300}
-                />
-              </button>
-            </div>
-          ))}
-        </div>
+        {data.map((genre: Genre) => (
+          <div className={styles.genre} key={genre.id}>
+            <button id={`${genre.id}`} onClick={onClick}>
+              <Image
+                src={genre.image_url}
+                alt="genre-icon"
+                width={300}
+                height={300}
+              />
+            </button>
+          </div>
+        ))}
       </div>
     </>
   );

@@ -1,3 +1,7 @@
+.main {
+    margin-top: 100px;
+}
+
 .item_detail {
     display: block;
     justify-content: center;
@@ -7,7 +11,7 @@
     height: 450px;
     margin: 50px auto;
     padding: 30px 0;
-    border: solid 3px #F78404;
+    border: solid 1px #F78404;
     border-radius: 5px;
 }
 
@@ -34,6 +38,7 @@
     border: 1px solid orange;
     border-radius: 15px;
     background-color: orange;
+    box-shadow: 1px 2px #9bb0a5;
     color: #fff;
     font-size: 15px;
 }
@@ -41,3 +46,8 @@
 .item_detail button:hover {
     opacity: 0.6;
   }
+
+.item_detail button:active{
+    box-shadow: none;
+    transform: translateY(1px);
+}

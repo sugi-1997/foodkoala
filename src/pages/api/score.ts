@@ -7,7 +7,7 @@ export default async function getScore(
   const url = process.env['SUPABASE_URL'];
   const shop_id = req.query.shop_id;
   try {
-    const response = await fetch(`${url}/score?shop_id=${shop_id}`, {
+    const response = await fetch(`${url}/review?shop_id=${shop_id}`, {
       headers: {
         apikey: `${process.env['SUPABASE_ANON_KEY']}`,
         Authorization: `Bearer ${process.env['SUPABASE_ANON_KEY']}`,

@@ -1,22 +1,39 @@
 .header {
-  background-color: #f8b856;
-  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  height: 80px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* margin-bottom: 3%; */
+  border-bottom: 2px solid rgba(189, 140, 66, 0.3);
+  background-color: #fff;
 }
 
 .header li {
-  text-decoration: none;
-  text-decoration: none;
-  color: #4f4842;
+  margin-right: 30px;
+  padding: 10px 15px;
+  font-weight: 700;
+  border-radius: 100vh;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#f7ad4d),
+    to(#ebd63c));
+  box-shadow: 0 7px 7px rgba(0, 0, 0, 0.2);
 }
 
-.logo {
-  margin-left: 1%;
-  justify-self: flex-start;
+.header li:hover {
+  opacity: 0.6;
+
+}
+
+.header li:active {
+  box-shadow: none;
+  transform: translateY(1px);
 }
 
 .header ul {
@@ -24,31 +41,66 @@
   list-style: none;
 }
 
-.header li {
-  margin-right: 30px;
-  color: #4f4842;
-  text-decoration: none;
-}
-
 .header a {
   text-decoration: none;
   color: #4f4842;
 }
 
-
-
 .nav {
-  margin: 0 0 0 auto;
   cursor: pointer;
+  display: flex;
 }
 
+/* ショッピングカートアイコンのCSS */
 .false{
   display: none;
+}
+
+.off {
+  display: none
+}
+
+.shoppingcart button{
+  cursor: pointer;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  width: 40px;
+  top: 25px;
+  right: 2%;
+}
+
+.koala_on_cart button{
+  cursor: pointer;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: 15px;
+  right: 1%;
+}
+
+.koala_on_cart span{
+  position: absolute;
+  top: 9px;
+  right: 33px;
+  background-color: #e97007;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  text-align: center;
 }
 
 /* ハンバーガーメニュー用 */
 .hamburger input {
   display: none;
+}
+
+.hamburger {
+  margin-right: 2%;
+  width: 55%;
 }
 
 @media screen and (max-width:768px) {

@@ -1,20 +1,26 @@
+.main {
+    margin-top: 90px;
+}
+
 .h1 {
     text-align: center;
     color:#E75304;
+    font-size: 14px;
 }
 
 .order_history {
     text-align: center;
-    width: 40%;
+    width: 30%;
     margin: 0 auto;
-    border: solid 5px #f8b856;
-    border-radius: 30px;
+    border: solid 1px rgba(226, 143, 18, 0.3);
+    border-radius: 10px;
     padding: 10px 20px;
     
 }
 
 .order_history h2 {
     text-align: left;
+    font-size: 20px;
 }
 
 .order_history dd {
@@ -27,7 +33,6 @@
 
 .order_history dt span{
     color: #F78404;
-    padding: 5px;
     border-radius: 5px;
     font-weight: bold;
 }
@@ -62,10 +67,10 @@
     width: 30px;
     height: 30px;
     margin: 20px 5px;
-    background-color:  #00D698;
-    color: #4f4842;
+    background-color:  white;
+    font-weight: 700;
     border-radius: 5px;
-    border: 2px solid  #fff;
+    border: 3px double  rgba(226, 143, 18, 0.3);
     box-shadow: 1px 2px #9bb0a5;
 }
 
@@ -82,23 +87,21 @@
     text-align: center;
 }
 
-/* ログイン前 */
-.favorite_login {
-    margin: 70px 0;
+/* ログイン前のコアラ */
+.before_login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
     text-align: center;
 }
 
-.favorite_login_link a{
+.before_login a{
     color: white;
-    border-bottom: none;
     background-color: #E75304;
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
-}
-
-.favorite_login_link img {
-    width: 300px;
 }
 
 /* オレンジと白のボーダー */
@@ -107,7 +110,7 @@
 }
 
 .dl {
-    border: 3px solid #fddaa5;
+    border: 2px solid #fddaa5;
 }
 
 .map {
@@ -115,9 +118,6 @@
 }
 
 @media screen and (max-width:780px){
-    .h1{
-        display: inline-block;
-    }
 
     .order_history {
         width: 85%;

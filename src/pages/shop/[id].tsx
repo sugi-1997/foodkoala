@@ -1,4 +1,5 @@
 import useSWR from 'swr';
+import { useKey } from 'react-use';
 import Head from 'next/head';
 import Image from 'next/image';
 import Header from 'components/header';
@@ -13,7 +14,12 @@ import BreadList, {
 import FavoriteButton from 'components/shop/favorite_button';
 import { Fetcher } from 'lib/Fetcher';
 import { Shop, GetStaticProps, ShopProps, Menu } from 'types/shops';
-import styles from '../../styles/Shop.module.css';
+import styles from '../../styles/Shop_detail.module.css';
+import modalStyle from 'styles/OrderListModal.module.css';
+import ReviewForm from 'components/shop/review_form';
+import { useState } from 'react';
+import OrderListModal from 'components/orderlist_modal';
+import Link from 'next/link';
 
 //お店情報の取得
 const url = process.env['SUPABASE_URL'];
@@ -57,18 +63,17 @@ export function MenuList({ data }: { data: Menu[] }) {
       <div className={styles.shop_id_menu_list}>
         {data.map((menu: Menu) => (
           <div key={menu.id} className={styles.shop_id_menu}>
-            <a href={`/item/${menu.id}`}>
-              <div>
-                <Image
-                  src={menu.image_url}
-                  alt="メニュー画像"
-                  width={300}
-                  height={300}
-                />
-              </div>
-              <p>{menu.name}</p>
-              <p>{menu.price}円</p>
-            </a>
+            <Link href={`/item/${menu.id}`}>
+              <Image
+                src={menu.image_url}
+                alt="メニュー画像"
+                width={150}
+                height={150}
+              />
+              <p>
+                {menu.name} ¥{menu.price}円
+              </p>
+            </Link>
           </div>
         ))}
       </div>
@@ -78,25 +83,36 @@ export function MenuList({ data }: { data: Menu[] }) {
 
 export function ShopMenu({ shopId }: { shopId: number }) {
   const { data, error } = useSWR(
-    `http://localhost:8000/items?shop_id=eq.${shopId}`,
+    `/api/items?shop_id=eq.${shopId}`,
     Fetcher
   );
 
   if (error) return <div>エラーです</div>;
   if (!data) return <div>データを取得できませんでした</div>;
 
-  return (
-    <>
-      <div>
-        <MenuList data={data} />
-      </div>
-    </>
-  );
+  return <MenuList data={data} />;
 }
 
 //全体
 export default function ShopDetail({ shopData }: ShopProps) {
   const shop = shopData[0];
+  const [modal, setModal] = useState('close');
+  const [modalOpen, setModalOpen] = useState('false');
+
+  //カートアイコンがクリックされると、モーダルを表示し、背景を暗くする
+  const openModal = () => {
+    setModal('open');
+    setModalOpen('true');
+  };
+
+  //×ボタンがクリックされると、モーダルを非表示にし、背景を元に戻す
+  const closeModal = () => {
+    setModal('close');
+    setModalOpen('false');
+  };
+
+  //エスケープボタンが押された時にモーダルを閉じる
+  useKey('Escape', closeModal);
 
   return (
     <>
@@ -108,36 +124,46 @@ export default function ShopDetail({ shopData }: ShopProps) {
           crossOrigin="anonymous"
         ></script>
       </Head>
-      <Header />
-      <BreadList list={[menu_list, shop_list, shop_page]} />
-      <main>
-        <div key={shop.id} className={styles.main}>
-          <h1 className={styles.shop_id_name}>
-            <i className="fa-solid fa-utensils"></i>
-            &nbsp;&nbsp;{shop.name}
-          </h1>
-          <div className={styles.shop_id_score}>
-            <ShopScore id={shop.id} />
-          </div>
-          <div className={styles.shop_id_image}>
-            <Image
-              src={shop.image_url}
-              alt="お店の画像"
-              width={300}
-              height={300}
-            />
-          </div>
-          <div>
-            <FavoriteButton shop={shop} />
-          </div>
-          <p className={styles.shop_id_description}>
-            {shop.description}
-          </p>
-          <ShopMenu shopId={shop.id} />
-          <ShopReview id={shop.id} />
+      <div className={modalStyle.screen}>
+        <div className={modalStyle[modal]}>
+          <OrderListModal closeModal={closeModal} />
         </div>
-      </main>
-      <Footer />
+        <div className={modalStyle[modalOpen]}>
+          <Header openModal={openModal} />
+          <div className={styles.main}>
+            <div className={styles.bread}>
+              <BreadList list={[menu_list, shop_list, shop_page]} />
+            </div>
+            <div key={shop.id} className={styles.contents}>
+              <div className={styles.shop_id_name}>
+                <h1>
+                  <i className="fa-solid fa-utensils"></i>
+                  &nbsp;&nbsp;{shop.name}
+                </h1>
+                <ShopScore id={shop.id} />
+              </div>
+              <div className={styles.shop_id_image}>
+                <Image
+                  src={shop.image_url}
+                  alt="お店の画像"
+                  width={300}
+                  height={300}
+                />
+                <div className={styles.favorite}>
+                  <FavoriteButton shop={shop} />
+                </div>
+                <p>{shop.description}</p>
+              </div>
+              <ShopMenu shopId={shop.id} />
+              <div className={styles.review_contents}>
+                <ShopReview id={shop.id} />
+                <ReviewForm id={shop.id} />
+              </div>
+            </div>
+          </div>
+          <Footer />
+        </div>
+      </div>
     </>
   );
 }
